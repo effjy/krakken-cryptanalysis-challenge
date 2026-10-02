@@ -29,7 +29,7 @@ Normal scalar permutation entry points initialize constants before round use, bu
 - `rounds > 8`: clamps to 8;
 - otherwise runs rounds 0 through `rounds-1`.
 
-Research wrappers should validate the intended round count themselves.
+Research wrappers should validate the intended round count themselves. The scalar entry point explicitly rejects a NULL state by aborting; the AVX2 reduced-round entry point does not perform the same NULL check, so callers should not treat their invalid-input behavior as identical.
 
 ## Byte order / portability
 
