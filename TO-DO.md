@@ -2,159 +2,266 @@
 
 This file tracks high-value cryptanalytic work that remains open or only partially explored in the current source-pinned theorem program.
 
-The immediate goal is to use **round 2 as a laboratory**: not just asking whether perfect structure survives, but measuring the **strongest imperfect structure that survives the second nonlinear layer**.
+The immediate goal is to use **round 2 as a laboratory**: not just asking whether a perfect structure survives, but measuring the **strongest imperfect structure that survives the second nonlinear layer**.
 
-## Priority 1 — Nonperfect two-round linear correlations
+A surviving structure is a result. The purpose of these searches is to characterize Krakken accurately, whether the outcome strengthens or challenges the current picture.
 
-### What is already known
+## Domain notation
 
-- No nontrivial **perfect affine** message-to-state relation exists after any complete round count 1–8 on the valid 159-byte first-block domain.
-- One-round numerical correlation bounds are known for several explicitly defined output-mask classes.
-- Pressure has exact Walsh/carry results for several defined low-bit and special-mask families.
+Use the theorem program's domain labels consistently:
 
-### What remains open
+- **P** — unrestricted 2048-bit permutation inputs.
+- **H** — valid padded 159-byte first-block messages with zero initial capacity.
 
-A useful all-mask numerical bound for two complete rounds is not known.
-
-Target quantity:
-
-[
-max_{alpha
-eq 0,,eta
-eq 0}
-left|operatorname{Corr}(alphacdot m,,etacdot F_2(m))ight|.
-]
-
-Questions:
-
-- Are there unexpectedly large nonperfect correlations after two rounds?
-- Which input/output mask geometries dominate?
-- Do Pressure-chain masks, Chi-pair masks, or structured output projections retain measurable bias?
-- Can an empirical high-bias mask be converted into an analytic or exhaustive theorem?
-- Can the signed linear-hull structure be bounded without losing everything to a triangle inequality?
-
-This is currently one of the most important open round-2 classes.
+Every new target, search, theorem, or empirical screen should state its domain explicitly.
 
 ---
 
-## Priority 2 — Nonperfect two-round differential-linear correlations
+# Immediate searches
 
-### What is already known
+These are intended to be approachable, well-defined round-2 investigations. They should not be confused with the much harder global hull targets later in this file.
 
-- One-round perfect-mask kernels are characterized for a defined class.
-- For 128 specified unrestricted input differences, no perfect two-round output autocorrelation mask survives.
+## Immediate 1 — Truncated two-round differentials
 
-### What remains open
+**Domain:** begin with **P** for controlled structural classes; add **H** variants where first-block reachability is relevant.
 
-The useful **nonperfect** correlations have not been quantified.
+### Motivation
 
-For selected input difference (Delta), study:
+Most current differential work asks whether complete state differences can remain extremely sparse, especially in the ongoing \([1,2]\) activity campaign.
 
-[
-max_{eta
-eq0}
-left|
-mathbb{E}_x
-(-1)^{etacdot(F_2(x)oplus F_2(xoplusDelta))}
-ight|.
-]
+A full-state difference may become dense while a selected output projection remains unusually predictable. Truncated differentials test that different attack surface.
+
+For a selected projection \(\pi\), study quantities of the form
+
+\[
+\Pr\!\left[
+\pi\!\left(F_2(x)\oplus F_2(x\oplus\Delta)\right)=\delta
+\right].
+\]
+
+### Near-term classes
+
+Start with carefully defined projections rather than attempting a global maximum:
+
+- individual bytes;
+- individual 64-bit lanes;
+- Pressure-chain-aligned byte sets;
+- digest-prefix projections;
+- selected low-bit projections suggested by Pressure identities;
+- projections aligned with unusually low first-round activity.
+
+Candidate input-difference families:
+
+- one-cell or two-cell unrestricted differences in **P**;
+- valid-message low-\(A_1\) differences in **H**;
+- the six exceptional four-cell valid-message lines;
+- Theta-cancelling valid-message differences;
+- selected low-dimensional difference spaces.
+
+### Goals
+
+- Establish empirical distributions for complete, named classes.
+- Compare against the corresponding random-projection reference.
+- Promote any unusually strong projection to exact counting or solver-backed analysis.
+- Treat exact-zero, unusually high-probability, and otherwise structured truncated transitions as findings rather than only searching for failures.
+
+---
+
+## Immediate 2 — Nonperfect two-round differential-linear correlations
+
+### P-domain continuation
+
+**Domain:** **P**.
+
+The cleanest first target extends the existing two-round perfect-mask exclusion.
+
+For selected input difference \(\Delta\), study
+
+\[
+\max_{\beta\neq 0}
+\left|
+\mathbb{E}_x
+(-1)^{
+\beta\cdot
+\left(F_2(x)\oplus F_2(x\oplus\Delta)\right)
+}
+\right|.
+\]
+
+Begin with the same 128 fixed **delta=1** input differences already used in the two-round perfect differential-linear theorem, then search manageable output-mask classes.
 
 Questions:
 
-- Does any ((Delta,eta)) pair retain a large two-round bias?
+- What is the largest reproducible nonperfect correlation in the defined class?
 - Are the strongest masks related to the one-round perfect-kernel structure?
-- Do low-activity first-round differences produce stronger derivative biases?
-- Can empirical candidates be confirmed independently and then proved?
+- Do low-activity first-round differences retain stronger derivative biases?
+- Can a high-bias empirical candidate be converted into an exact theorem?
 
-A result such as a reproducible two-round correlation around (2^{-4}), (2^{-8}), (2^{-10}), etc. would be far more informative than merely proving the absence of perfect masks.
+### H-domain continuation
+
+**Domain:** **H**.
+
+If a promising unrestricted structure is found, test whether an analogous input-difference class is reachable at the valid first-block hash interface.
+
+The eventual target is a hash-reachable or certified multi-round differential-linear bound, but the near-term task is to close carefully chosen classes first.
 
 ---
 
-## Priority 3 — Finish the open two-round ([1,2]) differential classes
+## Immediate 3 — Continue the open two-round \([1,2]\) campaign in parallel
+
+**Domain:** **P**.
+
+This campaign should continue independently of the new attack classes above rather than blocking them.
 
 ### What is already known
 
-- Unrestricted ([1,1]) trails are impossible.
-- The complete **BB** ([1,2]) class with two distinct second-branch Chi2 calls is excluded.
+- Unrestricted \([1,1]\) trails are impossible.
+- The complete **BB** \([1,2]\) class with two distinct second-branch Chi2 calls is excluded.
 - The complete same-spatial-pair mixed class is excluded.
 - Several fixed-start low-bit subclasses were also classified.
 
 ### What remains open
 
-Unrestricted ([1,2]) is **not globally closed**.
+Unrestricted \([1,2]\) is **not globally closed**.
 
-The current theorem program explicitly leaves open:
+The remaining branch-type classes include:
 
 - **AA**
 - distinct mixed **AB**
 - distinct mixed **BA**
 
-The completed BB and same-pair results do not cover these.
-
 ### Goal
 
-Systematically enumerate/model the remaining two-call Chi2 branch-type geometries and either:
+Systematically enumerate/model the remaining two-call Chi2 geometries and either:
 
-1. find an explicit real ([1,2]) trail, or
+1. find an explicit real \([1,2]\) trail, or
 2. prove the remaining classes impossible.
 
-If every remaining branch-type class is excluded, Krakken would gain a substantially stronger exact two-round activity theorem.
+A surviving trail is a cryptanalytic finding, not a failed experiment.
+
+If every remaining branch-type class is excluded, Krakken gains a substantially stronger exact two-round activity theorem.
 
 ---
 
-## Priority 4 — Two-round differential probabilities and differential hulls
+# Next defined theorem targets
+
+These are broader than the immediate searches but should still be approached through complete, carefully chosen classes rather than global optimization from the start.
+
+## Next 1 — Multi-block / later-absorb reachability
+
+**Domain:** hash states after at least one completed absorb.
+
+Most of the strongest **H** theorems concern the first valid padded block, where the capacity begins at zero.
+
+Later absorbs begin from a correlated internal state and therefore have a different reachability geometry.
+
+Questions:
+
+- Which first-block impossibility results continue to later absorbs?
+- Can one-cell or low-cell Chi input/output differences become reachable after a previous block?
+- Can one-round boomerang, rebound, or differential-linear structures be embedded after the first absorb?
+- Does the populated capacity create new low-dimensional affine or differential structures?
+- How do later-block reachable-state constraints compare with unrestricted **P**?
+
+This should become a dedicated research line once the immediate round-2 searches are underway.
+
+---
+
+## Next 2 — Defined two-round linear-correlation classes
+
+### H-domain linear target
+
+**Domain:** **H**.
+
+For a complete hash-interface screen, permit the input mask \(\alpha=0\) as long as the output mask is nonzero. This includes pure output-bias tests.
+
+Study
+
+\[
+\max_{\substack{\alpha,\beta\\ \beta\neq 0}}
+\left|
+\operatorname{Corr}
+\left(
+\alpha\cdot m,\,
+\beta\cdot F_2(m)
+\right)
+\right|.
+\]
+
+The global all-mask maximum is a long-term target. Near-term work should instead close selected complete mask classes, for example:
+
+- Pressure-chain-aligned masks;
+- extensions of the existing one-round 5D and 6D output-mask spaces;
+- low-weight digest-prefix masks;
+- masks motivated by exact Pressure zero or low-correlation identities;
+- structured two-round pullbacks of known one-round masks.
+
+Questions:
+
+- Are there unexpectedly large nonperfect correlations after two rounds?
+- Are any nonzero output masks biased even with \(\alpha=0\)?
+- Which mask geometries dominate?
+- Can an empirical high-bias class be converted into an analytic or exhaustive theorem?
+
+---
+
+## Next 3 — Two-round differential probabilities and differential hulls
+
+### H-domain target
+
+**Domain:** **H** unless explicitly stated otherwise.
 
 ### What is already known
 
-- Exact first-Chi minimum activity is (A_1=5) for valid 159-byte first-block differences.
+- Exact first-Chi minimum activity is \(A_1=5\) for valid 159-byte first-block differences.
 - Six special first-round difference lines have exact probability laws.
-- Three selected valid message differences satisfy (A_1=5 Rightarrow A_2ge3).
+- Three selected valid-message differences satisfy \(A_1=5\Rightarrow A_2\ge3\).
 - Multi-round activity floors exist, but activity counts are **not probability bounds**.
 
 ### What remains open
 
-The important unanswered question is not just:
+The important question is not only
 
 > How many Chi calls are active?
 
-but:
+but also
 
-> What is the highest probability of a complete two-round input/output differential?
+> What is the highest probability of a complete two-round input/output differential in a defined reachable class?
 
-Ideal target:
+For a chosen class, study
 
-[
-max_{Delta_{m in}
-eq0,Delta_{m out}}
-Pr[
-F_2(x)oplus F_2(xoplusDelta_{m in})
+\[
+\max_{\Delta_{\rm in}\neq0,\,\Delta_{\rm out}}
+\Pr\!\left[
+F_2(x)\oplus F_2(x\oplus\Delta_{\rm in})
 =
-Delta_{m out}
-].
-]
+\Delta_{\rm out}
+\right].
+\]
 
-A full 2048-bit exhaustive search is impossible, so begin with structured classes:
+Begin with structured families:
 
-- valid-message low-(A_1) differences;
+- valid-message low-\(A_1\) differences;
 - the six exceptional four-cell lines;
 - Theta-cancelling message differences;
 - selected low-dimensional difference spaces;
-- one-cell/two-cell unrestricted constructions;
-- conditioned (A_1=5) classes.
+- conditioned \(A_1=5\) classes.
 
-Also investigate **differential hulls**: many trails with the same external differences may combine even if no single trail is especially strong.
+Also investigate **differential hulls**: many internal trails may contribute to the same external differential even when no single trail is especially strong.
 
 ---
 
-## Priority 5 — General two-round coordinated boomerang
+## Next 4 — General two-round coordinated boomerang
+
+**Domain:** existing construction is **P**; hash reachability is a separate **H** problem.
 
 ### What is already known
 
 - A coordinated multi-cell unrestricted construction gives an exact four-state zero sum through one complete round.
 - 1,344 saved continuations produced no Chi2 or complete-round-two survivor.
-- Every one of those 1,344 fixed reached patterns has at least one zero-count Chi2 cell.
+- Every one of those fixed reached patterns has at least one zero-count Chi2 cell.
 - A first-block rate gate excludes 896 of the 1,344 saved direction pairs for every common background.
-- 448 saved direction pairs remain unresolved by the linear first-block gate.
+- 448 saved direction pairs remain unresolved by that linear first-block gate.
 
 ### What remains open
 
@@ -171,11 +278,13 @@ The finite campaign does **not** exhaust:
 - Solve global compatibility of the corresponding local bases.
 - Construct an explicit complete two-round quartet if one exists.
 - Otherwise derive a general two-round impossibility theorem.
-- Resolve the 448 saved first-block linear-gate survivors with nonlinear embedding constraints.
+- Resolve the remaining first-block linear-gate survivors with nonlinear embedding constraints.
 
 ---
 
-## Priority 6 — Generalized rebound across the round-1 / round-2 boundary
+## Next 5 — Generalized rebound across the round-1 / round-2 boundary
+
+**Domain:** begin in **P**; then test **H** reachability.
 
 ### What is already known
 
@@ -192,11 +301,14 @@ Questions:
 - Can inbound and outbound constraints be matched across Pressure?
 - Can the middle be solved using multiple active Chi cells rather than a single-cell model?
 - Can backward constraints from Chi2 be joined to forward constraints from Chi1?
-- Are later-absorb or unrestricted-permutation states substantially easier than the first-block hash domain?
+- Can a multi-cell **H**-reachable inbound retain controlled outbound activity through Chi2?
+- Are later-absorb states substantially easier than the first-block hash domain?
 
 ---
 
-## Priority 7 — Broader integrals and division-property classes
+## Next 6 — Broader integrals and division-property classes
+
+**Domain:** primarily **H**, with **P** analogues where useful.
 
 ### What is already known
 
@@ -218,11 +330,15 @@ Explore:
 - Pressure-chain-aligned directions;
 - higher-dimensional cubes;
 - nonlinear or generalized integral properties;
-- balanced projections other than single coordinates or linear masks already tested.
+- balanced projections other than the coordinate and linear-mask classes already tested.
+
+Treat any exact zero-sum or balanced family that survives as a result.
 
 ---
 
-## Priority 8 — General invariant / weak subspaces
+## Next 7 — General invariant / weak subspaces
+
+**Domain:** **H** first, with unrestricted **P** structures analyzed separately.
 
 ### What is already known
 
@@ -243,14 +359,55 @@ Search for:
 
 ---
 
-## Priority 9 — General Pressure linear behavior
+# Long-term global targets
+
+These are destinations for the theorem program, not assumptions about what can be solved in one search campaign.
+
+## Long-term 1 — Complete message-to-state linear hull
+
+**Domain:** **H**.
+
+For each complete round count \(r\), the eventual target is a useful bound on
+
+\[
+\max_{\substack{\alpha,\beta\\ \beta\neq0}}
+\left|
+\operatorname{Corr}
+\left(
+\alpha\cdot m,\,
+\beta\cdot F_r(m)
+\right)
+\right|.
+\]
+
+Allowing \(\alpha=0\) includes output-bias detection.
+
+The exact signed coset formulation is known, but intermediate-mask interference and the large rate-restricted signed sum remain major proof obligations.
+
+This is an ambitious theorem target, not the next brute-force search.
+
+---
+
+## Long-term 2 — Complete hash-reachable differential hull
+
+**Domain:** **H**.
+
+The eventual target is a certified bound on the maximum probability over all nonzero valid-message input differences and all output differences.
+
+Existing activity floors, selected transition probabilities, and reachability theorems are possible lemmas. They are not yet a global differential-hull bound.
+
+---
+
+## Long-term 3 — General Pressure linear behavior
+
+**Domain:** **U/P** as defined in the theorem program.
 
 ### What is already known
 
 Pressure has strong exact results for:
 
 - two special mask families;
-- low-bit output masks up to (kle17);
+- coupled output masks confined to the low \(k\le17\) bits;
 - exact-zero families;
 - pairwise uniformity identities;
 - signed hull identities.
@@ -269,31 +426,43 @@ Important targets:
 
 ---
 
-## Additional attack families worth systematic treatment
+# Additional attack families worth systematic treatment
 
 The current theorem program overlaps these areas but does not yet give each one a broad dedicated search program.
 
-### Truncated differentials
+## Zero-correlation linear structures
 
-Study whether selected subsets of output bytes/words have unusually high-probability difference patterns after two rounds, even when the full difference is dense.
+**Domain:** state explicitly for every search.
 
-### Zero-correlation linear structures
+Search for input/output mask classes whose correlation is provably exactly zero after two rounds.
 
-Search specifically for input/output mask classes whose correlation is provably exactly zero after two rounds.
+An exact zero-correlation family is itself an attack-side structural result and should be characterized rather than discarded as merely another negative search.
 
-### Meet-in-the-middle / splice-and-cut
+## Slide / related-round structures
 
-More naturally aimed at several rounds rather than only round 2, but worth considering once forward and backward constraints around the middle are sufficiently characterized.
+**Domain:** **P**.
 
-### Multi-block / later-absorb reachability
+Exact affine lane-rotation covariance is already excluded in the defined rotational theorem, but broader related-round and related-input transformations remain open.
 
-Most exact hash-interface work currently focuses on the first block with zero initial capacity. Later absorbs have correlated capacity state and may allow structures unavailable at the first block.
+Round constants should be included explicitly in the model rather than removed unless the experiment is deliberately a control.
+
+## Meet-in-the-middle / splice-and-cut
+
+**Domain:** likely **P** first; **H** reachability later.
+
+This is more naturally aimed at several rounds than only round 2. Revisit once forward and backward constraints around an internal boundary are sufficiently characterized.
+
+## Fixed points and short cycles
+
+**Domain:** **P**.
+
+Still open, but lower priority for the hash interface than the round-2 statistical and reachability questions above.
 
 ---
 
 # Round-2 research strategy
 
-The main question should no longer be only:
+The central question should no longer be only:
 
 > Does a perfect or extremely sparse structure survive round 2?
 
@@ -301,11 +470,12 @@ Instead ask:
 
 > **What is the strongest imperfect structure that survives round 2?**
 
-Measure that question across multiple attack families:
+Measure that question across genuinely distinct attack families:
 
-- linear correlation;
-- differential probability;
+- truncated differential probability;
 - differential-linear correlation;
+- full-state differential probability;
+- linear correlation;
 - boomerang compatibility;
 - rebound compatibility;
 - integral balance;
@@ -313,19 +483,43 @@ Measure that question across multiple attack families:
 
 Round 1 repeatedly exposes exact structure. Round 2 repeatedly destroys the easiest versions of it. The next phase is to quantify **how completely** that destruction occurs.
 
-## Recommended order
+## Recommended work order
 
-1. Nonperfect two-round linear correlations
-2. Nonperfect two-round differential-linear correlations
-3. Finish AA / AB / BA ([1,2]) differential classes
-4. Two-round differential probabilities and hulls
-5. Generalized rebound
-6. Broader integral / subspace searches
-7. Revisit coordinated boomerangs using what the other analyses reveal
+### Run now
+
+1. Truncated two-round differential classes
+2. Nonperfect two-round differential-linear classes
+3. Continue AA / AB / BA \([1,2]\) work in parallel
+
+### Then
+
+4. Multi-block / later-absorb reachability
+5. Defined two-round linear mask classes
+6. Defined two-round differential-probability / hull classes
+7. Generalized rebound
+8. Broader integral / division-property / subspace searches
+9. Revisit coordinated boomerangs using what the other analyses reveal
+
+### Long-term
+
+10. Complete message-to-state linear hull
+11. Complete hash-reachable differential hull
+12. Arbitrary full-width Pressure-mask theorem
 
 ---
 
-## Scope warning
+## Research discipline
+
+For every future pass:
+
+- state the domain (**P**, **H**, or another defined model);
+- define the complete class being searched;
+- record the exact source hashes;
+- separate empirical screens from finite exhaustive proofs and analytic theorems;
+- treat a surviving structure as a finding;
+- do not turn a negative search over one class into a global security claim;
+- preserve implementation-audit versus external-reproduction distinctions;
+- promote a result to the public theorem ledger only when its stated class is closed.
 
 A closed defined class is not a global attack-family exclusion.
 
@@ -335,6 +529,7 @@ In particular:
 - high activity does not imply low differential probability;
 - failure of sampled boomerangs does not imply a general two-round impossibility;
 - selected integral failures do not exclude all integral structures;
+- a zero-correlation or high-probability structured family is a cryptanalytic result, not an inconvenience;
 - implementation audits are not independent external cryptanalytic reproduction.
 
 All future claims should retain the theorem program's domain/proof labels and source pin.
