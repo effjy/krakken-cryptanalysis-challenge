@@ -1,0 +1,8 @@
+krakken-bench
+krakken-kat
+krakken-avx2-test
+krakken-avx2-bench
+krakken-collision
+krakken-collision-avx2
+collision_results/
+collision_results_*/
