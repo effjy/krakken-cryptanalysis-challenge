@@ -14,14 +14,14 @@ The goal is simple: **analyze Krakken, find structure, improve the known attacks
 | Full permutation | 8 rounds |
 | Hash absorb rate | 160 bytes |
 | Default challenge digest | 32 bytes / 256 bits |
-| Reference implementation | Scalar C |
+| Reference implementation | Scalar C (`krakken.c`) |\n| Optimized implementation | AVX2 + multithread helper (`krakken_multi.c`) |
 | Round constants | SHAKE128-derived |
 | Source pin | `krakken.c || krakken.h` SHA-256: `6b3d5a5d416e2923379e0b38305babb4cb0471c1833d7d3a6c4e8356005d8893` |
 
 Individual source hashes:
 
 - `krakken.c`: `4d659644c80b6ed0aabbce77d6aad6e6f851a90ec536a2131a412b8ac48eccc6`
-- `krakken.h`: `83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c`
+- `krakken.h`: `83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c`\n- `krakken_multi.c` (AVX2): `9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2`
 
 If those hashes change, treat the new code as a different target unless the change is explicitly documented.
 
@@ -30,7 +30,7 @@ If those hashes change, treat the new code as a different target unless the chan
     make test
     make benchmark
 
-`make test` builds the scalar reference plus known-answer tests. The empty-string 256-bit digest for this source revision is:
+`make test` builds the scalar reference plus known-answer tests. `make avx2-test` cross-checks the optimized implementation against the scalar target over reduced-round permutation states, padding/multiblock/squeeze boundaries, and randomized hash inputs. The empty-string 256-bit digest for this source revision is:
 
     e1c646acd24c1211dc58f38fe7cb95ec9ca41b7c57cff233e6faf1fac8b2e0dd
 
