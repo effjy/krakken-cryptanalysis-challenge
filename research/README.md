@@ -7,6 +7,7 @@ This directory exposes the current mathematical working records that are most us
 - [KRAKKEN_CLAIMS_FOR_REVIEW.md](KRAKKEN_CLAIMS_FOR_REVIEW.md) — narrowly stated, source-pinned claims intended for external cryptanalytic review.
 - [KRAKKEN_SECURITY_THEOREMS.md](KRAKKEN_SECURITY_THEOREMS.md) — full theorem program, proof classes, quantified domains, proof obligations, and limitations.
 - [KRAKKEN_THEOREM_INVENTORY.md](KRAKKEN_THEOREM_INVENTORY.md) — permanent theorem IDs, scope labels, proof classifications, and audit coverage.
+- [KRAKKEN_THEOREM_ARTIFACTS.md](KRAKKEN_THEOREM_ARTIFACTS.md) — theorem-to-artifact index; many indexed artifacts are not yet mirrored here.
 - [KRAKKEN_MULTICELL_BOOMERANG.md](KRAKKEN_MULTICELL_BOOMERANG.md) — the coordinated multi-cell serial-Chi quartet construction and its continuation experiments.
 
 These files are working research records for the source revision pinned in the repository root. They intentionally distinguish analytic proofs, finite exhaustive proofs, solver-backed exclusions, empirical probes, and implementation audits.
@@ -19,12 +20,7 @@ A missing linked artifact should not be interpreted as public reproduction of th
 
 ## Not published here yet
 
-Two large working documents are intentionally not mirrored yet:
-
-- the full activity/probe notebook, which mixes exact results with experiments and search diagnostics;
-- the theorem artifact manifest, because most of the files it indexes are not yet present here.
-
-Those will be most useful once the corresponding scripts/certificates are published alongside them.
+The full activity/probe notebook is intentionally not mirrored yet because it mixes exact results with experiments and search diagnostics. The artifact manifest is public for navigation, but most of the files it indexes still need to be mirrored in curated batches.
 
 ## External reproduction
 
