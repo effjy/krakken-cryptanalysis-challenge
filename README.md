@@ -46,6 +46,12 @@ More vectors are in [docs/TEST_VECTORS.md](docs/TEST_VECTORS.md).
 - **[Test vectors](docs/TEST_VECTORS.md)** — hash and permutation KATs.
 - **[Contributing](CONTRIBUTING.md)** — how to submit analysis, code, contradictions, and implementation reports.
 
+## Detailed research records
+
+The concise challenge documentation is backed by a larger source-pinned theorem record. See **[research/](research/README.md)** for the current claims-for-review document, theorem program, permanent theorem inventory, and coordinated multi-cell boomerang report.
+
+These records are published to help attackers avoid rediscovering already-closed classes and to make existing claims easy to challenge.
+
 ## What counts as interesting?
 
 Full eight-round results are the main target, but reduced-round and structural work is welcome. Examples include:
