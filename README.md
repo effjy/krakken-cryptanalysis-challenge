@@ -21,7 +21,8 @@ The goal is simple: **analyze Krakken, find structure, improve the known attacks
 Individual source hashes:
 
 - `krakken.c`: `4d659644c80b6ed0aabbce77d6aad6e6f851a90ec536a2131a412b8ac48eccc6`
-- `krakken.h`: `83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c`\n- `krakken_multi.c` (AVX2): `9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2`
+- `krakken.h`: `83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c`
+- `krakken_multi.c` (AVX2): `9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2`
 
 If those hashes change, treat the new code as a different target unless the change is explicitly documented.
 
