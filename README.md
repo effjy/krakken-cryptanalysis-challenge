@@ -53,6 +53,10 @@ The concise challenge documentation is backed by a larger source-pinned theorem 
 
 These records are published to help attackers avoid rediscovering already-closed classes and to make existing claims easy to challenge.
 
+## Reproducible experiments
+
+- **[Reduced-round truncated collision experiment](experiments/collision/README.md)** — compare first-collision behavior across rounds and output widths against the random-function birthday baseline, with saved replayable witnesses.
+
 ## What counts as interesting?
 
 Full eight-round results are the main target, but reduced-round and structural work is welcome. Examples include:
