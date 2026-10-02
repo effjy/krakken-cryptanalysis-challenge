@@ -2,7 +2,7 @@ CC ?= cc
 CFLAGS ?= -O2 -std=c11 -Wall -Wextra
 LDLIBS ?= -pthread
 
-.PHONY: all benchmark kat test clean
+.PHONY: all benchmark kat test avx2-test avx2-benchmark clean
 
 all: kat
 
@@ -16,4 +16,4 @@ test: kat
 	./krakken-kat
 
 clean:
-	rm -f krakken-bench krakken-kat
+	rm -f krakken-bench krakken-kat krakken-avx2-test krakken-avx2-bench
