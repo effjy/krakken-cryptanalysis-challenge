@@ -33,6 +33,14 @@ remain in the original reports. The frozen bundle is not updated.
 
 - [krakken_boomerang_fresh.py](../scripts/krakken_boomerang_fresh.py) — present.
 
+## BOOM-LOCAL-002
+
+[BOOM-LOCAL-002](KRAKKEN_SECURITY_THEOREMS.md#boom-local-002) — Complete local serial-Chi BCT classification and unrestricted full-Chi product corollary.
+
+- [THEOREM.md](THEOREM.md) — analytic reduction, exhaustive case split, full scope and limitations.
+- [krakken_chi_bct_classification.py](../scripts/krakken_chi_bct_classification.py) — source-pinned finite verifier and original-C implementation audit.
+- [krakken_chi_bct_classification.json](../results/krakken_chi_bct_classification.json) — completed finite certificate, reproduced byte for byte in a fresh run.
+
 ## BOOM-EMBED-001
 
 [BOOM-EMBED-001](KRAKKEN_SECURITY_THEOREMS.md#boom-embed-001) — Theorem proved: one-cell boomerang embedding and first-block exclusion
