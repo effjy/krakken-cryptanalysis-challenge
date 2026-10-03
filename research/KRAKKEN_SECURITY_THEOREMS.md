@@ -46,6 +46,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [LIN-GLOBAL-001](#lin-global-001) | Linear | H | 1–8 | All message/state affine masks | No perfect affine relation; only 1−2^-1271 numerical bound | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-global-001) | — | Perfect relations excluded; no useful security bits |
 | [LIN-CHI-001](#lin-chi-001) | Linear | H | Chi1 | Exactly t=1,2,3 cells; all masks | Sharp maximum 2^-3t | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-chi-001) | — | Stated class/checkpoint only |
 | [BOOM-LOCAL-001](#boom-local-001) | Boomerang | L | Chi | 255² diagonal/first-output entries | BCT=2^16; family need not exhaust maximizers | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-local-001) | — | Attack-side local structure |
+| [BOOM-LOCAL-002](#boom-local-002) | Boomerang | L / unrestricted Chi | Chi | Every local nontrivial input/output difference pair; exact full-Chi product | Perfect iff diagonal/first-output; otherwise sharp BCT≤1536 (probability≤3/128) | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-local-002) | — | Complete local classification; no round-two or hash-interface bound |
 | [BOOM-EMBED-001](#boom-embed-001) | Boomerang | P/H | Chi1 | One-cell family | Unrestricted embedding; first-block nonzero one-cell input excluded | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-embed-001) | — | Stated class/checkpoint only |
 | [DIFF-RATE-001](#diff-rate-001) | Differential | H / shared-prefix later final absorb | Chi1 | All nonzero first-block differences; later same-length partial suffix differences after common prefix | Exact first-block min A1=5; later-block A≥5 corollary | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-001) | — | Rate-only difference condition; differing prefixes open |
 | [DIFF-RATE-002](#diff-rate-002) | Differential | H | Chi1 | Six fixed differences, uniform message base | Exact A1 distribution; sharp prescribed-output max 2^-38 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-002) | — | Stated class/checkpoint only |
@@ -110,6 +111,7 @@ flowchart TD
   bridge --> six["LIN-RATE-003: specified 6D mask space"]
   image --> six
   localboom["BOOM-LOCAL-001: local perfect family"] --> embed["BOOM-EMBED-001: embedding / rate gate"]
+  localboom --> completeboom["BOOM-LOCAL-002: complete local BCT classification"]
   localboom --> roundboom["BOOM-ROUND-001: four defined continuation classes"]
   roundboom --> obstruction["BOOM-ROUND-002: base-independent Chi2 obstructions"]
   no11["DIFF-PERM-002: adjacent no-[1,1]"] --> multi["DIFF-MULTI-001: eight-round totals 12 / 15 / 17"]
@@ -264,8 +266,9 @@ Let the effective two-byte serial-Chi permutation be
 
 The family contains `255²=65,025` nontrivial entries. Since a BCT
 entry counts at most `2^16` bases, the component's nontrivial
-boomerang uniformity is exactly the maximal value `65,536`. We do
-not assert that this family exhausts all maximizing entries.
+boomerang uniformity is exactly the maximal value `65,536`. This
+theorem alone does not establish completeness; `BOOM-LOCAL-002` below
+closes that question.
 
 **Proof.** Diagonal input translation by `(beta,beta)` leaves
 `a XOR b`, hence `u`, fixed. With `I=S^-1`, the inverse is
@@ -282,6 +285,56 @@ selection of examples, proves the whole family.
 This is an **attack-side component theorem**, not a complete-round
 boomerang distinguisher. The fresh continuation and its exact finite
 scope are stated below; no historical quartet result is used.
+
+<a id="boom-local-002"></a>
+## Theorem proved: complete local serial-Chi boomerang classification
+
+<!-- THEOREM METADATA BOOM-LOCAL-002 -->
+**Permanent ID:** `BOOM-LOCAL-002` · **Proof classification:** analytic reduction plus finite exhaustive proof of the remaining byte-table case. The separate original-C truth-table and direct-BCT checks are implementation audits; no external certificate reproduction is recorded.
+<!-- END THEOREM METADATA BOOM-LOCAL-002 -->
+
+For the same effective two-byte serial-Chi permutation `F` as in
+`BOOM-LOCAL-001`, the **only** nontrivial perfect boomerang pairs are
+`alpha=(d,d)`, `beta=(r,0)` with `d,r` nonzero. There are exactly
+`255²=65,025` such pairs. Every other nontrivial pair has
+`B_F[alpha,beta]≤1,536`, or uniform unrestricted-base success probability
+at most `3/128`; this bound is sharp, for example at
+`alpha=(01,01), beta=(01,05)` in hexadecimal byte notation.
+
+**Proof.** The [full derivation](THEOREM.md) changes coordinates to
+`t=a XOR b` and `z=b XOR S(t)`, and expresses each 16-bit BCT entry as a
+sum of byte S-box BCT entries. With `p=da XOR db`, `q=db`, and
+`T_r(t)=S^-1(S(t) XOR r)`, the exact count is
+
+`B_F[(da,db),(r,s)] = Σ_{t: T_r(t) XOR T_r(t XOR p)=p} B_S[q XOR S(t) XOR S(t XOR p),s]`.
+
+The byte S-box has nonzero DDT maximum 4 and nontrivial BCT maximum 6.
+For `p=0`, the formula is `256 B_S[q,s]`, yielding precisely the perfect
+family when `s=0`, and at most 1,536 otherwise. For `p,r≠0,s=0`, it is
+`256 B_S[p,r]≤1,536`. For `p,r,s≠0`, at most four of at most six admitted
+terms can equal 256, so the count is at most `4·256+2·6=1,036`.
+For `p≠0,r=0,s≠0`, the exact count is the XOR convolution
+`Σ_d D_S[p,d] B_S[q XOR d,s]`. All `255·256·255=16,646,400` entries of
+this last case were exhaustively computed with two exact integer
+implementations, which agree entry for entry and give maximum 1,364.
+The first two cases attain 1,536. This exhausts all nontrivial pairs.
+
+The 128 effective cells of unrestricted `chi_scalar` use disjoint bytes,
+so their uniform-base BCT probabilities multiply exactly. A full-Chi
+pair is perfect exactly when each cell has zero input difference, zero
+output difference, or belongs to the perfect family above. If `k` cells
+fail those conditions, its BCT probability is at most `(3/128)^k`,
+sharply. The exact count of full-Chi perfect pairs with both global
+differences nonzero is `196096^128−2·2^2048+1`.
+
+The [source-pinned verifier](../scripts/krakken_chi_bct_classification.py)
+and [certificate](../results/krakken_chi_bct_classification.json) use the
+current original C Chi mapping and independently implement the finite
+convolution in C and integer Walsh arithmetic. The certificate was rerun
+byte for byte. This is a local/unrestricted-Chi result under a uniform
+base. It does not bound a full-round or hash-reachable boomerang, and it
+does not replace the different Chi2 rectangle condition used in the
+multi-cell continuation work.
 
 <a id="boom-embed-001"></a>
 ## Theorem proved: one-cell boomerang embedding and first-block exclusion
