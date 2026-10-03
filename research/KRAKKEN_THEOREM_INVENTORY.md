@@ -1,1 +1,93 @@
-The requested file reference is not currently visible. Use files.search or files.list to rediscover the file, then retry with a returned ref_id or file_id.
+# Krakken theorem inventory and permanent ID registry
+
+Initial entries were inventoried before the navigation refactor; later additions
+are marked by date and retain all earlier ID assignments. Original section positions
+are recorded below; mathematical statements remain authoritative in the ledger.
+IDs are append-only: retain an ID when a section moves, never recycle it, and
+allocate a new ID for a materially different theorem. Retired claims retain their
+ID and an explicit retirement record. The original flat-layout registry is
+byte-preserved in the workspace archive; append new working entries to the
+[current registry](../results/krakken_theorem_registry_current.json) rather than
+rerunning the initial assignment tool. Its
+[working verifier](../scripts/verify_krakken_theorem_registry_current.py)
+checks IDs, headings, metadata anchors and the tracked working-body hash.
+
+Domains: **H** valid padded 159-byte first block, zero initial capacity;
+**P** unrestricted permutation; **L** local serial-Chi component;
+**U** uniform Pressure input (128-bit chain / independent 2048-bit layer as stated);
+**R** explicitly reduced-width analogue. Checkpoints are not complete rounds.
+
+Proof labels: **A** analytic proof; **F** finite exhaustive proof (including
+finite counterexample/rank certificates proving a universal exclusion);
+**S** solver-backed exhaustive exclusion. Combinations indicate complementary
+proof obligations. **E** empirical probe is not a theorem label; examples and
+sampled searches embedded in sections retain that status and are not promoted.
+Implementation audits are separate from these proof classifications. A full
+coefficient enumeration used only to check an analytic theorem remains validation.
+
+The table is an inventory of stated claims, not a new verification of their
+certificates. External reproduction is not recorded for any row in this ledger;
+the supplied reviewer comments are commentary, not independent reproduction.
+
+| ID | Original line | Family / domain | Rounds or checkpoint | Quantified class | Existing result | Proof | Implementation audit scope |
+|---|---:|---|---|---|---|---|---|
+| <a id="lin-global-001"></a>[LIN-GLOBAL-001](KRAKKEN_SECURITY_THEOREMS.md#lin-global-001) | 30 | Linear / H | 1–8 | All message/state affine masks | No perfect affine relation; only 1−2^-1271 numerical bound | F | Full graph replay, opposite pivots |
+| <a id="lin-chi-001"></a>[LIN-CHI-001](KRAKKEN_SECURITY_THEOREMS.md#lin-chi-001) | 65 | Linear / H | Chi1 | Exactly t=1,2,3 cells; all masks | Sharp maximum 2^-3t | A+F | All subset ranks, opposite pivots |
+| <a id="boom-local-001"></a>[BOOM-LOCAL-001](KRAKKEN_SECURITY_THEOREMS.md#boom-local-001) | 100 | Boomerang / L | Chi | 255² diagonal/first-output entries | BCT=2^16; family need not exhaust maximizers | A | 64,000 local C checks validate examples |
+| <a id="boom-embed-001"></a>[BOOM-EMBED-001](KRAKKEN_SECURITY_THEOREMS.md#boom-embed-001) | 129 | Boomerang / P/H | Chi1 | One-cell family | Unrestricted embedding; first-block nonzero one-cell input excluded | A+F | Separate prefix implementation and rank checks |
+| <a id="diff-rate-001"></a>[DIFF-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-001) | 166 | Differential / H and common-prefix final absorbs | Chi1 | All nonzero first-block differences; same-length final partial suffix differences after arbitrary shared full blocks | Exact first-block min A1=5; later final-block A≥5; six four-cell lines min 6; fixed five-call event 2^-35 | A+F | Support, witness, probability and common-prefix C audits; see body |
+| <a id="diff-rate-002"></a>[DIFF-RATE-002](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-002) | 249 | Differential / H | Chi1 | Six fixed differences, uniform message base | Exact A1 distribution; sharp prescribed-output max 2^-38 | A+F | Separate probability audit |
+| <a id="diff-rate-003"></a>[DIFF-RATE-003](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-003) | 302 | Differential / H | 1→2 | Three fixed differences conditioned on A1=5 | A2≥3; not all A1=5 pairs | A+F | Complete gate recount |
+| <a id="boom-round-001"></a>[BOOM-ROUND-001](KRAKKEN_SECURITY_THEOREMS.md#boom-round-001) | 353 | Boomerang / P | 1→Chi2 | Four fixed choices, one site, zero background, all local bases | No required quartet survives Chi2 | F | Full original-C and separate Python replay |
+| <a id="boom-round-002"></a>[BOOM-ROUND-002](KRAKKEN_SECURITY_THEOREMS.md#boom-round-002) | 407 | Boomerang / P | Chi2 | 4,784 surviving patterns from BOOM-ROUND-001 | Each pattern has a local obstruction for every Chi2 base | A+F | Exact local table audit; preceding class replay |
+| <a id="diff-perm-001"></a>[DIFF-PERM-001](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-001) | 448 | Differential / P | XRBD1/Pressure1 | All 65,280 one-byte post-Chi differences | All 16 Pressure chains active for every base | A+F | Separate XRBD enumeration and C inverse checks |
+| <a id="diff-perm-002"></a>[DIFF-PERM-002](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-002) | 480 | Differential / P | 1→2 | All unrestricted [1,1] trails | Impossible; A1+A2≥3 | S | Coverage/truth-table/linear audit; cited report records no solver reruns |
+| <a id="diff-12-001"></a>[DIFF-12-001](KRAKKEN_SECURITY_THEOREMS.md#diff-12-001) | 537 | Differential / P | 1→2 | LSB-obstructed BB sites | 1,034,445 sites excluded | A+F | 25 dispersed exclusions rechecked |
+| <a id="diff-12-002"></a>[DIFF-12-002](KRAKKEN_SECURITY_THEOREMS.md#diff-12-002) | 565 | Differential / P | 1→2 | Start 0, distinct BB sites | 6,223 sites excluded; remaining sites unresolved here | F | Complete slice recount |
+| <a id="diff-12-003"></a>[DIFF-12-003](KRAKKEN_SECURITY_THEOREMS.md#diff-12-003) | 613 | Differential / P | 1→2 | All 256 starts, BB low-two-bit gate | 1,628,104 excluded; 452,664 deferred/surviving | F | Complete independent recount |
+| <a id="diff-12-004"></a>[DIFF-12-004](KRAKKEN_SECURITY_THEOREMS.md#diff-12-004) | 662 | Differential / P | 1→2 | Complete distinct BB class | All 2,080,768 sites excluded | A+F+S | Refinements replayed; no second full 3-bit recount |
+| <a id="diff-12-005"></a>[DIFF-12-005](KRAKKEN_SECURITY_THEOREMS.md#diff-12-005) | 709 | Differential / P | 1→2 | Complete same-pair mixed class | All 32,768 sites excluded | A+S | Refinements replayed; no second full 3-bit recount |
+| <a id="rot-001"></a>[ROT-001](KRAKKEN_SECURITY_THEOREMS.md#rot-001) | 745 | Rotational / P | 1–8 | All nontrivial lane rotations; constants on/off | No universal affine covariance | F | C counterexamples; no separate full audit recorded |
+| <a id="rot-002"></a>[ROT-002](KRAKKEN_SECURITY_THEOREMS.md#rot-002) | 771 | Rotational / P | 1 | Byte rotations 8,…,56 | Exact residual identity; uniform full-state scope | A | 700 original-C validation states |
+| <a id="dl-001"></a>[DL-001](KRAKKEN_SECURITY_THEOREMS.md#dl-001) | 798 | Differential-linear / P | 1 | 128 cells ×255 diagonal differences; 32D affine output space | Exact perfect-mask kernels of dimensions 26–29 | A+F | Local spans and C validation; body distinguishes probes |
+| <a id="dl-002"></a>[DL-002](KRAKKEN_SECURITY_THEOREMS.md#dl-002) | 860 | Differential-linear / P | 2 | 128 fixed delta=1 differences; all output masks | No perfect output autocorrelation | F | Full derivative certificate replay, opposite pivots |
+| <a id="press-walsh-001"></a>[PRESS-WALSH-001](KRAKKEN_SECURITY_THEOREMS.md#press-walsh-001) | 894 | Linear / U | Pressure | q=0; arbitrary 64-bit u,v,p | Exact counter; sharp nonperfect max 1/2 | A | Small-width exhaustive and full-width C checks |
+| <a id="press-walsh-002"></a>[PRESS-WALSH-002](KRAKKEN_SECURITY_THEOREMS.md#press-walsh-002) | 947 | Linear / U | Pressure | u∈{0,bit0} or q∈{0,bit0}; other masks arbitrary | Exact counter; sharp nonperfect max 1/2 | A | Reduced-width, canonicalization and C checks |
+| <a id="press-walsh-003"></a>[PRESS-WALSH-003](KRAKKEN_SECURITY_THEOREMS.md#press-walsh-003) | 1001 | Linear / U | Pressure | Both outputs low k≤17; all input masks | Exact joint counter; sharp nonperfect max 1/2 for k≥2, zero at k=1; top-bit zero rule | A+F | 96 proof base cases; exhaustive widths≤6 and C validation |
+| <a id="press-hull-001"></a>[PRESS-HULL-001](KRAKKEN_SECURITY_THEOREMS.md#press-hull-001) | 1126 | Linear / U/R | Pressure | Arbitrary 64-bit masks; separate 4-bit counterexample | Exact signed identity; triangle bound fails in reduced model | A+F | Complete 4-bit comparison; no full-width maximum proved |
+| <a id="press-zero-001"></a>[PRESS-ZERO-001](KRAKKEN_SECURITY_THEOREMS.md#press-zero-001) | 1157 | Linear / U | Pressure | Pairwise word projections and specified masks | Exact pair-uniformity and zero coefficients | A | Separate implementation checks in cited report |
+| <a id="lin-rate-001"></a>[LIN-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-001) | 1182 | Linear / H | 1 | 16 specified output masks; every message mask | Per-mask bounds at least 2^-174, strongest 2^-354 | A+F | Rank/local Walsh checks and C mask replays |
+| <a id="lin-rate-002"></a>[LIN-RATE-002](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-002) | 1231 | Linear / H | 1 | 31 nonzero masks in specified 5D space; every message mask | ≤2^-162; stated conditional/TV corollaries | A+F | Subspace/rank checks and C replay |
+| <a id="lin-rate-003"></a>[LIN-RATE-003](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-003) | 1284 | Linear / H | 1 | 63 nonzero masks in specified 6D space; every message mask | ≤2^-76; stated conditional/TV corollaries | A+F | All 63 ranks, local Walsh and C checks |
+| <a id="alg-deg-001"></a>[ALG-DEG-001](KRAKKEN_SECURITY_THEOREMS.md#alg-deg-001) | 1341 | Algebraic / H | 1–8 | All coordinates; separate 256-bit projection | 32 R1 bits degree 13; other R1 and all R2–8 ≥20; projection ≥24 | A+F | Structural/mapping and smaller-cube audits; full large replay via producers |
+| <a id="lin-hull-001"></a>[LIN-HULL-001](KRAKKEN_SECURITY_THEOREMS.md#lin-hull-001) | 1418 | Linear / H/P | 1–8 | All message/state masks | Exact signed coset sum of 2^776 full-state coefficients | A | Mathematical identity; not a quantitative security bound |
+| <a id="zero-001"></a>[ZERO-001](KRAKKEN_SECURITY_THEOREMS.md#zero-001) | 1513 | Zero-sum / P | Chi1/1/2 | Fixed square, all backgrounds; sites as specified | R1 projected balance; no universal R2 coordinate at 128 sites, no mask at site 0 | A+F | Full rank-certificate C replay; see site-specific scope |
+| <a id="int-cube-001"></a>[INT-CUBE-001](KRAKKEN_SECURITY_THEOREMS.md#int-cube-001) | 1573 | Integral / H | Chi1/1/2 | Every d≥14 cube at checkpoints; fixed 14-direction family at complete rounds | Sharp threshold 14; fixed family exactly 32 universal R1 coordinates, none R2 | A+F | Threshold and full 11-cube original-C audits |
+| <a id="int-byte-001"></a>[INT-BYTE-001](KRAKKEN_SECURITY_THEOREMS.md#int-byte-001) | 1644 | Integral / H | 2 | All 159 byte cubes, arbitrary bases, coordinate masks | No universal coordinate balance | F | All saved cube vertices replayed |
+| <a id="int-byte-002"></a>[INT-BYTE-002](KRAKKEN_SECURITY_THEOREMS.md#int-byte-002) | 1675 | Integral / H | 1/2 | Byte-0 cube, all bases/output masks | R1 sum rank 2041; R2 rank 2048, no universal nonzero mask | F | Full cube replay and opposite-pivot ranks |
+| <a id="div-byte-001"></a>[DIV-BYTE-001](KRAKKEN_SECURITY_THEOREMS.md#div-byte-001) | 1699 | Division property / H | 1/2 | Byte-0 defined direction family and linear masks | Exact universal balance spaces: dimensions 7 and 0 | A+F | Local derivative tables, C checks and cube replay |
+| <a id="subspace-001"></a>[SUBSPACE-001](KRAKKEN_SECURITY_THEOREMS.md#subspace-001) | 1745 | Subspace / H | Chi1/1/2 | 159 byte-coordinate subspaces, zero-base coset | Affine hull rank 255 at stated checkpoints | F | All messages, changed origins/order and opposite pivots |
+| <a id="subspace-002"></a>[SUBSPACE-002](KRAKKEN_SECURITY_THEOREMS.md#subspace-002) | 1776 | Subspace / H | Chi1/Pressure1/2 | Bytes 40,56 diagonal planes; all 256 defined cosets | Chi rank 238–254; Pressure and complete R1/R2 rank 255 | F | Full 65,536-message C replay, XRBD on/off |
+| <a id="rebound-001"></a>[REBOUND-001](KRAKKEN_SECURITY_THEOREMS.md#rebound-001) | 1823 | Rebound / L/P | Chi1/XRBD1 | Diagonal inbound family; all one-byte second-output differences | Exact 256×DDT count; outbound support ranges as stated | A+F | Full enumeration, inverse/rank and C match checks |
+| <a id="rebound-002"></a>[REBOUND-002](KRAKKEN_SECURITY_THEOREMS.md#rebound-002) | 1881 | Rebound / H | Chi1 | All single-cell input or output difference supports | Nonzero first-block reachability excluded | A+F | All outside-cell rank checks and independent implementation audit |
+| <a id="depend-001"></a>[DEPEND-001](KRAKKEN_SECURITY_THEOREMS.md#depend-001) | 1904 | Dependency / H | 1/2 | All 1,272 input bits ×2,048 output bits | Possible influence for every pair; not probability | F | All 67,784 original-C evaluations replayed |
+| <a id="diff-multi-001"></a>[DIFF-MULTI-001](KRAKKEN_SECURITY_THEOREMS.md#diff-multi-001) | added 2026-09-30 | Differential corollary / P/H | 1–8 | All distinct unrestricted inputs; H; three selected differences under A1=5 | Eight-round totals ≥12 / ≥15 / ≥17 respectively; inherited premises | A | 256 C suffix identities, 256 indexed prefixes; separate abstract-pattern enumeration; no new solver replay |
+| <a id="boom-multi-001"></a>[BOOM-MULTI-001](KRAKKEN_SECURITY_THEOREMS.md#boom-multi-001) | added 2026-09-30 | Boomerang / zero-sum / P | 1 | 56 ordered disjoint chain-unit classes; all nonzero directions in specified 128D kernels and all common backgrounds | Constructed four distinct inputs and complete R1 outputs both XOR to zero | A+F | All 16 ranks; saved complete R1/R2 quartet; follow-up all 1,344 Chi2 patterns and 172,003 counts; no full independent R2 sample replay |
+| <a id="diff-trunc-001"></a>[DIFF-TRUNC-001](KRAKKEN_SECURITY_THEOREMS.md#diff-trunc-001) | added 2026-10-02 | Truncated differential / P | 1 | 128 diagonal one-cell sites ×255 nonzero bytes; all bases | Certified per-site guaranteed zero-bit sets; selected site has 15 full zero bytes | A+F | 1,024 independent Python XRBD basis checks; 2,048 C tail checks; 256 full-round C pairs |
+
+## Coverage and boundaries
+
+Every existing heading asserting a proved theorem, theorem extension, defined
+exclusion, or exact supporting identity is indexed. Embedded corollaries share
+their parent ID: in particular the six four-cell minima and fixed five-call
+probability (DIFF-RATE-001), low-17 top-bit pruning (PRESS-WALSH-003), and
+projection/conditional-distance corollaries (LIN-RATE-002/003). The ledger's
+failed inequalities, comparison, reproduction commands and proof roadmap are
+context, not additional security theorems. The coupled-hull reduced counterexample
+is explicitly distinguished from a full-width coefficient bound.
+
+Open: global unrestricted [1,2] (AA and distinct mixed AB/BA), a universal
+hash-reachable A1=5 ⇒ A2 bound beyond selected differences, arbitrary coupled
+64-bit Pressure masks, and useful global quantitative full-round hull bounds.
+Partial scans, solver SAT in relaxations, unknowns and timeouts are not proofs.
+The frozen review bundle is outside this refactor.
