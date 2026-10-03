@@ -31,6 +31,15 @@ trigger packaging.
 
 ## Current theorem status
 
+The new [BOOM-LOCAL-002 complete-class theorem](KRAKKEN_SECURITY_THEOREMS.md#boom-local-002)
+closes the local serial-Chi boomerang spectrum's perfect-pair question:
+the 65,025 known diagonal/first-output pairs are the only nontrivial
+perfect ones. Every other local pair succeeds with probability at most
+`3/128` under a uniform unrestricted cell base, and the bound is sharp.
+For unrestricted Chi, each cell outside the perfect class contributes
+one such factor. This supplies a local classification for future searches;
+hash-interface and complete-round boomerang probabilities remain open.
+
 New attack-side construction:
 [BOOM-MULTI-001](KRAKKEN_SECURITY_THEOREMS.md#boom-multi-001) proves that
 coordinated multi-cell quartets can preserve a full-state four-state zero
