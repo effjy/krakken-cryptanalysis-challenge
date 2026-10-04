@@ -317,7 +317,11 @@ claims:
     Its [pilot](KRAKKEN_PROBE.md) is substantially faster than the
     all-shape union. The complete 256-position `same` scan and
     [24-case refinement](../results/krakken_12_same_refinement.json) now exclude
-    all 32,768 same-spatial-pair sites. AA and mixed AB/BA remain open.
+    all 32,768 same-spatial-pair sites. A subsequent
+    [distinct-AA closure](KRAKKEN_SECURITY_THEOREMS.md#diff-12-006)
+    excludes all 2,080,768 AA sites, with the saved-result coverage
+    audit and no second full solver recount. The distinct mixed AB
+    scan is ongoing; distinct mixed BA remains open.
     Separately, an [exact one-byte XRBD/Pressure-chain
     certificate](../results/krakken_xrbd_onebyte_pressure_chains.json) establishes
     that `A1=1` at the unrestricted permutation level forces all 32
