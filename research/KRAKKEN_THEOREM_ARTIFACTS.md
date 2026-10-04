@@ -108,6 +108,21 @@ remain in the original reports. The frozen bundle is not updated.
 - [krakken_full_block_witness_audit.py](../scripts/krakken_full_block_witness_audit.py) — original-C replay of actual 160-byte hash messages.
 - [krakken_full_block_witness_audit.json](../results/krakken_full_block_witness_audit.json) — five-call attaining messages and full API digests.
 
+## CHI-RATE-001
+
+[CHI-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#chi-rate-001) — 133-byte first-Chi joint-uniformity theorem and exact differential/linear corollaries.
+
+- [RESULTS2.md](../RESULTS2.md) — analytic statement, proof, scope and replay instructions.
+- [branch_rank.py](../discovery2/branch_rank.py), [branch_rank.json](../discovery2/branch_rank.json) — original-C prefix rows and 1024/1272 rank certificate.
+- [conditional_rank.py](../discovery2/conditional_rank.py), [conditional_rank.json](../discovery2/conditional_rank.json) — quotient rows for conditional second-byte projections.
+- [conditional_scan.c](../discovery2/conditional_scan.c), [conditional_scan_5.json](../discovery2/conditional_scan_5.json), [conditional_resolution.json](../discovery2/conditional_resolution.json) — complete projected producer scan and full-row resolution of all 21 projected defects.
+- [conditional_audit_prepare.py](../discovery2/conditional_audit_prepare.py), [conditional_scan_audit.c](../discovery2/conditional_scan_audit.c), [conditional_scan_audit_5.json](../discovery2/conditional_scan_audit_5.json), [conditional_resolution_audit.json](../discovery2/conditional_resolution_audit.json) — separate prefix, quotient, projection, reverse enumeration, and full-row resolution of all 11 projected defects.
+- [linear_certificate.py](../discovery2/linear_certificate.py), [linear_certificate.json](../discovery2/linear_certificate.json) — complete local Walsh maxima and attaining `-2^-384` mask witness.
+- [validate_structure.py](../discovery2/validate_structure.py), [structure_validation.json](../discovery2/structure_validation.json) — original-C constructed-message replay, byte-DDT audit and reduced correlated-fiber logic test.
+- [integrity_check.json](../discovery2/integrity_check.json) — saved artifact/source hashes and coverage bookkeeping; does not rerun exhaustive scans.
+- [krakken_chi_rate_promotion_audit.py](../scripts/krakken_chi_rate_promotion_audit.py), [krakken_chi_rate_promotion_audit.json](../results/krakken_chi_rate_promotion_audit.json) — read-only current-source/hash/rank/exception check with 200 reproducible full-row samples; not a scan replay.
+- [DIFF-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-001), [DIFF-RATE-004](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-004) — inherited five-call floors for 159-/160-byte rate differences.
+
 ## DIFF-RATE-005
 
 [DIFF-RATE-005](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-005) — global prescribed-difference concentration at Chi1/XRBD1.
