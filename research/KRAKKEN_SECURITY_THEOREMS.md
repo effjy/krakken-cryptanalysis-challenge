@@ -45,6 +45,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 |---|---|---|---|---|---|---|---|---|---|
 | [LIN-GLOBAL-001](#lin-global-001) | Linear | H | 1–8 | All message/state affine masks | No perfect affine relation; only 1−2^-1271 numerical bound | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-global-001) | — | Perfect relations excluded; no useful security bits |
 | [LIN-CHI-001](#lin-chi-001) | Linear | H | Chi1 | Exactly t=1,2,3 cells; all masks | Sharp maximum 2^-3t | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-chi-001) | — | Stated class/checkpoint only |
+| [LIN-CHI-002](#lin-chi-002) | Linear | H | Chi1 | Exactly four cells; all message/output masks | Sharp maximum 2^-12 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-chi-002) | — | Complete four-cell checkpoint class; not a full-round bound |
 | [BOOM-LOCAL-001](#boom-local-001) | Boomerang | L | Chi | 255² diagonal/first-output entries | BCT=2^16; family need not exhaust maximizers | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-local-001) | — | Attack-side local structure |
 | [BOOM-LOCAL-002](#boom-local-002) | Boomerang | L / unrestricted Chi | Chi | Every local nontrivial input/output difference pair; exact full-Chi product | Perfect iff diagonal/first-output; otherwise sharp BCT≤1536 (probability≤3/128) | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-local-002) | — | Complete local classification; no round-two or hash-interface bound |
 | [BOOM-EMBED-001](#boom-embed-001) | Boomerang | P/H | Chi1 | One-cell family | Unrestricted embedding; first-block nonzero one-cell input excluded | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-embed-001) | — | Stated class/checkpoint only |
@@ -52,6 +53,8 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [DIFF-RATE-002](#diff-rate-002) | Differential | H | Chi1 | Six fixed differences, uniform message base | Exact A1 distribution; sharp prescribed-output max 2^-38 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-002) | — | Stated class/checkpoint only |
 | [DIFF-RATE-003](#diff-rate-003) | Differential | H | 1→2 | Three fixed differences conditioned on A1=5 | A2≥3; not all A1=5 pairs | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-003) | — | Stated class/checkpoint only |
 | [DIFF-RATE-004](#diff-rate-004) | Differential | First full 160-byte absorb / common-prefix later full absorb | Chi of that call | All nonzero rate-only full-block differences | Exact first-full-block min A=5; later shared-prefix full-block floor A≥5 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-004) | — | Does not cover differing earlier blocks or later padded call |
+| [DIFF-RATE-005](#diff-rate-005) | Differential | H / common-prefix final 159-byte suffix | Chi1/XRBD1 | Every fixed nonzero message difference and every prescribed full-state difference | Probability at most 2^-24 under uniform message base; sharpness open | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-005) | — | Checkpoint concentration, not a complete-round bound |
+| [DIFF-CHI-001](#diff-chi-001) | Differential | Local Chi / H | Chi1 | Prescribed local transitions with active first S-box; hash transitions where every active first call is active | Affine base fibers; consistent hash event has exact probability 2^-rank | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-chi-001) | — | Counting shortcut; no Pressure conclusion |
 | [BOOM-ROUND-001](#boom-round-001) | Boomerang | P | 1→Chi2 | Four fixed choices, one site, zero background, all local bases | No required quartet survives Chi2 | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-round-001) | — | Stated class/checkpoint only |
 | [BOOM-ROUND-002](#boom-round-002) | Boomerang | P | Chi2 | 4,784 surviving patterns from BOOM-ROUND-001 | Each pattern has a local obstruction for every Chi2 base | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-round-002) | — | Stated class/checkpoint only |
 | [DIFF-PERM-001](#diff-perm-001) | Differential | P | XRBD1/Pressure1 | All 65,280 one-byte post-Chi differences | All 16 Pressure chains active for every base | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-perm-001) | — | Stated class/checkpoint only |
@@ -100,8 +103,14 @@ are proof inputs in their own right. Artifact paths are in the manifest.
 flowchart TD
   spectra["Exact local Chi Walsh spectra"] --> sparse["LIN-CHI-001: sparse Chi1 classes"]
   rank["Certified message-to-Chi projection ranks"] --> sparse
+  rank4["All 10,668,000 four-cell input projections rank 64"] --> sparse4["LIN-CHI-002: sharp four-cell mask maximum"]
+  spectra --> sparse4
   rank --> rate["DIFF-RATE-001: exact A1 minimum 5"]
   ddt["Exact local Chi DDT constraints"] --> rate
+  rank4 --> concentration["DIFF-RATE-005: prescribed Chi1/XRBD1 difference <= 2^-24"]
+  rate --> concentration
+  ddt --> concentration
+  ddt --> fibers["DIFF-CHI-001: affine active-first-call fibers"]
   rate --> prob["DIFF-RATE-002: six fixed-line distributions"]
   rate --> selected["DIFF-RATE-003: three selected A1=5 gates"]
   rate --> fullrate["DIFF-RATE-004: full 160-byte absorb minimum 5"]
@@ -251,8 +260,38 @@ only the sign. The report is `rate_chi_component_rank_3_pure_replayed.json`.
 `krakken_rate_chi_component_rank_audit.py` replayed all 349,632 subset
 ranks with the opposite pivot order; its report is
 `rate_chi_component_rank_3_pure_audit.json`.
-This closes the stated sparse-mask class at **Chi1**; it makes no claim
-about complete rounds or masks touching four or more components.
+This closes the stated sparse-mask class at **Chi1**; this theorem by
+itself makes no claim about complete rounds or masks touching four or
+more components. The four-component class is separately closed below.
+
+<a id="lin-chi-002"></a>
+## Theorem proved: exact four-component sparse-mask Chi1 correlations
+
+<!-- THEOREM METADATA LIN-CHI-002 -->
+**Permanent ID:** `LIN-CHI-002` · **Proof classification:** analytic proof plus finite exhaustive rank certificate. No external certificate reproduction is recorded.
+<!-- END THEOREM METADATA LIN-CHI-002 -->
+
+For a uniform valid 159-byte padded first-block message, **every** four
+distinct serial-Chi components have jointly uniform 64-bit pre-Chi inputs.
+The message-to-selected-input projection has rank 64 for all
+`C(128,4)=10,668,000` selections. An explicit SHAKE-derived 128-bit
+projection of each full 1,272-bit coordinate row makes these rank checks
+compact: rank 64 after projection proves rank 64 before projection. Two
+complete C scanners use separate enumeration and opposite-pivot elimination;
+an [independent Python prefix audit](../results/krakken_rank4_extension_audit.json)
+reconstructs all 1,272 message-basis columns and all 2,048 coordinate and
+projected rows. This is **base-input projection rank**, not the distinct
+outside-support quotient rank that has six 63-dimensional exceptions.
+
+Let `H(m)` be the state immediately after Chi1. For every message mask
+`alpha` and every post-Chi output mask `beta` active on exactly four
+components, `|Corr(alpha·m,beta·H(m))|<=2^-12`; the maximum over this
+entire class equals `2^-12`. A mask outside the selected-input row span
+cancels on its kernel. Inside the span, the four independent local Walsh
+coefficients factor and each has magnitude at most `1/8`. The mask
+`(0x38,0x38)` to `(0x01,0x00)` attains `-1/8` locally, so its lift over
+any four cells attains the product. This concerns Chi1, before Pressure;
+no full-round or eight-round bound follows.
 
 <a id="boom-local-001"></a>
 ## Theorem proved: maximal local serial-Chi boomerang family
@@ -678,6 +717,92 @@ support/DDT proof above depends on that difference and holds for every
 common base. This corollary does **not** cover differing earlier
 blocks, where capacity differences may already exist, nor does it
 bound the subsequent final padding call or later rounds.
+
+<a id="diff-rate-005"></a>
+## Theorem proved: global prescribed-difference concentration at first Chi
+
+<!-- THEOREM METADATA DIFF-RATE-005 -->
+**Permanent ID:** `DIFF-RATE-005` · **Proof classification:** analytic proof using finite exhaustive support, projection-rank, and local-DDT certificates. No external certificate reproduction is recorded.
+<!-- END THEOREM METADATA DIFF-RATE-005 -->
+
+For every fixed nonzero difference `delta` between valid 159-byte
+first-block messages, every prescribed 2,048-bit difference `eta`, and
+uniform valid 159-byte base message `m`, let `H(m)` be the state immediately
+after Chi1. Then
+
+`Pr[H(m) XOR H(m XOR delta) = eta] <= 2^-24`.
+
+The same bound holds immediately after XRBD1: its linear invertibility
+maps a prescribed output difference to one prescribed Chi1 difference.
+Sharpness of the universal bound is **not** established. This is the first
+such concentration bound covering **every** nonzero first-block message
+difference, rather than six selected four-cell lines.
+
+For a serial-Chi component `F(a,b)=(S(a XOR b),S(b XOR S(a XOR b)))`,
+input difference `(da,db)`, and requested output difference `(du,dv)`,
+write `dx=da XOR db` and `dy=db XOR du`. The exact number of matching
+local bases is `D_S[dx,du] D_S[dy,dv]`. The triangular coordinate
+change `(a,b)->(a XOR b,b XOR S(a XOR b))` is bijective, and the two
+derivative equations separate in these coordinates. The current S-box
+has maximum nonzero DDT entry four. Hence an active local component's
+specified output transition has probability at most `1/64` under a
+uniform 16-bit base.
+
+`DIFF-RATE-001` excludes any nonzero rate difference supported on at
+most three pre-Chi components. Choose four of the active components.
+Their 64 base bits are jointly uniform by `LIN-CHI-002`, so the four
+specified local output events factor and contribute at most
+`(1/64)^4=2^-24`. Ignoring all remaining components only weakens the
+upper bound. For a particular `delta,eta`, the exact product of the
+four local DDT probabilities is available; if the selected cells
+contain `q` active S-box calls, the coarse bound improves to `2^(-6q)`.
+The six exceptional four-cell input lines retain their stronger sharp
+`2^-38` maximum from `DIFF-RATE-002`.
+
+The same proof applies to the first Chi checkpoint of a final padded
+159-byte suffix after any number of **identical** preceding full blocks:
+the common pre-absorb state translates the affine base image. On a
+message affine subspace of codimension `d`, conditioning alone yields
+the weaker `min(1,2^(d-24))` bound. This does not cover differing
+prefixes. It cannot be carried through nonlinear Pressure by
+bijectivity alone, and cannot be multiplied across rounds. In
+particular, `2^-24` is neither a complete-round differential bound
+nor 24 bits of hash security.
+
+<a id="diff-chi-001"></a>
+## Theorem proved: affine fibers for active-first-call Chi transitions
+
+<!-- THEOREM METADATA DIFF-CHI-001 -->
+**Permanent ID:** `DIFF-CHI-001` · **Proof classification:** analytic proof; exhaustive byte derivative checks and selected original-C local transitions are implementation audits. No external certificate reproduction is recorded.
+<!-- END THEOREM METADATA DIFF-CHI-001 -->
+
+Fix a local serial-Chi input/output difference with `dx=da XOR db != 0`.
+Its set of matching `(a,b)` bases is empty or an affine subspace of
+16 bits, of size exactly `D_S[dx,du] D_S[db XOR du,dv]`.
+For a bijective 4-uniform byte S-box, each nonempty derivative root
+set at nonzero input difference has two or four elements. The roots
+form an affine line or plane because they occur in pairs separated by
+the input difference. On a four-root plane, the four S-box outputs XOR
+to zero, making the restricted S-box affine. Under the bijective
+coordinates `x=a XOR b`, `y=b XOR S(x)`, the first and second root
+sets form an affine product. The inverse `(a,b)=(x XOR y XOR S(x),
+y XOR S(x))` is affine on that product, proving the claim.
+
+Consequently, if a prescribed first-Chi differential has `dx!=0`
+in every nonzero input component, the complete valid-message base
+condition is an affine GF(2) system after substituting the linear
+message-to-pre-Chi map. It has probability **zero if inconsistent**
+and otherwise exactly `2^-r`, where `r` is the system rank. This
+computes one prescribed transition, without assuming component-base
+independence. When `dx=0` and only the second S-box call is active,
+the affine-fiber guarantee does not apply. No Pressure constraint is
+included.
+
+The [source-pinned extension](../review_extensions_20261003/THEOREMS.md)
+checks all 32,385 nonempty nonzero byte derivative fibers, 128 direct
+65,536-base local transitions, and original-C representatives. A
+[separate prefix/S-box audit](../results/krakken_rank4_extension_audit.json)
+rechecks the byte derivative histogram and the four-cell input rows.
 
 <a id="boom-round-001"></a>
 ## Theorem proved: four defined boomerang classes do not cross Chi2
