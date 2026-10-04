@@ -32,6 +32,18 @@ trigger packaging.
 
 ## Current theorem status
 
+The [LIN-RATE-004 nonlinear-Pressure bridge](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-004)
+now gives a **one-complete-round** quantitative linear theorem beyond
+the carry-free Pressure identities. For a specified eight-bit state
+projection outside the digest, all 255 nonzero output masks have
+absolute correlation at most `2^-246` against **every** valid
+159-byte message mask, even after an arbitrary fixed state offset.
+Any 128 independent affine message constraints leave that projection
+within `2^-115` of uniform. The proof retains the complete exact
+low-four-bit Pressure spectrum and the actual message-image ranks;
+it does not infer uniform Pressure inputs. The result does not cover
+all output masks, the digest projection, or later rounds.
+
 The [LIN-CHI-002 four-cell projection theorem](KRAKKEN_SECURITY_THEOREMS.md#lin-chi-002)
 certifies rank 64 for **all 10,668,000** selections of four serial-Chi
 inputs from the valid 159-byte first-block message space. It extends
