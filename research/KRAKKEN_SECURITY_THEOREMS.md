@@ -51,6 +51,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [DIFF-RATE-001](#diff-rate-001) | Differential | H / shared-prefix later final absorb | Chi1 | All nonzero first-block differences; later same-length partial suffix differences after common prefix | Exact first-block min A1=5; later-block A≥5 corollary | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-001) | — | Rate-only difference condition; differing prefixes open |
 | [DIFF-RATE-002](#diff-rate-002) | Differential | H | Chi1 | Six fixed differences, uniform message base | Exact A1 distribution; sharp prescribed-output max 2^-38 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-002) | — | Stated class/checkpoint only |
 | [DIFF-RATE-003](#diff-rate-003) | Differential | H | 1→2 | Three fixed differences conditioned on A1=5 | A2≥3; not all A1=5 pairs | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-003) | — | Stated class/checkpoint only |
+| [DIFF-RATE-004](#diff-rate-004) | Differential | First full 160-byte absorb / common-prefix later full absorb | Chi of that call | All nonzero rate-only full-block differences | Exact first-full-block min A=5; later shared-prefix full-block floor A≥5 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-004) | — | Does not cover differing earlier blocks or later padded call |
 | [BOOM-ROUND-001](#boom-round-001) | Boomerang | P | 1→Chi2 | Four fixed choices, one site, zero background, all local bases | No required quartet survives Chi2 | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-round-001) | — | Stated class/checkpoint only |
 | [BOOM-ROUND-002](#boom-round-002) | Boomerang | P | Chi2 | 4,784 surviving patterns from BOOM-ROUND-001 | Each pattern has a local obstruction for every Chi2 base | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-round-002) | — | Stated class/checkpoint only |
 | [DIFF-PERM-001](#diff-perm-001) | Differential | P | XRBD1/Pressure1 | All 65,280 one-byte post-Chi differences | All 16 Pressure chains active for every base | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-perm-001) | — | Stated class/checkpoint only |
@@ -103,6 +104,8 @@ flowchart TD
   ddt["Exact local Chi DDT constraints"] --> rate
   rate --> prob["DIFF-RATE-002: six fixed-line distributions"]
   rate --> selected["DIFF-RATE-003: three selected A1=5 gates"]
+  rate --> fullrate["DIFF-RATE-004: full 160-byte absorb minimum 5"]
+  fullrank["Independent 1280-bit rate-image support ranks"] --> fullrate
   aff["Pressure affine LSB identities + exact XRBD transpose"] --> bridge["LIN-RATE-001: 16 complete-round masks"]
   spectra --> bridge
   image["Rate-aware affine-image inequality + certified ranks"] --> bridge
@@ -607,6 +610,75 @@ valid for `(2,6)`. The present theorem covers only these three fixed
 hash-reachable differences and says nothing about the global minimum
 of `A1+A2`.
 
+<a id="diff-rate-004"></a>
+## Theorem proved: exact five-call minimum at the first full 160-byte absorb
+
+<!-- THEOREM METADATA DIFF-RATE-004 -->
+**Permanent ID:** `DIFF-RATE-004` · **Proof classification:** analytic support/DDT argument plus finite exhaustive proof of all one- through four-cell supports. Separate original-C and Python-prefix implementations agree; the five-call attaining messages are replayed through original C. No external certificate reproduction is recorded.
+<!-- END THEOREM METADATA DIFF-RATE-004 -->
+
+For two distinct valid 160-byte messages starting from Krakken's zero
+state, let `A` count active serial-Chi byte-S-box calls in the **first
+round of the first permutation call**, immediately after absorbing the
+un-padded complete 160-byte block. Then
+
+`min A = 5`, over every nonzero 160-byte message XOR difference and
+every pair of base messages. The hash API subsequently performs a
+separate padded final permutation call for these 160-byte messages;
+this theorem concerns the first call only.
+
+**Proof.** The first complete block supplies 1,280 free rate-difference
+bits and zero capacity difference. The actual linear
+Theta→MDS→Rho→Pi prefix maps these bits injectively to pre-Chi state
+differences. Quotient by that image and enumerate supports in the 128
+disjoint two-byte serial-Chi cells. The quotient rank equals the full
+coordinate dimension for all 128 single cells, 8,128 pairs, and
+341,376 triples: no nonzero full-block rate difference can touch fewer
+than four cells. Among all 10,668,000 four-cell supports, exactly
+**eight** have rank 63 rather than 64. They form one eight-offset
+family; the 159-byte domain admits six of these eight, while the
+extra byte makes the remaining two reachable. Every exceptional
+support has a one-dimensional reachable difference intersection.
+
+For each of the eight difference lines, the four local input-byte
+differences are `(110,4), (0,90), (5,32), (16,3)` in decimal. To
+silence the second S-box in each serial cell, the byte S-box derivative
+for input difference `da XOR db` must output `db`. The exact DDT counts
+for those four requests are `(0,2,0,2)`. Thus the first and third
+cells each require two active calls and the other two at least one:
+every reachable four-cell difference has `A≥6`. Any difference
+touching at least five cells has `A≥5`.
+
+For attainment, append the **same byte `0x86`** to both 159-byte
+messages in the existing `DIFF-RATE-001` five-call witness. The first
+full absorb of each resulting valid 160-byte message is byte-for-byte
+identical to that witness's padded 159-byte absorb, so its first-round
+activity is exactly five. The [original-C replay](../results/krakken_full_block_witness_audit.json)
+confirms the five calls and both complete 160-byte hash executions,
+including the extra final padding call.
+
+The [original-C support certificate](../results/krakken_full_block_rate_support_c_four.json)
+and [independent Python-prefix certificate](../results/krakken_full_block_rate_support_python_four.json)
+agree on every support count, rank minimum, and exceptional four-cell
+support. These two complete enumerations share the support-enumeration
+and high-pivot rank code; their **prefix implementations** are separate.
+A [Python low-pivot recount](../results/krakken_full_block_rate_support_python_low_three.json)
+separately confirms all one- through three-cell ranks. The [line certificate](../results/krakken_full_block_four_lines.json)
+solves all eight pre-Chi differences back to actual 160-byte rate
+differences; its [Python-prefix/DDT audit](../results/krakken_full_block_four_lines_audit.json)
+independently replays their linear images and local derivative counts.
+
+**Later full-block corollary.** If two hash messages have identical
+complete preceding blocks and first differ in the next complete
+160-byte block, the first round of that block's permutation call has
+`A≥5`, whatever common state the earlier blocks produced. The states
+before this absorb are identical; XORing different rate blocks adds a
+nonzero rate-only difference with zero capacity difference. The
+support/DDT proof above depends on that difference and holds for every
+common base. This corollary does **not** cover differing earlier
+blocks, where capacity differences may already exist, nor does it
+bound the subsequent final padding call or later rounds.
+
 <a id="boom-round-001"></a>
 ## Theorem proved: four defined boomerang classes do not cross Chi2
 
@@ -898,8 +970,8 @@ first-branch cases. This is an independent necessary-condition proof
 for those cases, and a cheap prefilter; it does not replace the full
 `[1,1]` solver result or prove any `[1,2]` claim. The
 [rank report](../results/krakken_pressure_lsb_endpoint_rank.json) records the
-complete counts. Astra's [optimized oracle](../astra/oracle_optimized.py)
-already includes exact LSB equations in its master, so the prefilter
+complete counts. The [optimized oracle](../scripts/oracle_optimized.py)
+includes exact LSB equations in its master, so the prefilter
 quantifies a portion of its likely early pruning rather than a new
 oracle capability. A stronger batched bound must incorporate carry
 feasibility or additional layer structure for the much larger `[1,2]`
