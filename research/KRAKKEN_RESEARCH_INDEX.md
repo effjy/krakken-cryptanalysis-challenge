@@ -34,6 +34,15 @@ trigger packaging.
 
 ## Current theorem status
 
+The [LIN-THETA-001 fixed-space theorem](KRAKKEN_SECURITY_THEOREMS.md#lin-theta-001)
+closes Candidate 4 of `NEW.md`: the current scalar Theta layer is an
+involution with `rank(Theta−I)=504` and a 1544-dimensional fixed
+space; every non-fixed state is in a 2-cycle. The exact 2048-column
+original-C matrix, all 1544 explicit fixed-basis vectors, 16
+non-fixed original-C cycles, and a separate Python reconstruction
+are saved. This is a **Theta-only structural result**, not an
+invariant or distinguisher for a complete Krakken round.
+
 The [NEW.md triage](KRAKKEN_NEW_REVIEW_TRIAGE.md) closed two new
 **local, unrestricted-Chi** classes. [DIFF-CHI-002](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-002)
 classifies the exact maximum probability for every nonzero 16-bit
