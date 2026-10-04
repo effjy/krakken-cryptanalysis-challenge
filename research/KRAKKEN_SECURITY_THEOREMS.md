@@ -77,6 +77,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [LIN-RATE-001](#lin-rate-001) | Linear | H | 1 | 16 specified output masks; every message mask | Per-mask bounds at least 2^-174, strongest 2^-354 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-001) | — | Stated class/checkpoint only |
 | [LIN-RATE-002](#lin-rate-002) | Linear | H | 1 | 31 nonzero masks in specified 5D space; every message mask | ≤2^-162; stated conditional/TV corollaries | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-002) | — | Stated class/checkpoint only |
 | [LIN-RATE-003](#lin-rate-003) | Linear | H | 1 | 63 nonzero masks in specified 6D space; every message mask | ≤2^-76; stated conditional/TV corollaries | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-003) | — | Stated class/checkpoint only |
+| [LIN-RATE-004](#lin-rate-004) | Linear | H / any fixed affine translate of message embedding | 1 complete round | All message masks; all 255 nonzero masks of a specified 8D output space crossing Pressure carries | ≤2^-246; affine-codimension-d TV bound | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-004) | — | Selected nondigest output bits; not an all-mask or multi-round bound |
 | [ALG-DEG-001](#alg-deg-001) | Algebraic | H | 1–8 | All coordinates; separate 256-bit projection | 32 R1 bits degree 13; other R1 and all R2–8 ≥20; projection ≥24 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-deg-001) | — | Stated class/checkpoint only |
 | [LIN-HULL-001](#lin-hull-001) | Linear | H/P | 1–8 | All message/state masks | Exact signed coset sum of 2^776 full-state coefficients | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-hull-001) | — | Global proof obligation identified |
 | [ZERO-001](#zero-001) | Zero-sum | P | Chi1/1/2 | Fixed square, all backgrounds; sites as specified | R1 projected balance; no universal R2 coordinate at 128 sites, no mask at site 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#zero-001) | — | Stated class/checkpoint only |
@@ -122,6 +123,9 @@ flowchart TD
   image --> five
   bridge --> six["LIN-RATE-003: specified 6D mask space"]
   image --> six
+  effective["Effective-coordinate affine-image lemma"] --> nonlinear["LIN-RATE-004: 8D nonlinear-Pressure bridge"]
+  spectra4["Complete 4-bit Pressure slice spectra"] --> nonlinear
+  image --> effective
   localboom["BOOM-LOCAL-001: local perfect family"] --> embed["BOOM-EMBED-001: embedding / rate gate"]
   localboom --> completeboom["BOOM-LOCAL-002: complete local BCT classification"]
   localboom --> roundboom["BOOM-ROUND-001: four defined continuation classes"]
@@ -2059,6 +2063,91 @@ In particular, **any 64 independent linear message constraints**
 leave this six-bit first-round output projection within `2^-10` of
 uniform. The bound may become vacuous for very large codimension;
 it is not an assertion about arbitrary nonlinear message subsets.
+
+<a id="lin-rate-004"></a>
+## Theorem proved: eight-bit complete-round nonlinear-Pressure bridge
+
+<!-- THEOREM METADATA LIN-RATE-004 -->
+**Permanent ID:** `LIN-RATE-004` · **Proof classification:** analytic proof plus finite exhaustive rank, Walsh-table, and rational-inequality certificate. The separate replay is an independent implementation audit within this investigation; no external certificate reproduction is recorded.
+<!-- END THEOREM METADATA LIN-RATE-004 -->
+
+Let `P_1` be the first **complete** current scalar Krakken round and
+let `Jm` place a 1,272-bit message in state bytes 0–158, with zero
+elsewhere. For **any fixed** 2,048-bit state `x_*`, define
+`F_(x_*)(m)=P_1(x_* XOR Jm)`. Let `Y_(x_*)(m)` be these eight output
+bits, in order: lane 7 bits 18–21, then lane 21 bits 30–33. For
+**every** message mask `alpha` and every nonzero eight-bit output
+mask `s`, with `m` uniform over all 159-byte messages,
+
+`|E_m (-1)^(alpha·m XOR s·Y_(x_*)(m))| <= 2^-246`.
+
+The ordinary padded first block is the case where `x_*` has byte 159
+equal to `0x86` and all other bytes zero. The arbitrary fixed-offset
+quantifier also covers a uniform 159-byte final suffix after any
+**identical** preceding full blocks. It does not cover differing
+prefix states. The eight coordinates lie outside the first 256 state
+bits used as the digest; no digest-output corollary is claimed.
+
+For every nonempty affine message subspace `H` of codimension `d`,
+the same all-input-mask bound implies
+
+`TV(Law(Y_(x_*)(m) | m in H),Uniform(F2^8)) <= min(1,sqrt(255)/2 * 2^(d-246)) < 2^(d-243)`.
+
+In particular, the unconditional eight-bit projection is within
+`2^-243` of uniform, and **any 128 independent affine message
+constraints** leave it within `2^-115`. This includes a nonempty
+affine Chi-transition base fiber when its codimension is known; it
+does not cover arbitrary nonlinear conditioning.
+
+**Analytic bridge.** A first-output-only serial-Chi mask depends on
+the eight-bit pre-Chi coordinate `a XOR b`, so its unused input byte
+can be removed from the auxiliary Fourier domain. Cells whose second
+output is masked retain both input bytes. For the concatenated
+effective coordinates `z=Tm+z_*`, let `r=rank(T)` and let `M_i` be
+the exact unnormalized local Walsh maximum on each 8- or 16-bit
+block. Fourier expansion of the affine-image indicator, including
+all `2^(N-r)` coset terms, gives for **every** message mask
+
+`|Corr(alpha·m, f(Tm+z_*))| <= min(1, (product_i M_i)/2^r)`.
+
+For Pressure chain 1, its low four bits in both outputs depend
+exactly on the 12-bit slice `Z=(a[0:4],c[0:4],c[17:21])`. Writing
+`h=c[17:21]`, the reduced map is
+`A=a+(c XOR h) mod 16`, `C=c+A mod 16`. Its complete Fourier
+spectra cover all 4,096 slice inputs and all 255 nonzero eight-bit
+output masks. The constant Fourier coefficient vanishes because
+`(a,c)->(A,C)` is bijective for each fixed `h`. Pull **every**
+nonzero slice-input mask backward through XRBD and bound its actual
+message-image coefficient by the effective-coordinate lemma. Summing
+the magnitudes of **all** terms gives the stated bound without
+assuming a uniform Pressure input or multiplying one selected trail.
+Round constants affect only signs; the odd-chain rotations and
+shuffle send the selected four `A` bits to lane 7 bits 18–21 and
+the four `C` bits to lane 21 bits 30–33.
+
+**Finite certificate and audit.** The
+[producer](../discovery/pressure_bridge.py) stores the complete
+[certificate](../discovery/pressure_bridge_k4_pilot.json): 1,375
+nonzero input-slice masks in the union, six effective-coordinate
+projection classes for chain 1, their exact ranks and local maxima,
+and all 255 exact rational output bounds. The largest certified
+bound is
+`2473746697882239384102299192060376495924890210816229738308891 / 2^447 <= 2^-246`,
+at output mask `0x94`. This is the largest **calculated upper bound**,
+not a demonstrated correlation. The separate
+[audit](../discovery/pressure_bridge_audit.py) and its
+[PASS report](../discovery/pressure_bridge_k4_audit.json) rebuild
+all 1,272 prefix columns, 2,048 XRBD columns, 255 spectra,
+2,750 ranks across two chains, local Walsh maxima, rational sums,
+and original-C round-bit transport. Both programs were rerun with
+fresh outputs; each replay was byte-for-byte identical to its
+saved certificate. Source hashes are pinned in the
+[full proof report](../RESULTS.md).
+
+This is a quantitative **one-complete-round** linear and
+conditional-distribution theorem for a specified output-mask space.
+It gives no bound for all 2,048 output masks, the digest bits, later
+rounds, differential probabilities, or collision/preimage security.
 
 <a id="alg-deg-001"></a>
 ## Theorem proved: valid-message coordinate-degree map through eight rounds
