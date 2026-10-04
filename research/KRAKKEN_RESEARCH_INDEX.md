@@ -22,6 +22,7 @@ existing results; refinements save to separate per-position files.
 | [Truncated collision experiment](KRAKKEN_COLLISION_EXPERIMENT.md) | Reproducible reduced-round birthday screens and saved collision pairs | Empirical observations only; keep separate from theorem claims |
 | [Truncated differential screen](KRAKKEN_TRUNCATED_DIFFERENTIAL.md) | Fixed-difference one-byte and single-bit output projections through two rounds | Empirical observations only; follow up on any surviving bias |
 | [Attack-versus-round map](KRAKKEN_ATTACK_ROUND_MAP.md) | Strongest demonstrated structures, construction costs, exact boundaries, and open continuations across attack families | Update when a structure reaches a new complete-round or hash-reachable checkpoint |
+| [Effective-coordinate two-round pilot](KRAKKEN_EFFECTIVE_CONE_PILOT.md) | Measured AA/AB/BA low-bit quotient and exact carry-table enumeration, with explicit relaxed-model boundary | Solver-engineering follow-up; no theorem promotion from runtime reduction alone |
 
 The [review bundle](../krakken_review_bundle/README.md) and
 [ZIP archive](../results/krakken_review_bundle.zip) are **frozen snapshots** of the
@@ -31,6 +32,20 @@ explicitly asks for a new one.** Editing any working document does not
 trigger packaging.
 
 ## Current theorem status
+
+The new [CHI-RATE-001 conditional-branch theorem](KRAKKEN_SECURITY_THEOREMS.md#chi-rate-001)
+proves that all 128 first-call Chi bytes plus **any five** second-call
+Chi bytes are jointly uniform for uniform 159-byte messages (and for
+the full 160-byte rate), under any fixed affine state offset. Every
+133-byte value has exactly `2^208` preimages in the 159-byte domain.
+This yields an exact truncated-differential product and strengthens the
+universal prescribed Chi1/XRBD1 difference bound to `2^-30`. It also
+gives a sharp `2^-384` maximum for masks on all 128 first-output
+bytes, over every message mask. Two source-pinned complete five-subset
+rank scans and separate audits support the finite obligation. These
+are **first-Chi checkpoints**; neither Pressure nor round two is
+covered. The earlier `DIFF-RATE-005` `2^-24` theorem remains valid but
+is numerically superseded in the same 159-byte checkpoint domain.
 
 The [LIN-RATE-004 nonlinear-Pressure bridge](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-004)
 now gives a **one-complete-round** quantitative linear theorem beyond
@@ -53,14 +68,15 @@ minimum four-cell support and exact local Chi DDT, this gives the
 [DIFF-RATE-005 global first-Chi concentration theorem](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-005):
 for every nonzero fixed valid-message difference, every prescribed
 full-state post-Chi1 (or post-XRBD1) difference has probability at most
-`2^-24` under a uniform message base. It is a **checkpoint** bound;
+`2^-24` under a uniform message base. `CHI-RATE-001` strengthens this
+to `2^-30` in the same domain. It is a **checkpoint** bound;
 Pressure and additional rounds remain open. The
 [DIFF-CHI-001 affine-fiber theorem](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-001) gives
 an exact rank count for prescribed first-Chi transitions whose active
 cells all have an active first S-box call. The next round-bound step is
 to count Pressure output transitions **conditioned on those actual
 message-base fibers** and sum over all Chi1 differences reaching a
-target. The checkpoint `2^-24` bound cannot be multiplied by a
+target. The checkpoint `2^-30` bound cannot be multiplied by a
 uniform-Pressure component bound or repeated across rounds.
 
 The [DIFF-RATE-004 full-block theorem](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-004)
@@ -128,7 +144,7 @@ gives eight-round total floors of 12 unrestricted, 15 for the precise
 bounds. Its parent `[1,1]` audit records no independent solver reruns; the
 working ledger now makes that evidence limit explicit.
 
-The review document states seven closed linear theorem classes, one
+The review document states several closed linear theorem classes, one
 closed algebraic-degree class, one local boomerang family, two
 defined differential exclusions, one exact six-difference
 first-Chi probability class, a rotational-symmetry exclusion,
