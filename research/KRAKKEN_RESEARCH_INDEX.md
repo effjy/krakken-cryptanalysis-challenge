@@ -21,6 +21,7 @@ existing results; refinements save to separate per-position files.
 | [Claims for review](KRAKKEN_CLAIMS_FOR_REVIEW.md) | Short, source-pinned statements suitable for independent cryptanalytic review | Only when a defined theorem class is closed and its certificates are ready |
 | [Truncated collision experiment](KRAKKEN_COLLISION_EXPERIMENT.md) | Reproducible reduced-round birthday screens and saved collision pairs | Empirical observations only; keep separate from theorem claims |
 | [Truncated differential screen](KRAKKEN_TRUNCATED_DIFFERENTIAL.md) | Fixed-difference one-byte and single-bit output projections through two rounds | Empirical observations only; follow up on any surviving bias |
+| [Attack-versus-round map](KRAKKEN_ATTACK_ROUND_MAP.md) | Strongest demonstrated structures, construction costs, exact boundaries, and open continuations across attack families | Update when a structure reaches a new complete-round or hash-reachable checkpoint |
 
 The [review bundle](../krakken_review_bundle/README.md) and
 [ZIP archive](../results/krakken_review_bundle.zip) are **frozen snapshots** of the
@@ -30,6 +31,18 @@ explicitly asks for a new one.** Editing any working document does not
 trigger packaging.
 
 ## Current theorem status
+
+The [DIFF-RATE-004 full-block theorem](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-004)
+extends the exact five-call first-Chi minimum to the **first unpadded
+160-byte absorb call**. The full rate adds two exceptional four-cell
+supports to the six in the 159-byte domain, but all eight require at
+least six calls by exact local DDT counts. A valid 160-byte message
+pair attains five calls, with original-C hash replay. The same `A≥5`
+floor holds at a later differing full block after an identical prefix;
+the ensuing padding call and differing earlier blocks are outside
+this theorem. The [attack-versus-round map](KRAKKEN_ATTACK_ROUND_MAP.md)
+now presents the strongest proved and observed reach of each studied
+family without converting them into an eight-round security margin.
 
 The new [BOOM-LOCAL-002 complete-class theorem](KRAKKEN_SECURITY_THEOREMS.md#boom-local-002)
 closes the local serial-Chi boomerang spectrum's perfect-pair question:
@@ -179,8 +192,8 @@ claims:
     exact Pressure LSB identities exclude **1,034,445** for every
     start-byte value and base. The [rank certificate](../results/krakken_pressure_lsb_endpoint_rank.json)
     enumerates the entire stated subclass. The full `[1,2]` question
-    remains open, and [Astra's optimized oracle](../astra/oracle_optimized.py)
-    already incorporates these LSB identities in its master model.
+    remains open, and [Astra's optimized oracle](../scripts/oracle_optimized.py)
+    incorporates these LSB identities in its master model.
     A new exact joint-two-bit Pressure screen completely accounts for
     the **8,128** endpoint site pairs at Chi1 post-byte position 0:
     3,872 excluded by LSB, **2,351 additionally excluded by carries**,
