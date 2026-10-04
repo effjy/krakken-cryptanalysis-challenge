@@ -27,6 +27,15 @@ remain in the original reports. The frozen bundle is not updated.
 - [rate_chi_component_rank_3_pure_replayed.json](../results/rate_chi_component_rank_3_pure_replayed.json) — present.
 - [sbox_walsh_certificate.json](../results/sbox_walsh_certificate.json) — present.
 
+## LIN-CHI-002
+
+[LIN-CHI-002](KRAKKEN_SECURITY_THEOREMS.md#lin-chi-002) — every four-component first-Chi input projection has rank 64; sharp mask maximum 2^-12.
+
+- [THEOREMS.md](../review_extensions_20261003/THEOREMS.md) — analytic proof and exact scope.
+- [preparation.json](../review_extensions_20261003/preparation.json), [full_rows.json](../review_extensions_20261003/full_rows.json), [projected_rows.bin](../review_extensions_20261003/projected_rows.bin) — source-pinned rank input certificate.
+- [rank_scan.c](../review_extensions_20261003/rank_scan.c), [rank_audit.c](../review_extensions_20261003/rank_audit.c), [rank4.out](../review_extensions_20261003/rank4.out), [rank4_audit.out](../review_extensions_20261003/rank4_audit.out) — two complete four-subset rank enumerations; both rerun in this pass.
+- [krakken_rank4_extension_audit.py](../scripts/krakken_rank4_extension_audit.py), [krakken_rank4_extension_audit.json](../results/krakken_rank4_extension_audit.json) — independent Python prefix/row reconstruction and local Walsh check.
+
 ## BOOM-LOCAL-001
 
 [BOOM-LOCAL-001](KRAKKEN_SECURITY_THEOREMS.md#boom-local-001) — Theorem proved: maximal local serial-Chi boomerang family
@@ -98,6 +107,22 @@ remain in the original reports. The frozen bundle is not updated.
 - [krakken_full_block_four_lines_audit.json](../results/krakken_full_block_four_lines_audit.json) — eight-line audit result.
 - [krakken_full_block_witness_audit.py](../scripts/krakken_full_block_witness_audit.py) — original-C replay of actual 160-byte hash messages.
 - [krakken_full_block_witness_audit.json](../results/krakken_full_block_witness_audit.json) — five-call attaining messages and full API digests.
+
+## DIFF-RATE-005
+
+[DIFF-RATE-005](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-005) — global prescribed-difference concentration at Chi1/XRBD1.
+
+- [THEOREMS.md](../review_extensions_20261003/THEOREMS.md) — local DDT lemma, four-cell factorization, conditioning and Pressure boundary.
+- [LIN-CHI-002](KRAKKEN_SECURITY_THEOREMS.md#lin-chi-002), [DIFF-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-001) — inherited four-cell base independence and minimum support.
+- [krakken_rank4_extension_audit.json](../results/krakken_rank4_extension_audit.json) — separate source S-box derivative and projection-row checks.
+
+## DIFF-CHI-001
+
+[DIFF-CHI-001](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-001) — affine active-first-call transition fibers and exact hash-base rank count.
+
+- [THEOREMS.md](../review_extensions_20261003/THEOREMS.md) — analytic fiber argument and boundaries.
+- [local_fibers.py](../review_extensions_20261003/local_fibers.py), [local_fibers.json](../review_extensions_20261003/local_fibers.json) — derivative-fiber exhaustion, 128 local direct transition checks, original-C representatives.
+- [krakken_rank4_extension_audit.json](../results/krakken_rank4_extension_audit.json) — separately reproduced derivative histogram.
 
 ## BOOM-ROUND-001
 
