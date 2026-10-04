@@ -139,6 +139,23 @@ remain in the original reports. The frozen bundle is not updated.
 - [local_fibers.py](../review_extensions_20261003/local_fibers.py), [local_fibers.json](../review_extensions_20261003/local_fibers.json) — derivative-fiber exhaustion, 128 local direct transition checks, original-C representatives.
 - [krakken_rank4_extension_audit.json](../results/krakken_rank4_extension_audit.json) — separately reproduced derivative histogram.
 
+## DIFF-CHI-002
+
+[DIFF-CHI-002](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-002) — exact unrestricted local serial-Chi maximum-DP trichotomy and unique maximizers.
+
+- [NEW.md](../NEW.md) — provisional candidate and motivating classification; proof status is in the ledger.
+- [krakken_serial_chi_differential_trichotomy.py](../scripts/krakken_serial_chi_differential_trichotomy.py), [krakken_serial_chi_differential_trichotomy.json](../results/krakken_serial_chi_differential_trichotomy.json) — pinned source DDT, complete 65,535-difference/maximizer enumeration and 63 original-C transition replays.
+- [krakken_serial_chi_differential_trichotomy_audit.c](../scripts/krakken_serial_chi_differential_trichotomy_audit.c), [krakken_serial_chi_differential_trichotomy_audit.json](../results/krakken_serial_chi_differential_trichotomy_audit.json) — separate complete C DDT/maximizer recount.
+
+## DL-LOCAL-001
+
+[DL-LOCAL-001](KRAKKEN_SECURITY_THEOREMS.md#dl-local-001) — complete perfect local serial-Chi differential-linear class and conservative bound elsewhere.
+
+- [NEW.md](../NEW.md) — provisional candidate; precise proof and bound are in the ledger.
+- [krakken_serial_chi_dlct.py](../scripts/krakken_serial_chi_dlct.py), [krakken_serial_chi_dlct.json](../results/krakken_serial_chi_dlct.json) — complete source S-box ACT, 128 direct exhaustive local-formula checks and analytic class inputs.
+- [krakken_serial_chi_dlct_audit.c](../scripts/krakken_serial_chi_dlct_audit.c), [krakken_serial_chi_dlct_audit.json](../results/krakken_serial_chi_dlct_audit.json) — separate complete byte-ACT histogram/max audit.
+- [DIFF-CHI-002](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-002) — inherited original-C local-map transition replays.
+
 ## BOOM-ROUND-001
 
 [BOOM-ROUND-001](KRAKKEN_SECURITY_THEOREMS.md#boom-round-001) — Theorem proved: four defined boomerang classes do not cross Chi2
