@@ -255,6 +255,23 @@ remain in the original reports. The frozen bundle is not updated.
 - [krakken_rotational_decomposition.py](../scripts/krakken_rotational_decomposition.py) — present.
 - [krakken_rotational_decomposition_validated.json](../results/krakken_rotational_decomposition_validated.json) — present.
 
+## LIN-THETA-001
+
+[LIN-THETA-001](KRAKKEN_SECURITY_THEOREMS.md#lin-theta-001) — exact fixed-space dimension, image rank, and cycle decomposition of the current scalar Theta layer alone.
+
+- [krakken_theta_fixed_space.py](../scripts/krakken_theta_fixed_space.py) — source-pinned original-C 2048-column matrix and explicit-basis producer.
+- [krakken_theta_fixed_space.matrix.bin](../results/krakken_theta_fixed_space.matrix.bin) — exact 2048×2048 GF(2) map, encoded as 2048 little-endian 256-byte output columns.
+- [krakken_theta_fixed_space.basis.bin](../results/krakken_theta_fixed_space.basis.bin) — explicit 1544-vector fixed-state basis, 256 little-endian bytes per vector.
+- [krakken_theta_fixed_space.json](../results/krakken_theta_fixed_space.json) — source/matrix/basis hashes, all-basis C checks and 16 explicit non-fixed C two-cycle witnesses.
+- [krakken_theta_fixed_space_audit.py](../scripts/krakken_theta_fixed_space_audit.py), [krakken_theta_fixed_space_audit.json](../results/krakken_theta_fixed_space_audit.json) — independent pure-Python reconstruction of every column and basis vector with opposite-pivot rank checks.
+
+To reproduce without overwriting the saved artifacts:
+
+```bash
+/home/user/venv/krakken/bin/python scripts/krakken_theta_fixed_space.py --output-prefix /tmp/krakken_theta_replay
+/home/user/venv/krakken/bin/python scripts/krakken_theta_fixed_space_audit.py --input-prefix /tmp/krakken_theta_replay --output /tmp/krakken_theta_replay_audit.json
+```
+
 ## DL-001
 
 [DL-001](KRAKKEN_SECURITY_THEOREMS.md#dl-001) — Theorem proved: complete one-round differential-linear mask class
