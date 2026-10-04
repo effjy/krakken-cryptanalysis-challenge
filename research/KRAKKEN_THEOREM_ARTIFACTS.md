@@ -305,6 +305,16 @@ remain in the original reports. The frozen bundle is not updated.
 - [hash_round1_pressure_affine_48_validated_v3.json](../results/hash_round1_pressure_affine_48_validated_v3.json) — present.
 - [hash_round1_pressure_affine_AC_pairs_validated.json](../results/hash_round1_pressure_affine_AC_pairs_validated.json) — present.
 
+## LIN-RATE-004
+
+[LIN-RATE-004](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-004) — Complete-first-round eight-bit nonlinear-Pressure bridge and affine-conditioned output-distribution bound.
+
+- [RESULTS.md](../RESULTS.md) — full analytic proof, certificate obligations, assumptions, and limitations.
+- [pressure_bridge.py](../discovery/pressure_bridge.py) — source-pinned producer; fresh replay saved to a separate temporary path was byte-identical.
+- [pressure_bridge_k4_pilot.json](../discovery/pressure_bridge_k4_pilot.json) — complete 4-bit chain certificate, including all 255 chain-1 rational bounds.
+- [pressure_bridge_audit.py](../discovery/pressure_bridge_audit.py) — separately implemented rank, Walsh, XRBD, and original-C output audit.
+- [pressure_bridge_k4_audit.json](../discovery/pressure_bridge_k4_audit.json) — PASS report; fresh audit replay was byte-identical.
+
 ## ALG-DEG-001
 
 [ALG-DEG-001](KRAKKEN_SECURITY_THEOREMS.md#alg-deg-001) — Theorem proved: valid-message coordinate-degree map through eight rounds
