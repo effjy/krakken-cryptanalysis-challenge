@@ -49,6 +49,7 @@ little-endian C execution used by the certificates.
 | **PROVED — COMPLETE DEFINED CLASS** | `A1=1` forces all 16 Pressure chains active after XRBD | Every one-byte post-Chi1 position/value difference, all unrestricted base states; 65,280 original-C/Python XRBD cases |
 | **PROVED — COMPLETE DEFINED SITE CLASS** | All 2,080,768 `[1,2]` sites with two distinct second-branch Chi2 calls excluded | All 256 single-byte post-Chi1 start locations and every pair of distinct second-branch Chi2 calls; bit-zero through five-bit Pressure constraints |
 | **PROVED — COMPLETE DEFINED SITE CLASS** | All 32,768 `[1,2]` same-spatial-pair Chi2 sites excluded | All 256 single-byte post-Chi1 start locations and all 128 spatial pairs; one first-branch and its paired second-branch call |
+| **PROVED — COMPLETE DEFINED SITE CLASS** | All 2,080,768 distinct-AA `[1,2]` sites excluded | All 256 single-byte post-Chi1 start locations and every pair of distinct first-branch Chi2 calls; low-bit Pressure exclusions and refinement |
 | **PROVED — FIXED-START DEFINED SUBCLASS** | 2,351 additional `[1,2]` site-pair exclusions from exact two-bit Pressure carries | Chi1 post-byte location 0; all 8,128 pairs of distinct second-call Chi2 cells classified; 3,872 LSB and 2,351 additional pairs excluded, 1,905 unresolved by this screen |
 | **PROVED — COMPLETE DEFINED CLASS** | No lane-rotation covariance up to fixed XOR offset | Every nonzero uniform lane rotation and rounds 1–8, with and without round constants; unrestricted state input |
 | **PROVED — THETA-ONLY STRUCTURAL CLASS** | Exact fixed-space dimension 1544, rank(Theta−I)=504, and all non-fixed states in 2-cycles | Every unrestricted 2048-bit state of the current scalar Theta layer alone; no full-round implication |
@@ -581,9 +582,9 @@ UNSAT results have complete source-pinned per-site records and a
 reproducible producer, but no second full independent recount yet.
 
 **Scope:** this closes the BB class only: exactly two second-branch
-Chi2 calls at distinct sites. The same-spatial-pair class is closed
-separately below. `AA` and mixed `AB/BA` remain open, as does full
-`[1,2]` exclusion.
+Chi2 calls at distinct sites. The same-spatial-pair and distinct-AA
+classes are closed separately below. Distinct mixed `AB/BA` remain
+open, as does full `[1,2]` exclusion.
 
 ## PROVED — COMPLETE DEFINED SITE CLASS: all same-spatial-pair `[1,2]` sites excluded
 
@@ -608,7 +609,25 @@ against original-C Pressure transitions. Every position's source
 hash, 128 unique site indices, and aggregate count were checked.
 The 32,001 three-bit UNSAT cases have not had a second full
 independent recount. This verification boundary should be considered
-in external review. AA and mixed AB/BA classes remain open.
+in external review. Distinct AA is closed separately; mixed AB/BA
+classes remain open.
+
+## PROVED — COMPLETE DEFINED SITE CLASS: all distinct-AA `[1,2]` sites excluded
+
+For every one of 256 single-byte post-Chi1 start locations and every
+pair of distinct first-branch Chi2 calls, the source-pinned
+[split-site scan](../scripts/krakken_12_remaining_split.py) excludes
+395,109 sites by exact bit-zero Pressure constraints and 1,670,915
+more by exact joint three-bit constraints. All 14,744 relaxed-SAT
+cases are UNSAT under the [refinement](../scripts/krakken_12_refine_position.py):
+12,823 at four bits and 1,921 at five bits. Thus all 2,080,768
+named sites are excluded under a sound low-bit relaxation, for all
+nonzero difference bytes and unrestricted bases. The
+[coverage audit](../results/krakken_12_aa_closure_audit.json) checks
+every saved report and refinement against the pinned C/header hashes.
+It does **not** independently recount the solver UNSAT results.
+The full unrestricted `[1,2]` exclusion remains open: distinct mixed
+AB is being scanned, and distinct mixed BA is not yet closed.
 
 ## PROVED — FIXED-START SUBCLASS: exact two-bit carries add 2,351 exclusions
 
