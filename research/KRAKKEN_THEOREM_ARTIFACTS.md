@@ -241,6 +241,16 @@ remain in the original reports. The frozen bundle is not updated.
 - [krakken_12_remaining_split_results](../results/krakken_12_remaining_split_results) — present.
 - [krakken_12_same_refinement.json](../results/krakken_12_same_refinement.json) — present.
 
+## DIFF-12-006
+
+[DIFF-12-006](KRAKKEN_SECURITY_THEOREMS.md#diff-12-006) — Complete distinct-AA `[1,2]` endpoint exclusion.
+
+- [krakken_12_remaining_split.py](../scripts/krakken_12_remaining_split.py) — source-pinned split-site producer.
+- [krakken_12_remaining_split_results](../results/krakken_12_remaining_split_results) — 256 AA position reports.
+- [krakken_12_refine_position.py](../scripts/krakken_12_refine_position.py) — low-four/five-bit relaxed-SAT refinement.
+- [krakken_12_aa_closure_audit.py](../scripts/krakken_12_aa_closure_audit.py) — complete saved-result coverage and integrity audit; not an independent solver recount.
+- [krakken_12_aa_closure_audit.json](../results/krakken_12_aa_closure_audit.json) — source pins, per-file hashes, and final counts.
+
 ## ROT-001
 
 [ROT-001](KRAKKEN_SECURITY_THEOREMS.md#rot-001) — Theorem proved: no exact lane-rotation covariance through eight rounds
