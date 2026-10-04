@@ -39,7 +39,8 @@ little-endian C execution used by the certificates.
 | **PROVED — GLOBAL FIRST-BLOCK CLASS** | Exact `min A1 = 5` for valid 159-byte messages | Every nonzero first-absorb message difference and every base; one valid pair attains `A1=5` |
 | **PROVED — GLOBAL FIRST-FULL-BLOCK CLASS** | Exact `min A = 5` at the first unpadded 160-byte absorb | Every nonzero full-block message difference and every base; common-prefix later full-block floor `A≥5` |
 | **PROVED — COMPLETE SIX-DIFFERENCE CLASS** | Exact first-Chi activity law and sharp `2^-38` maximum single-output probability | Each of the six rate-reachable four-cell input-difference lines, over every valid 159-byte base message |
-| **PROVED — GLOBAL FIRST-CHI CHECKPOINT** | Any prescribed post-Chi1 or post-XRBD1 full-state difference has probability at most `2^-24` | Every fixed nonzero valid 159-byte message difference; uniform message base; sharpness open |
+| **PROVED — GLOBAL FIRST-CHI CHECKPOINT** | Any prescribed post-Chi1 or post-XRBD1 full-state difference has probability at most `2^-24` by DIFF-RATE-005; strengthened to `2^-30` by CHI-RATE-001 | Every fixed nonzero valid 159-byte message difference; uniform message base; sharpness of the stronger bound open |
+| **PROVED — COMPLETE CONDITIONAL CHI CLASS** | All 128 first-call bytes plus any five second-call bytes are jointly uniform; exact truncated-differential product; sharp first-only mask maximum `2^-3t` for `t≤128` | Uniform 159-/160-byte rate message, arbitrary fixed affine offset; Chi1/XRBD1 checkpoint only; at most five masked second-output bytes |
 | **PROVED — ACTIVE-FIRST-CALL CHI CLASS** | Every prescribed local transition fiber is affine; consistent hash-level event has exact probability `2^-rank` | Local components with active first S-box call; whole first-Chi transition if all nonzero components meet that condition |
 | **PROVED — CONDITIONAL HASH-REACHABLE CLASS** | `A1=5` forces `A2>=3` for each of three fixed valid message differences | Every valid 159-byte base message attaining five Chi1 calls for one of the three selected differences; all 8,128 two-cell Chi2 supports per difference excluded by exact Pressure constraints |
 | **PROVED — GLOBAL TWO-ROUND CLASS** | `[1,1]` differential trails impossible | Every nonzero unrestricted input difference and base state; total active calls over two rounds at least 3 |
@@ -370,6 +371,39 @@ stronger sharp `2^-38` single-output bound. The universal `2^-24`
 bound is **not claimed sharp** and does not extend through nonlinear
 Pressure by bijectivity alone. See
 [DIFF-RATE-005](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-005).
+
+The independent conditional-branch theorem below improves this
+numerical bound to `2^-30` for the same uniform 159-byte domain. The
+original four-cell proof remains valid and retains its permanent ID.
+
+## PROVED — COMPLETE CONDITIONAL CHI CLASS: 133-byte independence
+
+For every fixed affine state offset, uniform valid 159-byte messages
+make **all 128 first-call Chi inputs and any five selected second-call
+inputs jointly uniform**. The corresponding output bytes are jointly
+uniform too. Every prescribed 133-byte output tuple has exactly
+`2^208` valid-message preimages. The same joint-uniformity theorem
+holds for a uniform full 160-byte rate, with `2^216` preimages per
+133-byte tuple.
+
+For every nonzero rate-message difference, the theorem gives an exact
+product formula for all first-output difference bytes and any five
+selected second-output difference bytes. With the inherited five-call
+minimum and the source S-box DDT bound, **every prescribed full
+Chi1/XRBD1 difference has probability at most `2^-30`** under the
+uniform message base. The result also gives exact maximum linear
+correlations for masks on all first-output bytes plus at most five
+second-output bytes; a mask on `t` first-output bytes alone has sharp
+maximum `2^(-3t)`, including `2^-384` at `t=128`.
+
+The finite obligation was exhausted twice over all `264,566,400`
+five-cell selections, with every projected exception resolved on
+full rows. Separate source-pinned prefix reconstruction and 32
+original-C constructed-message replays audit the implementation.
+These are first-Chi/XRBD checkpoints, not complete-round or digest
+claims. See [CHI-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#chi-rate-001),
+the [full derivation](../RESULTS2.md), and the
+[certificate chain](KRAKKEN_THEOREM_ARTIFACTS.md#chi-rate-001).
 
 ## PROVED — ACTIVE-FIRST-CALL CHI CLASS: affine transition fibers
 
@@ -964,410 +998,3 @@ records with 84 newly computed higher-weight records, **31**
 independent rate-projection rank checks, ten direct full-`2^16` local
 Chi Walsh checks, and three original-C parity checks per new mask.
 It also verifies that the 31 output masks are distinct. The proof is
-the pointwise identities and exact affine-image inequality; the C
-checks validate the mask transport and implementation.
-
-Let `X(m)` be the five output parities selected by the generators of
-`V`. For any affine message subspace `H` of codimension `d`, with `m`
-uniform on `H`, its nonzero conditional Fourier coefficients are
-signed sums of `2^d` correlations already bounded above. Parseval
-and Cauchy–Schwarz give the complete five-bit distribution bound
-
-`TV(Law(X(m) | m∈H), Uniform({0,1}^5)) ≤ (sqrt(31)/2)·2^(d-162) < 2^(d-160)`.
-
-In particular, after **any 128 independent linear message
-constraints**, the five selected first-round output parities are
-within `2^-32` of uniform. This is a corollary of the proved all-mask
-bound, not an additional sampling claim.
-
-This is a **complete five-dimensional output-mask class**, not a
-claim about arbitrary 2048-bit output masks or later rounds. The
-`2^-162` ceiling is an upper bound, with no assertion of attainment.
-
-## PROVED — COMPLETE DEFINED CLASS: a 63-mask first-round output subspace
-
-Let `W` be the six-dimensional GF(2) subspace generated by
-
-`beta_(0,0), beta_(1,0), beta_(2,0), beta_(4,0), beta_(5,0), beta_(6,0)`.
-
-The `beta_(c,h)` masks are defined in the preceding first-round
-theorem. These six generators are independent, so `W` contains 63
-nonzero output masks. For **every** `beta∈W\{0}` and every
-`alpha∈GF(2)^1272`, under uniform valid 159-byte first-block
-messages,
-
-`|Corr(alpha·m, beta·F_1(m))| ≤ 2^-76`.
-
-**Proof.** The six exact Pressure identities combine pointwise for
-every nonempty generator subset. The same affine suffix, XRBD
-transpose, and rate-aware Chi affine-image inequality used above
-therefore apply to each of the 63 masks. The
-[subspace verifier](../scripts/krakken_hash_round1_affine_subspace.py) checks all
-63 exact integer inequalities; the weakest calculated ceilings are
-for generator-index subsets `{2,8}` and `{0,2,8}`, where
-`index=2c+h`. The [source-pinned certificate](../results/hash_round1_AC_coordinate_subspaces_76_validated_v2.json)
-combines the previously certified single- and pair-mask records with
-401 newly computed higher-weight records from the full coordinate
-search. It verifies all 63 output masks are distinct, recomputes
-**all 63** selected rate-projection ranks independently, checks ten
-local maxima by direct full-`2^16` Chi Walsh transforms, and replays
-each new higher-weight mask three times through original C. The
-pointwise identities and affine-image inequality prove the bound;
-the independent calculations and C replays validate its certificate.
-
-There is also a **six-bit distribution corollary**. Let `Y(m)` be the
-six output parities selected by the displayed generators. Every
-nonzero Fourier coefficient of `Y(m)` is at most `2^-76` in absolute
-value. Parseval and Cauchy–Schwarz therefore give
-
-`TV(Law(Y(m)), Uniform({0,1}^6)) ≤ (sqrt(63)/2)·2^-76 < 2^-74`.
-
-The all-message-mask quantifier gives a stronger conditional form.
-Let `H` be **any nonempty affine subspace** of the 1272-bit message
-space with codimension `d`, and draw `m` uniformly from `H`. Expanding
-the indicator of `H` in its `2^d` linear characters bounds each
-nonzero Fourier coefficient of `Y|H` by `2^d·2^-76`. The same
-Parseval argument gives
-
-`TV(Law(Y(m) | m∈H), Uniform({0,1}^6)) ≤ (sqrt(63)/2)·2^(d-76) < 2^(d-74)`.
-
-For example, after imposing **any 64 independent linear constraints**
-on the message, the six output parities remain within `2^-10` of
-uniform. These bounds cover every statistical test on the selected
-six-bit output projection under the stated uniform input domains.
-They concern **one**
-round and this projection, not arbitrary output masks, later rounds,
-or collision/preimage security. Neither the `2^-76` correlation
-ceiling nor the distribution bound is claimed to be sharp.
-
-## PROVED — COMPLETE DEFINED CLASS: LIN-RATE-004 eight-bit nonlinear-Pressure bridge after one round
-
-Let `P_1` be the first complete scalar round. For any fixed 2048-bit
-state `x_*`, vary all 1272 bits of a valid 159-byte message through
-the embedding `J`, and extract from `P_1(x_* XOR Jm)` lane 7 bits
-18–21 and lane 21 bits 30–33. For **every** message mask and **every**
-nonzero mask on these eight output bits, the absolute correlation is
-at most `2^-246`. This includes 252 output masks that depend
-nonlinearly on Pressure carries. No uniform-Pressure-input assumption
-is used.
-
-The proof expands **all** terms of the exact 12-input-bit Pressure
-spectrum, pulls each mask backward through XRBD, and applies an
-effective-coordinate affine-image bound to the actual message
-distribution. The [complete certificate](../discovery/pressure_bridge_k4_pilot.json)
-contains all 255 output-mask bounds and 1,375 contributing input
-masks; its largest upper bound is at output mask `0x94` and is below
-`2^-246`. The [separate audit](../discovery/pressure_bridge_k4_audit.json)
-recomputes spectra, ranks and rational inequalities and checks
-original-C output-bit transport. Fresh producer and audit replays were
-byte-identical to both saved artifacts. The
-[full proof](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-004) states the
-analytic lemma and source-pinned finite obligations.
-
-For any affine message subspace of codimension `d`, the eight-bit
-projection has total-variation distance at most
-`min(1,sqrt(255)/2·2^(d-246))` from uniform. In particular, any
-128 independent affine constraints leave it within `2^-115`.
-The eight coordinates lie outside the first 256 digest bits. This
-does not bound other output masks, later rounds, or hash collision
-and preimage attacks; `2^-246` is an upper bound, not a sharp
-correlation or security-bit estimate.
-
-## PROVED — COMPLETE DEFINED CLASS: valid-message algebraic degree through eight rounds
-
-Here degree means algebraic normal-form degree as a Boolean function
-of the **1272 free bits of a valid 159-byte message**, with the `0x86`
-pad byte and initial capacity fixed. Let `F_r(m)` be the complete
-2048-bit state after `r` rounds. For every `r=1,...,8`, define its
-first-32-byte projection as the reduced-round digest projection; only
-`r=8` is the deployed one-block digest.
-
-The [source-pinned audit](../results/degree_multiround_claims_audit.json) certifies:
-
-| Output class | Proved coordinate degree |
-|---|---:|
-| 32 shuffled Pressure-output LSB bits of `F_1` | **exactly 13**, each |
-| Other 2016 bits of `F_1` | **at least 20**, each |
-| All 2048 bits of each `F_r`, `r=2,...,8` | **at least 20**, each |
-| First-32-byte projection of each `F_r`, `r=1,...,8` | vectorial degree **at least 24** |
-
-The 32 exact-degree bits are, for every chain `c=0,...,7` and half
-`h=0,1`, the shuffled outputs of `A[0]` and `C[0]` from Pressure
-lanes `i=4c+h` and `j=i+2`. Their state-bit indices are
-`64*((7i) mod 32)+11+7h` and `64*((7j) mod 32)+11+19h`.
-Four of these land in the 32-byte projection, at bit indices
-`11,94,139,210`.
-
-**Upper-bound proof for those 32 bits.** Exhaustive ANF calculation
-over all `2^16` inputs of the two-byte serial-Chi component gives
-degree 7 for each first-output-byte coordinate and 13 for each
-second-output-byte coordinate. The preceding first-round layers are
-affine in message bits, XRBD is linear, and Pressure's bit-zero
-identities are carry-free:
-
-`A[0]=a[0] XOR c[0] XOR c[17]`, `C[0]=a[0] XOR c[17]`.
-
-The round constant and final shuffle are affine. Thus all 32
-specified output bits have degree at most 13. The
-[serial-Chi degree certificate](../results/serial_chi_16bit_degree_validated.json)
-and [C mask-layout audit](../results/degree_hash_round1_lowbits_mapping_validated.json)
-record the local ANF degrees and carry-free identities.
-
-**Attaining and lower-bound certificates.** Eight 13-dimensional
-valid-message cubes were evaluated; seven attaining witnesses give a
-nonzero derivative for **each** of the 32 bits. Every attaining cube
-was replayed completely through original
-C, proving their lower bound 13. The
-[32-bit certificate](../results/degree_round1_pressure_lsb_all32_exact13_validated.json)
-records the base messages, independent direction vectors, and full
-derivatives. Twelve 20-dimensional coordinate cubes plus seven
-20-dimensional dense-direction cubes cover the other 2016 bits of
-`F_1` and all 2048 bits of each `F_2,...,F_8`. Their
-[baseline](../results/degree_hash_digest_allcoords_d20_validated_v2.json) and
-[completion certificate](../results/degree_fullstate_allcoords_d20_validated.json)
-record a nonzero order-20 derivative for every claimed coordinate.
-One 24-dimensional valid-message cube gives a nonzero derivative in
-the first 32 bytes after **each** round; its
-[certificate](../results/degree_hash_cube24_validated_v3.json) proves the
-vectorial lower bound 24 for every reduced-round projection.
-
-The large-cube evaluator replaces the source's constant-time S-box
-loop with the same 256-entry byte table. This is an exact
-implementation substitution: the original per-byte equality mask
-selects exactly the table entry whose index equals the input byte,
-without inter-byte carry. The helper checks 256 Chi states and 16
-eight-round states against original C; full smaller cubes are also
-cross-checked against original C. The
-[combined audit](../scripts/krakken_degree_multiround_audit.py) verifies source
-hashes, independent cube directions, stored nonzero derivatives,
-and complete coordinate coverage. Full replay of a large cube is
-available with the producing scripts.
-
-**Interpretation.** The exact-degree-13 class yields genuine
-first-round higher-order integral structure: every order-14
-derivative of those 32 bits is zero. The degree-20 and degree-24
-lower bounds rule out globally lower-degree Boolean coordinates in
-their stated classes. They do not rule out selected-cube integrals,
-other distinguishers, or attacks on the eight-round hash.
-
-## PROVED — DEFINED UNRESTRICTED ZERO-SUM CLASS: a four-state square loses all perfect output balances by round two
-
-Fix the serial-Chi component square `01d6, 01d7, 0404, 0405`, whose
-input XOR and output XOR both equal zero. Embed it at one serial-Chi
-byte cell, hold every other pre-Chi component at an arbitrary common
-background, and invert the linear round prefix. The resulting four
-unrestricted permutation inputs XOR to zero. Their post-Chi and
-post-XRBD full states XOR to zero. The 32 shuffled Pressure-output
-affine coordinates XOR to zero after one complete round for **every**
-background. Thus the one-round projected zero sum is exact.
-
-At each of the **128** byte cells, at most **18** original-C
-background witnesses suffice to show that no individual output bit
-is balanced for every background after two complete rounds. At the
-representative cell `(0,0,0)`, **2052** backgrounds give 2048
-linearly independent two-round four-state XOR sums. It follows that
-**no nonzero 2048-bit output mask** is balanced for every background
-in that representative family at round two. This is a finite
-certificate for a universal exclusion over the defined family, not
-a random-sampling inference.
-
-The [all-cell certificate](../results/krakken_zero_sum_allcells_validated.json),
-[full-rank certificate](../results/krakken_zero_sum_square_validated.json), and
-[independent C replay](../results/krakken_zero_sum_square_audit_validated.json)
-pin the C source, specify all deterministic inputs, and validate
-the round-two result. The [theorem program](KRAKKEN_SECURITY_THEOREMS.md)
-states the construction and proof. The class uses unrestricted states;
-its reachability from a valid padded message has not been established.
-The result does not exclude other two-round or higher-order zero sums.
-
-## PROVED — HASH-REACHABLE ZERO-SUM CLASS: 14-cube boundary and fixed-cube round-two exclusion
-
-For every affine cube of **at least 14 independent directions** in
-the valid 159-byte first-block message domain, the XOR of all
-2048-bit states is zero after Chi1 and after XRBD1. Every serial-Chi
-output coordinate has degree at most 13 in its 16-bit input; the
-pre-Chi mapping is affine in the message, and XRBD is linear. The
-same argument plus Pressure's 32 exact affine output bits proves
-that those 32 shuffled state coordinates are balanced after one
-complete round for every such cube.
-
-The **dimension-14 guarantee is sharp** at those internal
-checkpoints. The rate-to-one-Chi-component projection has full rank
-16, so 13 valid-message directions can be chosen to isolate a
-nonzero degree-13 ANF monomial in the second Chi output byte. Their
-13th derivative is one for every base. The
-[source-pinned 13-cube witness](../results/krakken_hash_chi_cube_threshold_validated.json)
-records the explicit directions and nonzero full-state sums after
-Chi1 and XRBD1; an
-[independent original-C audit](../results/krakken_hash_chi_cube_threshold_audit_validated.json)
-replayed all 8192 messages. Thus the all-cube full-state zero-sum
-statement holds for every dimension `d>=14` and fails at `d=13`.
-
-Fix the 14 coordinate directions at message bit indices `0..13`.
-Among all base messages, **exactly those 32** coordinates have a
-universal one-round balance; **no** coordinate has a universal
-two-round balance. Eleven source-pinned base messages are enough to
-make each of the other 2016 one-round coordinates and each of the
-2048 two-round coordinates nonzero in at least one complete-cube
-XOR sum. The [certificate](../results/krakken_hash_zero_sum_14cube_validated.json)
-stores every base and full-state sum. The
-[independent original-C replay](../results/krakken_hash_zero_sum_14cube_audit_validated.json)
-checked all 180,224 cube vertices through both round counts and
-verified a complete post-Chi/post-XRBD zero sum. The
-[exact Chi ANF certificate](../results/serial_chi_16bit_degree_validated.json)
-supplies the algebraic bound.
-
-The all-cube checkpoint theorem and fixed-direction complete-round
-theorem have different quantifiers. The round-two exclusion applies
-to **coordinate bits of this one fixed direction set**; it does not
-exclude all possible integrals or non-coordinate masks.
-
-## PROVED — COMPLETE HASH-MESSAGE BYTE-CUBE CLASS: round-two coordinate exclusion
-
-For every byte position `p=0,...,158` and output-state bit
-`j=0,...,2047`, there is a valid 159-byte base message such that
-varying byte `p` through all 256 values gives a **nonzero** XOR sum
-at bit `j` after two complete rounds. Hence no coordinate bit is
-balanced for every base in any of the 159 one-byte coordinate-cube
-families. The [certificate](../results/krakken_byte_cube_all159_validated.json)
-stores 1,946 explicit base cubes, with at most 18 needed for any one
-position. An [independent original-C audit](../results/krakken_byte_cube_all159_audit_validated.json)
-replayed all 498,176 valid-message vertices through rounds one and
-two and matched every 2048-bit sum. The finite witnesses jointly
-cover all 325,632 position/output-coordinate targets; they do not
-classify other cube directions or non-coordinate output masks.
-
-For the **first-byte** cube, a stronger
-[full-rank certificate](../results/krakken_byte_cube_rank_p0_validated.json)
-gives 2,048 round-two cube sums with GF(2) rank 2,048. Hence every
-nonzero full-state output mask has a nonzero cube sum at some valid
-base: no linear output mask is universally balanced in this one
-fixed direction family after round two. An
-[independent original-C audit](../results/krakken_byte_cube_rank_p0_audit_validated.json)
-replayed the 524,288 selected valid-message vertices, matched both
-round sums, and recovered full rank with the opposite pivot order.
-This stronger all-mask statement is proved for byte position zero,
-not for all 159 positions.
-
-The new [from-scratch exact local division model](../scripts/krakken_division_exact_byte0.py)
-closes the **round-one side** too. For the fixed first-byte cube, the
-space of full-state linear output masks balanced for every valid base
-has **exact dimension seven after one round and zero after two**.
-For round one, exhaustive eighth derivatives of all 128 serial-Chi
-cells over their complete 16-bit local domains, followed by exact
-affine mask propagation through XRBD and Pressure's 32 carry-free
-output bits, construct seven independent universally balanced masks.
-The saved original-C cube sums have rank 2041 at round one, proving
-there cannot be an eighth; their rank 2048 at round two excludes every
-nonzero mask there. The [local certificate](../results/krakken_division_exact_byte0_validated.json)
-contains the seven explicit masks. An [independent audit](../results/krakken_division_exact_byte0_audit_validated.json)
-recomputed all local derivatives and both ranks, and checked the Chi
-formula against original C. This transition is exact for the stated
-cube family; other directions and nonlinear output predicates are
-outside its scope.
-
-## PROVED — COMPLETE DEFINED SUBSPACE CLASS: maximal hull after Chi1
-
-For each of the 159 message-byte coordinate subspaces, evaluate all
-256 valid padded messages with every other message byte zero. Their
-2,048-bit state images have affine-hull dimension **8 before Chi1**
-and the maximum possible dimension **255 immediately after Chi1**.
-The rank remains 255 after complete rounds one and two. The
-[original-C certificate](../results/krakken_subspace_byte_hull_validated.json)
-covers all positions and ten checkpoints; an
-[independent original-C audit](../results/krakken_subspace_byte_hull_audit_validated.json)
-replayed all 40,704 messages with reversed enumeration, a different
-affine origin, and opposite pivot order. Thus none of these byte
-subspace families can map **every coset** into an affine output space
-of dimension at most 254 at those checkpoints: its zero-base coset
-already has rank 255. This is a complete exclusion for that
-low-dimension trail class, not a claim about other input subspaces,
-special bases, or distinguishing advantage.
-
-## PROVED — COMPLETE THETA-CANCELLING SUBSPACE FAMILY: Pressure1 closes the hull
-
-Restrict valid messages to the complete 16-bit plane in bytes 40 and
-56, all other message bytes zero. The 256 diagonal cosets
-`(m[40],m[56])=(delta XOR t,t)` cancel Theta parity in their varying
-directions. **Every** coset has post-Chi1 affine-hull rank below 255:
-two have rank 238, two rank 246, one rank 251, eleven rank 252,
-94 rank 253, and 146 rank 254. XRBD preserves these ranks because
-it is invertible linear. **Every** coset reaches the maximal rank
-255 after Pressure1 and retains it after complete rounds one and
-two. A controlled XRBD-off variant also reaches 255 at Pressure1
-in every coset. The [XRBD-on certificate](../results/krakken_subspace_theta_pair_cosets_validated.json)
-and [audit](../results/krakken_subspace_theta_pair_cosets_audit_validated.json),
-plus the [XRBD-off certificate](../results/krakken_subspace_theta_pair_noxrbd_validated.json)
-and [audit](../results/krakken_subspace_theta_pair_noxrbd_audit_validated.json),
-each cover all 65,536 valid messages in this defined two-byte plane.
-Thus Pressure1, rather than XRBD, is the first layer that closes
-this family's **low-rank affine-hull** structure. XRBD still expands
-its byte support substantially. Other message planes and
-255-dimensional output trails are not classified by this claim.
-
-## PROVED — REBOUND COMPONENT CLASS AND FIRST-BLOCK RATE GATE
-
-For one serial-Chi cell, a diagonal input byte difference `(d,d)`
-always cancels at the first S-box input. A prescribed second-output
-byte difference `eps` has exactly `256*DDT_S(d,eps)` matching local
-bases, at most **1,024 of 65,536** for this S-box. The selected
-`(d,eps)=(101,1)` transition attains 1,024. Every one of the
-`128*255=32,640` possible one-byte second-output differences
-activates **all 32 lanes and at least 48 bytes** after the current
-XRBD layer (maximum 196 bytes). The
-[inbound/XRBD certificate](../results/krakken_rebound_inbound_validated.json)
-and [independent original-C audit](../results/krakken_rebound_inbound_audit_validated.json)
-cover the complete stated component and support classes.
-
-In the **backward outbound**, the current linear prefix has full
-rank 2048, so each one-cell diagonal pre-Chi difference has a
-unique unrestricted permutation-input preimage. Across all
-`128*255=32,640` site/`d` cases, those input differences activate
-**all 32 lanes and 40–180 bytes**. The selected `(site,d)=((0,0,0),101)`
-preimage has 116 active bytes. The
-[inverse-prefix certificate](../results/krakken_rebound_backward_validated.json)
-and [independent original-C audit](../results/krakken_rebound_backward_audit_validated.json)
-recompute the full 2048-bit inverse and every support count.
-
-This inbound family is **unreachable from a nonzero valid first-block
-message difference when confined to one Chi cell**. The C-derived
-rate-to-pre-Chi map, projected outside either input byte of each
-cell, has full column rank `1272/1272` for **all 128 cells**.
-Serial Chi is cellwise bijective, giving the same exclusion for
-differences confined to one post-Chi output cell. The
-[rate-gate certificate](../results/krakken_rebound_rate_gate_validated.json)
-and [independent original-C rank replay](../results/krakken_rebound_rate_gate_audit_validated.json)
-give the complete first-block theorem. The local matching and
-outbound examples therefore concern unrestricted internal
-permutation states; multi-cell hash-reachable rebound structures
-remain open.
-
-## PROVED — COMPLETE FIRST-ORDER DEPENDENCY CLASS: both rounds
-
-For every message bit `i`, output bit `j`, and `r=1,2`, at least one
-valid base message satisfies `F_r(m)[j] != F_r(m XOR e_i)[j]`.
-The [certificate](../results/krakken_bit_dependency_all1272_validated.json)
-contains 16,946 base contexts, at most 21 for any input bit; an
-[independent original-C audit](../results/krakken_bit_dependency_all1272_audit_validated.json)
-verified all 67,784 complete-round evaluations and coverage. This
-is a structural dependency statement, not a quantitative avalanche
-bound. Its full coverage after round one means it does not single
-out round two as the first point of bitwise dependency.
-
-## OPEN: unrestricted complete-round linear-hull maximum
-
-For complete rounds, the desired theorem is a certified bound on
-`max_{alpha!=0,beta!=0} |Corr(alpha·m,beta·F_r(m))|` for each `r`,
-especially `r=8`. No useful numerical value has been proved for that
-unrestricted maximum.
-The one-round theorems above cover specified output masks, not this maximum.
-The exact rate-restricted hull is a signed sum over `2^776`
-full-state input masks for each `(alpha,beta)`; all intermediate
-round-mask paths are already contained within each term. Controlling
-that signed sum, including Pressure carries, is the outstanding task.
-The [theorem program](KRAKKEN_SECURITY_THEOREMS.md) gives the formula
-and the current mathematical obstruction.
-
-These statements are offered for review as claims about specified
-linear properties, not as collision-resistance, preimage-resistance,
-or 128-bit-security claims for the concrete hash.
