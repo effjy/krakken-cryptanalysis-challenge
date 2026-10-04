@@ -69,6 +69,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [DIFF-12-005](#diff-12-005) | Differential | P | 1→2 | Complete same-pair mixed class | All 32,768 sites excluded | A+S | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-12-005) | — | Stated class/checkpoint only |
 | [ROT-001](#rot-001) | Rotational | P | 1–8 | All nontrivial lane rotations; constants on/off | No universal affine covariance | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#rot-001) | — | Stated class/checkpoint only |
 | [ROT-002](#rot-002) | Rotational | P | 1 | Byte rotations 8,…,56 | Exact residual identity; uniform full-state scope | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#rot-002) | — | Stated class/checkpoint only |
+| [LIN-THETA-001](#lin-theta-001) | Linear-layer structure | P | Theta alone | Every 2048-bit state; complete fixed space and cycles | `dim Fix(Theta)=1544`, `rank(Theta−I)=504`; all others in 2-cycles | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-theta-001) | — | Supporting Theta-only classification; no full-round distinguisher |
 | [DL-001](#dl-001) | Differential-linear | P | 1 | 128 cells ×255 diagonal differences; 32D affine output space | Exact perfect-mask kernels of dimensions 26–29 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#dl-001) | — | Stated class/checkpoint only |
 | [DL-002](#dl-002) | Differential-linear | P | 2 | 128 fixed delta=1 differences; all output masks | No perfect output autocorrelation | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#dl-002) | — | Stated class/checkpoint only |
 | [DIFF-TRUNC-001](#diff-trunc-001) | Truncated differential | P | 1 | All 128 diagonal one-cell sites; every base and nonzero byte difference | Certified per-site zero-output-bit sets; selected site has 15 zero bytes | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-trunc-001) | — | Attack-side one-round structure; no R2 claim |
@@ -136,6 +137,7 @@ flowchart TD
   effective["Effective-coordinate affine-image lemma"] --> nonlinear["LIN-RATE-004: 8D nonlinear-Pressure bridge"]
   spectra4["Complete 4-bit Pressure slice spectra"] --> nonlinear
   image --> effective
+  thetaParity["Exact eight-column parity recurrence"] --> thetaFixed["LIN-THETA-001: fixed dimension 1544 / rank 504"]
   localboom["BOOM-LOCAL-001: local perfect family"] --> embed["BOOM-EMBED-001: embedding / rate gate"]
   localboom --> completeboom["BOOM-LOCAL-002: complete local BCT classification"]
   localboom --> roundboom["BOOM-ROUND-001: four defined continuation classes"]
@@ -1699,6 +1701,73 @@ identity for all seven rotations on 100 random states each. The
 identity does not apply unchanged to the restricted hash-message
 input distribution, and it makes no claim that a two-round residual
 has a useful bias.
+
+<a id="lin-theta-001"></a>
+## Theorem proved: exact Theta fixed space and two-cycle structure
+
+<!-- THEOREM METADATA LIN-THETA-001 -->
+**Permanent ID:** `LIN-THETA-001` · **Proof classification:** analytic proof plus finite exhaustive source-matrix/basis certificate. The separate Python reconstruction and original-C replays are independent implementation audits within this investigation; no external certificate reproduction is recorded.
+<!-- END THEOREM METADATA LIN-THETA-001 -->
+
+For the current scalar-source **Theta layer alone**, on all unrestricted
+2048-bit states, let `P_c` be the XOR of the four 64-bit lanes in
+column `c`, for `c=0,...,7`. The source applies the same correction
+`D_c=ROTR_1(P_(c-1)) XOR P_(c+1)` to all four lanes of column `c`
+(column indices modulo eight). Then
+
+`Theta^2=I`, `rank(Theta−I)=504`, and `dim Fix(Theta)=1544`.
+
+Consequently Theta has exactly `2^1544` fixed states; every other
+state lies on a **2-cycle**, and the number of nontrivial 2-cycles
+is `(2^2048−2^1544)/2`. These are layer-only facts. They do not
+assert a full-round invariant, distinguisher, hash weakness, or
+security-bit estimate.
+
+**Analytic proof.** XORing `D_c` into four lanes leaves `P_c`
+unchanged, so the next Theta application computes the same `D_c`
+and cancels it. A state is fixed iff every `D_c=0`, equivalently
+`P_(c+1)=ROTR_1(P_(c-1))`. The even and odd parity columns each
+form a four-word recurrence determined by one 64-bit seed invariant
+under `ROTR_4`. Such a word repeats a four-bit pattern sixteen
+times, so each parity-class seed has dimension four. The fixed
+parity tuples therefore have dimension eight. The map from state
+to its eight column parities is surjective with kernel dimension
+`8×3×64=1536`; its preimage of the fixed parity tuples has
+dimension `1536+8=1544`. Rank-nullity gives `rank(Theta−I)=504`.
+
+An **explicit basis** is the 1536 parity-zero vectors
+`e_(c,0,b) XOR e_(c,y,b)` for columns `c=0..7`, lanes `y=1..3`
+within a column and bits `b=0..63`, plus eight vectors obtained by
+choosing one of four repeated-nibble bits in the even or odd parity
+seed, generating that parity class by successive `ROTR_1`, and
+placing each resulting parity word in its column's first lane.
+The [complete 1544-vector binary basis](../results/krakken_theta_fixed_space.basis.bin)
+uses 256 little-endian bytes per state, in that order. This
+construction is independent: the first 1536 vectors have zero
+parity and the last eight project to a basis of the admissible
+parity tuples.
+
+**Finite source certificate and implementation audit.** The
+[original-C producer](../scripts/krakken_theta_fixed_space.py) calls
+the current `theta_scalar` on every one of the 2048 state basis
+vectors and saves the exact [2048×2048 binary matrix](../results/krakken_theta_fixed_space.matrix.bin)
+as output columns. Its [report](../results/krakken_theta_fixed_space.json)
+records matrix rank 2048, `rank(Theta−I)=504`, exact involutivity
+on all 2048 basis vectors, and original-C fixation of all 1544
+explicit basis vectors. It also saves 16 non-fixed states and their
+original-C `x→Theta(x)→x` replays. The
+[separate Python audit](../scripts/krakken_theta_fixed_space_audit.py)
+reconstructs all 2048 columns directly from the scalar equations,
+rebuilds the explicit basis independently, obtains the same ranks
+with opposite-pivot elimination, and checks all saved two-cycle
+witnesses; its [report](../results/krakken_theta_fixed_space_audit.json)
+records PASS. The source hashes and matrix/basis hashes are in
+both reports.
+
+The earlier corpus uses Theta involutivity as a supporting fact, but
+does not classify its complete fixed space, rank, basis and cycles.
+This permanent ID records that additional **Theta-only** class;
+the round-level cryptanalytic implications remain open.
 
 <a id="dl-001"></a>
 ## Theorem proved: complete one-round differential-linear mask class
