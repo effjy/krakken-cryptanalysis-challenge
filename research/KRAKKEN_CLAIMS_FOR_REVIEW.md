@@ -65,6 +65,7 @@ little-endian C execution used by the certificates.
 | **PROVED — COMPLETE DEFINED CLASS** | One-round hash-message correlation at most `2^-174` | Every 1272-bit message mask and each of 16 specified two-bit state-output masks after one complete round |
 | **PROVED — COMPLETE DEFINED CLASS** | One-round hash-message correlation at most `2^-162` for a five-dimensional output-mask subspace | Every 1272-bit message mask and all 31 nonzero masks in the specified subspace; five-bit output variation below `2^-32` after any 128 independent linear message constraints |
 | **PROVED — COMPLETE DEFINED CLASS** | One-round hash-message correlation at most `2^-76` for a six-dimensional output-mask subspace | Every 1272-bit message mask and all 63 nonzero masks in the specified subspace; six-bit output variation below `2^-74`, or below `2^-10` after any 64 independent linear message constraints |
+| **PROVED — COMPLETE DEFINED CLASS** | One-complete-round correlation at most `2^-246` for a specified eight-dimensional nonlinear-Pressure output space | Every 1272-bit message mask, all 255 nonzero output masks, and every fixed affine translate of the message embedding; selected bits are outside the digest; affine-codimension-128 TV below `2^-115` |
 | **PROVED — COMPLETE DEFINED CLASS** | Valid-message algebraic-degree map | After round 1, 32 specified state bits have exact degree 13 and the other 2016 have degree at least 20; after rounds 2–8, every state bit has degree at least 20; the first-32-byte projection has vectorial degree at least 24 after each round |
 | **OPEN** | Useful numerical upper bound on the complete linear hull | Every nonzero input/output mask over complete rounds |
 
@@ -1038,6 +1039,39 @@ They concern **one**
 round and this projection, not arbitrary output masks, later rounds,
 or collision/preimage security. Neither the `2^-76` correlation
 ceiling nor the distribution bound is claimed to be sharp.
+
+## PROVED — COMPLETE DEFINED CLASS: LIN-RATE-004 eight-bit nonlinear-Pressure bridge after one round
+
+Let `P_1` be the first complete scalar round. For any fixed 2048-bit
+state `x_*`, vary all 1272 bits of a valid 159-byte message through
+the embedding `J`, and extract from `P_1(x_* XOR Jm)` lane 7 bits
+18–21 and lane 21 bits 30–33. For **every** message mask and **every**
+nonzero mask on these eight output bits, the absolute correlation is
+at most `2^-246`. This includes 252 output masks that depend
+nonlinearly on Pressure carries. No uniform-Pressure-input assumption
+is used.
+
+The proof expands **all** terms of the exact 12-input-bit Pressure
+spectrum, pulls each mask backward through XRBD, and applies an
+effective-coordinate affine-image bound to the actual message
+distribution. The [complete certificate](../discovery/pressure_bridge_k4_pilot.json)
+contains all 255 output-mask bounds and 1,375 contributing input
+masks; its largest upper bound is at output mask `0x94` and is below
+`2^-246`. The [separate audit](../discovery/pressure_bridge_k4_audit.json)
+recomputes spectra, ranks and rational inequalities and checks
+original-C output-bit transport. Fresh producer and audit replays were
+byte-identical to both saved artifacts. The
+[full proof](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-004) states the
+analytic lemma and source-pinned finite obligations.
+
+For any affine message subspace of codimension `d`, the eight-bit
+projection has total-variation distance at most
+`min(1,sqrt(255)/2·2^(d-246))` from uniform. In particular, any
+128 independent affine constraints leave it within `2^-115`.
+The eight coordinates lie outside the first 256 digest bits. This
+does not bound other output masks, later rounds, or hash collision
+and preimage attacks; `2^-246` is an upper bound, not a sharp
+correlation or security-bit estimate.
 
 ## PROVED — COMPLETE DEFINED CLASS: valid-message algebraic degree through eight rounds
 
