@@ -32,6 +32,25 @@ trigger packaging.
 
 ## Current theorem status
 
+The [LIN-CHI-002 four-cell projection theorem](KRAKKEN_SECURITY_THEOREMS.md#lin-chi-002)
+certifies rank 64 for **all 10,668,000** selections of four serial-Chi
+inputs from the valid 159-byte first-block message space. It extends
+the exact sparse-mask Chi1 maximum to `2^-12` for every message mask
+and every output mask on exactly four cells. Combined with the known
+minimum four-cell support and exact local Chi DDT, this gives the
+[DIFF-RATE-005 global first-Chi concentration theorem](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-005):
+for every nonzero fixed valid-message difference, every prescribed
+full-state post-Chi1 (or post-XRBD1) difference has probability at most
+`2^-24` under a uniform message base. It is a **checkpoint** bound;
+Pressure and additional rounds remain open. The
+[DIFF-CHI-001 affine-fiber theorem](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-001) gives
+an exact rank count for prescribed first-Chi transitions whose active
+cells all have an active first S-box call. The next round-bound step is
+to count Pressure output transitions **conditioned on those actual
+message-base fibers** and sum over all Chi1 differences reaching a
+target. The checkpoint `2^-24` bound cannot be multiplied by a
+uniform-Pressure component bound or repeated across rounds.
+
 The [DIFF-RATE-004 full-block theorem](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-004)
 extends the exact five-call first-Chi minimum to the **first unpadded
 160-byte absorb call**. The full rate adds two exceptional four-cell
