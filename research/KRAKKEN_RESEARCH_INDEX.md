@@ -23,6 +23,7 @@ existing results; refinements save to separate per-position files.
 | [Truncated differential screen](KRAKKEN_TRUNCATED_DIFFERENTIAL.md) | Fixed-difference one-byte and single-bit output projections through two rounds | Empirical observations only; follow up on any surviving bias |
 | [Attack-versus-round map](KRAKKEN_ATTACK_ROUND_MAP.md) | Strongest demonstrated structures, construction costs, exact boundaries, and open continuations across attack families | Update when a structure reaches a new complete-round or hash-reachable checkpoint |
 | [Effective-coordinate two-round pilot](KRAKKEN_EFFECTIVE_CONE_PILOT.md) | Measured AA/AB/BA low-bit quotient and exact carry-table enumeration, with explicit relaxed-model boundary | Solver-engineering follow-up; no theorem promotion from runtime reduction alone |
+| [NEW.md review triage](KRAKKEN_NEW_REVIEW_TRIAGE.md) | Which fresh reviewer candidates closed, duplicate a prior theorem, or remain research targets | Update as those candidate scopes change |
 
 The [review bundle](../krakken_review_bundle/README.md) and
 [ZIP archive](../results/krakken_review_bundle.zip) are **frozen snapshots** of the
@@ -32,6 +33,18 @@ explicitly asks for a new one.** Editing any working document does not
 trigger packaging.
 
 ## Current theorem status
+
+The [NEW.md triage](KRAKKEN_NEW_REVIEW_TRIAGE.md) closed two new
+**local, unrestricted-Chi** classes. [DIFF-CHI-002](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-002)
+classifies the exact maximum probability for every nonzero 16-bit
+serial-Chi input difference into `2^-6`, `2^-7`, or `2^-12`, with
+counts 510/32,130/32,895 and a unique maximizing output each.
+[DL-LOCAL-001](KRAKKEN_SECURITY_THEOREMS.md#dl-local-001) proves that
+the only nontrivial perfect local differential-linear pairs are the
+65,025 diagonal-input/first-output-mask pairs; all other pairs have
+absolute correlation at most `71/512` (a conservative, nonsharp
+bound). These statements are **not** hash-interface or complete-round
+security estimates.
 
 The new [CHI-RATE-001 conditional-branch theorem](KRAKKEN_SECURITY_THEOREMS.md#chi-rate-001)
 proves that all 128 first-call Chi bytes plus **any five** second-call
