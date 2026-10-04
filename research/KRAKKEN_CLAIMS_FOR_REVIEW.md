@@ -33,8 +33,10 @@ little-endian C execution used by the certificates.
 | **PROVED — GLOBAL** | No perfect affine message-to-state relation | Every message mask, every state mask, rounds 1–8 |
 | **PROVED — COMPLETE DEFINED CLASS** | Exact maximum `2^(-3t)` | Every message mask and every Chi1 mask active on exactly `t=1,2,3` components |
 | **PROVED — COMPLETE DEFINED FAMILY** | Maximal boomerang uniformity `65,536` for the 16-bit serial-Chi component | Every nonzero byte pair `beta,gamma` in the 65,025-entry family `((beta,beta),(gamma,0))`; component-level, not a full-round claim |
+| **PROVED — COMPLETE LOCAL CLASS** | Exactly 65,025 nontrivial perfect serial-Chi boomerang pairs; sharp nonperfect probability at most `3/128` | Every nontrivial 16-bit local input/output difference pair; unrestricted complete-Chi product corollary |
 | **PROVED — COMPLETE DEFINED CLASSES** | 4,784 Pressure-surviving local quartets, zero crossing Chi2 | One fixed site, four `(d,gamma)` pairs, zero other post-Chi1 bytes, all 262,144 local `(u,v)` bases; unrestricted permutation |
 | **PROVED — GLOBAL FIRST-BLOCK CLASS** | Exact `min A1 = 5` for valid 159-byte messages | Every nonzero first-absorb message difference and every base; one valid pair attains `A1=5` |
+| **PROVED — GLOBAL FIRST-FULL-BLOCK CLASS** | Exact `min A = 5` at the first unpadded 160-byte absorb | Every nonzero full-block message difference and every base; common-prefix later full-block floor `A≥5` |
 | **PROVED — COMPLETE SIX-DIFFERENCE CLASS** | Exact first-Chi activity law and sharp `2^-38` maximum single-output probability | Each of the six rate-reachable four-cell input-difference lines, over every valid 159-byte base message |
 | **PROVED — CONDITIONAL HASH-REACHABLE CLASS** | `A1=5` forces `A2>=3` for each of three fixed valid message differences | Every valid 159-byte base message attaining five Chi1 calls for one of the three selected differences; all 8,128 two-cell Chi2 supports per difference excluded by exact Pressure constraints |
 | **PROVED — GLOBAL TWO-ROUND CLASS** | `[1,1]` differential trails impossible | Every nonzero unrestricted input difference and base state; total active calls over two rounds at least 3 |
@@ -136,8 +138,9 @@ nontrivial BCT entry
 There are `255×255=65,025` specified entries in this family. A BCT
 count cannot exceed the `2^16` component inputs, so the
 **component's nontrivial boomerang uniformity is maximally 65,536**.
-This theorem asserts at least this many maximizing entries; it does
-not claim no other entries attain the same maximum.
+This first family theorem alone asserts at least this many maximizing
+entries; the complete classification below closes whether any others
+attain the same maximum.
 
 **Proof.** The diagonal input translation `(a,b)→(a XOR beta,b XOR
 beta)` leaves `a XOR b` and therefore `u` unchanged. Write
@@ -156,6 +159,25 @@ multi-round boomerang analysis, not a full-round or eight-round
 distinguisher. No complete-round quartet claim follows from this
 component theorem. A new complete defined-class continuation is in
 the [theorem ledger](KRAKKEN_SECURITY_THEOREMS.md).
+
+## PROVED — COMPLETE LOCAL CLASS: exact serial-Chi boomerang gap
+
+The 65,025 diagonal/first-output pairs above are **all** nontrivial
+perfect pairs of the effective 16-bit serial-Chi component. Every
+other nontrivial pair has BCT count at most **1,536** out of 65,536
+uniform unrestricted bases, a sharp probability bound of `3/128`.
+For unrestricted full-state Chi, the 128 disjoint cells factor exactly:
+if `k` cells use nonperfect local pairs, the full-Chi BCT probability
+is at most `(3/128)^k`, sharply.
+
+The [analytic reduction and case split](THEOREM.md) reduce the complete
+local BCT to byte S-box DDT/BCT tables. The only case not bounded
+directly by the byte maxima is a 16,646,400-entry XOR convolution;
+its [source-pinned certificate](../results/krakken_chi_bct_classification.json)
+computes every entry by two exact integer methods and gives maximum
+1,364. The verifier was reproduced byte for byte. This classification
+does not bound a complete-round or hash-reachable boomerang probability;
+Chi2 continuation uses a different four-state rectangle condition.
 
 ## PROVED — FOUR DEFINED BOOMERANG CLASSES: 4,784 Pressure survivors, none across Chi2
 
@@ -252,6 +274,43 @@ and [independent replay](../results/krakken_boomerang_four_cell_outbound_audit.j
 give **A2=253–255** for the six four-cell witnesses. These remain
 useful additional trajectories, not universal second-round bounds.
 
+## PROVED — GLOBAL FIRST-FULL-BLOCK CLASS: five calls at the first 160-byte absorb
+
+For two distinct valid **160-byte** messages, the current hash API
+absorbs the complete block without padding and then runs its first
+permutation call. The minimum active serial-Chi byte-S-box count in
+the first round of that call is **exactly five**, over every nonzero
+full-block XOR difference and every base message. An additional
+padded final permutation call follows; this claim does not cover its
+activity.
+
+The full rate gives 1,280 free difference bits. The exact source-derived
+rate-image quotient has full ranks for every one-, two-, and three-cell
+pre-Chi support. Of all 10,668,000 four-cell supports, exactly eight
+have a one-dimensional nonzero intersection with the rate image. The
+byte S-box DDT counts needed to silence their second serial call are
+`(0,2,0,2)`, so every such four-cell difference requires at least six
+calls. Five-or-more-cell differences require at least five. The
+[original-C enumeration](../results/krakken_full_block_rate_support_c_four.json)
+and [separate Python-prefix enumeration](../results/krakken_full_block_rate_support_python_four.json)
+agree on every support rank and the same eight exceptions; they share
+the rank enumeration code. An [opposite-pivot recount](../results/krakken_full_block_rate_support_python_low_three.json)
+independently checks all supports through three cells. The
+[eight-line certificate](../results/krakken_full_block_four_lines.json)
+and [Python/DDT audit](../results/krakken_full_block_four_lines_audit.json)
+verify the exceptional differences and call costs.
+
+Appending the same byte `0x86` to the established 159-byte five-call
+message pair yields two valid 160-byte messages whose first absorb
+states are identical to the original padded absorb states. The
+[original-C replay](../results/krakken_full_block_witness_audit.json)
+checks both complete 160-byte hashes and confirms five first-call
+Chi activations. If two longer messages share complete preceding
+blocks and first differ in a subsequent complete block, the same
+proof gives a floor of five at that block's first Chi for every common
+base state. Differing prefixes, later padding, and later-round
+activity remain outside this statement.
+
 ## PROVED — COMPLETE SIX-DIFFERENCE CLASS: exact four-cell first-Chi probabilities
 
 For **each of the six** source-certified rate-reachable four-cell
@@ -315,13 +374,13 @@ call, the total over two rounds is at least **3**. The theorem applies
 to the actual first-block hash input as a subset; it does not say that
 round 2 alone has at least three active calls.
 
-The [source-pinned SCIP model](../../krakken/krakken_prove_11_v2.py)
+The [source-pinned SCIP model](../krakken/krakken_prove_11_v2.py)
 starts from every nonzero single post-Chi1 byte and compiles the exact
 XRBD and inter-round linear layers. Its carry-difference conditions
 **overapproximate** the real Pressure additions, and its target union
 contains both possible one-active-Chi2 branches at every location.
 Thus any real `[1,1]` trail would satisfy one of its 512 jobs. The
-[complete log](../../krakken/prove_11_full.log) records **512 infeasible,
+[complete log](../krakken/prove_11_full.log) records **512 infeasible,
 zero unknown** SCIP results. The [independent audit](../scripts/krakken_11_audit.py)
 checks complete job coverage, compares the linear maps with C, verifies
 all 65,280 XRBD branch conditions and the relaxed full-adder rule, and
@@ -997,7 +1056,8 @@ selects exactly the table entry whose index equals the input byte,
 without inter-byte carry. The helper checks 256 Chi states and 16
 eight-round states against original C; full smaller cubes are also
 cross-checked against original C. The
-[combined audit](../scripts/krakken_degree_multiround_audit.py) verifies sourcehashes, independent cube directions, stored nonzero derivatives,
+[combined audit](../scripts/krakken_degree_multiround_audit.py) verifies source
+hashes, independent cube directions, stored nonzero derivatives,
 and complete coordinate coverage. Full replay of a large cube is
 available with the producing scripts.
 
