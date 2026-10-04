@@ -32,12 +32,15 @@ little-endian C execution used by the certificates.
 |---|---|---|
 | **PROVED — GLOBAL** | No perfect affine message-to-state relation | Every message mask, every state mask, rounds 1–8 |
 | **PROVED — COMPLETE DEFINED CLASS** | Exact maximum `2^(-3t)` | Every message mask and every Chi1 mask active on exactly `t=1,2,3` components |
+| **PROVED — COMPLETE FOUR-CELL CLASS** | Exact maximum `2^-12` | Every message mask and every Chi1 output mask active on exactly four components; all 10,668,000 input projections rank 64 |
 | **PROVED — COMPLETE DEFINED FAMILY** | Maximal boomerang uniformity `65,536` for the 16-bit serial-Chi component | Every nonzero byte pair `beta,gamma` in the 65,025-entry family `((beta,beta),(gamma,0))`; component-level, not a full-round claim |
 | **PROVED — COMPLETE LOCAL CLASS** | Exactly 65,025 nontrivial perfect serial-Chi boomerang pairs; sharp nonperfect probability at most `3/128` | Every nontrivial 16-bit local input/output difference pair; unrestricted complete-Chi product corollary |
 | **PROVED — COMPLETE DEFINED CLASSES** | 4,784 Pressure-surviving local quartets, zero crossing Chi2 | One fixed site, four `(d,gamma)` pairs, zero other post-Chi1 bytes, all 262,144 local `(u,v)` bases; unrestricted permutation |
 | **PROVED — GLOBAL FIRST-BLOCK CLASS** | Exact `min A1 = 5` for valid 159-byte messages | Every nonzero first-absorb message difference and every base; one valid pair attains `A1=5` |
 | **PROVED — GLOBAL FIRST-FULL-BLOCK CLASS** | Exact `min A = 5` at the first unpadded 160-byte absorb | Every nonzero full-block message difference and every base; common-prefix later full-block floor `A≥5` |
 | **PROVED — COMPLETE SIX-DIFFERENCE CLASS** | Exact first-Chi activity law and sharp `2^-38` maximum single-output probability | Each of the six rate-reachable four-cell input-difference lines, over every valid 159-byte base message |
+| **PROVED — GLOBAL FIRST-CHI CHECKPOINT** | Any prescribed post-Chi1 or post-XRBD1 full-state difference has probability at most `2^-24` | Every fixed nonzero valid 159-byte message difference; uniform message base; sharpness open |
+| **PROVED — ACTIVE-FIRST-CALL CHI CLASS** | Every prescribed local transition fiber is affine; consistent hash-level event has exact probability `2^-rank` | Local components with active first S-box call; whole first-Chi transition if all nonzero components meet that condition |
 | **PROVED — CONDITIONAL HASH-REACHABLE CLASS** | `A1=5` forces `A2>=3` for each of three fixed valid message differences | Every valid 159-byte base message attaining five Chi1 calls for one of the three selected differences; all 8,128 two-cell Chi2 supports per difference excluded by exact Pressure constraints |
 | **PROVED — GLOBAL TWO-ROUND CLASS** | `[1,1]` differential trails impossible | Every nonzero unrestricted input difference and base state; total active calls over two rounds at least 3 |
 | **PROVED — COMPLETE DEFINED CLASS** | `A1=1` forces all 16 Pressure chains active after XRBD | Every one-byte post-Chi1 position/value difference, all unrestricted base states; 65,280 original-C/Python XRBD cases |
@@ -121,8 +124,23 @@ rechecks all component-subset ranks, while the attaining-mask script
 checks the mask layout against the original C layers.
 
 **Scope:** This closes the entire stated sparse-mask class at Chi1.
-It does not cover masks active on four or more Chi components or
+The four-component class is separately closed below. It does not cover masks active on five or more Chi components or
 complete rounds including XRBD and Pressure.
+
+## PROVED — COMPLETE FOUR-CELL CLASS: exact first-Chi sparse-mask correlations
+
+For every four-component selection among the 128 serial-Chi components,
+the 64 pre-Chi input bits have full rank as a projection of the valid
+159-byte message space. Two complete finite rank scans independently
+count all `10,668,000` selections; a separate Python implementation
+reconstructs all 1,272 message-basis columns and their projected rows.
+Thus, for every message mask and every post-Chi1 output mask active on
+exactly four components, the sharp absolute-correlation maximum is
+`(1/8)^4=2^-12`. Four copies of the local mask
+`(0x38,0x38)->(0x01,0x00)` attain it. This is a Chi1 checkpoint
+result, not a complete-round hull bound. See
+[LIN-CHI-002](KRAKKEN_SECURITY_THEOREMS.md#lin-chi-002) and its
+[artifact manifest](KRAKKEN_THEOREM_ARTIFACTS.md#lin-chi-002).
 
 ## PROVED — COMPLETE DEFINED FAMILY: perfect local serial-Chi boomerangs
 
@@ -336,6 +354,36 @@ and [independent C-S-box, opposite-pivot, original-C replay audit](../results/kr
 reproduce the ranks, counts, and concrete transitions. This is a
 first-Chi output theorem for six fixed valid-message differences; it
 is not a two-round differential-hull or collision bound.
+
+## PROVED — GLOBAL FIRST-CHI CHECKPOINT: prescribed-output concentration
+
+For **every** fixed nonzero valid 159-byte message difference `delta`
+and **every** prescribed full-state difference `eta` immediately after
+Chi1, the probability over uniform valid base messages is at most
+`2^-24`. The bound holds immediately after invertible linear XRBD1.
+The proof combines the previously certified minimum of four active
+pre-Chi components, the new rank-64 theorem for every four selected
+components, and the exact local serial-Chi DDT maximum `1/64` per
+active component. The six exceptional four-cell lines retain their
+stronger sharp `2^-38` single-output bound. The universal `2^-24`
+bound is **not claimed sharp** and does not extend through nonlinear
+Pressure by bijectivity alone. See
+[DIFF-RATE-005](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-005).
+
+## PROVED — ACTIVE-FIRST-CALL CHI CLASS: affine transition fibers
+
+For a prescribed serial-Chi difference whose first byte S-box call
+is active, its compatible input-base set is empty or affine, with
+size equal to the product of two byte-DDT counts. Hence any complete
+first-Chi transition in which every nonzero input component has an
+active first call reduces, after the message prefix, to an affine
+system on message bits. The exact uniform-base probability is zero
+if inconsistent, otherwise `2^-r` for that system's rank `r`.
+The analytic argument and checks of all 32,385 nonempty byte derivative
+fibers and 128 direct local transitions are in
+[DIFF-CHI-001](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-001).
+The condition does not cover cells with only the second S-box call
+active, nor any Pressure transition.
 
 ## PROVED — CONDITIONAL HASH-REACHABLE CLASS: five Chi1 calls require at least three Chi2 cells
 
