@@ -56,6 +56,8 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [DIFF-RATE-005](#diff-rate-005) | Differential | H / common-prefix final 159-byte suffix | Chi1/XRBD1 | Every fixed nonzero message difference and every prescribed full-state difference | Probability at most 2^-24 under uniform message base; sharpness open | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-005) | — | Checkpoint concentration, not a complete-round bound |
 | [CHI-RATE-001](#chi-rate-001) | Chi projection / differential / linear | H / full rate / fixed affine offset | Chi1/XRBD1 | All 128 first-call bytes plus any ≤5 second-call bytes; every fixed nonzero difference; stated mask class | Joint uniformity; exact truncated-difference product; prescribed full difference ≤2^-30; sharp first-only mask maximum 2^-3t | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#chi-rate-001) | — | First-Chi checkpoint only; no Pressure or later-round probability claim |
 | [DIFF-CHI-001](#diff-chi-001) | Differential | Local Chi / H | Chi1 | Prescribed local transitions with active first S-box; hash transitions where every active first call is active | Affine base fibers; consistent hash event has exact probability 2^-rank | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-chi-001) | — | Counting shortcut; no Pressure conclusion |
+| [DIFF-CHI-002](#diff-chi-002) | Differential | Local Chi / unrestricted full Chi | Chi | Every nonzero 16-bit local input difference, every output difference | Sharp maximum in {2^-6,2^-7,2^-12}; exact class counts 510/32130/32895; unique maximizer | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-chi-002) | — | Local/full-Chi uniform-base statement; hash-base correlations remain |
+| [DL-LOCAL-001](#dl-local-001) | Differential-linear | Local Chi / unrestricted full Chi | Chi | Every nonzero local input difference and nonzero output mask | Exactly 65,025 perfect pairs; every other pair ≤71/512 in absolute correlation | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#dl-local-001) | — | Complete perfect class; nonperfect bound not claimed sharp |
 | [BOOM-ROUND-001](#boom-round-001) | Boomerang | P | 1→Chi2 | Four fixed choices, one site, zero background, all local bases | No required quartet survives Chi2 | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-round-001) | — | Stated class/checkpoint only |
 | [BOOM-ROUND-002](#boom-round-002) | Boomerang | P | Chi2 | 4,784 surviving patterns from BOOM-ROUND-001 | Each pattern has a local obstruction for every Chi2 base | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#boom-round-002) | — | Stated class/checkpoint only |
 | [DIFF-PERM-001](#diff-perm-001) | Differential | P | XRBD1/Pressure1 | All 65,280 one-byte post-Chi differences | All 16 Pressure chains active for every base | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-perm-001) | — | Stated class/checkpoint only |
@@ -117,6 +119,9 @@ flowchart TD
   rate --> concentration
   ddt --> concentration
   ddt --> fibers["DIFF-CHI-001: affine active-first-call fibers"]
+  ddt --> dptri["DIFF-CHI-002: exact local maximum-DP trichotomy"]
+  act["Complete byte S-box ACT, nontrivial max 32"] --> dlperfect["DL-LOCAL-001: exact perfect DL class"]
+  dptri --> dlperfect
   rate --> prob["DIFF-RATE-002: six fixed-line distributions"]
   rate --> selected["DIFF-RATE-003: three selected A1=5 gates"]
   rate --> fullrate["DIFF-RATE-004: full 160-byte absorb minimum 5"]
@@ -920,6 +925,117 @@ checks all 32,385 nonempty nonzero byte derivative fibers, 128 direct
 65,536-base local transitions, and original-C representatives. A
 [separate prefix/S-box audit](../results/krakken_rank4_extension_audit.json)
 rechecks the byte derivative histogram and the four-cell input rows.
+
+<a id="diff-chi-002"></a>
+## Theorem proved: exact serial-Chi maximum differential-probability trichotomy
+
+<!-- THEOREM METADATA DIFF-CHI-002 -->
+**Permanent ID:** `DIFF-CHI-002` · **Proof classification:** analytic proof using a finite exhaustive byte-DDT certificate. A separate C table implementation and 63 original-C `chi_scalar` transition replays audit the implementation; no external certificate reproduction is recorded.
+<!-- END THEOREM METADATA DIFF-CHI-002 -->
+
+For the unrestricted two-byte serial-Chi map
+`F(a,b)=(S(a XOR b),S(b XOR S(a XOR b)))`, fix any nonzero input
+difference `(da,db)` and let `dx=da XOR db`. The maximum probability
+over **all** two-byte output differences, for a uniform 16-bit local
+base, is exactly
+
+| Condition | Number of input differences | Sharp maximum |
+|---|---:|---:|
+| `dx=0`, or `dx!=0` and `D_S(dx,db)=4` | 510 | `2^-6` |
+| `dx!=0` and `D_S(dx,db)=2` | 32,130 | `2^-7` |
+| `dx!=0` and `D_S(dx,db)=0` | 32,895 | `2^-12` |
+
+For **each** of the 65,535 nonzero local input differences, the
+maximizing output difference is unique. For `dx=0` it is
+`(du,dv)=(0,z*(db))`; for `D_S(dx,db)>0` it is `(db,0)`; and for
+`D_S(dx,db)=0` it is `(z*(dx),z*(db XOR z*(dx)))`, where `z*(r)` is
+the unique output difference with `D_S(r,z*(r))=4` for `r!=0`.
+
+**Proof.** The exact local count from `DIFF-CHI-001` is
+`D_S(dx,du) D_S(db XOR du,dv)`. The current byte S-box DDT has, for
+every nonzero input difference, exactly 129 zeros, 126 twos, and
+one four; the zero-input row has only `D_S(0,0)=256`. If `du=db`
+is allowed by the first DDT factor, the second derivative can be
+silenced, uniquely at `dv=0`, giving count 1,024 or 512. Every
+other `du` has both derivatives active and gives count at most 16,
+so it cannot tie. If `du=db` is forbidden, choosing the unique
+first-factor count four and the unique second-factor count four
+gives count 16; every other first-factor choice gives at most eight.
+For `dx=0`, only `du=0` is allowed and the second factor has its
+unique count four. Dividing the counts by `2^16` proves the table
+and uniqueness. The class counts follow from 255 nonzero DDT rows:
+`255+255`, `255*126`, and `255*129`.
+
+Because the 128 cells are disjoint, under a **uniform unrestricted
+2048-bit pre-Chi state** the sharp maximum for a fixed full-Chi input
+difference is the product of these per-active-cell maxima. This
+direct-product corollary is not a hash-message probability statement:
+the first-block rate image correlates the local bases. The earlier
+`DIFF-RATE-002` four-cell `2^-38` case is consistent with two
+`2^-12` and two `2^-7` local factors; its hash-level proof remains
+separate.
+
+The [source-pinned producer](../scripts/krakken_serial_chi_differential_trichotomy.py)
+and [report](../results/krakken_serial_chi_differential_trichotomy.json)
+enumerate every nonzero input difference and all candidate first
+output differences, verify uniqueness, and replay 63 attaining
+transitions through original C. A [separate C finite audit](../scripts/krakken_serial_chi_differential_trichotomy_audit.c)
+and its [report](../results/krakken_serial_chi_differential_trichotomy_audit.json)
+independently reproduce the complete DDT row spectrum, all class
+counts, and uniqueness.
+
+<a id="dl-local-001"></a>
+## Theorem proved: complete perfect local differential-linear class
+
+<!-- THEOREM METADATA DL-LOCAL-001 -->
+**Permanent ID:** `DL-LOCAL-001` · **Proof classification:** analytic proof plus finite exhaustive byte-ACT certificate. Direct 16-bit checks and a separate C ACT computation are implementation audits; no external certificate reproduction is recorded.
+<!-- END THEOREM METADATA DL-LOCAL-001 -->
+
+For one unrestricted serial-Chi cell, fix nonzero input difference
+`(da,db)` and nonzero output mask `(A,B)`. Correlation means the
+uniform-base expectation of the character of the **output
+difference**, `(-1)^(A·du XOR B·dv)`. Its absolute value is one
+**if and only if**
+
+`(da,db)=(d,d), (A,B)=(A,0), with d!=0 and A!=0`.
+
+There are exactly `255^2=65,025` such nontrivial perfect pairs. Every
+other nontrivial pair has absolute correlation **at most `71/512`**;
+this nonperfect bound is **not claimed sharp**. Under a uniform
+unrestricted full-Chi input, the 128 local correlations multiply.
+Thus a full-Chi pair is perfect exactly when each cell has zero input
+difference, zero output mask, or the stated diagonal/first-output
+pattern. If `k` cells have both a nonzero input difference and a
+nonzero output mask outside that pattern, the absolute full-Chi
+correlation is at most `(71/512)^k`. This does not apply by direct multiplication to
+the restricted first-block hash-message distribution.
+
+**Proof.** Let `ACT_S(t,B)=sum_y (-1)^(B·(S(y) XOR S(y XOR t)))` and
+`dx=da XOR db`. Changing to independent uniform local coordinates
+`x=a XOR b` and `y=b XOR S(x)` gives the exact unnormalized sum
+
+`DLCT_F((da,db),(A,B)) = sum_z D_S(dx,z) (-1)^(A·z) ACT_S(db XOR z,B)`.
+
+Divide by `2^16` for correlation. The exhaustive source S-box ACT
+table has `|ACT_S(t,B)|<=32` whenever `t` and `B` are both nonzero;
+`ACT_S(0,B)=ACT_S(t,0)=256`. If `B!=0` and `dx!=0`, the term
+`z=db` has DDT weight at most four and ACT magnitude 256; all
+other terms have ACT magnitude at most 32. Hence the total magnitude
+is at most `[4*256+(256-4)*32]/65536=71/512<1`. If `B!=0` and
+`dx=0`, nonzero input forces `db!=0`, and the magnitude is at most
+`32/256=1/8`. If `B=0`, a nonzero output mask has `A!=0`, and the
+correlation reduces to `ACT_S(dx,A)/256`: it is one exactly when
+`dx=0`, and otherwise has magnitude at most `1/8`. This proves both
+the perfect classification and the stated conservative bound.
+
+The [source-pinned ACT producer](../scripts/krakken_serial_chi_dlct.py)
+and [report](../results/krakken_serial_chi_dlct.json) compute all
+65,025 nontrivial byte-ACT entries and verify the 256-term identity
+against 128 direct exhaustive 16-bit local sums. The
+[separate C ACT audit](../scripts/krakken_serial_chi_dlct_audit.c) and
+[report](../results/krakken_serial_chi_dlct_audit.json) reproduce
+the complete byte-ACT histogram and maximum. The original-C local
+map is also checked by the 63 transition replays in `DIFF-CHI-002`.
 
 <a id="boom-round-001"></a>
 ## Theorem proved: four defined boomerang classes do not cross Chi2
