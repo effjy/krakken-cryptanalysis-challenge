@@ -84,6 +84,21 @@ remain in the original reports. The frozen bundle is not updated.
 - [krakken_five_cell_candidates.json](../results/krakken_five_cell_candidates.json) — present.
 - [krakken_sponge_a15_rank_all.json](../results/krakken_sponge_a15_rank_all.json) — present.
 
+## DIFF-RATE-004
+
+[DIFF-RATE-004](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-004) — Exact first-full-absorb five-call minimum and inherited common-prefix later-full-block floor.
+
+- [krakken_full_block_rate_support.py](../scripts/krakken_full_block_rate_support.py) — exhaustive C and independent Python prefix support-rank producer.
+- [krakken_full_block_rate_support_c_four.json](../results/krakken_full_block_rate_support_c_four.json) — all one- through four-cell original-C support ranks.
+- [krakken_full_block_rate_support_python_four.json](../results/krakken_full_block_rate_support_python_four.json) — independent pure-Python prefix full enumeration.
+- [krakken_full_block_rate_support_python_low_three.json](../results/krakken_full_block_rate_support_python_low_three.json) — opposite-pivot Python recount of all one- through three-cell supports.
+- [krakken_full_block_four_lines.py](../scripts/krakken_full_block_four_lines.py) — all eight exceptional difference lines and DDT lower bounds.
+- [krakken_full_block_four_lines.json](../results/krakken_full_block_four_lines.json) — line certificate.
+- [krakken_full_block_four_lines_audit.py](../scripts/krakken_full_block_four_lines_audit.py) — separate Python-prefix/DDT replay.
+- [krakken_full_block_four_lines_audit.json](../results/krakken_full_block_four_lines_audit.json) — eight-line audit result.
+- [krakken_full_block_witness_audit.py](../scripts/krakken_full_block_witness_audit.py) — original-C replay of actual 160-byte hash messages.
+- [krakken_full_block_witness_audit.json](../results/krakken_full_block_witness_audit.json) — five-call attaining messages and full API digests.
+
 ## BOOM-ROUND-001
 
 [BOOM-ROUND-001](KRAKKEN_SECURITY_THEOREMS.md#boom-round-001) — Theorem proved: four defined boomerang classes do not cross Chi2
@@ -117,7 +132,8 @@ remain in the original reports. The frozen bundle is not updated.
 
 [DIFF-PERM-002](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-002) — Theorem proved: no unrestricted two-round `[1,1]` differential trail
 
-- [../astra/oracle_optimized.py](../astra/oracle_optimized.py) — present.
+- [oracle_optimized.py](../scripts/oracle_optimized.py) — byte-identical local copy of the historical optimized oracle; its `--self-test` passes, but this is not an independent solver replay.
+- [krakken_prove_12_oracle_v7.py](../scripts/krakken_prove_12_oracle_v7.py) — byte-identical adjacent dependency required by the optimized oracle; pass `--source-dir /home/user/sol` when running the copied driver.
 - [../krakken/krakken_prove_11_v2.py](../krakken/krakken_prove_11_v2.py) — present.
 - [../krakken/prove_11_full.log](../krakken/prove_11_full.log) — present.
 - [krakken_11_audit.py](../scripts/krakken_11_audit.py) — present.
