@@ -78,6 +78,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [PRESS-WALSH-001](#press-walsh-001) | Linear | U | Pressure | q=0; arbitrary 64-bit u,v,p | Exact counter; sharp nonperfect max 1/2 | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-walsh-001) | — | Stated class/checkpoint only |
 | [PRESS-WALSH-002](#press-walsh-002) | Linear | U | Pressure | u∈{0,bit0} or q∈{0,bit0}; other masks arbitrary | Exact counter; sharp nonperfect max 1/2 | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-walsh-002) | — | Stated class/checkpoint only |
 | [PRESS-WALSH-003](#press-walsh-003) | Linear | U | Pressure | Both outputs low k≤17; all input masks | Exact joint counter; sharp nonperfect max 1/2 for k≥2, zero at k=1; top-bit zero rule | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-walsh-003) | — | Stated class/checkpoint only |
+| [PRESS-DIFF-001](#press-diff-001) | Differential | Local Pressure | Low two bits | Every ten-bit input/output XOR profile | Exact 184-profile relation from two LSB and three factored cubic equations; all quadratic consequences leave 256 profiles | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-001) | — | Re-expression of local gate; no new global [1,2] exclusion |
 | [PRESS-HULL-001](#press-hull-001) | Linear | U/R | Pressure | Arbitrary 64-bit masks; separate 4-bit counterexample | Exact signed identity; triangle bound fails in reduced model | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-hull-001) | — | Identity / failed proof route |
 | [PRESS-ZERO-001](#press-zero-001) | Linear | U | Pressure | Pairwise word projections and specified masks | Exact pair-uniformity and zero coefficients | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-zero-001) | — | Stated class/checkpoint only |
 | [LIN-RATE-001](#lin-rate-001) | Linear | H | 1 | 16 specified output masks; every message mask | Per-mask bounds at least 2^-174, strongest 2^-354 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-001) | — | Stated class/checkpoint only |
@@ -85,6 +86,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [LIN-RATE-003](#lin-rate-003) | Linear | H | 1 | 63 nonzero masks in specified 6D space; every message mask | ≤2^-76; stated conditional/TV corollaries | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-003) | — | Stated class/checkpoint only |
 | [LIN-RATE-004](#lin-rate-004) | Linear | H / any fixed affine translate of message embedding | 1 complete round | All message masks; all 255 nonzero masks of a specified 8D output space crossing Pressure carries | ≤2^-246; affine-codimension-d TV bound | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-004) | — | Selected nondigest output bits; not an all-mask or multi-round bound |
 | [ALG-DEG-001](#alg-deg-001) | Algebraic | H | 1–8 | All coordinates; separate 256-bit projection | 32 R1 bits degree 13; other R1 and all R2–8 ≥20; projection ≥24 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-deg-001) | — | Stated class/checkpoint only |
+| [ALG-DEG-002](#alg-deg-002) | Algebraic | H / affine rate plane | 1 | 192 specified state bits from low six Pressure bits | Exact local degrees A=1,2,3,4,5,6 and C=1,2,3,5,7,9; first-round degree upper bounds 13×local degree | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-deg-002) | — | Upper bounds only; no round-two or security-bit implication |
 | [LIN-HULL-001](#lin-hull-001) | Linear | H/P | 1–8 | All message/state masks | Exact signed coset sum of 2^776 full-state coefficients | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-hull-001) | — | Global proof obligation identified |
 | [ZERO-001](#zero-001) | Zero-sum | P | Chi1/1/2 | Fixed square, all backgrounds; sites as specified | R1 projected balance; no universal R2 coordinate at 128 sites, no mask at site 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#zero-001) | — | Stated class/checkpoint only |
 | [INT-CUBE-001](#int-cube-001) | Integral | H | Chi1/1/2 | Every d≥14 cube at checkpoints; fixed 14-direction family at complete rounds | Sharp threshold 14; fixed family exactly 32 universal R1 coordinates, none R2 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-cube-001) | — | Stated class/checkpoint only |
@@ -154,8 +156,10 @@ flowchart TD
   separation["Certified XRBD projection kernels + disjoint Pressure chains"] --> coordinated
   lsb["DIFF-12-001: LSB exclusions"] --> low2["DIFF-12-003: all-site low-two-bit gate"]
   low2 --> bb["DIFF-12-004: complete BB exclusion + refinements"]
+  low2 --> cubic["PRESS-DIFF-001: exact three-cubic representation; no quadratic gain"]
   aaScan["Complete split-site AA scan + low-bit refinements"] --> aa["DIFF-12-006: complete distinct-AA exclusion"]
   anf["Exact serial-Chi ANF + derivative certificates"] --> degree["ALG-DEG-001: coordinate degree map"]
+  anf --> degreeUpper["ALG-DEG-002: 192 round-one degree ceilings"]
   anf --> cubes["INT-CUBE-001: checkpoint threshold / fixed cube"]
   byte["INT-BYTE-002: byte-0 cube-sum ranks"] --> division["DIV-BYTE-001: exact balance spaces"]
   tables["Exact local derivative tables + Pressure pullback"] --> division
@@ -2278,6 +2282,58 @@ attainable for every `t=1,...,16` by putting the witness above in
 exactly `t` chains and trivial masks in the others. This remains a
 uniform-input component theorem, not a hash-conditioned hull bound.
 
+<a id="press-diff-001"></a>
+## Theorem proved: exact three-cubic low-two-bit Pressure difference gate
+
+<!-- THEOREM METADATA PRESS-DIFF-001 -->
+**Permanent ID:** `PRESS-DIFF-001` · **Proof classification:** analytic proof plus finite exhaustive polynomial-space and profile checks. This is a local relation, not a new complete-round activity bound.
+<!-- END THEOREM METADATA PRESS-DIFF-001 -->
+
+For one Pressure chain's low two bits, take independent two-bit
+inputs `a,c,h`, where `h` represents the disjoint `(c>>17)` slice.
+The outputs are `A=a+(c XOR h) mod 4` and `C=c+A mod 4`.
+Write `(da,dc,dh,dA,dC)` for a prescribed XOR-difference profile,
+and set `alpha=da_0`, `gamma=dc_0`, `eta=dh_0`,
+`kappa=da_1 XOR dc_1 XOR dh_1 XOR dA_1`, and
+`lambda=dc_1 XOR dA_1 XOR dC_1`. Among all `2^10=1024`
+profiles, **exactly 184** are possible over some local base.
+Feasibility is equivalent to the two LSB equations
+
+`dA_0=alpha XOR gamma XOR eta`, `dC_0=alpha XOR eta`,
+
+together with these three **factored cubic** equations over GF(2):
+
+`(1+alpha)(1+gamma+eta)kappa=0`,
+`(1+gamma)(1+alpha+eta)lambda=0`,
+`(1+eta)(1+alpha+gamma)(kappa+lambda+alpha)=0`.
+
+The carry-difference pair `(kappa,lambda)` is an affine map of the
+three low base bits for each `(alpha,gamma,eta)`. Its eight cases
+have rank zero, one or two; the displayed products encode exactly
+the forbidden carry pairs in the rank-deficient cases. The
+[1024-profile verifier](../discovery4/three_cubic_gate.py) matches
+the relation from all 64 local bases and 64 input differences.
+
+The complete space of vanishing Boolean polynomials of degree at
+most two on the 184 feasible profiles has common zero set of size
+**256**, exactly the set satisfying the two LSB equations. Hence
+**no standalone quadratic consequence of this local two-bit
+relation excludes an additional profile**. Degree-three equations
+have common zero set exactly the 184 profiles. The
+[finite polynomial-space certificate](../discovery4/carry_relation_polynomials.json)
+uses all square-free monomials, an exact GF(2) row/nullspace basis,
+and checks every one of the 1024 profiles. A separate direct
+enumeration reproduced the 184-profile cubic relation in this pass.
+
+This compact gate removes local base variables for the two-bit
+**existential** relation. It is the same necessary Pressure gate
+already available as a table in the `[1,2]` work; changing its
+representation alone cannot prove any new site UNSAT. Site-specific
+substitutions, higher-bit consistency, Chi compatibility, and
+complete-round bounds remain separate. The [full report](../RESULTS4.md)
+and [source-pinned reports](../discovery4/three_cubic_gate.json)
+give the exact scope and audit records.
+
 <a id="press-hull-001"></a>
 ### Exact coupled-chain hull identity and a failed bound
 
@@ -2684,6 +2740,48 @@ degree lower bound does not imply that every order-14 or order-20
 cube derivative is nonzero; it rules out a globally low-degree
 coordinate polynomial. Neither lower bound is a collision or
 preimage-security claim.
+
+<a id="alg-deg-002"></a>
+## Theorem proved: low-six-bit Pressure degree ceilings for 192 round-one coordinates
+
+<!-- THEOREM METADATA ALG-DEG-002 -->
+**Permanent ID:** `ALG-DEG-002` · **Proof classification:** analytic degree-composition proof plus finite exhaustive 18-variable ANF certificate. The 512 original-C slice checks are an implementation audit, not the reason the upper bounds hold.
+<!-- END THEOREM METADATA ALG-DEG-002 -->
+
+For every Pressure chain, its low six pre-rotation output bits depend
+exactly on the independent 18-bit slice `(a[0:6],c[0:6],c[17:23])`.
+The `(A<<31)` term does not enter those output bits. The complete
+`2^18`-input ANF gives exact local coordinate degrees, for bit
+indices `b=0,...,5`:
+
+| b | 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---:|---:|---:|---:|---:|---:|
+| `A_b` local degree | 1 | 2 | 3 | 4 | 5 | 6 |
+| `C_b` local degree | 1 | 2 | 3 | 5 | 7 | 9 |
+| round-one `A_b` degree upper bound | 13 | 26 | 39 | 52 | 65 | 78 |
+| round-one `C_b` degree upper bound | 13 | 26 | 39 | 65 | 91 | 117 |
+
+Before Pressure, the linear prefix, serial Chi and XRBD give every
+coordinate message degree at most 13. Substitution into each exact
+local ANF therefore multiplies its monomial degree by **at most**
+13. The final rotations, constants and shuffle only relabel
+coordinates or add constants. This proves the stated upper bounds
+for all 16 chains' 12 selected bits, or **192 specified complete
+round-one state coordinates**, on the ordinary 159-byte message
+domain and any fixed affine rate-plane offset.
+
+The [source-pinned certificate](../discovery4/bounded_checks.json)
+stores the full local ANF hash, an attaining monomial for each local
+degree, inverse-Möbius reconstruction of every truth-table value,
+and 512 original-C full-word slice checks. Combining with
+[ALG-DEG-001](#alg-deg-001), the 32 selected bit-zero coordinates
+have exact message degree 13 on the ordinary valid-message domain;
+the other 160 specified coordinates have its inherited lower bound
+of 20 and the displayed upper bounds. The lower bounds are not
+asserted for every affine offset. These are degree bounds, not
+round-two degree values or attack-complexity estimates. The
+[full report](../RESULTS4.md) retains the abstract multi-round
+activity-payoff calculation separately as a planning tool.
 
 <a id="lin-hull-001"></a>
 ## Exact formula for the full rate-restricted hull
