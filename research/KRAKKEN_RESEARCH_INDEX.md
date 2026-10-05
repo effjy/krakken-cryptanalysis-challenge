@@ -82,6 +82,18 @@ message dependencies, and a separate implementation audit replays 48 real
 message pairs. Unconditional probabilities outside `A1=5`, digest bounds
 and multi-round propagation remain open.
 
+The [DIFF-RATE-008 unconditional first-round theorem](KRAKKEN_UNCONDITIONAL_ROUND1_DIFFERENTIAL.md)
+removes that activity condition for the same three fixed differences. For
+every uniform valid-message base, every prescribed full-state round-one
+difference has probability below `507/512000 = 1.014/1024`. Its ten-bit
+nondigest projection is within `2^-145` of an exact saved reference law.
+Fixing the five affected Chi inputs preserves dependencies, while eliminating
+the three Pressure top base bits makes the bound tractable. The separate
+audit reproduces the finite counts and 96 original-C message pairs.
+The reference laws also certify small **nonuniform first-round projected
+differences**. Other input differences, digest output and later rounds remain
+open; the unconditional target is closed only for these three differences.
+
 The [LIN-THETA-001 fixed-space theorem](KRAKKEN_SECURITY_THEOREMS.md#lin-theta-001)
 closes Candidate 4 of `NEW.md`: the current scalar Theta layer is an
 involution with `rank(Theta−I)=504` and a 1544-dimensional fixed
