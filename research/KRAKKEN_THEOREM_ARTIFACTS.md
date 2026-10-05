@@ -123,6 +123,19 @@ remain in the original reports. The frozen bundle is not updated.
 - [krakken_chi_rate_promotion_audit.py](../scripts/krakken_chi_rate_promotion_audit.py), [krakken_chi_rate_promotion_audit.json](../results/krakken_chi_rate_promotion_audit.json) — read-only current-source/hash/rank/exception check with 200 reproducible full-row samples; not a scan replay.
 - [DIFF-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-001), [DIFF-RATE-004](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-004) — inherited five-call floors for 159-/160-byte rate differences.
 
+## DIFF-ACT-001
+
+[DIFF-ACT-001](KRAKKEN_SECURITY_THEOREMS.md#diff-act-001) — exact activity syndrome and conditioned specified eight-bit complete-round projection.
+
+- [RESULTS3.md](../RESULTS3.md) — analytic proof, exact scope, limitations, and replay plan.
+- [activity_fibers.py](../discovery3/activity_fibers.py), [activity_fibers.json](../discovery3/activity_fibers.json) — source-pinned DDT fibers, exact activity constructor, and original-C samples.
+- [activity_audit.py](../discovery3/activity_audit.py), [activity_audit.json](../discovery3/activity_audit.json) — separate prefix/rank/DDT reconstruction and original-C implementation audit.
+- [activity_spectrum.py](../discovery3/activity_spectrum.py), [activity_spectrum.json](../discovery3/activity_spectrum.json) — grouped Fourier formula and finite direct-transform checks.
+- [conditioning_bounds.py](../discovery3/conditioning_bounds.py), [conditioning_bounds.json](../discovery3/conditioning_bounds.json) — exact event probabilities and rational bounds for constructed cases.
+- [differing_prefixes.py](../discovery3/differing_prefixes.py), [differing_prefixes.json](../discovery3/differing_prefixes.json) — actual-message differing-prefix and original-C hash-API replay.
+- [integrity.json](../discovery3/integrity.json) — saved source/dependency/report hashes; integrity check only, not full computation replay.
+- [LIN-RATE-004](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-004) — inherited complete-round all-message-mask bound and Pressure certificate.
+
 ## DIFF-RATE-005
 
 [DIFF-RATE-005](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-005) — global prescribed-difference concentration at Chi1/XRBD1.
