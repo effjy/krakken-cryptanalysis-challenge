@@ -144,6 +144,14 @@ remain in the original reports. The frozen bundle is not updated.
 - [LIN-CHI-002](KRAKKEN_SECURITY_THEOREMS.md#lin-chi-002), [DIFF-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-001) — inherited four-cell base independence and minimum support.
 - [krakken_rank4_extension_audit.json](../results/krakken_rank4_extension_audit.json) — separate source S-box derivative and projection-row checks.
 
+## DIFF-RATE-006
+
+[DIFF-RATE-006](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-006) — one-complete-round almost-all-input-differences bound on a specified eight-bit nondigest projection.
+
+- [LIN-RATE-004](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-004) — inherited all-input-mask linear bound and source/implementation audit.
+- [krakken_round1_almost_all_differentials.py](../scripts/krakken_round1_almost_all_differentials.py), [krakken_round1_almost_all_differentials.json](../results/krakken_round1_almost_all_differentials.json) — exact rational-square sum and Fourier/Markov corollary arithmetic.
+- [krakken_round1_almost_all_differentials_audit.py](../scripts/krakken_round1_almost_all_differentials_audit.py), [krakken_round1_almost_all_differentials_audit.json](../results/krakken_round1_almost_all_differentials_audit.json) — separate integer arithmetic audit.
+
 ## DIFF-CHI-001
 
 [DIFF-CHI-001](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-001) — affine active-first-call transition fibers and exact hash-base rank count.
