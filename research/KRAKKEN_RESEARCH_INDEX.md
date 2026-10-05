@@ -34,6 +34,17 @@ trigger packaging.
 
 ## Current theorem status
 
+[INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from
+[Astra's RESULTS5](../RESULTS5.md), gives a new aligned integral family.
+The first-Chi-input kernel has dimension 248; every cube in it of dimension
+at least eight has full-state Chi1/XRBD1 balance and 32 guaranteed complete
+round-one coordinates. Eight is a sharp checkpoint threshold. For one
+specified 256-message cube, the entire universal output-mask space is exactly
+32-dimensional after round one and zero after round two. Fresh original-C
+and independent NumPy full replays reproduced all 2,049 cube sums and ranks
+2016/2048. The round-two classification fixes that cube; other kernel
+subspaces and statistical/special-base balances remain open.
+
 [RESULTS4.md](../RESULTS4.md) adds two bounded local/first-round
 results. [PRESS-DIFF-001](KRAKKEN_SECURITY_THEOREMS.md#press-diff-001)
 replaces the exact two-bit Pressure difference table by two LSB
@@ -625,7 +636,7 @@ Distinct attack classes still underexplored here include
 **multi-round differential-linear distinguishers** beyond the defined
 classes, **general zero-sum and division-property integrals** beyond
 the defined four-state, degree, and byte-0 exact division-property
-families, **subspace trails beyond the defined byte-coordinate
+and kernel-directed exact mask-space families, **subspace trails beyond the defined byte-coordinate
 class**, and **slide/related-round structures** involving the round
 constants.
 The [division-property gate audit](../results/krakken_divprop_gate_audit_validated.json)

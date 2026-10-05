@@ -94,6 +94,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [LIN-HULL-001](#lin-hull-001) | Linear | H/P | 1–8 | All message/state masks | Exact signed coset sum of 2^776 full-state coefficients | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-hull-001) | — | Global proof obligation identified |
 | [ZERO-001](#zero-001) | Zero-sum | P | Chi1/1/2 | Fixed square, all backgrounds; sites as specified | R1 projected balance; no universal R2 coordinate at 128 sites, no mask at site 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#zero-001) | — | Stated class/checkpoint only |
 | [INT-CUBE-001](#int-cube-001) | Integral | H | Chi1/1/2 | Every d≥14 cube at checkpoints; fixed 14-direction family at complete rounds | Sharp threshold 14; fixed family exactly 32 universal R1 coordinates, none R2 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-cube-001) | — | Stated class/checkpoint only |
+| [INT-KERNEL-001](#int-kernel-001) | Integral / affine-fiber degree | H; fixed-offset extension for inclusion only | Chi1/XRBD1/1/2 | All dimension-8–248 direction spaces in the first-Chi-input kernel; exact mask classification for one saved 8D cube only | Sharp checkpoint threshold 8; 32 guaranteed R1 coordinates; saved cube universal mask dimensions exactly 32 then 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-kernel-001) | — | Attack-side 256-message R1 integral; all-mask R2 exclusion only fixed cube, not all kernel subspaces |
 | [INT-BYTE-001](#int-byte-001) | Integral | H | 2 | All 159 byte cubes, arbitrary bases, coordinate masks | No universal coordinate balance | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-001) | — | Stated class/checkpoint only |
 | [INT-BYTE-002](#int-byte-002) | Integral | H | 1/2 | Byte-0 cube, all bases/output masks | R1 sum rank 2041; R2 rank 2048, no universal nonzero mask | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-002) | — | Stated class/checkpoint only |
 | [DIV-BYTE-001](#div-byte-001) | Division property | H | 1/2 | Byte-0 defined direction family and linear masks | Exact universal balance spaces: dimensions 7 and 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#div-byte-001) | — | Stated class/checkpoint only |
@@ -152,6 +153,9 @@ flowchart TD
   selected --> diffConditioned
   effective --> diffUnconditional["DIFF-RATE-008: unconditional complete R1 fixed-difference bounds"]
   selected -->|fixed differences only| diffUnconditional
+  chirate --> kernelIntegral["INT-KERNEL-001: kernel-directed 8-cube integrals"]
+  aff --> kernelIntegral
+  kernelCert["S-box degree 7 + full cube-sum spanning certificates"] --> kernelIntegral
   activity --> activityBound
   thetaParity["Exact eight-column parity recurrence"] --> thetaFixed["LIN-THETA-001: fixed dimension 1544 / rank 504"]
   localboom["BOOM-LOCAL-001: local perfect family"] --> embed["BOOM-EMBED-001: embedding / rate gate"]
@@ -3270,6 +3274,97 @@ exclude other direction sets, larger cubes, base-dependent zero
 sums, or universally balanced non-coordinate output masks at round
 two. Coordinate exclusion alone does not establish full linear
 span of all possible cube sums.
+
+<a id="int-kernel-001"></a>
+## Theorem proved: kernel-directed eight-cube integrals and exact two-round mask spaces
+
+<!-- THEOREM METADATA INT-KERNEL-001 -->
+**Permanent ID:** `INT-KERNEL-001` · **Proof classification:** analytic affine-fiber degree/derivative proof plus finite source-pinned rank, ANF and cube-sum spanning certificates. Fresh full original-C and separate NumPy replays are independent implementation audits within this investigation; no external reproduction is recorded.
+<!-- END THEOREM METADATA INT-KERNEL-001 -->
+
+For the valid 159-byte first-block message domain, let `X` collect the 128
+first serial-Chi input bytes `a XOR b` after the exact linear prefix
+Theta→MDS→Rho→Pi. On message differences `rank X=1024`, so its kernel
+`K` has dimension **248**. Define a cube sum as XOR over all messages in
+an affine coset `m+D` of a direction subspace `D`.
+
+**Universal inclusion.** For every `D<=K` of dimension `8<=d<=248`, and
+every valid base message, the full-state cube sum is zero after Chi1 and
+XRBD1. After the **first complete round**, it is zero at the following
+32 coordinate positions (LSB-first little-endian lane numbering):
+
+`11,94,139,210,267,350,395,466,523,606,651,722,779,862,907,978,`
+`1035,1118,1163,1234,1291,1374,1419,1490,1547,1630,1675,1746,1803,1886,1931,2002`.
+
+This analytic inclusion holds with any fixed 2048-bit state offset added to
+the message embedding as well. It does not propagate a full-state zero sum
+through Pressure; only the stated 32 balances are guaranteed there.
+
+**Sharp checkpoint threshold.** The seven directions in the saved construction
+give a dimension-seven `D7<=K` whose Chi1 cube sum at state bit 288 is **one
+for every base**, including any fixed state offset. Hence its full-state sum
+is nonzero at Chi1 and invertible XRBD1. Eight is the least dimension giving
+the universal full-state checkpoint guarantee over all kernel subspaces.
+It is not an optimum for particular smaller complete-round integrals.
+
+**Exact mask spaces for one saved cube.** Let `Dstar` be the span of the
+eight `directions_hex` vectors in
+[kernel_cube.json](../discovery5/kernel_cube.json), SHA-256
+`f31ebde45d26cb9cac9085553ed0fad8097ad3b3eb1f6d91c04d5a4827697b34`.
+For ordinary first-block padding with zero capacity, define `U_r` as the
+linear masks whose cube sum is zero for **every** valid base. Then
+
+`U_1(Dstar)=span{e_t: t is one of the 32 positions above}`,
+`dim U_1(Dstar)=32`, and `U_2(Dstar)={0}`.
+
+Round-one masks confined to the first 256 state bits have exactly four
+generators: positions `11,94,139,210`. Round two has no nonzero universal
+linear-mask balance, including masks confined to that projection. These
+equalities concern **only Dstar** and the ordinary first-block interface;
+neither the all-subspace nor fixed-offset quantifiers of the inclusion are
+imported into this classification.
+
+**Proof.** Directions in `K` keep every first-call input `a XOR b` fixed,
+so the first S-box outputs are constant and each second call is `S` of an
+affine input. Source S-box degree seven gives restricted degree at most
+seven, hence dimension-eight and larger checkpoint zero sums. Pressure's
+exact carry-free bit-zero identities preserve degree at most seven at
+32 output bits, transported by its rotations and final shuffle. Fixed
+constants cancel in nontrivial cube sums.
+
+The joint map from messages to all first-call inputs and cell-zero's second
+input byte has rank 1032. Its conditional rank eight lifts seven unit-byte
+directions into `K`. The source S-box coordinate-zero ANF coefficient at
+monomial `0x7f` is one, and its degree is seven; the resulting seven-fold
+derivative is one on every base, proving sharpness at bit 288.
+
+For `Dstar`, 2,049 saved valid bases give cube-sum ranks **2016 and 2048**
+after rounds one and two. The analytic 32-coordinate inclusion caps the
+first rank at 2016, giving equality and exactly its stated annihilator.
+Full rank at round two makes the annihilator zero. The finite spanning
+certificate proves the universal-mask conclusions without enumerating all
+message bases; randomness used to discover the bases has no evidentiary role.
+
+**Verification and novelty.** This is a new direction family relative to
+`CHI-RATE-001`, `INT-CUBE-001`, `INT-BYTE-002` and `DIV-BYTE-001`, not a new
+spanning technique. Astra's original 24-file manifest matched before promotion.
+We freshly repeated both the independent NumPy audit and the original-C
+producer: all **524,544 vertex instances** in each full replay, every one of
+the 2,049 saved C rows matched exactly, and ranks 2016/2048 reproduced.
+The audit independently checks prefix rank 1024, conditional rank eight,
+kernel/cube/sharp-direction ranks 248/8/7, S-box ANF and checkpoint sums.
+The [promotion check](../results/krakken_kernel_integral_promotion_check.json)
+also independently checks the final coordinate positions and mask-space ranks.
+The original manifest remains an unchanged pre-promotion snapshot; official
+documentation hashes naturally change during this promotion.
+
+Full statement/proof/limits: [RESULTS5.md](../RESULTS5.md). Artifacts and fresh
+replays: [manifest entry](KRAKKEN_THEOREM_ARTIFACTS.md#int-kernel-001).
+This is an attack-side **one-round 256-message integral**, plus a proved
+round-two failure of every universal linear output-mask balance for the
+saved cube. It does not exclude other kernel cubes, special-background or
+statistical balances, nonlinear predicates, larger integrals, other lengths,
+or rounds three through eight, and provides no numeric full-hash security level.
 
 <a id="int-byte-001"></a>
 ## Proved: complete one-byte coordinate-cube class has no universal round-two coordinate balance

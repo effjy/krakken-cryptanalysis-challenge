@@ -486,6 +486,21 @@ No direct artifact path is cited in this subsection; use the proof or parent sec
 - [krakken_hash_zero_sum_14cube_validated.json](../results/krakken_hash_zero_sum_14cube_validated.json) — present.
 - [serial_chi_16bit_degree_validated.json](../results/serial_chi_16bit_degree_validated.json) — present.
 
+## INT-KERNEL-001
+
+[INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001) — sharp
+kernel-directed checkpoint integral threshold eight; exact 32/0 universal
+mask spaces at complete rounds one/two for one saved eight-direction cube.
+
+- [RESULTS5.md](../RESULTS5.md): full statement, analytic proof, scope and reproduction commands; unchanged original report.
+- [Kernel construction producer](../discovery5/kernel_cube_setup.py), [construction certificate](../discovery5/kernel_cube.json): all 248 kernel directions, eight cube directions, seven sharpness directions, S-box ANF and balanced-bit positions.
+- [Original-C cube engine](../discovery5/cube_engine.c), [rank producer](../discovery5/cube_rank.py), [original rank certificate](../discovery5/cube_rank_certificate.json): all 2,049 bases and complete-round sums.
+- [Independent implementation audit](../discovery5/audit_kernel_cubes.py), [original full audit](../discovery5/cube_audit.json): separate NumPy/GF(256)/SHAKE derivation and complete replay.
+- [Fresh C replay](../results/krakken_kernel_integral_c_replay.json), [fresh full implementation replay](../results/krakken_kernel_integral_promotion_audit.json): repeated during promotion; all records/ranks agree.
+- [Promotion checker](../scripts/krakken_kernel_integral_promotion_check.py), [promotion report](../results/krakken_kernel_integral_promotion_check.json): provenance, fresh record equality, opposite-pivot ranks, exact balanced positions and digest-projection generators. Requires the fresh replay artifacts; does not itself evaluate cubes.
+- [Original manifest](../discovery5/manifest.json): unchanged 24-file **pre-promotion** source/artifact/documentation snapshot. All hashes matched before promotion; documentation hashes are historical after the authorized edits.
+- Dependencies: CHI-RATE-001 first-branch rank/surjectivity, source S-box degree seven, exact Pressure LSB identities. Generic INT-CUBE-001 and byte-family INT-BYTE-002 are comparison results, not premises of the new integral.
+
 ## INT-BYTE-001
 
 [INT-BYTE-001](KRAKKEN_SECURITY_THEOREMS.md#int-byte-001) — Proved: complete one-byte coordinate-cube class has no universal round-two coordinate balance
