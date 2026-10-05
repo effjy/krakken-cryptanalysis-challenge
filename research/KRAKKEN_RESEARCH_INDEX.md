@@ -72,6 +72,16 @@ projected value has probability at most `2^-8+255·2^-136`. This is a
 complete-round **almost-all-differences** theorem, not a guarantee
 for a selected input difference, the hash digest, or later rounds.
 
+The [DIFF-RATE-007 conditioned complete-round bound](KRAKKEN_CONDITIONED_PRESSURE_DIFFERENTIAL.md)
+crosses real Pressure carries for the three fixed differences of
+`DIFF-RATE-003`. Conditioned on `A1=5`, every prescribed full-state difference
+after round 1 has probability at most `1/4+2^-204`, `1/8+2^-197`, or
+`1/16+2^-182`, respectively. Exact differential-event spectra avoid masks
+that made whole-slice uniformity bounds vacuous. The proof retains affine
+message dependencies, and a separate implementation audit replays 48 real
+message pairs. Unconditional probabilities outside `A1=5`, digest bounds
+and multi-round propagation remain open.
+
 The [LIN-THETA-001 fixed-space theorem](KRAKKEN_SECURITY_THEOREMS.md#lin-theta-001)
 closes Candidate 4 of `NEW.md`: the current scalar Theta layer is an
 involution with `rank(Theta−I)=504` and a 1544-dimensional fixed
