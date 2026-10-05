@@ -54,6 +54,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [DIFF-RATE-003](#diff-rate-003) | Differential | H | 1→2 | Three fixed differences conditioned on A1=5 | A2≥3; not all A1=5 pairs | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-003) | — | Stated class/checkpoint only |
 | [DIFF-RATE-004](#diff-rate-004) | Differential | First full 160-byte absorb / common-prefix later full absorb | Chi of that call | All nonzero rate-only full-block differences | Exact first-full-block min A=5; later shared-prefix full-block floor A≥5 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-004) | — | Does not cover differing earlier blocks or later padded call |
 | [DIFF-RATE-005](#diff-rate-005) | Differential | H / common-prefix final 159-byte suffix | Chi1/XRBD1 | Every fixed nonzero message difference and every prescribed full-state difference | Probability at most 2^-24 under uniform message base; sharpness open | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-005) | — | Checkpoint concentration, not a complete-round bound |
+| [DIFF-RATE-006](#diff-rate-006) | Differential | H / fixed affine rate translate | 1 complete round | All but fewer than 2^1039 of the 2^1272 message differences; all eight-bit output differences on one specified nondigest projection | Each point probability ≤2^-8+255·2^-136; projected difference TV <2^-125 from uniform | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-006) | — | Almost-all-difference projection theorem; attacker-chosen exceptions and digest remain open |
 | [CHI-RATE-001](#chi-rate-001) | Chi projection / differential / linear | H / full rate / fixed affine offset | Chi1/XRBD1 | All 128 first-call bytes plus any ≤5 second-call bytes; every fixed nonzero difference; stated mask class | Joint uniformity; exact truncated-difference product; prescribed full difference ≤2^-30; sharp first-only mask maximum 2^-3t | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#chi-rate-001) | — | First-Chi checkpoint only; no Pressure or later-round probability claim |
 | [DIFF-ACT-001](#diff-act-001) | Differential activity / conditional linear | Affine rate plane | Chi1 / 1 | Every fixed full-state difference and affine offset; uniform 159-/160-byte base | Exact activity law and affine minimizer; exact conditioning spectrum; specified eight-bit complete-round bound | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-act-001) | — | Base-state nondigest projection; no output-difference or multi-round bound |
 | [DIFF-CHI-001](#diff-chi-001) | Differential | Local Chi / H | Chi1 | Prescribed local transitions with active first S-box; hash transitions where every active first call is active | Affine base fibers; consistent hash event has exact probability 2^-rank | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-chi-001) | — | Counting shortcut; no Pressure conclusion |
@@ -144,6 +145,7 @@ flowchart TD
   image --> effective
   image --> activity["DIFF-ACT-001: exact activity syndrome"]
   nonlinear --> activityBound["DIFF-ACT-001: conditioned R1 projection"]
+  nonlinear --> diffAlmost["DIFF-RATE-006: almost-all R1 projected differentials"]
   activity --> activityBound
   thetaParity["Exact eight-column parity recurrence"] --> thetaFixed["LIN-THETA-001: fixed dimension 1544 / rank 504"]
   localboom["BOOM-LOCAL-001: local perfect family"] --> embed["BOOM-EMBED-001: embedding / rate gate"]
@@ -2714,6 +2716,70 @@ This is a quantitative **one-complete-round** linear and
 conditional-distribution theorem for a specified output-mask space.
 It gives no bound for all 2,048 output masks, the digest bits, later
 rounds, differential probabilities, or collision/preimage security.
+
+<a id="diff-rate-006"></a>
+## Corollary proved: almost-all first-round differential bound on one eight-bit projection
+
+<!-- THEOREM METADATA DIFF-RATE-006 -->
+**Permanent ID:** `DIFF-RATE-006` · **Proof classification:** analytic Fourier/autocorrelation proof plus finite exact rational inequality inherited from `LIN-RATE-004`. A separate integer accumulation is an independent implementation audit within this investigation; no external certificate reproduction is recorded.
+<!-- END THEOREM METADATA DIFF-RATE-006 -->
+
+Use the domain, fixed offset `x_*`, first complete round `P_1`, and
+eight-bit **nondigest** projection `Y_(x_*)` of `LIN-RATE-004`.
+For a fixed 1272-bit message difference `Delta`, put
+`D_Delta(m)=Y_(x_*)(m) XOR Y_(x_*)(m XOR Delta)`, with `m` uniform over
+all 159-byte messages. For **each fixed offset** `x_*`, fewer than
+`2^1039` of the `2^1272` possible `Delta` (including zero in the
+exceptional count) can violate the following simultaneous bounds:
+
+`|E_m (-1)^(s·D_Delta(m))| <= 2^-128` for every nonzero eight-bit mask `s`;
+
+`Pr_m[D_Delta(m)=d] <= 2^-8 + 255·2^-136` for every eight-bit `d`;
+
+`TV(Law(D_Delta(m)),Uniform(F2^8)) < 2^-125`.
+
+For each such good `Delta`, the same pointwise upper bound applies to
+**any prescribed full 2048-bit first-round output difference**, since
+that event implies its eight-bit projection. The bound is deliberately
+modest for a full-state difference because it observes only eight
+bits. It does not assert that an attacker-chosen `Delta` is good.
+
+**Proof.** For `s!=0`, set `f_s(m)=(-1)^(s·Y_(x_*)(m))` and use normalized
+message Walsh coefficients `W_s(alpha)`. The `LIN-RATE-004` theorem
+gives `|W_s(alpha)|<=2^-246` for **every** message mask `alpha`.
+The derivative autocorrelation is
+
+`c_s(Delta)=E_m f_s(m)f_s(m XOR Delta)
+          =sum_alpha W_s(alpha)^2 (-1)^(alpha·Delta)`.
+
+Orthogonality and Parseval yield
+`E_Delta c_s(Delta)^2 = sum_alpha W_s(alpha)^4
+ <= B_s^2 sum_alpha W_s(alpha)^2 = B_s^2`, where `B_s` is the exact
+certified upper bound for mask `s` from `LIN-RATE-004`. The 255 saved
+rational bounds obey **`sum_(s!=0) B_s^2 < 2^-489`**. Therefore the
+fraction of differences for which any `|c_s(Delta)|>2^-128` is less
+than `2^256·2^-489=2^-233`; multiplying by `2^1272` gives fewer
+than `2^1039` exceptional differences. Fourier inversion on the
+eight-bit difference gives the pointwise bound. Cauchy–Schwarz and
+eight-bit Parseval give TV at most
+`sqrt(255)/2 · 2^-128 < 2^-125`.
+
+The [derived certificate](../results/krakken_round1_almost_all_differentials.json)
+and [producer](../scripts/krakken_round1_almost_all_differentials.py)
+check the 255 exact rational bounds, source pins, projection bits,
+and arithmetic. A separate [integer audit](../scripts/krakken_round1_almost_all_differentials_audit.py)
+reverses the summation order and verifies the strict inequality on a
+common power-of-two denominator; its [report](../results/krakken_round1_almost_all_differentials_audit.json)
+passes. The source-level linear certificate and original-C replay are
+inherited from `LIN-RATE-004`; no exhaustive enumeration of message
+differences is used or needed.
+
+This is a **one-round, almost-all-input-differences** result for one
+specified nondigest output projection. The exceptional set may contain
+attacker-chosen differences, including the known sparse five-cell
+families; no bound is proved here for any particular one of them, for
+the 256-bit hash digest, for all 2048 output bits jointly, or for
+rounds two through eight. It is not a collision or preimage bound.
 
 <a id="alg-deg-001"></a>
 ## Theorem proved: valid-message coordinate-degree map through eight rounds
