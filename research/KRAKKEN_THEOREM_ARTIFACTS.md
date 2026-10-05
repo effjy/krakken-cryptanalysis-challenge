@@ -152,6 +152,18 @@ remain in the original reports. The frozen bundle is not updated.
 - [krakken_round1_almost_all_differentials.py](../scripts/krakken_round1_almost_all_differentials.py), [krakken_round1_almost_all_differentials.json](../results/krakken_round1_almost_all_differentials.json) — exact rational-square sum and Fourier/Markov corollary arithmetic.
 - [krakken_round1_almost_all_differentials_audit.py](../scripts/krakken_round1_almost_all_differentials_audit.py), [krakken_round1_almost_all_differentials_audit.json](../results/krakken_round1_almost_all_differentials_audit.json) — separate integer arithmetic audit.
 
+## DIFF-RATE-007
+
+[DIFF-RATE-007](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-007) — conditioned
+complete-round differential bounds for the three DIFF-RATE-003 differences.
+
+- [Proof/reproduction note](KRAKKEN_CONDITIONED_PRESSURE_DIFFERENTIAL.md).
+- [Slice producer](../scripts/krakken_conditioned_pressure_differential.py), [chain-2 four-bit report](../results/krakken_conditioned_pressure_ch02_k4.json), [chain-1 five-bit report](../results/krakken_conditioned_pressure_ch01_k5.json): all slice-mask bounds and actual-message witnesses.
+- [Event producer](../scripts/krakken_conditioned_pressure_events.py), [event certificate](../results/krakken_conditioned_pressure_events.json): exact local differential-event spectra and rational bounds.
+- [Separate implementation audit](../scripts/krakken_conditioned_pressure_audit.py), [audit report](../results/krakken_conditioned_pressure_audit.json): independently reconstructed matrices, ranks, spectra, event fibers and original-C pair replays.
+- [Unsuccessful chain-14 pilot](../results/krakken_conditioned_pressure_ch14_k4.json): vacuous whole-slice bound retained outside theorem evidence.
+- Inherited: DIFF-RATE-003 fixed differences and fixed post-Chi differences; DIFF-ACT-001 affine activity fibers; LIN-RATE-004 effective-coordinate affine-image lemma. The new report is conditional on A1=5; no unconditional or multi-round claim.
+
 ## DIFF-CHI-001
 
 [DIFF-CHI-001](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-001) — affine active-first-call transition fibers and exact hash-base rank count.
