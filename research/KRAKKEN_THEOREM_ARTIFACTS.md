@@ -346,6 +346,17 @@ To reproduce without overwriting the saved artifacts:
 - [carry_relation_polynomials.py](../discovery4/carry_relation_polynomials.py), [carry_relation_polynomials.json](../discovery4/carry_relation_polynomials.json) — full degree≤4 vanishing-polynomial spaces and common-zero checks.
 - [three_cubic_gate.py](../discovery4/three_cubic_gate.py), [three_cubic_gate.json](../discovery4/three_cubic_gate.json) — exact 1024-profile cubic verification.
 
+## PRESS-DIFF-002
+
+[PRESS-DIFF-002](KRAKKEN_SECURITY_THEOREMS.md#press-diff-002) — exact low-three-bit Pressure relation, polynomial hierarchy and affine exception.
+
+- [KRAKKEN_PRESSURE_ALGEBRA_PILOT.md](KRAKKEN_PRESSURE_ALGEBRA_PILOT.md) — proof scope, complete counts and separate bounded site benchmark.
+- [krakken_pressure_low3_polynomial.py](../scripts/krakken_pressure_low3_polynomial.py), [krakken_pressure_low3_polynomial_d5.json](../results/krakken_pressure_low3_polynomial_d5.json) — full local profile and degree≤5 polynomial-space producer.
+- [krakken_pressure_low3_affine_exception_audit.py](../scripts/krakken_pressure_low3_affine_exception_audit.py), [krakken_pressure_low3_affine_exception_audit.json](../results/krakken_pressure_low3_affine_exception_audit.json) — separate difference-first enumeration, opposite-pivot closures and affine-flat certificate.
+- [krakken_pressure_low3_single_quintic.py](../scripts/krakken_pressure_low3_single_quintic.py), [krakken_pressure_low3_single_quintic.json](../results/krakken_pressure_low3_single_quintic.json) — explicit 82-term quintic separating the cubic false profiles.
+- [krakken_pressure_low3_single_quintic_audit.py](../scripts/krakken_pressure_low3_single_quintic_audit.py), [krakken_pressure_low3_single_quintic_audit.json](../results/krakken_pressure_low3_single_quintic_audit.json) — separate direct local enumeration and full ANF truth-table audit.
+- [bounded_checks.json](../discovery4/bounded_checks.json) — inherited original-C full-word low-six-bit slice audit for source correspondence.
+
 ## PRESS-HULL-001
 
 [PRESS-HULL-001](KRAKKEN_SECURITY_THEOREMS.md#press-hull-001) — Exact coupled-chain hull identity and a failed bound
