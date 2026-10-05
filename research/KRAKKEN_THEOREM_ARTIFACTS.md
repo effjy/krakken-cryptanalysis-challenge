@@ -338,6 +338,14 @@ To reproduce without overwriting the saved artifacts:
 - [pressure_lowbit_max_k6_certificate.json](../results/pressure_lowbit_max_k6_certificate.json) — present.
 - [pressure_lowbit_top_support_validated.json](../results/pressure_lowbit_top_support_validated.json) — present.
 
+## PRESS-DIFF-001
+
+[PRESS-DIFF-001](KRAKKEN_SECURITY_THEOREMS.md#press-diff-001) — exact local two-bit Pressure difference gate and complete quadratic obstruction.
+
+- [RESULTS4.md](../RESULTS4.md) — analytic carry-rank derivation, scope and bounded next tests.
+- [carry_relation_polynomials.py](../discovery4/carry_relation_polynomials.py), [carry_relation_polynomials.json](../discovery4/carry_relation_polynomials.json) — full degree≤4 vanishing-polynomial spaces and common-zero checks.
+- [three_cubic_gate.py](../discovery4/three_cubic_gate.py), [three_cubic_gate.json](../discovery4/three_cubic_gate.json) — exact 1024-profile cubic verification.
+
 ## PRESS-HULL-001
 
 [PRESS-HULL-001](KRAKKEN_SECURITY_THEOREMS.md#press-hull-001) — Exact coupled-chain hull identity and a failed bound
@@ -398,6 +406,14 @@ To reproduce without overwriting the saved artifacts:
 - [degree_round1_pressure_lsb_all32_exact13_validated.json](../results/degree_round1_pressure_lsb_all32_exact13_validated.json) — present.
 - [krakken_degree_multiround_audit.py](../scripts/krakken_degree_multiround_audit.py) — present.
 - [serial_chi_16bit_degree_validated.json](../results/serial_chi_16bit_degree_validated.json) — present.
+
+## ALG-DEG-002
+
+[ALG-DEG-002](KRAKKEN_SECURITY_THEOREMS.md#alg-deg-002) — exact low-six-bit local Pressure degrees and 192 first-round coordinate upper bounds.
+
+- [RESULTS4.md](../RESULTS4.md) — analytic degree-composition proof and limitations.
+- [bounded_checks.py](../discovery4/bounded_checks.py), [bounded_checks.json](../discovery4/bounded_checks.json) — full 18-variable ANF, inverse transform and original-C slice checks.
+- [ALG-DEG-001](KRAKKEN_SECURITY_THEOREMS.md#alg-deg-001) — inherited exact bit-zero and lower-degree certificates on valid 159-byte messages.
 
 ## LIN-HULL-001
 
