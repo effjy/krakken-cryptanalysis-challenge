@@ -164,6 +164,19 @@ complete-round differential bounds for the three DIFF-RATE-003 differences.
 - [Unsuccessful chain-14 pilot](../results/krakken_conditioned_pressure_ch14_k4.json): vacuous whole-slice bound retained outside theorem evidence.
 - Inherited: DIFF-RATE-003 fixed differences and fixed post-Chi differences; DIFF-ACT-001 affine activity fibers; LIN-RATE-004 effective-coordinate affine-image lemma. The new report is conditional on A1=5; no unconditional or multi-round claim.
 
+## DIFF-RATE-008
+
+[DIFF-RATE-008](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-008) — unconditional
+first-complete-round all-output point bound for the three fixed differences.
+
+- [Proof/reproduction note](KRAKKEN_UNCONDITIONAL_ROUND1_DIFFERENTIAL.md).
+- [Producer](../scripts/krakken_unconditional_round1_differential.py), [ten-bit certificate](../results/krakken_unconditional_round1_differential_k5.json): five-cell input ranks, local histograms, exact convolution, all projected output counts and actual-message witnesses.
+- [Independent implementation audit](../scripts/krakken_unconditional_round1_differential_audit.py), [separate scalar C mixture counter](../scripts/krakken_pressure_mixture_audit.c), [final audit report](../results/krakken_unconditional_round1_differential_k5_audit_final.json): all slice-character bounds, exact mixtures and original-C replays.
+- [Inherited four-bit slice report](../results/krakken_conditioned_pressure_ch02_k4.json): all 4,095 bounds, independently fully reconstructed in the new audit.
+- [Initial eight-bit pilot](../results/krakken_unconditional_round1_differential.json), [original pilot producer](../scripts/krakken_unconditional_round1_differential_initial.py): historical stage of this pass, not the final ten-bit certificate.
+- [Vacuous fifteen-bit whole-slice pilot](../results/krakken_conditioned_pressure_ch02_k5.json): failed inequality, not theorem evidence.
+- Dependencies: the effective-coordinate affine-image lemma of LIN-RATE-004 and the fixed message differences identified by DIFF-RATE-003. The A1=5 event and conditional DIFF-RATE-007 probability bounds are not premises of the unconditional result.
+
 ## DIFF-CHI-001
 
 [DIFF-CHI-001](KRAKKEN_SECURITY_THEOREMS.md#diff-chi-001) — affine active-first-call transition fibers and exact hash-base rank count.
