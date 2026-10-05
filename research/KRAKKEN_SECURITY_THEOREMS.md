@@ -55,7 +55,8 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [DIFF-RATE-004](#diff-rate-004) | Differential | First full 160-byte absorb / common-prefix later full absorb | Chi of that call | All nonzero rate-only full-block differences | Exact first-full-block min A=5; later shared-prefix full-block floor A≥5 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-004) | — | Does not cover differing earlier blocks or later padded call |
 | [DIFF-RATE-005](#diff-rate-005) | Differential | H / common-prefix final 159-byte suffix | Chi1/XRBD1 | Every fixed nonzero message difference and every prescribed full-state difference | Probability at most 2^-24 under uniform message base; sharpness open | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-005) | — | Checkpoint concentration, not a complete-round bound |
 | [DIFF-RATE-006](#diff-rate-006) | Differential | H / fixed affine rate translate | 1 complete round | All but fewer than 2^1039 of the 2^1272 message differences; all eight-bit output differences on one specified nondigest projection | Each point probability ≤2^-8+255·2^-136; projected difference TV <2^-125 from uniform | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-006) | — | Almost-all-difference projection theorem; attacker-chosen exceptions and digest remain open |
-| [DIFF-RATE-007](#diff-rate-007) | Differential | H | 1 complete round | Three fixed differences, uniform message base conditioned on A1=5; every prescribed full-state output difference | Conditional point probability ≤1/4+2^-204, ≤1/8+2^-197, ≤1/16+2^-182 respectively | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-007) | — | Conditional complete-round bound; outside-event, digest and multi-round bounds open |
+| [DIFF-RATE-007](#diff-rate-007) | Differential | H | 1 complete round | Three fixed differences, uniform message base conditioned on A1=5; every prescribed full-state output difference | Conditional point probability ≤1/4+2^-204, ≤1/8+2^-197, ≤1/16+2^-182 respectively | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-007) | — | Conditional theorem; DIFF-RATE-008 supplies unconditional successor; digest and multi-round bounds open |
+| [DIFF-RATE-008](#diff-rate-008) | Differential | H | 1 complete round | Three fixed differences; every uniform message base, no activity conditioning; every prescribed full-state output difference | Point probability <507/512000 =1.014/1024; ten-bit projected law within 2^-145 of exact finite reference | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-008) | — | Full-state point bound via nondigest projection; projected R1 nonuniformity also certified; other differences/digest/later rounds open |
 | [CHI-RATE-001](#chi-rate-001) | Chi projection / differential / linear | H / full rate / fixed affine offset | Chi1/XRBD1 | All 128 first-call bytes plus any ≤5 second-call bytes; every fixed nonzero difference; stated mask class | Joint uniformity; exact truncated-difference product; prescribed full difference ≤2^-30; sharp first-only mask maximum 2^-3t | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#chi-rate-001) | — | First-Chi checkpoint only; no Pressure or later-round probability claim |
 | [DIFF-ACT-001](#diff-act-001) | Differential activity / conditional linear | Affine rate plane | Chi1 / 1 | Every fixed full-state difference and affine offset; uniform 159-/160-byte base | Exact activity law and affine minimizer; exact conditioning spectrum; specified eight-bit complete-round bound | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-act-001) | — | Base-state nondigest projection; no output-difference or multi-round bound |
 | [DIFF-CHI-001](#diff-chi-001) | Differential | Local Chi / H | Chi1 | Prescribed local transitions with active first S-box; hash transitions where every active first call is active | Affine base fibers; consistent hash event has exact probability 2^-rank | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-chi-001) | — | Counting shortcut; no Pressure conclusion |
@@ -149,6 +150,8 @@ flowchart TD
   nonlinear --> diffAlmost["DIFF-RATE-006: almost-all R1 projected differentials"]
   effective --> diffConditioned["DIFF-RATE-007: conditioned complete R1 differential bounds"]
   selected --> diffConditioned
+  effective --> diffUnconditional["DIFF-RATE-008: unconditional complete R1 fixed-difference bounds"]
+  selected -->|fixed differences only| diffUnconditional
   activity --> activityBound
   thetaParity["Exact eight-column parity recurrence"] --> thetaFixed["LIN-THETA-001: fixed dimension 1544 / rank 504"]
   localboom["BOOM-LOCAL-001: local perfect family"] --> embed["BOOM-EMBED-001: embedding / rate gate"]
@@ -646,7 +649,8 @@ Because each event has exact probability `2^-35`, the joint probabilities
 `Pr[H_delta and F1(m) XOR F1(m XOR delta)=d]` are respectively at most
 `2^-37+2^-239`, `2^-38+2^-232`, and `2^-39+2^-217`.
 These are not unconditional differential probabilities for the fixed
-differences. The complement of `H_delta` remains uncontrolled here.
+differences. The complement of `H_delta` remains uncontrolled by this
+conditional theorem; `DIFF-RATE-008` below supplies an unconditional successor.
 
 On each event the post-Chi1 and post-XRBD1 differences are fixed. Select
 Pressure chain 2's low four output bits for the first two cases and chain 1's
@@ -675,6 +679,73 @@ The independent implementation audit reconstructs 1,272 prefix and 2,048
 XRBD columns, checks 1,458 used-mask occurrences across six reported case/chain
 combinations, reconstructs all three event ranks, and replays 48 actual message
 pairs through the original complete-round C.
+
+<a id="diff-rate-008"></a>
+## Theorem proved: unconditional fixed-difference probabilities through one complete round
+
+<!-- THEOREM METADATA DIFF-RATE-008 -->
+**Permanent ID:** `DIFF-RATE-008` · **Proof classification:** analytic affine-conditioning, differential-coordinate and mixture proof plus finite exhaustive rank, Walsh, local Chi and Pressure count certificates. The separate matrix/opposite-pivot/direct-character-sum/recursive-transform/scalar-C count and original-C replay is an independent implementation audit within this investigation; no external reproduction is recorded.
+<!-- END THEOREM METADATA DIFF-RATE-008 -->
+
+Fix any of the three 159-byte message differences indexed `(2,6),(2,9),(21,2)`
+in `DIFF-RATE-003`. For a uniform valid first-block base, **without any
+activity conditioning**, every prescribed full-state output difference `d`
+after the first complete XRBD-enabled round satisfies
+
+`Pr[F1(m) XOR F1(m XOR delta)=d] < 507/512000 = 1.014/1024`.
+
+The selected ten-bit projection is lane 28 bits 11–15 followed by lane 10
+bits 11–15. Its differential law is within total variation **strictly less
+than `2^-145`** of a completely saved exact finite reference law `Q_delta`.
+The reference point maxima are, respectively,
+
+`4561743864564605/2^62`, `9131790296210861/2^63`,
+and `1152944171538406687/2^70`.
+
+Thus the stronger per-case point bound is `max Q_delta + epsilon`, with
+`epsilon<2^-145`; the common ceiling is checked by exact rational arithmetic.
+A full-state output difference implies one projected value. These are
+complete-round differential bounds including all internal alternatives for
+the three fixed inputs, not products of local trail probabilities.
+
+Each input difference affects exactly five Chi cells. Their combined input
+projection has rank 80, making their five inputs independent uniform local
+16-bit values. Fixing them is an affine codimension-80 message condition
+and fixes the post-Chi/XRBD difference. This partitions **all** message
+bases, rather than only the rare `A1=5` bases of `DIFF-RATE-007`.
+
+The low-five-bit Pressure derivative is independent of its three top base
+input bits: translating any one changes both original outputs by a fixed
+linear vector, which cancels between the two states. Its base dependence
+therefore factors through the twelve low-four-bit input coordinates, while
+its difference still uses fifteen bits. The all-message-mask bounds `B_t`
+for those twelve coordinates satisfy `sum B_t^2<=2^-448`; conditioning on
+the eighty affected inputs yields `TV<=2^79 sqrt(sum B_t^2)<2^-145`.
+Independence between those inputs and the Pressure base is **not assumed**.
+The otherwise-vacuous fifteen-bit whole-slice inequality is retained as a
+failed proof route.
+
+For each affected cell, exhaust its 65,536 bases and project its actual Chi
+difference through XRBD. Exact XOR convolution of the five local histograms
+accounts for every affected-input combination. Exhaust all 134,217,728
+effective Pressure pairs and average with that difference law to obtain
+`Q_delta`; data processing and averaging preserve the total-variation error.
+Constants cancel and shuffle transports the bits through the complete round.
+
+The proof also establishes **nonuniformity** of these particular round-one
+projected difference laws: their maxima exceed `1/1024` by more than the error.
+This is a reduced-round nondigest structure, not an eight-round hash weakness.
+No digest bound, other-input-difference bound, later-round bound or security
+bits are inferred. Conditional sharpness and unrestricted global differential
+maxima remain open.
+
+See the [proof/reproduction note](KRAKKEN_UNCONDITIONAL_ROUND1_DIFFERENTIAL.md),
+[exact certificate](../results/krakken_unconditional_round1_differential_k5.json),
+and [final audit](../results/krakken_unconditional_round1_differential_k5_audit_final.json).
+The audit independently reproduces all 4,095 slice-mask bounds, all three
+80-rank projections, 983,040 local Chi evaluations, and all three reference
+laws using a separate exact scalar C counter; it checks 98,304 top-bit
+translations and replays 96 saved actual message pairs through original C.
 
 <a id="diff-rate-003"></a>
 ## Theorem proved: three fixed valid-message differences satisfy `A1=5 => A2>=3`
