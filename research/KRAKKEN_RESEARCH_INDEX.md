@@ -34,6 +34,23 @@ trigger packaging.
 
 ## Current theorem status
 
+[RESULTS4.md](../RESULTS4.md) adds two bounded local/first-round
+results. [PRESS-DIFF-001](KRAKKEN_SECURITY_THEOREMS.md#press-diff-001)
+replaces the exact two-bit Pressure difference table by two LSB
+equations and three factored cubic equations; it also proves that
+all standalone quadratic consequences together prune no more than
+the LSB equations. [ALG-DEG-002](KRAKKEN_SECURITY_THEOREMS.md#alg-deg-002)
+gives exact local degrees for the low six bits of both Pressure
+outputs and upper bounds for 192 specified complete-round-one state
+bits. Neither result raises an eight-round activity floor. The
+report's abstract calculation shows that closing unrestricted
+`[1,2]` alone would raise the **presently derivable** eight-round
+valid-159-byte activity floor only from 15 to 18; this is a
+hypothetical implication, not a newly proved Krakken floor. Its
+bounded next test is factored-affine branching against the existing
+effective-coordinate enumerator on selected cases, before any
+campaign-scale run.
+
 The [LIN-THETA-001 fixed-space theorem](KRAKKEN_SECURITY_THEOREMS.md#lin-theta-001)
 closes Candidate 4 of `NEW.md`: the current scalar Theta layer is an
 involution with `rank(Theta−I)=504` and a 1544-dimensional fixed
