@@ -81,6 +81,17 @@ low-four-bit Pressure spectrum and the actual message-image ranks;
 it does not infer uniform Pressure inputs. The result does not cover
 all output masks, the digest projection, or later rounds.
 
+[DIFF-ACT-001](KRAKKEN_SECURITY_THEOREMS.md#diff-act-001) now gives the
+exact first-Chi activity distribution and the full affine set of
+minimum-activity bases for **every fixed state difference** on a
+uniform 159-/160-byte rate plane, including fixed capacity differences.
+Its exact activity-conditioning Fourier norm combines with
+LIN-RATE-004: after any nonempty `A1<=5` event, the specified
+eight-bit **base-state, nondigest** projection after one complete
+round has correlation at most `2^-211` against every message mask
+and TV `<2^-208` from uniform. This does not bound the difference
+of the two round outputs or any digest projection.
+
 The [LIN-CHI-002 four-cell projection theorem](KRAKKEN_SECURITY_THEOREMS.md#lin-chi-002)
 certifies rank 64 for **all 10,668,000** selections of four serial-Chi
 inputs from the valid 159-byte first-block message space. It extends
