@@ -42,6 +42,7 @@ little-endian C execution used by the certificates.
 | **PROVED — GLOBAL FIRST-CHI CHECKPOINT** | Any prescribed post-Chi1 or post-XRBD1 full-state difference has probability at most `2^-24` by DIFF-RATE-005; strengthened to `2^-30` by CHI-RATE-001 | Every fixed nonzero valid 159-byte message difference; uniform message base; sharpness of the stronger bound open |
 | **PROVED — ALMOST-ALL FIRST-ROUND DIFFERENCES** | Fewer than `2^1039` of `2^1272` message differences can have a specified eight-bit nondigest round-one difference distribution with any mask bias above `2^-128`; every projected point for each other difference has probability ≤`2^-8+255·2^-136` | One complete round; any fixed affine state offset separately; exceptional attacker-chosen differences, digest bits and later rounds open |
 | **PROVED — COMPLETE CONDITIONAL CHI CLASS** | All 128 first-call bytes plus any five second-call bytes are jointly uniform; exact truncated-differential product; sharp first-only mask maximum `2^-3t` for `t≤128` | Uniform 159-/160-byte rate message, arbitrary fixed affine offset; Chi1/XRBD1 checkpoint only; at most five masked second-output bytes |
+| **PROVED — CONDITIONAL COMPLETE-ROUND DIFFERENTIAL CLASS** | Every prescribed full-state round-one difference has conditional probability ≤`1/4+2^-204`, ≤`1/8+2^-197`, or ≤`1/16+2^-182` for the three DIFF-RATE-003 differences | Uniform valid 159-byte base conditioned on A1=5; DIFF-RATE-007; complement of event, digest and later rounds open |
 | **PROVED — COMPLETE FIXED-DIFFERENCE ACTIVITY CLASS** | Exact affine-syndrome law, all activity counts and minimum bases; conditioned specified eight-bit R1 correlation ≤`2^-211` when nonempty `A1≤5` | Every fixed full-state difference and fixed offset, uniform 159-/160-byte base; the R1 bound is for the base-state nondigest projection, not output differences |
 | **PROVED — ACTIVE-FIRST-CALL CHI CLASS** | Every prescribed local transition fiber is affine; consistent hash-level event has exact probability `2^-rank` | Local components with active first S-box call; whole first-Chi transition if all nonzero components meet that condition |
 | **PROVED — COMPLETE LOCAL DIFFERENTIAL CLASS** | Sharp maximum local DP is `2^-6`, `2^-7`, or `2^-12`, with 510/32,130/32,895 input differences and a unique maximizing output for each | Every nonzero 16-bit serial-Chi input difference, uniform unrestricted local base; full-Chi product only under uniform unrestricted state |
@@ -458,6 +459,25 @@ direct 16-bit local sums validate the reduction. See
 [DL-LOCAL-001](KRAKKEN_SECURITY_THEOREMS.md#dl-local-001).
 This is an unrestricted Chi statement, not a complete-round or
 hash-interface differential-linear bound.
+
+## PROVED — CONDITIONAL COMPLETE-ROUND DIFFERENTIAL CLASS
+
+For each fixed message difference `(2,6),(2,9),(21,2)` of DIFF-RATE-003,
+condition a uniform valid 159-byte message base on `A1=5`. Every prescribed
+2048-bit output difference after the first complete round has probability
+at most `1/4+2^-204`, `1/8+2^-197`, or `1/16+2^-182`, respectively.
+The exact conditioning event probability is `2^-35`; thus the corresponding
+joint-event bounds are `2^-37+2^-239`, `2^-38+2^-232`, and `2^-39+2^-217`.
+
+The proof expands the exact Pressure derivative-event indicator, bounds its
+used slice characters via the effective-coordinate message-image lemma, and
+accounts for affine conditioning. A separate implementation audit reconstructs
+the relevant prefix/XRBD matrices and event ranks, rechecks all used-mask and
+rational bounds, and replays 48 saved actual message pairs through original C.
+See [DIFF-RATE-007](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-007) and the
+[proof/certificate note](KRAKKEN_CONDITIONED_PRESSURE_DIFFERENTIAL.md).
+This does not bound the complement of `A1=5`, later rounds, or digest
+differences. Uniform Pressure inputs are not assumed for real messages.
 
 ## PROVED — CONDITIONAL HASH-REACHABLE CLASS: five Chi1 calls require at least three Chi2 cells
 
