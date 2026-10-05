@@ -3016,3 +3016,27 @@ The [producer](../scripts/krakken_multicell_boomerang.py),
 Only one low-priority process ran at a time; no solver was started and
 the AA campaign and C/header were not modified. Full multi-cell Chi2
 continuation, shared-chain carry matching, and sponge reachability remain open.
+
+## 2026-10-04: AB `[1,2]` positions 000–063 refined
+
+The first 64 AB start positions now have complete source-pinned
+three-bit reports, each covering all 8,128 named sites. Across their
+**520,192** sites, the initial pass recorded **177,893** exact
+bit-zero exclusions, **341,357** further three-bit UNSAT exclusions,
+and **942** relaxed SAT candidates. Every one of the 942 was refined:
+**860** became UNSAT at four bits and the other **82** at five bits.
+For the latest eight-position batch, 056–063, only positions 060 and
+062 had relaxed survivors (57 and 174); their
+[position-060](../results/krakken_12_ab_pos060_refinement.json) and
+[position-062](../results/krakken_12_ab_pos062_refinement.json) reports
+exclude all 231. An integrity pass found no missing or unresolved
+case in positions 000–063. This is a completed quarter of the AB
+site enumeration, **not** a global AB or unrestricted `[1,2]`
+theorem; AB positions 064–255 and BA retain their separate campaign
+status.
+
+The [effective-coordinate pilot](KRAKKEN_EFFECTIVE_CONE_PILOT.md)
+shows a way to shrink the exact low-bit relaxation further and, for
+small visible ranks, replace Z3 with finite carry enumeration. Its
+named exclusions reproduce existing refinements and are not counted
+again as new exclusions here.
