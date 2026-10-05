@@ -142,6 +142,9 @@ Artifacts: [slice producer](../scripts/krakken_conditioned_pressure_differential
 [audit report](../results/krakken_conditioned_pressure_audit.json),
 [unsuccessful chain-14 pilot](../results/krakken_conditioned_pressure_ch14_k4.json).
 
-The next open step is a useful unconditional bound for these selected message
-differences, or a conditioned multi-chain bound preserving their joint base
-dependencies. The present result does not multiply independent-chain probabilities.
+The unconditional successor for these three fixed message differences is now
+[DIFF-RATE-008](KRAKKEN_UNCONDITIONAL_ROUND1_DIFFERENTIAL.md): every specified
+complete-round full-state difference has probability below `1.014/1024`
+without activity conditioning. Wider projections, additional input differences
+and later-round bounds remain open. The present conditional result does not
+multiply independent-chain probabilities.
