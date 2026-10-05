@@ -79,6 +79,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [PRESS-WALSH-002](#press-walsh-002) | Linear | U | Pressure | u∈{0,bit0} or q∈{0,bit0}; other masks arbitrary | Exact counter; sharp nonperfect max 1/2 | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-walsh-002) | — | Stated class/checkpoint only |
 | [PRESS-WALSH-003](#press-walsh-003) | Linear | U | Pressure | Both outputs low k≤17; all input masks | Exact joint counter; sharp nonperfect max 1/2 for k≥2, zero at k=1; top-bit zero rule | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-walsh-003) | — | Stated class/checkpoint only |
 | [PRESS-DIFF-001](#press-diff-001) | Differential | Local Pressure | Low two bits | Every ten-bit input/output XOR profile | Exact 184-profile relation from two LSB and three factored cubic equations; all quadratic consequences leave 256 profiles | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-001) | — | Re-expression of local gate; no new global [1,2] exclusion |
+| [PRESS-DIFF-002](#press-diff-002) | Differential | Local Pressure | Low three bits | Every 15-bit input/output XOR profile | Exactly 4,376 feasible; complete cubic closure has 128 false profiles forming one affine 7-flat; one explicit quintic makes that closure exact | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-002) | — | Local gate, not a two-round trail bound |
 | [PRESS-HULL-001](#press-hull-001) | Linear | U/R | Pressure | Arbitrary 64-bit masks; separate 4-bit counterexample | Exact signed identity; triangle bound fails in reduced model | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-hull-001) | — | Identity / failed proof route |
 | [PRESS-ZERO-001](#press-zero-001) | Linear | U | Pressure | Pairwise word projections and specified masks | Exact pair-uniformity and zero coefficients | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-zero-001) | — | Stated class/checkpoint only |
 | [LIN-RATE-001](#lin-rate-001) | Linear | H | 1 | 16 specified output masks; every message mask | Per-mask bounds at least 2^-174, strongest 2^-354 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-001) | — | Stated class/checkpoint only |
@@ -157,6 +158,7 @@ flowchart TD
   lsb["DIFF-12-001: LSB exclusions"] --> low2["DIFF-12-003: all-site low-two-bit gate"]
   low2 --> bb["DIFF-12-004: complete BB exclusion + refinements"]
   low2 --> cubic["PRESS-DIFF-001: exact three-cubic representation; no quadratic gain"]
+  cubic --> cubic3["PRESS-DIFF-002: low-three-bit polynomial hierarchy"]
   aaScan["Complete split-site AA scan + low-bit refinements"] --> aa["DIFF-12-006: complete distinct-AA exclusion"]
   anf["Exact serial-Chi ANF + derivative certificates"] --> degree["ALG-DEG-001: coordinate degree map"]
   anf --> degreeUpper["ALG-DEG-002: 192 round-one degree ceilings"]
@@ -2333,6 +2335,60 @@ substitutions, higher-bit consistency, Chi compatibility, and
 complete-round bounds remain separate. The [full report](../RESULTS4.md)
 and [source-pinned reports](../discovery4/three_cubic_gate.json)
 give the exact scope and audit records.
+
+<a id="press-diff-002"></a>
+## Theorem proved: exact low-three-bit Pressure relation and its polynomial closures
+
+<!-- THEOREM METADATA PRESS-DIFF-002 -->
+**Permanent ID:** `PRESS-DIFF-002` · **Proof classification:** analytic finite-domain reduction plus two complete finite exhaustive enumerations with opposite GF(2) pivots. The inherited original-C low-bit slice checks validate source correspondence; the result is local to one Pressure chain.
+<!-- END THEOREM METADATA PRESS-DIFF-002 -->
+
+For one chain, the low three bits of the source Pressure map are
+exactly `A=a+(c XOR h) mod 8`, `C=c+A mod 8`, with independent
+three-bit slices `a,c,h=(c>>17)[0:3]`. Among all `2^15=32,768`
+profiles `(da,dc,dh,dA,dC)`, **4,376** are realized by at least one
+of the `512×512` local base/input-difference combinations. The
+exact low-two-bit prefix relation admits 5,888 lifted profiles.
+
+For each degree `d`, form the **complete space** of Boolean
+polynomials of degree at most `d` vanishing on those 4,376 profiles.
+Its common-zero set has size 8,192 for `d=1,2`; 4,504 for `d=3,4`;
+and **4,376 for `d=5`**. Thus all quadratic consequences together
+give only the two LSB equations. Cubic consequences exclude 1,384
+additional profiles beyond the exact two-bit prefix but leave 128
+false positives; quartic consequences remove none of those 128;
+degree-five consequences characterize the three-bit relation exactly.
+
+The 128 profiles admitted by every cubic but not by the true local
+relation form **one affine seven-dimensional flat** in the 15-bit
+profile space. Hence an equivalent exact set description is the
+complete cubic zero set **minus that one affine flat**. The saved
+[producer certificate](../results/krakken_pressure_low3_polynomial_d5.json)
+contains the full monomial-evaluation row bases and tests every
+profile. A separate [opposite-pivot audit](../scripts/krakken_pressure_low3_affine_exception_audit.py)
+re-enumerates all local transitions, independently reconstructs the
+degree-three/five closures, and records eight affine equations and
+seven direction vectors for the exception in its
+[report](../results/krakken_pressure_low3_affine_exception_audit.json).
+The exact relation can also be expressed as **all degree-at-most-three
+vanishing equations plus one explicit degree-five equation**. The
+[82-monomial ANF certificate](../results/krakken_pressure_low3_single_quintic.json)
+is zero on all 4,376 feasible profiles and one on all 128 cubic false
+positives. Its [producer](../scripts/krakken_pressure_low3_single_quintic.py)
+derives it from the complete degree-five row space; a separate
+[direct truth-table audit](../scripts/krakken_pressure_low3_single_quintic_audit.py)
+re-enumerates the local transitions and checks the ANF on every
+15-bit profile, with a [PASS report](../results/krakken_pressure_low3_single_quintic_audit.json).
+The 82-term count is one explicit certificate, **not** a proved
+minimum polynomial size.
+The [method and pilot note](KRAKKEN_PRESSURE_ALGEBRA_PILOT.md)
+separates this complete local theorem from selected site timings.
+
+This is an **existential low-three-bit chain relation**, not a full
+Pressure transition, actual two-round trail, or security-bit bound.
+Composing the polynomial conditions with endpoint equations is sound
+for UNSAT exclusions only when the complete required nonzero-byte
+constraints are retained; a relaxed SAT result remains inconclusive.
 
 <a id="press-hull-001"></a>
 ### Exact coupled-chain hull identity and a failed bound
