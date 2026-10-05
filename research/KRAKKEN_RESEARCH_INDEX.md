@@ -51,6 +51,17 @@ bounded next test is factored-affine branching against the existing
 effective-coordinate enumerator on selected cases, before any
 campaign-scale run.
 
+The follow-up [Pressure algebra pilot](KRAKKEN_PRESSURE_ALGEBRA_PILOT.md)
+completed that bounded two-bit comparison and established
+[PRESS-DIFF-002](KRAKKEN_SECURITY_THEOREMS.md#press-diff-002): the
+complete local low-three-bit relation has exactly 4,376 profiles;
+all cubic consequences leave 128 false profiles forming one affine
+seven-dimensional flat, while one explicit degree-five equation makes
+the cubic closure exact. The
+selected 50-site factored-branch benchmark agreed with the existing
+carry-table enumerator and reduced candidate-profile work on its
+tested cases, but yielded **no new global `[1,2]` exclusion**.
+
 The [LIN-THETA-001 fixed-space theorem](KRAKKEN_SECURITY_THEOREMS.md#lin-theta-001)
 closes Candidate 4 of `NEW.md`: the current scalar Theta layer is an
 involution with `rank(Theta−I)=504` and a 1544-dimensional fixed
