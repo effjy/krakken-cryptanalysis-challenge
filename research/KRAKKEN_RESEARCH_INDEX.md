@@ -62,6 +62,16 @@ selected 50-site factored-branch benchmark agreed with the existing
 carry-table enumerator and reduced candidate-profile work on its
 tested cases, but yielded **no new global `[1,2]` exclusion**.
 
+The [DIFF-RATE-006 first-round differential corollary](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-006)
+uses the all-message-mask certificate of `LIN-RATE-004` and the exact
+Fourier autocorrelation identity. For any fixed pad/capacity offset,
+all but fewer than `2^1039` of the `2^1272` valid-message differences
+have an eight-bit **nondigest** round-one output-difference
+distribution within `2^-125` total variation of uniform; every
+projected value has probability at most `2^-8+255·2^-136`. This is a
+complete-round **almost-all-differences** theorem, not a guarantee
+for a selected input difference, the hash digest, or later rounds.
+
 The [LIN-THETA-001 fixed-space theorem](KRAKKEN_SECURITY_THEOREMS.md#lin-theta-001)
 closes Candidate 4 of `NEW.md`: the current scalar Theta layer is an
 involution with `rank(Theta−I)=504` and a 1544-dimensional fixed
