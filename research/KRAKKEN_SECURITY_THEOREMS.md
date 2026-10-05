@@ -55,6 +55,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [DIFF-RATE-004](#diff-rate-004) | Differential | First full 160-byte absorb / common-prefix later full absorb | Chi of that call | All nonzero rate-only full-block differences | Exact first-full-block min A=5; later shared-prefix full-block floor A≥5 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-004) | — | Does not cover differing earlier blocks or later padded call |
 | [DIFF-RATE-005](#diff-rate-005) | Differential | H / common-prefix final 159-byte suffix | Chi1/XRBD1 | Every fixed nonzero message difference and every prescribed full-state difference | Probability at most 2^-24 under uniform message base; sharpness open | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-rate-005) | — | Checkpoint concentration, not a complete-round bound |
 | [CHI-RATE-001](#chi-rate-001) | Chi projection / differential / linear | H / full rate / fixed affine offset | Chi1/XRBD1 | All 128 first-call bytes plus any ≤5 second-call bytes; every fixed nonzero difference; stated mask class | Joint uniformity; exact truncated-difference product; prescribed full difference ≤2^-30; sharp first-only mask maximum 2^-3t | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#chi-rate-001) | — | First-Chi checkpoint only; no Pressure or later-round probability claim |
+| [DIFF-ACT-001](#diff-act-001) | Differential activity / conditional linear | Affine rate plane | Chi1 / 1 | Every fixed full-state difference and affine offset; uniform 159-/160-byte base | Exact activity law and affine minimizer; exact conditioning spectrum; specified eight-bit complete-round bound | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-act-001) | — | Base-state nondigest projection; no output-difference or multi-round bound |
 | [DIFF-CHI-001](#diff-chi-001) | Differential | Local Chi / H | Chi1 | Prescribed local transitions with active first S-box; hash transitions where every active first call is active | Affine base fibers; consistent hash event has exact probability 2^-rank | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-chi-001) | — | Counting shortcut; no Pressure conclusion |
 | [DIFF-CHI-002](#diff-chi-002) | Differential | Local Chi / unrestricted full Chi | Chi | Every nonzero 16-bit local input difference, every output difference | Sharp maximum in {2^-6,2^-7,2^-12}; exact class counts 510/32130/32895; unique maximizer | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-chi-002) | — | Local/full-Chi uniform-base statement; hash-base correlations remain |
 | [DL-LOCAL-001](#dl-local-001) | Differential-linear | Local Chi / unrestricted full Chi | Chi | Every nonzero local input difference and nonzero output mask | Exactly 65,025 perfect pairs; every other pair ≤71/512 in absolute correlation | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#dl-local-001) | — | Complete perfect class; nonperfect bound not claimed sharp |
@@ -138,6 +139,9 @@ flowchart TD
   effective["Effective-coordinate affine-image lemma"] --> nonlinear["LIN-RATE-004: 8D nonlinear-Pressure bridge"]
   spectra4["Complete 4-bit Pressure slice spectra"] --> nonlinear
   image --> effective
+  image --> activity["DIFF-ACT-001: exact activity syndrome"]
+  nonlinear --> activityBound["DIFF-ACT-001: conditioned R1 projection"]
+  activity --> activityBound
   thetaParity["Exact eight-column parity recurrence"] --> thetaFixed["LIN-THETA-001: fixed dimension 1544 / rank 504"]
   localboom["BOOM-LOCAL-001: local perfect family"] --> embed["BOOM-EMBED-001: embedding / rate gate"]
   localboom --> completeboom["BOOM-LOCAL-002: complete local BCT classification"]
@@ -895,6 +899,106 @@ five-cell ranks. This pass did **not** rerun the two
 complete round, digest, arbitrary second-output masks, variable
 offset correlated with the new message, and multi-round hulls remain
 outside the theorem.
+
+<a id="diff-act-001"></a>
+## Theorem proved: exact first-Chi activity fibers and conditioned round-one projection
+
+<!-- THEOREM METADATA DIFF-ACT-001 -->
+**Permanent ID:** `DIFF-ACT-001` · **Proof classification:** analytic proof plus finite source-pinned rank and DDT obligations, inheriting the `LIN-RATE-004` complete-round certificate. Separate prefix reconstruction, reduced exhaustive checks, and original-C message replays are independent implementation audits within this investigation; no external certificate reproduction is recorded.
+<!-- END THEOREM METADATA DIFF-ACT-001 -->
+
+Let `n` be 1272 or 1280, `J_n` embed a uniform `n`-bit message base
+in the first `n/8` state bytes, `z_*` be any fixed full-state offset,
+and `Delta` be any fixed 2048-bit difference, **including capacity
+differences**. Compare the first-Chi inputs reached from
+`z_* XOR J_n m` and `z_* XOR J_n m XOR Delta`. The partner need not
+belong to the same rate plane. In each serial-Chi cell, let
+`dx_i=da_i XOR db_i`, where `(da_i,db_i)` is the pre-Chi difference.
+Write `k` for the number of nonzero `dx_i`, `d` for the number of
+cells with `dx_i=0,db_i!=0`, and `n2,n4` for the numbers of cells
+with `dx_i!=0` and S-box DDT entry `D_S(dx_i,db_i)` equal to 2 or 4.
+Put `h=n2+n4`, `c=7n2+6n4`, `A_min=2k+d-h`, and `A_max=2k+d`.
+
+**Exact activity law and minimizing set.** A surjective affine
+`c`-bit syndrome map `q_Delta` has `n2` seven-bit blocks and `n4`
+six-bit blocks such that, at **every** base,
+
+`A_Delta(m)=A_min + number of nonzero syndrome blocks`.
+
+Each syndrome has exactly `2^(n-c)` base-message preimages. Every
+activity from `A_min` through `A_max` occurs. The minimum set is one
+affine space of dimension `n-c`, with probability `2^-c`; its
+direction is exactly the translation stabilizer of the entire
+activity function. With `Z=A_max-A_Delta`, the independent exact law
+is `Z=Binomial(n2,1/128)+Binomial(n4,1/64)`. In particular,
+`#[m:Z=z]=2^(n-c)[t^z](127+t)^n2(63+t)^n4`.
+This gives rejection-free uniform sampling at every attainable
+activity level by finite integer-weight selection and affine solving.
+
+**Exact conditioning spectrum.** For any nonempty set `J` of
+cancellation counts, let `D_J` sum the coefficients of
+`(127+t)^n2(63+t)^n4` indexed by `J`. For
+`0<=ell2<=n2, 0<=ell4<=n4`, let `B_(ell2,ell4)` be the sum over
+`z in J` of coefficient `t^z` in
+`(t-1)^(ell2+ell4)(127+t)^(n2-ell2)(63+t)^(n4-ell4)`.
+The **exact** Fourier `l1` norm of the normalized conditioning
+indicator on message space is
+
+`K_J = (1/D_J) sum_(ell2,ell4) C(n2,ell2)127^ell2 C(n4,ell4)63^ell4 |B_(ell2,ell4)|`.
+
+The signed coefficients for a union of activity levels are summed
+**before** taking absolute values. In particular, no cancellations
+give `K_0=2^h`, while the minimum-activity event gives `K_h=2^c`.
+
+**Specified complete-round consequence.** Let `Y(m)` be lane 7
+bits 18–21 followed by lane 21 bits 30–33 after one complete current
+scalar round on the **base** state `z_* XOR J_n m`. Inheriting the
+all-message-mask `2^-246` bound of [LIN-RATE-004](#lin-rate-004),
+for every input mask `alpha`, nonzero eight-bit output mask `beta`,
+and nonempty activity event `E_J`,
+
+`|Corr(alpha·m,beta·Y(m) | E_J)| <= min(1,2^-246 K_J)`,
+
+and `TV(Law(Y | E_J),Uniform(F2^8)) <= min(1,sqrt(255)/2 * 2^-246 K_J)`.
+For `n=1280`, fixing its last eight rate bits gives 1272-bit affine
+slices, so the inherited bound extends by averaging. In particular,
+**for every fixed `Delta`**, maximum-activity conditioning gives
+correlation at most `2^-118` and TV `<2^-115`. Any nonempty event
+with activity at most five gives correlation at most `2^-211` and
+TV `<2^-208`. These use the actual conditioned rate-message base
+distribution through nonlinear Pressure; they do not assume
+uniform Pressure inputs.
+
+The analytic proof uses the source's serial-Chi equations, the exact
+DDT values 0/2/4, and the full-rank 1024-bit message-to-first-Chi
+`x` projection from [CHI-RATE-001](#chi-rate-001). Each nonempty
+two- or four-point derivative fiber is an affine line or plane;
+stacking its six- or seven-bit zero tests gives the surjective
+syndrome. Character sums over zero and nonzero syndrome blocks give
+`K_J`. Expanding the conditioning indicator into message characters
+then applies `LIN-RATE-004` to each term, without replacing the
+conditioned distribution by a uniform full-state model.
+
+The [full proof and replay report](../RESULTS3.md) cites the
+[producer](../discovery3/activity_fibers.py),
+[separate implementation audit](../discovery3/activity_audit.py),
+[exact Fourier verifier](../discovery3/activity_spectrum.py),
+[different-prefix hash replay](../discovery3/differing_prefixes.py),
+and [saved integrity report](../discovery3/integrity.json).
+The source hashes and saved report/script/dependency hashes match
+the current pinned C/header. The integrity report checks artifacts;
+it does not rerun the large finite checks. The independent audit
+reconstructs the prefix and replays 134 paired Chi evaluations,
+while the Fourier verifier checks 203,104 coefficients in finite
+models. The inherited `LIN-RATE-004` spectra were not recomputed
+in this investigation.
+
+This theorem gives an exact **first-Chi activity** description and
+a bound for one specified eight-bit **base-state nondigest**
+projection after one round. It is not a bound for the XOR of two
+round outputs, digest bits, all state masks, later rounds, differential
+hulls, or collision/preimage security. The minimum-five rate-only
+result does not transfer to arbitrary capacity differences.
 
 <a id="diff-chi-001"></a>
 ## Theorem proved: affine fibers for active-first-call Chi transitions
