@@ -1,6 +1,6 @@
 # Krakken attack-versus-round map
 
-Working synthesis, updated 2026-10-05, for current `krakken.c` SHA-256
+Working synthesis, updated 2026-10-06, for current `krakken.c` SHA-256
 `4d659644c80b6ed0aabbce77d6aad6e6f851a90ec536a2131a412b8ac48eccc6`
 and `krakken.h` SHA-256
 `83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c`.
@@ -29,3 +29,20 @@ the later capacity difference then need not be zero.
 
 This map does not convert activity, local correlation, or sampled
 round-two failure into an eight-round attack complexity or security margin.
+
+## Complete Pressure deterministic translation family
+
+[PRESS-TRANS-001](KRAKKEN_SECURITY_THEOREMS.md#press-trans-001) exposes
+a genuine local probability-one differential space of dimension 16. The first
+round suffix preserves every affine coset of this space exactly. Its surrounding
+Chi cost is nevertheless sharp total 135, with attaining `[72,63]`; individual
+minima 48 and 30 occur at different directions. This condition is at Pressure
+input, not a fixed initial message difference.
+
+At Chi2/XRBD2, uniform unrestricted bases give sharp maximum point probability
+`2^-184`. By complete R2, every nonzero direction has a saved counterexample
+to universal deterministic output difference, even for the first 256 bits.
+Two saved 16D internal cosets have full output affine hull 2048 and graph
+hull 2064. Other cosets, statistical/nonperfect continuations, valid-message
+reachability and later-round probability remain open. This is a closed defined
+translation class, not universal two-round differential security.

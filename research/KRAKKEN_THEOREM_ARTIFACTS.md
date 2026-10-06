@@ -632,3 +632,28 @@ mask spaces at complete rounds one/two for one saved eight-direction cube.
 - [discovery6/manifest.json](../discovery6/manifest.json) — present; proof/certificate or replay as scoped in ledger.
 - [scripts/krakken_results6_replay.py](../scripts/krakken_results6_replay.py) — present; proof/certificate or replay as scoped in ledger.
 - [results/krakken_results6_promotion_replay.json](../results/krakken_results6_promotion_replay.json) — present; proof/certificate or replay as scoped in ledger.
+
+## PRESS-TRANS-001
+
+[PRESS-TRANS-001](KRAKKEN_SECURITY_THEOREMS.md#press-trans-001) — Complete Pressure translations, sharp neighboring activity, checkpoint probability and finite round-two affine/deterministic exclusions.
+
+- [RESULT7.md](../RESULT7.md) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/translation_scan.py](../discovery7/translation_scan.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/translation_scan.json](../discovery7/translation_scan.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/activity_scan.py](../discovery7/activity_scan.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/activity_scan.json](../discovery7/activity_scan.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/audit_translations.py](../discovery7/audit_translations.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/translation_audit.json](../discovery7/translation_audit.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/affine_cosets.py](../discovery7/affine_cosets.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/affine_cosets.json](../discovery7/affine_cosets.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/two_round_activity.py](../discovery7/two_round_activity.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/two_round_activity.json](../discovery7/two_round_activity.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/activity_witness.py](../discovery7/activity_witness.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/activity_witness.json](../discovery7/activity_witness.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/pressure_tail.c](../discovery7/pressure_tail.c) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery7/manifest.json](../discovery7/manifest.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery5/audit_kernel_cubes.py](../discovery5/audit_kernel_cubes.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [scripts/krakken_results7_replay.py](../scripts/krakken_results7_replay.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/krakken_results7_promotion_replay.json](../results/krakken_results7_promotion_replay.json) — proof/certificate or implementation audit as scoped in the ledger.
+
+The original discovery7 manifest also hashes working-document snapshots at discovery time. Those historical hashes are preserved; later ledger edits may differ. The replay requires immutable source/report/script pins to match and records snapshot matches separately.

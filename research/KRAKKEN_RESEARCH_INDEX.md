@@ -45,6 +45,20 @@ proposed 32-support pilot is future work; the active AB scan is unchanged.
 Use full-word gates to reject these synthetic profiles before pursuing
 base-graph completion; gate acceptance alone is not feasibility.
 
+## RESULT7: complete Pressure translations and sharp conditional cost
+
+[PRESS-TRANS-001](KRAKKEN_SECURITY_THEOREMS.md#press-trans-001)
+classifies the full 16-dimensional deterministic XOR translation space of
+Pressure. Across the neighboring Chi layers its sharp total activity floor
+is 135, attained by `[72,63]`; separate minima are 48 and 30. Uniform
+unrestricted Pressure bases give exact worst Chi2 point probability `2^-184`.
+All 65,535 directions lose a universal deterministic difference at complete
+R2, and two complete saved internal cosets have full output/graph affine ranks
+2048/2064. Six reports were freshly replayed. These are internal-class results;
+valid-message reachability is a new open task, not an established consequence.
+The probability stops at Chi2/XRBD2. Existing AB/BA scans and global bounds
+are unchanged.
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from

@@ -1570,3 +1570,25 @@ question. The matrix certificate has original-C correspondence and a
 separate NumPy/opposite-pivot implementation audit. The five supplied
 reports were freshly reproduced; external reproduction is not recorded.
 Neither result establishes a new A2 floor or a security-bit claim.
+
+## Complete Pressure translation class — PRESS-TRANS-001
+
+[PRESS-TRANS-001](KRAKKEN_SECURITY_THEOREMS.md#press-trans-001) analytically
+classifies all globally deterministic full-word Pressure XOR directions:
+exactly the 16 first-word top-bit generators. Complete finite code enumeration
+proves sharp neighboring activity minima `A1>=48`, `A2>=30`,
+`A1+A2>=135`, with original-C witness `[72,63]`. The total applies only
+when the internal difference is a nonzero member of this space.
+
+Under uniform unrestricted Pressure input, the sharp prescribed full-state
+Chi2/XRBD2 difference probability is `2^-184`; no transfer to Pressure2 or
+message bases is made. Two finite counterexample backgrounds exclude universal
+deterministic R2 differences for all 65,535 nonzero directions, even in the
+first 256 bits. Two saved internal cosets have output/parameter-graph affine
+ranks 2048/2064. The latter claims use the actual first/second round constants
+and are not generalized to every coset or round index.
+
+All six reports were freshly reproduced, including complete original-C and
+separate NumPy output-table hashes, local counts, code weights, and attaining
+pair. No external reproduction is recorded. The original report and certificates
+are linked in the [manifest](KRAKKEN_THEOREM_ARTIFACTS.md#press-trans-001).

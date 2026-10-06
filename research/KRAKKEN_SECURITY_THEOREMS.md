@@ -84,6 +84,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [PRESS-DIFF-001](#press-diff-001) | Differential | Local Pressure | Low two bits | Every ten-bit input/output XOR profile | Exact 184-profile relation from two LSB and three factored cubic equations; all quadratic consequences leave 256 profiles | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-001) | — | Re-expression of local gate; no new global [1,2] exclusion |
 | [PRESS-DIFF-002](#press-diff-002) | Differential | Local Pressure | Low three bits | Every 15-bit input/output XOR profile | Exactly 4,376 feasible; complete cubic closure has 128 false profiles forming one affine 7-flat; one explicit quintic makes that closure exact | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-002) | — | Local gate, not a two-round trail bound |
 | [PRESS-DIFF-003](#press-diff-003) | Differential | Local full-word Pressure | Checkpoint | Every XOR profile | 126 necessary cubics +2 LSB equations per chain; affine-graph refinement | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-003) | — | Sound exclusions only; passing not feasibility; no new A2 floor |
+| [PRESS-TRANS-001](#press-trans-001) | Differential / affine structures | P; uniform Pressure base for probability | Pressure1→R2; activity any adjacent pair | Complete 16D deterministic translation class; two saved cosets for rank claims | Sharp A1/A2/total ≥48/30/135; Chi2 point max 2^-184; all 65,535 lose deterministic R2 difference; saved hull ranks 2048/2064 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-trans-001) | — | Conditional internal-class cost; no hash reachability or global hull bound |
 | [DIFF-SCREEN-001](#diff-screen-001) | Differential methods | P relaxed endpoint model | Pressure1→Chi2 | All low-q profiles, q=1..4, certified supports | Second-call-only supports 5/8/13/16 project surjectively | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-screen-001) | — | Information-loss barrier for low-bit-only screens; synthetic endpoints not real trails |
 | [PRESS-HULL-001](#press-hull-001) | Linear | U/R | Pressure | Arbitrary 64-bit masks; separate 4-bit counterexample | Exact signed identity; triangle bound fails in reduced model | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-hull-001) | — | Identity / failed proof route |
 | [PRESS-ZERO-001](#press-zero-001) | Linear | U | Pressure | Pairwise word projections and specified masks | Exact pair-uniformity and zero coefficients | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-zero-001) | — | Stated class/checkpoint only |
@@ -175,6 +176,8 @@ flowchart TD
   cubic --> cubic3["PRESS-DIFF-002: low-three-bit polynomial hierarchy"]
   cubic --> fullword["PRESS-DIFF-003: full-word necessary gates"]
   screening["DIFF-SCREEN-001: certified endpoint projection surjectivity"] --> fullword
+  chiDdt["DIFF-CHI-002: exact local DDT maxima"] --> translations["PRESS-TRANS-001: complete translations and sharp code costs"]
+  translations --> cosets["PRESS-TRANS-001 D/E: finite R2 counterexamples and full affine hulls"]
   aaScan["Complete split-site AA scan + low-bit refinements"] --> aa["DIFF-12-006: complete distinct-AA exclusion"]
   anf["Exact serial-Chi ANF + derivative certificates"] --> degree["ALG-DEG-001: coordinate degree map"]
   anf --> degreeUpper["ALG-DEG-002: 192 round-one degree ceilings"]
@@ -3882,6 +3885,137 @@ model. It does not prove an attack or an actual activity minimum.
 Certificates are linked in the [manifest](KRAKKEN_THEOREM_ARTIFACTS.md#diff-screen-001).
 The original [RESULTS6.md](../RESULTS6.md) remains unchanged. Its proposed
 32-support `A1=5 => A2>=4` pilot is **open future work**, not a result.
+
+
+<a id="press-trans-001"></a>
+## Theorem proved: complete Pressure translations and their sharp adjacent-round cost
+
+<!-- THEOREM METADATA PRESS-TRANS-001 -->
+**Permanent ID:** `PRESS-TRANS-001` · **Proof classification:** analytic translation classification and reductions plus finite exhaustive code enumeration, counterexample and spanning certificates. Separate NumPy layer replay, independently populated local tables, opposite-pivot ranks and original-C attaining pairs are independent implementation audits within this investigation; no external reproduction is recorded.
+<!-- END THEOREM METADATA PRESS-TRANS-001 -->
+
+**Coordinates and scope.** Use the current XRBD-enabled scalar source.
+Let `L=Theta→MDS→Rho→Pi`, `B=XRBD`, `P=Pressure` including odd-chain
+rotations, and `Q=Inkcloud`. A round is
+`R_r(s)=Q(P(B(Chi(L(s)))) XOR c_r)`, with source rounds zero-indexed.
+For chain `j=2c+h`, `d_j` toggles only bit 63 of lane `4c+h` at the
+**Pressure input**. Define the 16-dimensional space `U=span{d_j}`
+and label its directions by `d(t)=XOR_j t_j d_j`.
+The domain is unrestricted internal states. Pullback through the bijective
+first-round prefix gives unrestricted initial pairs whose initial XOR
+difference generally depends on the base. These are not fixed hash-message
+differences, and no valid-message realization is claimed.
+
+**A. Complete deterministic translation class — analytic.**
+`P(X XOR d) XOR P(X)` is constant for every base `X` if and only if
+`d in U`. Its unique output difference is `Lambda d`. For a generator,
+both unrotated chain output words toggle bit 63. At odd chains the final
+rotations move those bits to positions 6 and 18; at even chains both stay
+at 63. There are exactly 65,535 nonzero deterministic directions.
+
+For independent w-bit addition operands, a universally constant output
+XOR derivative requires both operand differences to be zero or the top
+bit. To prove necessity, take the least nonzero difference bit below the
+top bit and set lower base bits to zero. The next carry difference is
+`p_i y_i XOR q_i x_i XOR p_i q_i`, nonconstant in the freely chosen
+operand bits. Sufficiency follows from top-bit toggles being addition
+of `2^(w-1)` modulo `2^w`.
+
+Apply this lemma first to `A=a+g(c)`, `g(c)=c XOR(c>>17)`.
+It forces `da` to be top-bit-only and `dc` to be zero or
+`g^-1(2^63)=2^63 XOR 2^46 XOR 2^29 XOR 2^12`.
+Coordinates `(A,c)` are independent, and `h(A)=A XOR(A<<31)` is
+invertible with `h(dA)=dA` for top-bit-only `dA`. Applying the lemma
+to `C=c+h(A)` forces `dc` itself to be top-bit-only. Only `dc=0`
+survives both requirements. The disjoint-chain direct product and
+invertible output rotations prove the classification.
+
+**B. Sharp neighboring Chi activity — analytic reduction plus exhaustive code.**
+For every unrestricted pair whose nonzero Pressure input difference is in U,
+
+`A1 >= 48`, `A2 >= 30`, and `A1+A2 >= 135`.
+
+These minima are sharp, with unique attaining direction labels:
+
+| Quantity | Minimum | Direction |
+|---|---:|---|
+| A1 | 48 | `0x8000` |
+| A2 | 30 | `0x5555` |
+| A1+A2 | 135 | `0x4000`, attaining `[72,63]` |
+
+Bijective byte S-boxes identify activity with post-Chi byte weight, so
+`A1(d)=wt_byte(B^-1 d)` at every base. The next pre-Chi difference is
+`v(d)=L Q Lambda d`, independent of the constants. For a local input
+pair `(da,db)`, put `alpha=da XOR db`. Its sharp minimum activity is zero
+for `(0,0)`, one for `alpha=0,db!=0`, one for
+`alpha!=0,D_S(alpha,db)>0`, and two otherwise. Every combination of local
+minima is attainable because the unrestricted map from Pressure input
+to the next pre-Chi base is bijective. Exhausting all 65,535 code directions
+proves the joint and separate minima. The explicit unrestricted initial
+pair in [activity_witness.json](../discovery7/activity_witness.json) replays
+through both complete original-C rounds with `[72,63]`.
+
+This activity implication and its sharp unrestricted minima hold at **any
+adjacent-round boundary**: wiring is the same, constants cancel in the
+fixed transported difference, and base maps remain bijective. Any valid
+message pair meeting the internal condition inherits the inequality, but
+its reachability has not been established. The separate minima 48 and 30
+must not be added as an attainable joint optimum.
+
+**C. Sharp prescribed-difference probability at Chi2/XRBD2 — uniform P only.**
+Let `G_0(X)=Q(P(X) XOR c_0)` and `C_2(X)=Chi(L(G_0(X)))`. For
+uniform unrestricted 2048-bit Pressure input base X,
+
+`max_(0!=d in U,e) Pr[C_2(X XOR d) XOR C_2(X)=e] = 2^-184`.
+
+The unique maximizing direction is `0x5555`; its unique maximizing
+output difference is saved in [translation_scan.json](../discovery7/translation_scan.json).
+Bijectivity makes the next 128 disjoint Chi cell bases independent and
+uniform. Inheriting `DIFF-CHI-002`, each cell's count is exactly
+`D_S(alpha,du) D_S(db XOR du,dv)`. The maximizing direction has four
+cells with maximum count 512 and thirteen with maximum count 16,
+each out of 65,536 local bases. Inactive cells contribute every base.
+Thus exactly `2^1864` out of `2^2048` bases attain that output difference.
+The same maximum holds immediately after invertible linear XRBD2.
+It is not transferred through Pressure2 or to message-induced bases.
+
+**D. Complete defined-class loss of a universal deterministic difference.**
+For `H(X)=R_1(G_0(X))`, all 65,535 nonzero directions lose their
+universally constant vector difference at complete round two. Two explicit
+backgrounds (zero and the saved second background) suffice: for each direction,
+the two derivatives disagree even on the first 256 output bits. A saved
+differing-bit witness exists for each direction. This excludes universal
+constant differences in this class; it does not exclude individual perfect
+mask relations, special-base events or nonperfect correlations.
+
+**E. Affine-coset structure and two finite full-rank certificates.**
+For every base, `G_0(X+U)=G_0(X)+Q Lambda U`, an affine 16-flat.
+For each of the two saved **Pressure-input** cosets, after H the output
+affine hull has dimension 2048 and the joint parameter/output affine hull
+has dimension 2064. Each certificate supplies 2064 independent rows
+`(t,H(X+d(t)) XOR H(X))`, with both pivot orders checked. No nontrivial
+affine parameter/output relation exists on those two cosets. Consequently
+this particular family cannot universally propagate into proper affine
+output spaces, even if the containing space can depend on the coset.
+This does not classify every coset or all affine partitions. Parts D/E
+use actual source rounds 0/1; other round-index instances remain unverified.
+
+**Proof versus replay.** The analytic classification and code reductions
+supply the proof structure. All direction weights, unique minimizers,
+local attaining counts and counterexample/rank obligations have finite
+certificates. Fresh replay regenerated all six reports, including both
+complete 65,536-state output tables and their separate NumPy hashes,
+all direction witnesses, the original-C `[72,63]` pair, and the reduced
+addition/Pressure classification checks. These implementation audits are
+not external cryptanalytic reproduction. This theorem is new relative
+to the prior Pressure Walsh and differential-gate classes.
+
+The [unaltered report](../RESULT7.md), [artifact manifest](KRAKKEN_THEOREM_ARTIFACTS.md#press-trans-001),
+and [promotion replay](../results/krakken_results7_promotion_replay.json)
+provide definitions and reproducible commands. The 135 activity cost is
+conditional on this internal class; neither it nor `2^-184` is a claim
+about security bits, all-difference hulls, the digest under valid messages,
+or the full eight-round construction.
 
 ## Reproduction commands for earlier linear certificates
 
