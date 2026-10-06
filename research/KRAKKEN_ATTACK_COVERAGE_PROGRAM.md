@@ -8,6 +8,102 @@ or numerical security claim. Current proved scopes are authoritative in the
 [attack-versus-round map](KRAKKEN_ATTACK_ROUND_MAP.md) records demonstrated
 structures; this document guides how to extend that coverage.
 
+## At a glance: where a defined structure stops
+
+**There is no current theorem that round two defeats most attack families.**
+There are multiple exact exclusions for complete **defined classes**. These
+are the results behind the recurring round-two pattern.
+
+**Reading key:** H = valid padded 159-byte first block; P = unrestricted
+permutation; U = uniform unrestricted Pressure base.
+
+“Excluded” below means the stated property is impossible under the theorem's
+quantifiers. For a universal balance or relation, it means that no fixed
+mask/relation works for every base; special bases or nonperfect biases may
+remain. It does not mean every individual quartet, cube or differential
+trajectory disappears. **Chi2 is inside R2; Pressure1 is inside R1.**
+
+### Excluded before or within round one
+
+| Defined structure / family | Structure before the obstruction | First certified obstruction | Exact scope and result | Theorem |
+|---|---|---|---|---|
+| One-cell first-block boomerang / rebound embedding | Perfect local Chi structures exist in unrestricted states | **First-block reachability gate, before Chi1** | No nonzero H first-block input difference confined to one Chi cell; rebound also excludes one-cell post-Chi support | [BOOM-EMBED-001](KRAKKEN_SECURITY_THEOREMS.md#boom-embed-001), [REBOUND-002](KRAKKEN_SECURITY_THEOREMS.md#rebound-002) |
+| Fewer than five active first-Chi calls | Arbitrary candidate valid-message difference | **Chi1** | Every nonzero H difference has A1≥5, sharp; first full 160-byte block also has minimum 5 | [DIFF-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-001), [DIFF-RATE-004](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-004) |
+| Low affine hull of a single message-byte plane | Input hull dimension 8 | **Chi1** | All 159 zero-base byte planes reach hull dimension 255; excludes universal containing spaces of dimension ≤254, not special cosets | [SUBSPACE-001](KRAKKEN_SECURITY_THEOREMS.md#subspace-001) |
+| Theta-cancelling two-byte affine structure | For all 256 defined cosets, post-Chi1 hull dimension 238–254; XRBD preserves it | **Pressure1** | Every coset in the bytes-40/56 plane reaches maximal hull dimension 255; also true with XRBD off | [SUBSPACE-002](KRAKKEN_SECURITY_THEOREMS.md#subspace-002) |
+| Perfect full-message affine relation | Proposed fixed message/state affine masks | **Complete R1**, and separately each R2–R8 | No nontrivial perfect relation for any masks over H. Nonperfect correlations remain open; rank bound is numerically weak | [LIN-GLOBAL-001](KRAKKEN_SECURITY_THEOREMS.md#lin-global-001) |
+| Perfect uniform lane-rotation covariance | Proposed common rotation plus fixed correction | **Complete R1**, and separately each R2–R8 | All 63 nontrivial rotations excluded, with constants on and off; statistical rotational bias is not bounded | [ROT-001](KRAKKEN_SECURITY_THEOREMS.md#rot-001) |
+| Missing first-order input/output dependency | Hypothesis that an output bit never responds to one message bit | **Complete R1**, also R2 | Every one of the 1272×2048 pairs has an influence witness; this is dependency coverage, not an attack exclusion | [DEPEND-001](KRAKKEN_SECURITY_THEOREMS.md#depend-001) |
+
+### Exact exclusions at or by round two
+
+| Defined structure / family | Last demonstrated structure | Certified stopping point | What is actually excluded | What remains open / theorem |
+|---|---|---|---|---|
+| One-cell boomerang continuations | Local perfect family embedded and propagated in the defined campaign | **Chi2** | Required quartet relation for the four fixed choices/one-site/zero-background family; 4,784 saved reached patterns each have an all-local-base obstruction | Other sites, backgrounds and coordinated embeddings; [BOOM-ROUND-001/002](KRAKKEN_SECURITY_THEOREMS.md#boom-round-001) |
+| Unrestricted `[1,1]` differential activity | One active Chi1 call can occur | **Chi2 activity** | Every unrestricted two-round `[1,1]` trail is impossible; total activity ≥3 | This does not exclude general differentials; [DIFF-PERM-002](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-002) |
+| Defined `[1,2]` activity classes | Candidate one-call then two-call supports | **Chi2 activity** | Complete distinct AA, distinct BB and same-pair mixed classes excluded | Distinct AB ongoing, BA open: global `[1,2]` remains open; [DIFF-12-004](KRAKKEN_SECURITY_THEOREMS.md#diff-12-004), [005](KRAKKEN_SECURITY_THEOREMS.md#diff-12-005), [006](KRAKKEN_SECURITY_THEOREMS.md#diff-12-006) |
+| Three selected minimum-A1 message differences | Valid A1=5 first-round activity | **Chi2 activity** | Under A1=5, A2≤2 is impossible for these three fixed H differences | Universal implication for all A1=5 pairs open; [DIFF-RATE-003](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-003) |
+| Perfect differential-linear output masks | Defined large perfect-mask spaces after complete R1 | **Complete R2** | For each of 128 fixed unrestricted delta=1 differences, every nonzero output mask has nonconstant derivative parity | Other differences and useful nonperfect correlations; [DL-001](KRAKKEN_SECURITY_THEOREMS.md#dl-001), [DL-002](KRAKKEN_SECURITY_THEOREMS.md#dl-002) |
+| Byte-0 integral / division-property masks | Exactly seven universal masks after complete R1 | **Complete R2** | No nonzero universal linear output-mask balance, including digest masks, for this fixed H cube | Other cubes, special-base balances and nonlinear output functions; [INT-BYTE-002](KRAKKEN_SECURITY_THEOREMS.md#int-byte-002), [DIV-BYTE-001](KRAKKEN_SECURITY_THEOREMS.md#div-byte-001) |
+| All one-byte coordinate cube families | R1 universal balances are not claimed for every byte | **Complete R2** | Every one of 159 byte families has no universally balanced output coordinate: all 325,632 byte/output-bit combinations covered | Non-coordinate masks and special bases; [INT-BYTE-001](KRAKKEN_SECURITY_THEOREMS.md#int-byte-001) |
+| Defined 14-direction H cube | Exactly 32 universal coordinate balances after complete R1 | **Complete R2** | None of the 2048 coordinates is universally balanced for the fixed directions at message bits 0–13 | Other directions and non-coordinate output masks; [INT-CUBE-001](KRAKKEN_SECURITY_THEOREMS.md#int-cube-001) |
+| Saved kernel-directed eight-dimensional H cube | Exactly 32 universal linear-mask generators at complete R1 | **Complete R2** | Universal mask space has dimension zero for the saved direction set | Other direction sets in the 248D kernel and special cosets; [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001) |
+| Fixed four-state zero-sum square | Full-state zero sum through Chi1/XRBD1; 32 projected R1 balances | **Complete R2** | No universal coordinate at all 128 sites; no universal nonzero output mask at the one representative site | Other sets, masks at other sites, special backgrounds; [ZERO-001](KRAKKEN_SECURITY_THEOREMS.md#zero-001) |
+| Complete Pressure deterministic translations | All 16D internal cosets remain affine through first-round suffix | **Complete R2** | All 65,535 nonzero directions lose universal vector differences, even in first 256 bits; two saved cosets have full output/graph hulls | Hash reachability, other cosets and nonperfect behavior; [PRESS-TRANS-001](KRAKKEN_SECURITY_THEOREMS.md#press-trans-001) |
+| Globally low-degree state-coordinate model | Exactly 32 R1 coordinates have degree 13 | **Complete R2**, separately R3–R8 | Every coordinate has degree ≥20; hence no coordinate has a global degree≤19 polynomial | Does not imply every low-order cube is unbalanced or defeat all algebraic attacks; [ALG-DEG-001](KRAKKEN_SECURITY_THEOREMS.md#alg-deg-001) |
+
+### Finite tested patterns and empirical screens: separate from class exclusions
+
+| Structure | Last positive result | Where the recorded continuation fails | Evidence status and remaining space |
+|---|---|---|---|
+| Coordinated multi-cell boomerangs | Exact P full-state four-state zero sum after complete R1 | **Chi2** for all 1,344 saved reached patterns | Every saved pattern has an exact zero-count local cell. Finite patterns are exhausted; the whole direction/background family is not. H linear gate excludes 896, leaves 448 unresolved. [BOOM-MULTI-001](KRAKKEN_SECURITY_THEOREMS.md#boom-multi-001) and [round map](KRAKKEN_ATTACK_ROUND_MAP.md) |
+| Truncated differential continuations | Defined exact R1 zero projections; sampled H projected biases | **Complete R2** in the specified projection screens | No detected significant continuation is empirical, not a theorem excluding all R2 biases. [DIFF-TRUNC-001](KRAKKEN_SECURITY_THEOREMS.md#diff-trunc-001) and [screen report](KRAKKEN_TRUNCATED_DIFFERENTIAL.md) |
+
+### Which “global round-two theorem” might this refer to?
+
+The closest broad round-two exclusions are:
+
+- **INT-BYTE-001:** all 159 one-byte cube families and all 2048 output
+  coordinates. Global within that coordinate-cube class; not all integrals.
+- **DL-002:** every output mask, but only 128 fixed input differences.
+  Global over masks within that differential-linear class; not all differences.
+- **PRESS-TRANS-001:** every nonzero member of the complete deterministic
+  Pressure translation space, but not every permutation difference.
+- **ALG-DEG-001:** every state coordinate at R2–R8 has degree at least 20.
+  This excludes globally low-degree coordinate models, not most attack types.
+- **LIN-GLOBAL-001:** all message/output affine masks, already at R1 and
+  separately through R8. It excludes perfect linear relations, not every
+  linear distinguisher.
+
+No combination of those statements proves “most attacks fail at R2”: there
+is no defined measure on attacks that makes “most” meaningful here. The
+accurate visible pattern is **multiple defined structures have exact R2
+exclusions, and some have earlier R1 exclusions**.
+
+### Inventory review: results that do not establish an attack endpoint
+
+All **65 permanent IDs** in the current inventory were reviewed for this
+classification. The tables above highlight structure-loss results. The
+remaining results supply quantitative bounds, local descriptions, positive
+structures, intermediate exclusions or proof tools; they must not be presented
+as attacks ending at a round:
+
+| Result group | IDs reviewed | Why it is not a stopping-round claim |
+|---|---|---|
+| Local Chi, rebound and boomerang spectra/fibers | LIN-CHI-001/002, BOOM-LOCAL-001/002, DIFF-CHI-001/002, DL-LOCAL-001, REBOUND-001 | Local maxima, exact fibers or perfect local structures; full-round continuation needs additional reasoning |
+| Checkpoint and complete-R1 differential probability | DIFF-RATE-002, 005–008, CHI-RATE-001, DIFF-ACT-001 | Exact laws/bounds with stated differences, projections and distributions; a small point probability is not disappearance of all attacks |
+| Initial `[1,2]` campaign filters | DIFF-12-001/002/003 | Earlier partial exclusions superseded in coverage by the complete BB class; not extra independent attack families |
+| Diffusion and accumulated activity | DIFF-PERM-001, DIFF-MULTI-001 | Chain activation and conservative multiround totals; trajectories remain possible |
+| Pressure mask/carry/projection tools | PRESS-WALSH-001/002/003, PRESS-DIFF-001/002/003, PRESS-HULL-001, PRESS-ZERO-001, DIFF-SCREEN-001 | Defined local counters/bounds, zeros, necessary gates or method limitations; no universal complete-round endpoint |
+| Exact layer structure and residual identities | LIN-THETA-001, ROT-002 | Fixed spaces, cycles or exact residual equations of defined layers/transforms; no full-round attack exclusion |
+| Degree and hull foundations | ALG-DEG-002, LIN-HULL-001 | Coordinate degree maps or signed Fourier identities, not all-attack resistance |
+| Selected-space complete-R1 linear bounds | LIN-RATE-001/002/003/004 | Quantitative one-round statements for selected masks; useful all-mask multiround hull remains open |
+
+This is a documentation review against the ledger, not a new rerun of all
+cryptanalytic certificates. Grouped entries retain their original audit limits.
+The detailed coverage matrix below remains the place to plan the next searches.
+
+
 ## Publication objective
 
 The intended eventual statement is:
