@@ -83,6 +83,8 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [PRESS-WALSH-003](#press-walsh-003) | Linear | U | Pressure | Both outputs low k≤17; all input masks | Exact joint counter; sharp nonperfect max 1/2 for k≥2, zero at k=1; top-bit zero rule | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-walsh-003) | — | Stated class/checkpoint only |
 | [PRESS-DIFF-001](#press-diff-001) | Differential | Local Pressure | Low two bits | Every ten-bit input/output XOR profile | Exact 184-profile relation from two LSB and three factored cubic equations; all quadratic consequences leave 256 profiles | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-001) | — | Re-expression of local gate; no new global [1,2] exclusion |
 | [PRESS-DIFF-002](#press-diff-002) | Differential | Local Pressure | Low three bits | Every 15-bit input/output XOR profile | Exactly 4,376 feasible; complete cubic closure has 128 false profiles forming one affine 7-flat; one explicit quintic makes that closure exact | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-002) | — | Local gate, not a two-round trail bound |
+| [PRESS-DIFF-003](#press-diff-003) | Differential | Local full-word Pressure | Checkpoint | Every XOR profile | 126 necessary cubics +2 LSB equations per chain; affine-graph refinement | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-003) | — | Sound exclusions only; passing not feasibility; no new A2 floor |
+| [DIFF-SCREEN-001](#diff-screen-001) | Differential methods | P relaxed endpoint model | Pressure1→Chi2 | All low-q profiles, q=1..4, certified supports | Second-call-only supports 5/8/13/16 project surjectively | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-screen-001) | — | Information-loss barrier for low-bit-only screens; synthetic endpoints not real trails |
 | [PRESS-HULL-001](#press-hull-001) | Linear | U/R | Pressure | Arbitrary 64-bit masks; separate 4-bit counterexample | Exact signed identity; triangle bound fails in reduced model | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-hull-001) | — | Identity / failed proof route |
 | [PRESS-ZERO-001](#press-zero-001) | Linear | U | Pressure | Pairwise word projections and specified masks | Exact pair-uniformity and zero coefficients | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-zero-001) | — | Stated class/checkpoint only |
 | [LIN-RATE-001](#lin-rate-001) | Linear | H | 1 | 16 specified output masks; every message mask | Per-mask bounds at least 2^-174, strongest 2^-354 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-001) | — | Stated class/checkpoint only |
@@ -171,6 +173,8 @@ flowchart TD
   low2 --> bb["DIFF-12-004: complete BB exclusion + refinements"]
   low2 --> cubic["PRESS-DIFF-001: exact three-cubic representation; no quadratic gain"]
   cubic --> cubic3["PRESS-DIFF-002: low-three-bit polynomial hierarchy"]
+  cubic --> fullword["PRESS-DIFF-003: full-word necessary gates"]
+  screening["DIFF-SCREEN-001: certified endpoint projection surjectivity"] --> fullword
   aaScan["Complete split-site AA scan + low-bit refinements"] --> aa["DIFF-12-006: complete distinct-AA exclusion"]
   anf["Exact serial-Chi ANF + derivative certificates"] --> degree["ALG-DEG-001: coordinate degree map"]
   anf --> degreeUpper["ALG-DEG-002: 192 round-one degree ceilings"]
@@ -3757,6 +3761,127 @@ argument prove the theorem. The result is **not hash-first-block
 reachable** via this one-cell input difference, as the existing
 `BOOM-EMBED-001` / `REBOUND-002` rate-support exclusion shows. It
 does not give a round-two zero-output guarantee or a collision attack.
+
+
+<a id="press-diff-003"></a>
+## Theorem proved: full-word Pressure differential gates and affine-graph refinement
+
+<!-- THEOREM METADATA PRESS-DIFF-003 -->
+**Permanent ID:** `PRESS-DIFF-003` · **Proof classification:** analytic proof with finite exhaustive certificates. The original-C controls and fresh producer replay are implementation validation; there is no second independent full-width gate implementation or external reproduction.
+<!-- END THEOREM METADATA PRESS-DIFF-003 -->
+
+**Domain and statement.** One actual 64-bit Pressure chain, with unrotated
+outputs `A=a+(c XOR (c>>17))`, `C=c+(A XOR (A<<31))`, modulo `2^64`.
+All differences are XOR differences; all following bit equations are over GF(2).
+For either addition `z=x+y`, every realizable differential profile obeys
+`dx_0 XOR dy_0 XOR dz_0=0` and, for each `i=0..62`,
+
+```
+(1 XOR dx_i XOR dy_i) (1 XOR dx_i XOR dz_i)
+(dx_(i+1) XOR dy_(i+1) XOR dz_(i+1) XOR dx_i) = 0.
+```
+
+Substitute `(dx,dy,dz)=(da, dc XOR (dc>>17), dA)` and
+`(dc, dA XOR (dA<<31), dC)`. This yields **126 factored cubic
+necessary constraints and two linear LSB constraints per chain**, or
+2016 cubics and 32 linear constraints across the actual sixteen chains.
+These are full-word conditions, including the overlap of the shifted words.
+They are necessary, not sufficient.
+
+**Analytic proof and affine refinement.** Eliminating the carry from the
+addition graph gives
+
+```
+g_i = x_i y_i XOR x_i z_i XOR y_i z_i XOR x_i XOR y_i
+x_(i+1) XOR y_(i+1) XOR z_(i+1) = g_i,
+x_0 XOR y_0 XOR z_0 = 0.
+```
+
+XOR the graph equation at the base and shifted base. Its derivative is
+linear in the base graph coordinates:
+
+```
+(dy_i XOR dz_i)x_i XOR (dx_i XOR dz_i)y_i
+ XOR (dx_i XOR dy_i)z_i
+ = dx_(i+1) XOR dy_(i+1) XOR dz_(i+1)
+   XOR dx_i dy_i XOR dx_i dz_i XOR dy_i dz_i XOR dx_i XOR dy_i.
+```
+
+When the three current differences equal `t`, the left side vanishes
+and the next-bit difference sum must equal `t`. Otherwise the first two
+factors of the cubic are not both one. This proves the factored gate.
+For fixed endpoints, substitute both actual Pressure additions into the
+linear derivative equations and two base LSB equations. An inconsistent
+GF(2) system proves impossibility. Consistency leaves quadratic base graph
+equations to solve and **does not** establish feasibility.
+
+**Finite certificates and scope.** All 48 synthetic chain profiles from the
+three saved `A1=5` examples fail both full-word gates; all 48 genuine chain
+controls pass. Saved contradiction cores are single first-addition rows.
+They reject those particular full-word profiles, not every endpoint with the
+same activity. The complete overlapping width-three analogue (right shift 1,
+left shift 2) has 478 feasible profiles among 4096 endpoints. The factored
+gate accepts 616 and the affine gate accepts 566; hence 138 and 88 false
+positives respectively. Completing the remaining quadratic equations gives
+exactly 478. This reduced analogue is distinct from the actual independent
+low-three-bit slice in `PRESS-DIFF-002`.
+
+The [original report](../RESULTS6.md), [artifact manifest](KRAKKEN_THEOREM_ARTIFACTS.md#press-diff-003),
+and [fresh five-report replay](../results/krakken_results6_promotion_replay.json)
+preserve all counts. No new complete-round activity floor or probability bound
+follows from these necessary gates.
+
+<a id="diff-screen-001"></a>
+## Theorem proved: low-bit endpoint projection screens admit sparse synthetic continuations
+
+<!-- THEOREM METADATA DIFF-SCREEN-001 -->
+**Permanent ID:** `DIFF-SCREEN-001` · **Proof classification:** analytic linear-algebra implication plus finite exhaustive matrix/rank certificates. The separate NumPy forward implementation and opposite-pivot rank checks are an independent implementation audit, not external verification.
+<!-- END THEOREM METADATA DIFF-SCREEN-001 -->
+
+**Exact model.** Let `T` be the invertible binary map from unrotated
+Pressure1 output differences through odd-chain rotations, Inkcloud, and
+the next Theta/MDS/Rho/Pi prefix to pre-Chi2. Let `pi_q` keep the low `q`
+bits of each of the 32 unrotated words. `W_S` is the space of differences
+supported on a specified set `S` of serial-Chi cells. In its second-call-only
+version, each cell has `da=db`, so its first call is inactive and its
+second call contributes at most one active call for every base.
+The supplied explicit support sets satisfy
+
+`rank(pi_q T^-1 restricted to W_S)=32q`:
+
+| q | Arbitrary 16-bit cell support size | Second-call-only 8-bit cell support size |
+|---|---:|---:|
+| 1 | 3 | 5 |
+| 2 | 5 | 8 |
+| 3 | 8 | 13 |
+| 4 | 11 | 16 |
+
+**Proof.** The complete matrix is constructed from the pinned original C,
+its rank is 2048, and all 2048 inverse basis images replay through C.
+Full projection rank is equivalent to surjectivity: every projected output
+profile has a preimage in the certified endpoint subspace. A separate NumPy
+implementation checks 400 inverse columns, and opposite-pivot elimination
+reproduces all eight support ranks. Supports were greedily constructed;
+these support sizes are not claimed minimal.
+
+Thus, for any fixed Pressure input difference and any actual compatible
+base, its projected output profile has some **synthetic** sparse endpoint
+matching it. In particular a low-three-bit-only endpoint screen cannot
+exclude all endpoints with at most 13 second-call activities, and therefore
+cannot prove `A2>=16` in that relaxed model. This is an information-loss
+statement about the screen; those synthetic full-word endpoints need not
+be real Pressure transitions or hash-reachable trails.
+
+The three saved valid-message `A1=5` pairs give explicit synthetic `A2=13`
+endpoints matching their low-three-bit profiles and chain zero/nonzero
+preservation. `PRESS-DIFF-003` rejects all 48 corresponding full-word chain
+profiles. The only hash-interface examples here are those three fixtures;
+the surjectivity theorem otherwise concerns the unrestricted linear endpoint
+model. It does not prove an attack or an actual activity minimum.
+
+Certificates are linked in the [manifest](KRAKKEN_THEOREM_ARTIFACTS.md#diff-screen-001).
+The original [RESULTS6.md](../RESULTS6.md) remains unchanged. Its proposed
+32-support `A1=5 => A2>=4` pilot is **open future work**, not a result.
 
 ## Reproduction commands for earlier linear certificates
 

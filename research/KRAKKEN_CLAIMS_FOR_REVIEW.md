@@ -1552,3 +1552,21 @@ and the current mathematical obstruction.
 These statements are offered for review as claims about specified
 linear properties, not as collision-resistance, preimage-resistance,
 or 128-bit-security claims for the concrete hash.
+
+## Supporting mathematical results from RESULTS6
+
+[PRESS-DIFF-003](KRAKKEN_SECURITY_THEOREMS.md#press-diff-003) proves
+full-word necessary differential gates for actual Pressure: 126 factored
+cubic constraints and two LSB constraints per chain, plus an affine-graph
+refinement. Acceptance is not feasibility. The complete overlapping
+width-three analogue exhibits 138 factor-gate and 88 affine-gate false
+positives among 4096 endpoint profiles; quadratic completion is exact.
+
+[DIFF-SCREEN-001](KRAKKEN_SECURITY_THEOREMS.md#diff-screen-001) proves
+that certified second-call-only endpoint supports of sizes 5, 8, 13, 16
+project onto every low-q profile for q=1,2,3,4 respectively. This closes a
+specific proof-route question about the relaxed screen, not a real-trail
+question. The matrix certificate has original-C correspondence and a
+separate NumPy/opposite-pivot implementation audit. The five supplied
+reports were freshly reproduced; external reproduction is not recorded.
+Neither result establishes a new A2 floor or a security-bit claim.

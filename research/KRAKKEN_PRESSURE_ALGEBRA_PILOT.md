@@ -165,3 +165,19 @@ larger visible quotients, and full-width carry refinements remain.
 For stronger multiround bounds, the larger goal remains a sound
 weighted transition graph carrying more than plain S-box counts
 across Pressure and the next linear prefix.
+
+## Full-word extension and endpoint-screen barrier (RESULTS6)
+
+[PRESS-DIFF-003](KRAKKEN_SECURITY_THEOREMS.md#press-diff-003) derives
+126 necessary factored cubic equations plus two LSB equations per chain,
+with an affine-graph derivative refinement. Both use all 64 bits and the
+actual shifted-word overlap. They remain incomplete gates, with explicit
+reduced-model false positives.
+[DIFF-SCREEN-001](KRAKKEN_SECURITY_THEOREMS.md#diff-screen-001) proves
+surjectivity of certified sparse endpoint spaces onto low-bit output profiles.
+For q=3, 13 second-call-only cells suffice. The 48 synthetic fixture-chain
+profiles accepted by the projected screen are rejected by the full-word gates.
+This diagnoses information loss and provides a sound refinement route; it
+establishes no actual A2 minimum. See [RESULTS6](../RESULTS6.md) and the
+[fresh replay](../results/krakken_results6_promotion_replay.json). No ongoing
+AA/AB/BA campaign model or result was changed.

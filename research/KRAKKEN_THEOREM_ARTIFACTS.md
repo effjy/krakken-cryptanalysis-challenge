@@ -604,3 +604,31 @@ mask spaces at complete rounds one/two for one saved eight-direction cube.
 - [KRAKKEN_TRUNCATED_DIFFERENTIAL.md](KRAKKEN_TRUNCATED_DIFFERENTIAL.md) — discovery observation and empirical two-round boundary; these sampled results are not the theorem proof.
 - [krakken_theorem_registry_current.json](../results/krakken_theorem_registry_current.json) — append-only current working registry; archived original preserved.
 - [verify_krakken_theorem_registry_current.py](../scripts/verify_krakken_theorem_registry_current.py) — working theorem navigation/body-hash check.
+
+## PRESS-DIFF-003
+
+[PRESS-DIFF-003](KRAKKEN_SECURITY_THEOREMS.md#press-diff-003) — 126 factored cubic gates and two LSB equations per chain; affine derivative inconsistency excludes the profile.
+
+- [RESULTS6.md](../RESULTS6.md) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/fullword_affine_gate.py](../discovery6/fullword_affine_gate.py) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/fullword_affine_gate.json](../discovery6/fullword_affine_gate.json) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/affine_gate_cores.py](../discovery6/affine_gate_cores.py) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/affine_gate_cores.json](../discovery6/affine_gate_cores.json) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/factored_word_gate.py](../discovery6/factored_word_gate.py) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/factored_word_gate.json](../discovery6/factored_word_gate.json) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/manifest.json](../discovery6/manifest.json) — present; proof/certificate or replay as scoped in ledger.
+- [scripts/krakken_results6_replay.py](../scripts/krakken_results6_replay.py) — present; proof/certificate or replay as scoped in ledger.
+- [results/krakken_results6_promotion_replay.json](../results/krakken_results6_promotion_replay.json) — present; proof/certificate or replay as scoped in ledger.
+
+## DIFF-SCREEN-001
+
+[DIFF-SCREEN-001](KRAKKEN_SECURITY_THEOREMS.md#diff-screen-001) — Second-call-only supports of 5/8/13/16 cells project surjectively to 32q bits; arbitrary-cell supports 3/5/8/11.
+
+- [RESULTS6.md](../RESULTS6.md) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/endpoint_projection.py](../discovery6/endpoint_projection.py) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/endpoint_projection.json](../discovery6/endpoint_projection.json) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/audit_projection.py](../discovery6/audit_projection.py) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/projection_audit.json](../discovery6/projection_audit.json) — present; proof/certificate or replay as scoped in ledger.
+- [discovery6/manifest.json](../discovery6/manifest.json) — present; proof/certificate or replay as scoped in ledger.
+- [scripts/krakken_results6_replay.py](../scripts/krakken_results6_replay.py) — present; proof/certificate or replay as scoped in ledger.
+- [results/krakken_results6_promotion_replay.json](../results/krakken_results6_promotion_replay.json) — present; proof/certificate or replay as scoped in ledger.

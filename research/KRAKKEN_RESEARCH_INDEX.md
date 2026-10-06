@@ -32,6 +32,19 @@ copies of the working documents. **Rebuild a bundle only when the user
 explicitly asks for a new one.** Editing any working document does not
 trigger packaging.
 
+## RESULTS6: full-word gates and a certified screen limitation
+
+[PRESS-DIFF-003](KRAKKEN_SECURITY_THEOREMS.md#press-diff-003) supplies
+sound full-word factored Pressure constraints and an affine-graph refinement.
+[DIFF-SCREEN-001](KRAKKEN_SECURITY_THEOREMS.md#diff-screen-001) certifies
+why low-bit endpoint matching can admit sparse synthetic continuations:
+13 second-call cells already span every 96-bit low-three-bit profile.
+All five supplied reports were freshly replayed, including the separate
+matrix implementation audit. No new numerical A2 floor was proved. The
+proposed 32-support pilot is future work; the active AB scan is unchanged.
+Use full-word gates to reject these synthetic profiles before pursuing
+base-graph completion; gate acceptance alone is not feasibility.
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from
