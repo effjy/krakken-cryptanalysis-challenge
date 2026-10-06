@@ -59,6 +59,25 @@ valid-message reachability is a new open task, not an established consequence.
 The probability stops at Chi2/XRBD2. Existing AB/BA scans and global bounds
 are unchanged.
 
+### RESULT8: exact valid-message reachability target
+
+[RESULT8.md](../RESULT8.md) clarifies PRESS-TRANS-001 rather than adding
+a theorem or running a search. The saved `[72,63]` pair is not valid-message
+embedded. For `G=XRBD composed with Chi composed with L`, define
+`M=G(E(F2^1272))`; a direction d is reachable iff
+`M intersect (M XOR d)` is nonempty. The equivalent conjugated-translation
+fixed-tail test has 776 constraints on 1272 message variables, with no
+existence conclusion from those counts.
+
+A future search can isolate `0x4000`: first any valid pair, then separately
+an activity-minimizing base with `A2=63`. Proving the entire direction
+unreachable would raise the remaining class's conditional total floor to
+145; excluding only its minimizing bases would not. No such exclusion is
+proved. This is separate from A1=5 work, since nonzero U requires A1>=48.
+Unrestricted probabilities and counterexample/coset certificates do not
+transfer automatically to valid-message bases. The [scope check](../results/krakken_results8_scope_check.json)
+confirms only the saved witness's invalid embeddings and inherited spectrum.
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from

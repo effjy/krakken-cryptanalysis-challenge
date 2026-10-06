@@ -1592,3 +1592,21 @@ All six reports were freshly reproduced, including complete original-C and
 separate NumPy output-table hashes, local counts, code weights, and attaining
 pair. No external reproduction is recorded. The original report and certificates
 are linked in the [manifest](KRAKKEN_THEOREM_ARTIFACTS.md#press-trans-001).
+
+### PRESS-TRANS-001: valid-message boundary clarified by RESULT8
+
+The [companion scope analysis](../RESULT8.md) establishes no new reachability
+result. The saved sharp `[72,63]` pair fails the fixed padding/zero-capacity
+embedding (padding `0xa5`/`0xf2`, 95 nonzero capacity bytes each).
+Reachability for a fixed internal direction d is exactly the intersection
+`G(E(F2^1272)) intersect (G(E(F2^1272)) XOR d)` being nonempty.
+Conjugated translation reduces it to a fixed 776-bit tail test on one message.
+
+The universal activity implication holds on any valid reachable pairs;
+restricted sharpness, checkpoint probabilities and restricted-domain R2
+exclusions remain separate obligations. The generic probability restriction
+bound is vacuous (capped at 1). If the **whole** uniquely minimal direction
+`0x4000` is eventually excluded, the remaining class has total floor 145;
+that exclusion is not proved. A1<=47 pairs are already outside nonzero U.
+The [artifact check](../results/krakken_results8_scope_check.json) is a bounded
+witness/spectrum verification, not a reachability search or new theorem.

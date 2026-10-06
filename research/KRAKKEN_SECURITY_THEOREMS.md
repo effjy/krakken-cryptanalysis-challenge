@@ -4010,6 +4010,44 @@ addition/Pressure classification checks. These implementation audits are
 not external cryptanalytic reproduction. This theorem is new relative
 to the prior Pressure Walsh and differential-gate classes.
 
+**Valid-message scope clarification (RESULT8; supporting analysis, no new ID).**
+Let `E(m)=m || 0x86 || 0^768`, `G=B composed with Chi composed with L`,
+and `M={G(E(m)):m in F2^1272}`. This image has `2^1272` elements;
+it is not assumed affine. For fixed nonzero `d in U`, reachability is
+exactly `M intersect (M XOR d) != empty`. Equivalently, define
+`T_d(s)=G^-1(G(s) XOR d)` and require the final 776 bits of
+`T_d(E(m))` to equal the fixed pad and zero capacity. These are 776
+Boolean constraints on 1272 message variables. The first 159 resulting
+bytes are the unique partner message. Conjugation gives
+`T_d composed with T_e = T_(d XOR e)`; nonzero d has no fixed points.
+This reduction proves neither existence nor absence of valid partners.
+A prescribed initial message difference adds the separate constraint
+`m'=m XOR Delta`.
+
+The unrestricted `[72,63]` witness has padding bytes `0xa5` and `0xf2`,
+with 95 nonzero capacity bytes in each state; neither is a valid first-block
+embedding. This excludes only that saved pair. Activity bounds transfer
+to every valid pair meeting the internal condition, but sharpness in that
+restricted domain remains open. Every pair with `A1<=47`, in particular
+all `A1=5` pairs, is outside nonzero U already.
+
+Neither the uniform unrestricted `2^-184` checkpoint law nor the saved
+unrestricted deterministic-difference counterexamples and coset ranks
+transfer automatically to the reachable message subset. Counting alone gives
+at most `min(1,2^(2048-1272) 2^-184)=1` for a uniform message base;
+conditioning on partner validity needs a separately specified distribution.
+Variation at two unrestricted backgrounds need not imply variation on a
+smaller reachable set.
+
+The inherited direction-wise total minima start `135,145,151,152,156,157`.
+Since `0x4000` uniquely attains 135, **if that entire direction is later
+proved unreachable**, valid pairs in the remaining nonzero U class obey
+`A1+A2>=145`. Excluding only its 135-attaining bases would not prove 145.
+For `0x4000`, reachability and attainability of `A2=63` are separate
+questions (`A1=72` is fixed). No reachability solver or search has been run
+for this clarification. See [RESULT8.md](../RESULT8.md) and the
+[bounded artifact check](../results/krakken_results8_scope_check.json).
+
 The [unaltered report](../RESULT7.md), [artifact manifest](KRAKKEN_THEOREM_ARTIFACTS.md#press-trans-001),
 and [promotion replay](../results/krakken_results7_promotion_replay.json)
 provide definitions and reproducible commands. The 135 activity cost is

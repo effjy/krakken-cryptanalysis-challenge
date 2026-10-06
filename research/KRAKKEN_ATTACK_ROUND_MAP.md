@@ -46,3 +46,13 @@ Two saved 16D internal cosets have full output affine hull 2048 and graph
 hull 2064. Other cosets, statistical/nonperfect continuations, valid-message
 reachability and later-round probability remain open. This is a closed defined
 translation class, not universal two-round differential security.
+
+RESULT8 sharpens this family's hash-interface boundary: the saved attaining
+pair is invalidly padded and has nonzero capacity, so it establishes no valid
+message sharpness. Reachability is an intersection of the nonlinear message
+image with its translation. Neither unrestricted R2 counterexamples nor full
+internal coset ranks exclude behavior on the restricted reachable subset.
+A focused open direction is `0x4000`; excluding it entirely would leave a
+conditional 145-call total floor, whereas excluding its minimizing bases alone
+would not. No reachability result is asserted, and A1=5 lies outside this class.
+See [RESULT8](../RESULT8.md).

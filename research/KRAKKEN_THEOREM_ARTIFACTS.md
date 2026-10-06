@@ -657,3 +657,9 @@ mask spaces at complete rounds one/two for one saved eight-direction cube.
 - [results/krakken_results7_promotion_replay.json](../results/krakken_results7_promotion_replay.json) — proof/certificate or implementation audit as scoped in the ledger.
 
 The original discovery7 manifest also hashes working-document snapshots at discovery time. Those historical hashes are preserved; later ledger edits may differ. The replay requires immutable source/report/script pins to match and records snapshot matches separately.
+
+### PRESS-TRANS-001 companion scope analysis
+
+- [RESULT8.md](../RESULT8.md) — exact reachability formulation and domain-transfer limitations; no reachability search.
+- [krakken_results8_scope_check.py](../scripts/krakken_results8_scope_check.py) — read-only source/witness/spectrum checks; saves a separate report.
+- [krakken_results8_scope_check.json](../results/krakken_results8_scope_check.json) — confirms the invalid saved embeddings and inherited 135→145 spectrum gap; no exclusion theorem.

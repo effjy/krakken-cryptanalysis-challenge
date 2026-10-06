@@ -116,3 +116,8 @@ hash-reachable A1=5 ⇒ A2 bound beyond selected differences, arbitrary coupled
 64-bit Pressure masks, and useful global quantitative full-round hull bounds.
 Partial scans, solver SAT in relaxations, unknowns and timeouts are not proofs.
 The frozen review bundle is outside this refactor.
+
+Scope note for PRESS-TRANS-001: [RESULT8](../RESULT8.md) adds no permanent ID.
+Its saved sharp pair is not valid-message embedded. Reachability, restricted
+sharpness and message-base probabilities remain open; the fixed-tail reduction
+and the conditional 145 consequence are supporting analysis under the same ID.
