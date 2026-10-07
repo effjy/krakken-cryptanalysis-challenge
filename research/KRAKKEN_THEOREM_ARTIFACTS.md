@@ -810,3 +810,14 @@ audit and the new elimination audit are independent implementation audits.
 - [Rank verifier](../discovery12/verify.py) and [C rank helper](../discovery12/rank.c) — two elimination implementations.
 - [Original pairwise certificate](../discovery12/certificate.json), [run log](../discovery12/run.log), and [research history](../discovery12/research_history.md) — preserved extension evidence.
 - [Preserving replay driver](../scripts/krakken_schedule_pairwise_promotion_replay.py) and [fresh replay report](../results/krakken_schedule_pairwise_promotion_replay.json) — verifies exact labeled-case coverage and semantic equality without replacing original artifacts.
+
+**Conjugacy reachability support (RESULTS13).** Analytic bounds inherit
+LIN-RATE-004; that theorem's underlying spectra were not rerun here.
+The exact finite scan and unrestricted visibility witness are separate
+from the open existence question. Independent implementation audits
+are internal; no external reproduction is recorded.
+
+- [RESULTS13](../RESULTS13.md), [manifest](../discovery13/manifest.json), and [history](../discovery13/research_history.md).
+- [Gate/scan verifier](../discovery13/check.py), [certificate](../discovery13/certificate.json), and [log](../discovery13/run.log): pins, source constants, 33,024 cases, distinct targets and exact indicator spectrum.
+- [Visibility verifier](../discovery13/visibility.py) and [two-state witness](../discovery13/visibility.json): fresh original-C and separate NumPy outputs.
+- [Preserving replay driver](../scripts/krakken_conjugacy_reachability_replay.py) and [replay report](../results/krakken_conjugacy_reachability_replay.json): both original reports reproduced exactly, without overwriting discovery evidence.

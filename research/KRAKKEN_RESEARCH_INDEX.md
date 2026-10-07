@@ -159,6 +159,19 @@ at eight rounds and is recorded explicitly; this is not an all-slide
 exclusion or numerical security bound. [RESULTS11](../RESULTS11.md) ·
 [RESULTS12](../RESULTS12.md).
 
+## RESULTS13: conjugacy reachability remains open
+
+[RESULTS13](../RESULTS13.md) complements SCHEDULE-AFF-001 with an exact
+776-bit target criterion and supporting LIN-RATE-004 Fourier corollaries.
+For fixed source/destination prefixes, a uniform159 suffix reaches the
+companion plane with probability at most `1/16+(15/16)*2^-246` per
+phase, or `7/16+(27/16)*2^-246` with adaptive phase selection.
+These modest upper bounds do not determine existence or attack cost.
+The exact 33,024-case scan has no companion; the C/NumPy visibility
+witness is unrestricted only. Input reachability, relating the shifted
+schedule to production, and obtaining a useful output correction remain
+three distinct open bridges. [Replay](../results/krakken_conjugacy_reachability_replay.json).
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from

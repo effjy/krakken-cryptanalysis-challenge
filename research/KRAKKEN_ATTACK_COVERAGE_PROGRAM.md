@@ -259,3 +259,14 @@ The objective is a defensible account of known attack depth and proved
 resistance classes. The useful result may be a broad round-two pattern, a
 later-round surviving construction, or a mixture of both. The documentation
 must follow the evidence in each case.
+
+**Cyclic-conjugacy continuation (RESULTS13).** The eight-round nonlinear
+identity survives. An exact 776-bit criterion now describes valid159
+input companions; fixed-prefix Fourier upper bounds are `1/16+
+(15/16)*2^-246` per phase and `7/16+(27/16)*2^-246` for phase
+selection. Zero companions in the saved 33,024 cases does not exclude
+the full domain. The rate-only output correction obstruction is
+unrestricted, not proved on reachable hash fibers. No attack stopping
+round or general slide exclusion is added by this corollary.
+[Details](KRAKKEN_SECURITY_THEOREMS.md#schedule-aff-001) ·
+[RESULTS13](../RESULTS13.md).

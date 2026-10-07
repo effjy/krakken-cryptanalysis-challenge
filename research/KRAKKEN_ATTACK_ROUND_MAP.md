@@ -69,3 +69,14 @@ the defined translation frontier: a nonzero U difference cannot land in U at
 the next Pressure input for **any base**, already through Chi2/XRBD2. Full-rank
 inactive-cell constraints exclude all 65,535 starting directions. This supplies
 conditional activity composition, not exclusion of arbitrary two-round trails.
+
+**Cyclic-conjugacy continuation (RESULTS13).** The eight-round nonlinear
+identity survives. An exact 776-bit criterion now describes valid159
+input companions; fixed-prefix Fourier upper bounds are `1/16+
+(15/16)*2^-246` per phase and `7/16+(27/16)*2^-246` for phase
+selection. Zero companions in the saved 33,024 cases does not exclude
+the full domain. The rate-only output correction obstruction is
+unrestricted, not proved on reachable hash fibers. No attack stopping
+round or general slide exclusion is added by this corollary.
+[Details](KRAKKEN_SECURITY_THEOREMS.md#schedule-aff-001) ·
+[RESULTS13](../RESULTS13.md).

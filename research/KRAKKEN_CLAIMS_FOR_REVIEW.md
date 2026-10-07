@@ -1761,3 +1761,23 @@ related keys and general slide attacks remain open. No useful quantitative
 correlation or hash-security bound is asserted.
 [Ledger](KRAKKEN_SECURITY_THEOREMS.md#schedule-aff-001) ·
 [Artifacts](KRAKKEN_THEOREM_ARTIFACTS.md#schedule-aff-001).
+
+### SCHEDULE-AFF-001 supporting corollary: conjugacy reachability
+
+[RESULTS13](../RESULTS13.md) gives the exact 776-bit absorb-plane
+criterion and unique companion suffix if it is met. For uniform159
+suffixes and fixed source/destination prefixes, LIN-RATE-004 implies
+reachability probability at most `1/16+(15/16)*2^-246` for a fixed
+phase, and `7/16+(27/16)*2^-246` even with adaptive selection among
+eight phases. The source-specific seven-value gate has nonconstant
+Walsh absolute sum 27; no independence assumption is used. On any
+nonempty affine codimension-d suffix space replace epsilon by
+`min(1,2^(d-246))` and cap the bounds at one. Adaptive destination
+prefixes and nonlinear restrictions are excluded.
+
+The exact scan finds zero companions in 33,024 saved cases, **not**
+a universal unreachability result. A fresh C/NumPy two-state witness
+excludes a rate-only correction on unrestricted states, **not** on
+reachable hash-output fibers. Existence of valid conjugate pairs and
+exploitation with ordinary phase-zero outputs remain open.
+[Preserving replay](../results/krakken_conjugacy_reachability_replay.json).

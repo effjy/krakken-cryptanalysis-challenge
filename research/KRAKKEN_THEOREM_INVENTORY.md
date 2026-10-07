@@ -129,3 +129,10 @@ Scope note for PRESS-TRANS-001: [RESULT8](../RESULT8.md) adds no permanent ID.
 Its saved sharp pair is not valid-message embedded. Reachability, restricted
 sharpness and message-base probabilities remain open; the fixed-tail reduction
 and the conditional 145 consequence are supporting analysis under the same ID.
+
+SCHEDULE-AFF-001 supporting corollaries from [RESULTS13](../RESULTS13.md)
+retain the same ID: analytic exact776-bit companion criterion and
+LIN-RATE-004 fixed-prefix upper bounds (fixed phase and adaptive phase);
+finite constant/spectrum checks and exact33,024-case scan; fresh C/NumPy
+unrestricted visibility witness. Companion existence and general hash
+exploitation remain open. No additional permanent theorem is counted.

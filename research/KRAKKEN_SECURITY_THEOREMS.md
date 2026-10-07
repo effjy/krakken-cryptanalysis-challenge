@@ -206,6 +206,8 @@ flowchart TD
   supportWitness["Actual-message complete support + Boolean-ring evaluation"] --> mixedRelations
   pairedSchedule["Source R_i=H+q_i + paired-output full-rank certificates"] --> scheduleAffine["SCHEDULE-AFF-001: exact R1 / no perfect R2–R8"]
   cyclicComposition["Ordered periodic-round composition"] --> scheduleConjugacy["SCHEDULE-AFF-001: surviving nonlinear eight-round conjugacy"]
+  nonlinear --> conjugacyGate["SCHEDULE-AFF-001 corollary: fixed-prefix four-bit reachability gate"]
+  scheduleConjugacy --> conjugacyGate
 ```
 
 ### OPEN / RESEARCH TARGET — not proved claims
@@ -4702,6 +4704,96 @@ original certificates:
 nice -n 10 /home/user/venv/krakken/bin/python -u \
   /home/user/sol/scripts/krakken_schedule_pairwise_promotion_replay.py \
   --output /home/user/sol/results/krakken_schedule_pairwise_promotion_replay.json
+```
+
+**Supporting corollary: conjugacy input reachability (RESULTS13).**
+This complements the affine classification; it does not prove a hash attack
+or exclusion of every hash-reachable conjugate pair. No new permanent ID
+is allocated.
+
+Write `E_z(m)=z+p+Jm`, where J embeds the 1272 suffix bits in bytes
+0–158, p has only byte159=`0x86`, and z is a fixed prefix state.
+Let P select bytes159–255 and let `a=Pp`. For fixed source and destination
+states z,z', the exact necessary-and-sufficient condition is
+
+```
+R_s(E_z(m)) in E_z'(F2^1272)
+    iff P(H(E_z(m))) = Pz' + a + Pq_s.
+```
+
+This is a **776-bit nonlinear target condition**. When it holds, the
+companion suffix is unique: bytes0–158 of `R_s(E_z(m))+z'`.
+For actual fixed full-block prefixes, z and z' must be their reached
+states; arbitrary chosen capacities are not evidence of hash reachability.
+Before a full160 absorb block the analogous projection has 768 capacity
+bits, but a complete hash still requires its final padding absorb.
+
+Let C select capacity lane21 bits30–33. Set `Y=C R_0(E_z(m))`,
+`c=Cz'`, `d_s=q_s+q_0`, and `epsilon=2^-246`.
+[LIN-RATE-004](#lin-rate-004), at fixed input offset `x_*=z+p`, bounds
+all nonzero four-bit characters of Y by epsilon. The destination prefix
+only specifies a fixed target; this is not a two-input correlation claim
+for differing prefixes. Reachability requires `Y=c+C d_s`. Fourier
+inversion therefore proves, for uniform m and any fixed phase s,
+
+```
+Pr[R_s(E_z(m)) in E_z'(F2^1272)] <= 1/16 + (15/16)*epsilon.
+```
+
+The source-specific offsets `C d_s` are `[0,3,13,9,10,3,6,2]`.
+Their distinct values form `S={0,2,3,6,9,10,13}`. The indicator of S
+has unnormalized Walsh spectrum
+`[7,1,-1,-3,3,1,-1,1,1,3,-3,3,1,-1,1,3]`, with nonconstant
+absolute sum 27. Expanding the translated indicator gives the
+**adaptive-phase** bound, without independence of phase events,
+
+```
+Pr[exists s: R_s(E_z(m)) in E_z'(F2^1272)]
+    <= 7/16 + (27/16)*epsilon.
+```
+
+All eight full 776-bit targets are distinct, so at most one phase can
+meet the complete condition for any given m,z,z'. For a uniform suffix
+on a nonempty affine subspace of codimension d, expand its indicator
+into message characters and use LIN-RATE-004's all-input-mask quantifier:
+replace epsilon by `min(1,2^(d-246))` in both bounds, capped at one.
+These statements fix both prefixes before drawing m. They do not apply
+to an adaptively selected destination prefix or nonlinear suffix restrictions.
+The remaining 772 target bits are uncontrolled; these are only upper
+bounds, not lower bounds or attack-cost estimates.
+
+**Finite evidence and output visibility.** The preserving replay rechecks
+source/data pins, independently derived SHAKE constants, all eight
+776-bit targets and the 16-character spectrum. None of the **33,024**
+saved phase/message cases is a full companion. This closes only that
+finite scan, not existence on the full message domain. The inherited
+264,192-state corpus remains linked to its previous C/NumPy audit.
+
+A separate fresh original-C/NumPy replay verifies two unrestricted
+states: zero and a state differing only at capacity lane20 bit0.
+They have identical first160 bytes but different first32 bytes after R_0.
+Since R_s differs only by an output constant, this excludes a universal
+function of the visible rate alone that computes the transformed digest
+for any phase. These states are **not certified reachable hash outputs**;
+no exclusion on reachable output fibers is inferred. Public chosen-message
+evaluation can compute its full internal state; the witness concerns an
+oracle-only projection correction, not secrecy of those states.
+
+**Open bridges.** A valid conjugate message pair remains neither constructed
+nor ruled out. Even a pair would still involve a modified cyclic schedule,
+whereas every production absorb/squeeze permutation restarts at phase zero.
+It would also need a useful observable correction/advantage. No collision,
+preimage, useful distinguisher or security-bit consequence follows here.
+
+[RESULTS13](../RESULTS13.md) and the
+[preserving replay report](../results/krakken_conjugacy_reachability_replay.json)
+record the analytic corollaries, finite scan and visibility witness separately.
+Reproduction preserves the original reports:
+
+```bash
+nice -n 10 /home/user/venv/krakken/bin/python -u \
+  /home/user/sol/scripts/krakken_conjugacy_reachability_replay.py \
+  --output /home/user/sol/results/krakken_conjugacy_reachability_replay.json
 ```
 
 ## Reproduction commands for earlier linear certificates
