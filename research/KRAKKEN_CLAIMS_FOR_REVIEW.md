@@ -1728,3 +1728,31 @@ reproduction is recorded. This adds exact primitive provenance and analytic
 explanations to existing numerical facts, not a complete-round or hash bound.
 [Ledger](KRAKKEN_SECURITY_THEOREMS.md#sbox-alg-001) ·
 [Artifacts](KRAKKEN_THEOREM_ARTIFACTS.md#sbox-alg-001).
+
+## SCHEDULE-AFF-001: perfect affine relations between cyclic constant schedules
+
+Let F_(s,l) be the complete pinned round composition starting with Iota
+phase s, cyclically indexed, of length l=1..8. Compare the ordinary phase
+zero to each s=1..7 on the same valid159 message. For all independent
+2048-bit output masks u,v, universal relations `u·F_(0,l)+v·F_(s,l)=b`
+at l=1 exist exactly when u=v and b=v·(Q(rc_s)+Q(rc_0)).
+At each l=2..8 separately only u=v=0,b=0 is possible.
+This also excludes every universal affine vector correction between
+these outputs, including singular matrices.
+
+The source R_i=H+Q(rc_i) identity proves R1 inclusion; baseline anchored
+rank 2048 proves completeness. The 4,128-message spanning certificate
+has rank 4096 for each of 49 paired outputs, proving all-mask exclusion.
+Fresh original-C binary regeneration and separate NumPy/SHAKE/reversed-rank
+audit reproduce all 264,192 saved states and all ranks; 4,128 ordinary
+R8 digest projections pass the public API. No external reproduction.
+
+The unrestricted nonlinear relation `F_(s+1,l) R_s = R_(s+l) F_(s,l)`
+is exact and yields eight-round conjugacy `F_(s+1,8)=R_s F_(s,8) R_s^-1`.
+This survives and must not be omitted. It changes the inputs, unlike
+the same-valid-message affine comparison; no practical attack follows.
+Nonperfect relations, different message inputs, arbitrary schedules,
+related keys and general slide attacks remain open. No useful quantitative
+correlation or hash-security bound is asserted.
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#schedule-aff-001) ·
+[Artifacts](KRAKKEN_THEOREM_ARTIFACTS.md#schedule-aff-001).

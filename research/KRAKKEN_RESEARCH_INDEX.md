@@ -144,6 +144,18 @@ the construction/proofs explicit. It is S-box-only and adds no round/hash
 security bound. The [original report](../RESULTS_ABYSSAL_ALGEBRA.md) is preserved,
 with acceptance recorded separately after review. No external reproduction.
 
+## RESULTS11: cyclic schedules and surviving nonlinear conjugacy
+
+[SCHEDULE-AFF-001](KRAKKEN_SECURITY_THEOREMS.md#schedule-aff-001) closes
+perfect affine relations between ordinary and seven cyclic constant schedules
+on the same valid159 message. R1 has exactly the known full-state offsets;
+at each complete length 2–8 only trivial independent output masks remain.
+All 49 paired-output ranks are 4096. Fresh C and separate NumPy/rank/API
+replays pass. Altered schedules are not production hash interfaces.
+The exact unrestricted nonlinear transformed-input conjugacy survives
+at eight rounds and is recorded explicitly; this is not an all-slide
+exclusion or numerical security bound. [RESULTS11](../RESULTS11.md).
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from
@@ -749,8 +761,9 @@ Distinct attack classes still underexplored here include
 classes, **general zero-sum and division-property integrals** beyond
 the defined four-state, degree, and byte-0 exact division-property
 and kernel-directed exact mask-space families, **subspace trails beyond the defined byte-coordinate
-class**, and **slide/related-round structures** involving the round
-constants.
+class**, and **slide/related-round structures** beyond the same-message
+cyclic-schedule perfect affine class closed by SCHEDULE-AFF-001. Its exact
+nonlinear transformed-input eight-round conjugacy remains part of that frontier.
 The [division-property gate audit](../results/krakken_divprop_gate_audit_validated.json)
 checks the archived model's C wiring and reduced local rules before
 any full-round MILP campaign. It also records why model-reachable

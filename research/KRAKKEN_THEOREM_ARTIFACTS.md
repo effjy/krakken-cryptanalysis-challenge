@@ -777,3 +777,23 @@ The candidate report and manifest remain byte-preserved historical artifacts. Th
 
 - [Promoted preserving replay](../scripts/krakken_abyssal_algebra_replay.py) — fresh temporary-tree reproduction with no hardcoded registry count; use after promotion instead of the historical candidate audit driver.
 - [Promoted replay report](../results/krakken_abyssal_algebra_promotion_replay.json) — source pins, all original evidence pins and byte-equal complete producer/audit tables.
+
+## SCHEDULE-AFF-001
+
+[SCHEDULE-AFF-001](KRAKKEN_SECURITY_THEOREMS.md#schedule-aff-001) — Same-message cyclic-schedule perfect affine relations, exact R1 offsets and surviving nonlinear transformed-input conjugacy.
+
+- [RESULTS11.md](../RESULTS11.md) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery11/manifest.json](../discovery11/manifest.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery11/schedule_engine.c](../discovery11/schedule_engine.c) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery11/scan.py](../discovery11/scan.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery11/audit.py](../discovery11/audit.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery11/messages.bin](../discovery11/messages.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery11/outputs.bin](../discovery11/outputs.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery11/certificate.json](../discovery11/certificate.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery11/audit.json](../discovery11/audit.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery11/research_history.md](../discovery11/research_history.md) — proof/certificate or implementation audit as scoped in the ledger.
+- [discovery5/audit_kernel_cubes.py](../discovery5/audit_kernel_cubes.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [scripts/krakken_schedule_affine_promotion_replay.py](../scripts/krakken_schedule_affine_promotion_replay.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/krakken_schedule_affine_promotion_replay.json](../results/krakken_schedule_affine_promotion_replay.json) — proof/certificate or implementation audit as scoped in the ledger.
+
+Full states are ordered message × phase × length × lane. Each witness message has 159 bytes and is embedded with fixed padding/zero capacity. Fresh generation reproduces both binaries byte for byte; the audit recomputes all paired ranks and checks public ordinary-schedule hashes. The unrestricted composition/conjugacy checks validate an analytic identity, not a probabilistic exclusion. Original discovery11 artifacts and the frozen bundle are preserved.

@@ -103,6 +103,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [PARTITION-001](#partition-001) | Perfect nonlinear partition/common labels | H | Complete R1–R8 separately | 175 source × 48 destination byte observations; arbitrary label functions | Exactly 16 matching R1 cases have q^16 labels; all other 67,184 cases constant-only | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#partition-001) | — | Perfect separable labels only; biases/joint observations remain open |
 | [ALG-REL-001](#alg-rel-001) | Mixed input/output algebraic relations | H; four-bit/four-bit observations | Complete R1–R8 separately | All Boolean equations in each of 67,200 eight-coordinate windows | 16 matching R1 supports have ideal <e0,e1>, dimension 192; all other supports full and ideal zero | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-rel-001) | — | Exact small-window support; no independence or large-system solving bound |
 | [SBOX-ALG-001](#sbox-alg-001) | Primitive S-box algebra | 8-bit byte map; uniform byte for probabilities | S-box only | All inputs/differences/masks as separately stated | Exact affine inversion; analytic DDT 4 / BCT 6; finite Walsh 32, NL 112, degree 7 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#sbox-alg-001) | — | Component provenance and local properties; no new round/hash bound |
+| [SCHEDULE-AFF-001](#schedule-aff-001) | Related-round / cyclic schedules | Same H message; modified schedules | Complete lengths 1–8 separately | Phase zero versus each phase 1–7; all independent output masks | Exact R1 offsets; no perfect affine relation at R2–R8, paired rank 4096; nonlinear conjugacy survives | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#schedule-aff-001) | — | Defined perfect relation class, not all slide attacks or nonperfect bounds |
 | [INT-BYTE-001](#int-byte-001) | Integral | H | 2 | All 159 byte cubes, arbitrary bases, coordinate masks | No universal coordinate balance | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-001) | — | Stated class/checkpoint only |
 | [INT-BYTE-002](#int-byte-002) | Integral | H | 1/2 | Byte-0 cube, all bases/output masks | R1 sum rank 2041; R2 rank 2048, no universal nonzero mask | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-002) | — | Stated class/checkpoint only |
 | [DIV-BYTE-001](#div-byte-001) | Division property | H | 1/2 | Byte-0 defined direction family and linear masks | Exact universal balance spaces: dimensions 7 and 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#div-byte-001) | — | Stated class/checkpoint only |
@@ -203,6 +204,8 @@ flowchart TD
   graphWitness["Actual-message bipartite connectivity witnesses"] --> partitions
   pressureSubtract --> mixedRelations["ALG-REL-001: exact mixed eight-coordinate ideals, R1–R8"]
   supportWitness["Actual-message complete support + Boolean-ring evaluation"] --> mixedRelations
+  pairedSchedule["Source R_i=H+q_i + paired-output full-rank certificates"] --> scheduleAffine["SCHEDULE-AFF-001: exact R1 / no perfect R2–R8"]
+  cyclicComposition["Ordered periodic-round composition"] --> scheduleConjugacy["SCHEDULE-AFF-001: surviving nonlinear eight-round conjugacy"]
 ```
 
 ### OPEN / RESEARCH TARGET — not proved claims
@@ -4581,6 +4584,111 @@ sizes; it reproduces the original JSON and all producer/audit tables byte for by
 nice -n 10 /home/user/venv/krakken/bin/python -u \
   /home/user/sol/scripts/krakken_abyssal_algebra_replay.py \
   --output /home/user/sol/results/krakken_abyssal_algebra_promotion_replay.json
+```
+
+<a id="schedule-aff-001"></a>
+## Theorem proved: cyclic-schedule offsets and perfect affine-relation exclusion
+
+<!-- THEOREM METADATA SCHEDULE-AFF-001 -->
+**Permanent ID:** `SCHEDULE-AFF-001` · **Proof classification:** analytic round-offset/affine-span argument plus finite complete-rank certificates. Fresh scalar-C schedule evaluation, separate NumPy layers/SHAKE constants, reversed-coordinate rank elimination and public API replay are independent implementation audits; no external reproduction is recorded. The surviving unrestricted cyclic intertwining is an analytic identity.
+<!-- END THEOREM METADATA SCHEDULE-AFF-001 -->
+
+**Domain and schedules.** Let R_i be the complete pinned scalar round with
+Iota constant i, indices modulo eight, and
+`F_(s,l)=R_(s+l-1) composed with ... composed with R_s`, `1<=l<=8`.
+F_(0,l) is the production reduced-round schedule. Other phases explicitly
+modify the constant schedule, with wraparound; they are not additional
+production hash APIs. Every comparison below uses the **same** H message,
+embedded as 159 bytes, fixed `0x86` pad and zero initial capacity.
+Outputs are full 2048-bit states after Pressure, Iota and shuffle.
+
+Let Q be the linear Inkcloud shuffle, `q_i=Q(rc_i)` and `d_s=q_s+q_0`.
+For each `s=1..7`, classify all independent state masks u,v and b in F2
+satisfying
+
+```
+u·F_(0,l)(E(m)) + v·F_(s,l)(E(m)) = b   for every valid159 message m.
+```
+
+At **l=1**, this holds exactly when `u=v` and `b=v·d_s`.
+Each d_s is nonzero, and the mask-pair space has dimension 2048.
+At **each l=2..8 separately**, it holds exactly when `u=v=0,b=0`.
+The full-domain paired-output affine hull has dimension 4096 in each
+of the 49 phase/length comparisons. Thus there is no universal affine
+vector correction `F_(s,l)=A F_(0,l)+c` on H for any binary matrix A,
+even singular, at these later boundaries.
+
+**Proof.** Only Iota varies with i and Q is linear, so
+`R_i(x)=H(x)+q_i` for the common nonlinear body H including Q.
+This proves the unrestricted pointwise R1 offset identity. The baseline
+R1 outputs on the saved messages have anchored difference rank 2048;
+substituting the offset forces u+v=0 and b=v·d_s, with the converse
+immediate.
+
+For any finite-valued map G, a universal affine scalar equation must
+annihilate every anchored difference `G(m)+G(m0)`. A finite witness set
+spanning all output coordinates therefore excludes every nonzero mask
+on the entire domain, without statistical extrapolation. For each of
+49 later phase/length pairs, the saved 4,128 valid messages (including
+zero) produce anchored paired-output rank 4096. This proves the full
+independent-mask exclusion. One coordinate of an affine vector correction
+would imply a prohibited scalar relation. Separate certificates at each
+length rule out reappearance of a perfect affine relation in this class;
+R2 alone is not used to infer later-round exclusion.
+
+**Surviving nonlinear structure.** For unrestricted states, ordered
+composition gives the exact identity
+
+```
+F_(s+1,l) composed with R_s = R_(s+l) composed with F_(s,l).
+```
+
+At l=8 the schedules are periodic. Using the inherited bijectivity of the
+round layers gives
+
+```
+F_(s+1,8) = R_s composed with F_(s,8) composed with R_s^-1.
+```
+
+This nonlinear transformed-input conjugacy survives all eight rounds.
+Its inputs need not remain within the valid-message embedding, so it
+neither contradicts the same-message affine theorem nor exhibits a
+practical slide attack. It must remain part of the recorded frontier;
+this result does **not** eliminate the slide family generally.
+
+**Finite certificates and audit.** Source hashes are the current pins
+`4d659644c80b6ed0aabbce77d6aad6e6f851a90ec536a2131a412b8ac48eccc6`
+(krakken.c) and
+`83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c`
+(krakken.h). Fresh original C reproduces the message and full-state binary
+files byte for byte: 4,128 messages × 8 phases × 8 lengths = 264,192 states.
+Separate NumPy layers and independently generated SHAKE constants replay
+all states. Reversed-coordinate Python elimination reproduces the baseline
+rank 2048 and all 49 ranks 4096. All 4,128 ordinary R8 digest projections
+match the public scalar hash API. The 1,024 unrestricted intertwining
+checks (128 at length eight) validate implementation of the analytic
+composition identity; sampling is not its proof. No original artifact
+or frozen bundle is overwritten.
+
+**Novelty and limits.** LIN-GLOBAL-001 compares message masks with one
+output, and ROT-001/002 change spatial coordinates; neither implies this
+paired-output schedule classification. The new Krakken-specific result is
+for phase zero versus the seven cyclic shifts, not all phase pairs,
+arbitrary schedules, related keys, translated inputs or different lengths.
+Higher-degree/approximate relations, restricted message subsets and
+practical slide constructions remain open. Full affine span does not
+imply uniformity, independence, surjectivity or useful correlation bounds;
+no activity, probability or security-bit consequence is asserted.
+
+See [RESULTS11.md](../RESULTS11.md), the
+[artifact manifest](KRAKKEN_THEOREM_ARTIFACTS.md#schedule-aff-001), and the
+[fresh replay](../results/krakken_schedule_affine_promotion_replay.json).
+Preserving reproduction:
+
+```bash
+nice -n 10 /home/user/venv/krakken/bin/python -u \
+  /home/user/sol/scripts/krakken_schedule_affine_promotion_replay.py \
+  --output /home/user/sol/results/krakken_schedule_affine_promotion_replay.json
 ```
 
 ## Reproduction commands for earlier linear certificates
