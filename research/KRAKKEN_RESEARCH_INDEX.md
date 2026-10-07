@@ -102,6 +102,20 @@ activity floors reach 143 P / 144 H when the class occurs before the final
 round. General trails outside U retain the earlier bounds. See the
 [proof, case split and reproduction](KRAKKEN_PRESSURE_TRANSLATION_WINDOWS.md).
 
+## RESULTS9: perfect nonlinear byte-label transport
+
+[PARTITION-001](KRAKKEN_SECURITY_THEOREMS.md#partition-001) classifies every
+separable common label in 67,200 observation/round combinations over the
+complete valid 159-byte domain. Sixteen matching checkpoint/output pairs
+retain exactly q^16 common labels at R1; all remaining cases have only
+constants, including every specified pairing at each R2–R8. All raw
+message-byte/digest-byte pairings are constant-only already at R1.
+Finite graph connectivity proves this for arbitrary truth-table labels,
+without assuming uniform internal states. Fresh C, separate NumPy/BFS and
+public API replays pass. This concerns perfect relations, not independence,
+nonperfect biases, wider/joint observations or multiblock inputs. See
+[RESULTS9](../RESULTS9.md) and the [manifest](KRAKKEN_THEOREM_ARTIFACTS.md#partition-001).
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from

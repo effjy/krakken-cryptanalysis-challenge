@@ -702,3 +702,26 @@ Do not confuse RESULTS8.md (this nonlinear integral result) with RESULT8.md
 - [results/pressure_translation_windows_20261006/scan.json](../results/pressure_translation_windows_20261006/scan.json) — proof/certificate or audit as scoped.
 - [results/pressure_translation_windows_20261006/audit.json](../results/pressure_translation_windows_20261006/audit.json) — proof/certificate or audit as scoped.
 - [results/pressure_translation_windows_20261006/composition.json](../results/pressure_translation_windows_20261006/composition.json) — proof/certificate or audit as scoped.
+
+## PARTITION-001
+
+[PARTITION-001](KRAKKEN_SECURITY_THEOREMS.md#partition-001) — Exact perfect separable common labels on the specified byte observations over all valid 159-byte messages.
+
+- [RESULTS9.md](../RESULTS9.md) — Analytic proof, scope and graph-certificate explanation.
+- [discovery9/manifest.json](../discovery9/manifest.json) — Immutable source and artifact SHA-256 pins.
+- [discovery9/extended_engine.c](../discovery9/extended_engine.c) — Original-C observation evaluation and union-find engine.
+- [discovery9/extended_scan.py](../discovery9/extended_scan.py) — Reproducible finite witness construction.
+- [discovery9/extended_certificate.json](../discovery9/extended_certificate.json) — 3,328 messages and 400 observation bytes each; all 67,200 graph counts.
+- [discovery9/partition_engine.c](../discovery9/partition_engine.c) — Core original-C graph engine.
+- [discovery9/scan.py](../discovery9/scan.py) — Core certificate constructor.
+- [discovery9/certificate.json](../discovery9/certificate.json) — Nested 2,048-graph certificate.
+- [discovery9/audit.py](../discovery9/audit.py) — Separate NumPy observations and bitset breadth-first graph audit.
+- [discovery9/audit.json](../discovery9/audit.json) — Independent implementation audit and Boolean-degree/Bell counts.
+- [discovery9/api_audit.py](../discovery9/api_audit.py) — Original-C public hash and reduced-round API replay.
+- [discovery9/api_audit.json](../discovery9/api_audit.json) — API comparison report.
+- [discovery9/counterexamples.json](../discovery9/counterexamples.json) — Concrete valid-message counterexamples.
+- [discovery5/audit_kernel_cubes.py](../discovery5/audit_kernel_cubes.py) — Separate layer and SHAKE-constant implementation used by audit.
+- [scripts/krakken_partition_promotion_replay.py](../scripts/krakken_partition_promotion_replay.py) — Preserving fresh replay driver; low priority when invoked with nice.
+- [results/krakken_partition_promotion_replay.json](../results/krakken_partition_promotion_replay.json) — Fresh C/NumPy/API reproduction summary.
+
+Proof is the graph connectivity implication plus the subtraction identity; choosing witness messages randomly does not make the proved exclusion statistical. Replay writes only a fresh temporary tree and a separate report. No external reproduction is recorded; source, original artifacts and frozen bundle remain unchanged.

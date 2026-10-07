@@ -100,6 +100,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [INT-CUBE-001](#int-cube-001) | Integral | H | Chi1/1/2 | Every d≥14 cube at checkpoints; fixed 14-direction family at complete rounds | Sharp threshold 14; fixed family exactly 32 universal R1 coordinates, none R2 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-cube-001) | — | Stated class/checkpoint only |
 | [INT-KERNEL-001](#int-kernel-001) | Integral / affine-fiber degree | H; fixed-offset extension for inclusion only | Chi1/XRBD1/1/2 | All dimension-8–248 direction spaces in the first-Chi-input kernel; exact mask classification for one saved 8D cube only | Sharp checkpoint threshold 8; 32 guaranteed R1 coordinates; saved cube universal mask dimensions exactly 32 then 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-kernel-001) | — | Attack-side 256-message R1 integral; all-mask R2 exclusion only fixed cube, not all kernel subspaces |
 | [INT-NONLINEAR-001](#int-nonlinear-001) | Nonlinear-output integral | H; specified state projections | Complete R1–R8 separately | Fixed saved 8D cube; all 2^256 Boolean predicates of each of 16 eight-bit projections | Exactly 64 universal R1 predicates (56 nonlinear); only 2 constants at each R2–R8 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-nonlinear-001) | — | Defined predicate class; other cubes/joint projections/statistical integrals open; not digest-only |
+| [PARTITION-001](#partition-001) | Perfect nonlinear partition/common labels | H | Complete R1–R8 separately | 175 source × 48 destination byte observations; arbitrary label functions | Exactly 16 matching R1 cases have q^16 labels; all other 67,184 cases constant-only | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#partition-001) | — | Perfect separable labels only; biases/joint observations remain open |
 | [INT-BYTE-001](#int-byte-001) | Integral | H | 2 | All 159 byte cubes, arbitrary bases, coordinate masks | No universal coordinate balance | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-001) | — | Stated class/checkpoint only |
 | [INT-BYTE-002](#int-byte-002) | Integral | H | 1/2 | Byte-0 cube, all bases/output masks | R1 sum rank 2041; R2 rank 2048, no universal nonzero mask | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-002) | — | Stated class/checkpoint only |
 | [DIV-BYTE-001](#div-byte-001) | Division property | H | 1/2 | Byte-0 defined direction family and linear masks | Exact universal balance spaces: dimensions 7 and 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#div-byte-001) | — | Stated class/checkpoint only |
@@ -193,6 +194,8 @@ flowchart TD
   six -. "restricted mask class only" .-> open
   kernelIntegral["INT-KERNEL-001: kernel cube and first-round balances"] --> nonlinearIntegral["INT-NONLINEAR-001: all eight-bit predicates, R1–R8"]
   pressureSubtract["Exact low-31-bit Pressure subtraction identity"] --> nonlinearIntegral
+  pressureSubtract --> partitions["PARTITION-001: perfect nonlinear byte labels, R1–R8"]
+  graphWitness["Actual-message bipartite connectivity witnesses"] --> partitions
 ```
 
 ### OPEN / RESEARCH TARGET — not proved claims
@@ -4206,6 +4209,122 @@ See [the full proof and composition rules](KRAKKEN_PRESSURE_TRANSLATION_WINDOWS.
 and the [artifact manifest](KRAKKEN_THEOREM_ARTIFACTS.md#diff-window-001).
 This closes consecutive deterministic Pressure transitions, not arbitrary
 three-round trails, nonunit transitions or global hull probabilities.
+
+<a id="partition-001"></a>
+## Theorem proved: exact perfect nonlinear byte-label transport through eight rounds
+
+<!-- THEOREM METADATA PARTITION-001 -->
+**Permanent ID:** `PARTITION-001` · **Proof classification:** analytic Pressure subtraction identity and common-label graph lemma plus finite spanning connectivity certificates. Fresh original-C evaluations, separate NumPy layer replay, bitset breadth-first traversal and public-C API replay are independent implementation audits; no external reproduction is recorded.
+<!-- END THEOREM METADATA PARTITION-001 -->
+
+**Domain and observations.** H is the complete domain of valid 159-byte
+messages with fixed `0x86` padding and zero initial capacity. Let Z(m) be
+the actual first-round state after Chi1/XRBD1, before Pressure1. For chain
+`j=0..15`, put `h=j mod2`, `i=4 floor(j/2)+h`, `k=i+2`, and define
+`X_j=(Z[i] mod16)+16(Z[k] mod16)`. This checkpoint remains fixed at round
+one in every comparison below; it is not a fresh checkpoint at each round.
+
+After complete round r, undo shuffle, that round's Iota constants and
+odd-chain rotations (7 on A, 19 on C). Define
+`Y_{r,j}=(A mod16)+16(C mod16)`. For output lanes s, exact extraction is
+
+```
+A4 = ((s[(7*i) mod32] >> (11+7*h)) XOR (rc[r-1][i] >> (7*h))) AND 15
+C4 = ((s[(7*k) mod32] >> (11+19*h)) XOR (rc[r-1][k] >> (19*h))) AND 15
+Y  = A4 + 16*C4
+```
+
+The source alphabet choices are all 159 raw message bytes M_p and all 16
+X_j (175 choices). The destination choices at each r are all 16 Y_{r,j}
+and all 32 raw output-state bytes D_{r,t}, `t=0..31` (48 choices).
+At r=8 these raw bytes are the actual 32-byte public hash digest; at
+r<8 they belong to the corresponding reduced-round construction.
+
+**Complete defined class.** For every source U, destination V and
+`r=1..8`, every fixed finite label set Q of size `q>=2`, and all arbitrary
+truth-table functions `f,g:{0,..,255}->Q`, classify
+
+```
+f(U(m)) = g(V(m))  for every m in H.
+```
+
+Exactly sixteen cases have nonconstant common labels: at r=1, with
+`U=X_j` and `V=Y_{1,j}` for the same chain. All and only their solutions are
+
+```
+f(a+16c) = H(c)
+g(A+16C) = H((C-A) mod16)
+```
+
+for arbitrary `H:{0,..,15}->Q`: exactly `q^16` agreeing pairs. Their
+finest shared partition has sixteen attained blocks, each containing
+16 source values and 16 destination values. Every other one of the
+67,200 source/destination/round combinations has only matching constants,
+exactly q pairs. This includes all 58,800 combinations at complete R2–R8,
+with each round independently certified, and all 8,384 remaining R1 cases.
+For Boolean labels, any nonconstant predicate pair in those constant-only
+cases takes both XOR values on the saved valid messages: neither perfect
+agreement nor perfect anticorrelation is possible.
+
+In each matching R1 case, there are 65,536 Boolean agreeing pairs.
+Output-predicate degree counts in the eight observed bits are
+`degree 0:2, 1:2, 2:12, 3:112, 4:3968, 5:28672, 6:32768`;
+65,532 output predicates are nonlinear. These are predicate-coordinate
+degrees, not degrees of their 1272-bit message compositions. Ignoring label
+names gives Bell(16)=10,480,142,147 coarsenings of the finest partition.
+
+**Proof.** In an unrotated Pressure chain,
+`C=c+(A XOR (A<<31)) mod2^64`, so `(C-A) mod16=c mod16`.
+This inherited pointwise identity, valid for every base distribution,
+proves inclusion of the sixteen R1 partition families. It is locally true
+at every Pressure invocation; the later exclusions concern labels of the
+fixed *first* checkpoint X, not the disappearance of that local identity.
+
+For any pair U,V, form a bipartite graph on two disjoint full 256-value
+alphabets, adding `(U(m),V(m))` for each valid message. Perfect common
+labels are exactly constant colorings of connected components. A graph
+on the full 512 vertices witnessed by finitely many valid messages remains
+connected when further messages add edges. Thus a finite connected
+certificate proves the universal constant-only assertion, without a
+sampling extrapolation or a uniform-base assumption. In the matching
+R1 cases the identity forbids merging the sixteen proposed blocks;
+witnessed connectivity within each block proves their exact classification.
+
+The 3,328-message original-C certificate gives component counts 16 in
+exactly sixteen graphs and 1 in all other 67,184. Separate NumPy replay
+reproduces all 1,331,200 observation bytes, and a bitset breadth-first
+traversal checks all 67,200 component decompositions, including the exact
+R1 block sets on all 512 vertices. Original C union-find is a separate graph
+implementation. All 26,624 round evaluations were freshly reproduced;
+public hash API replay checks all 3,328 digests, and the reduced-round API
+checks 256 cases. The core 2,048-graph certificate is also audited as a
+nested subcertificate. Boolean degree and Bell counts are recomputed.
+
+**Direct hash-interface corollary.** Every one of the 40,704 combinations
+`159 message bytes × 32 raw digest-projection bytes × 8 rounds` has no
+nonconstant perfect separable common label, already at R1 and separately
+at each R2–R8. This is stronger than an affine-only exclusion in this
+byte-to-byte class. It does not assert statistical independence or small
+nonperfect correlations: connected graphs may have biased edge weights.
+
+**Scope and novelty.** This is a pointwise partition/common-label theorem,
+not a cube-parity integral theorem. It adds a complete nonlinear observation
+class to LIN-GLOBAL-001 and INT-NONLINEAR-001; neither prior result implies
+this classification. Joint/wider observations, arbitrary nonlinear relations
+mixing both sides, special restricted message subsets, statistical partition
+biases and variable-length/multiblock hashes remain outside its scope.
+No attack-complexity or security-bit consequence is asserted.
+
+See [RESULTS9.md](../RESULTS9.md), the
+[certificate manifest](KRAKKEN_THEOREM_ARTIFACTS.md#partition-001), and the
+[fresh promotion replay](../results/krakken_partition_promotion_replay.json).
+Reproduce without modifying discovery9 artifacts:
+
+```bash
+nice -n 10 /home/user/venv/krakken/bin/python -u \
+  /home/user/sol/scripts/krakken_partition_promotion_replay.py \
+  --output /home/user/sol/results/krakken_partition_promotion_replay.json
+```
 
 ## Reproduction commands for earlier linear certificates
 

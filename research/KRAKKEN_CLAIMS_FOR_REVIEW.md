@@ -1649,3 +1649,30 @@ Composed activity floors ≥143 P / ≥144 H over eight rounds require an intern
 U occurrence in rounds 1–7. No valid-message realization or global floor increase
 is asserted. General three-round activity and differential hulls remain open.
 [Proof and artifacts](KRAKKEN_PRESSURE_TRANSLATION_WINDOWS.md).
+
+## PARTITION-001: exact perfect nonlinear common-label class
+
+For all valid padded 159-byte messages, compare each of 159 raw message
+bytes or 16 specified first-Pressure checkpoint bytes against each of 16
+unrotated low-nibble output pairs or 32 raw digest-projection bytes after
+complete R1–R8. Among all arbitrary functions from either byte alphabet
+to any fixed q-element label set, exact pointwise agreement has q^16
+solutions in the sixteen matching checkpoint/output cases at R1:
+`f(a+16c)=H(c)`, `g(A+16C)=H((C-A) mod16)`. All other 67,184 cases have
+only the q matching constant pairs, including every pairing at R2–R8.
+All 40,704 raw message-byte/raw digest-projection pairings are constant-only
+already at R1 and separately through R8; the R8 projection is the public digest.
+
+The inherited subtraction identity prevents merging the sixteen R1 blocks.
+A 3,328-message spanning graph certificate proves their exact connectivity
+and proves every other graph connected on all 512 alphabet vertices.
+The common-label graph lemma therefore covers every truth-table label,
+without enumerating them or extrapolating sample statistics. There are
+65,536 Boolean R1 pairs per matching chain, with 65,532 nonlinear output
+predicates; at later rounds no nonconstant perfect agreement or anticorrelation
+exists in this class. Fresh original-C evaluation, separate NumPy/BFS
+and public API replay reproduce the certificates. No external reproduction
+is recorded. These are separable perfect-label claims, not independence,
+statistical bias bounds or classification of all partition attacks.
+[Ledger and proof](KRAKKEN_SECURITY_THEOREMS.md#partition-001) ·
+[Certificate manifest](KRAKKEN_THEOREM_ARTIFACTS.md#partition-001).

@@ -49,10 +49,17 @@ trajectory disappears. **Chi2 is inside R2; Pressure1 is inside R1.**
 | Defined 14-direction H cube | Exactly 32 universal coordinate balances after complete R1 | **Complete R2** | None of the 2048 coordinates is universally balanced for the fixed directions at message bits 0–13 | Other directions and non-coordinate output masks; [INT-CUBE-001](KRAKKEN_SECURITY_THEOREMS.md#int-cube-001) |
 | Saved kernel-directed eight-dimensional H cube | Exactly 32 universal linear-mask generators at complete R1 | **Complete R2** | Universal mask space has dimension zero for the saved direction set | Other direction sets in the 248D kernel and special cosets; [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001) |
 | Nonlinear predicates of a saved kernel cube | Exactly 64 universal R1 predicates (56 nonlinear), per eight-bit projection | **Complete R2**, and separately **R3–R8** | Among all 2^256 truth tables of each of 16 projections, only constants retain base-independent parity | Other cubes, joint/wider windows, special backgrounds and statistical integrals; [INT-NONLINEAR-001](KRAKKEN_SECURITY_THEOREMS.md#int-nonlinear-001) |
+| Perfect checkpoint-to-output nonlinear common labels | Sixteen matching R1 pairs have q^16 solutions, including nonlinear Boolean predicates | **Complete R2**, separately **R3–R8** | All specified 175 × 48 observation pairs admit only constant common labels; arbitrary label truth tables covered | Wider/joint observations, statistical labels and special message subsets; [PARTITION-001](KRAKKEN_SECURITY_THEOREMS.md#partition-001) |
 | Fixed four-state zero-sum square | Full-state zero sum through Chi1/XRBD1; 32 projected R1 balances | **Complete R2** | No universal coordinate at all 128 sites; no universal nonzero output mask at the one representative site | Other sets, masks at other sites, special backgrounds; [ZERO-001](KRAKKEN_SECURITY_THEOREMS.md#zero-001) |
 | Complete Pressure deterministic translations | All 16D internal cosets remain affine through first-round suffix | **Complete R2** | All 65,535 nonzero directions lose universal vector differences, even in first 256 bits; two saved cosets have full output/graph hulls | Hash reachability, other cosets and nonperfect behavior; [PRESS-TRANS-001](KRAKKEN_SECURITY_THEOREMS.md#press-trans-001) |
 | Two consecutive deterministic Pressure transitions | First Pressure transition is deterministic in nonzero U | **Next Chi/XRBD, before Pressure2** | Every base and all 65,535 U directions: the next Pressure difference is outside U | Other Pressure directions and nonunit probabilities; [DIFF-WINDOW-001](KRAKKEN_SECURITY_THEOREMS.md#diff-window-001) |
 | Globally low-degree state-coordinate model | Exactly 32 R1 coordinates have degree 13 | **Complete R2**, separately R3–R8 | Every coordinate has degree ≥20; hence no coordinate has a global degree≤19 polynomial | Does not imply every low-order cube is unbalanced or defeat all algebraic attacks; [ALG-DEG-001](KRAKKEN_SECURITY_THEOREMS.md#alg-deg-001) |
+
+The direct-interface subclass of [PARTITION-001](KRAKKEN_SECURITY_THEOREMS.md#partition-001)
+excludes nonconstant perfect labels between any raw message byte and any
+raw digest-projection byte already at **complete R1**, and separately at
+R2–R8 (40,704 pairings). R8 uses the public digest. This does not assert
+statistical independence or exclude arbitrary joint nonlinear relations.
 
 ### Finite tested patterns and empirical screens: separate from class exclusions
 
@@ -88,7 +95,7 @@ exclusions, and some have earlier R1 exclusions**.
 
 ### Inventory review: results that do not establish an attack endpoint
 
-All **67 permanent IDs** in the current inventory were reviewed for this
+All **68 permanent IDs** in the current inventory were reviewed for this
 classification. The tables above highlight structure-loss results. The
 remaining results supply quantitative bounds, local descriptions, positive
 structures, intermediate exclusions or proof tools; they must not be presented
@@ -177,6 +184,7 @@ A row describes the cited class, not every attack carrying that family name.
 | Rebound | [REBOUND-001](KRAKKEN_SECURITY_THEOREMS.md#rebound-001): exact defined inbound counts; [REBOUND-002](KRAKKEN_SECURITY_THEOREMS.md#rebound-002): H single-cell support exclusion | Local/Chi1/XRBD1 results, not universal complete-round attack depth | Outbound differential probability, multi-cell matching and forward/backward composition |
 | Integral / higher-order / cube | [INT-CUBE-001](KRAKKEN_SECURITY_THEOREMS.md#int-cube-001), [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001): exact defined R1 balances and R2 universal-mask exclusions | H defined cube families; other cubes, special cosets and statistical balances open | Adversarial directions, higher-dimensional cubes and differential-integral hybrids |
 | Nonlinear-output integral | [INT-NONLINEAR-001](KRAKKEN_SECURITY_THEOREMS.md#int-nonlinear-001): exact 64-predicate R1 space with 56 nonlinear functions | Fixed H cube; only constants at every R2–R8 in each specified eight-bit projection | Joint/wider projections, other cubes and statistical/special-base continuations |
+| Perfect nonlinear partition / common label | [PARTITION-001](KRAKKEN_SECURITY_THEOREMS.md#partition-001): exact q^16 matching R1 label families; complete arbitrary byte-label classification | H; all other pairings constant-only, including all R2–R8; direct message/digest-byte subclass excluded already at R1 | Wider/joint observations, nonperfect statistical partitions, special subsets and multiblock inputs |
 | Division property | [DIV-BYTE-001](KRAKKEN_SECURITY_THEOREMS.md#div-byte-001): byte-0 family exact universal mask dimensions 7 at R1, 0 at R2 | H defined byte family only | Other division-property families and higher-order continuations |
 | Subspace / invariant-subspace | [SUBSPACE-001/002](KRAKKEN_SECURITY_THEOREMS.md#subspace-001): full affine hulls for defined H subspaces/cosets | Defined families; not classification of all invariant subspaces | Deliberately aligned subspaces, special cosets, affine partitions and nonlinear invariants |
 | Pressure translations | [PRESS-TRANS-001](KRAKKEN_SECURITY_THEOREMS.md#press-trans-001): complete 16D deterministic space; sharp neighboring cost 135; exact Chi2 point maximum `2^-184` | U for probability; all 65,535 P directions lose universal R2 vector differences; two coset rank certificates | [RESULT8](../RESULT8.md) reachability problem; nonperfect and restricted-base behavior; probability after Pressure2 |
