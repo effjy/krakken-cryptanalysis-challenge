@@ -663,3 +663,30 @@ The original discovery7 manifest also hashes working-document snapshots at disco
 - [RESULT8.md](../RESULT8.md) — exact reachability formulation and domain-transfer limitations; no reachability search.
 - [krakken_results8_scope_check.py](../scripts/krakken_results8_scope_check.py) — read-only source/witness/spectrum checks; saves a separate report.
 - [krakken_results8_scope_check.json](../results/krakken_results8_scope_check.json) — confirms the invalid saved embeddings and inherited 135→145 spectrum gap; no exclusion theorem.
+
+## INT-NONLINEAR-001
+
+[INT-NONLINEAR-001](KRAKKEN_SECURITY_THEOREMS.md#int-nonlinear-001) — Kernel-cube modular-subtraction integrals and exact nonlinear predicate classification separately at complete R1–R8.
+
+- [RESULTS8.md](../RESULTS8.md) — proof/certificate or implementation audit as scoped in ledger.
+- [discovery5/kernel_cube.json](../discovery5/kernel_cube.json) — proof/certificate or implementation audit as scoped in ledger.
+- [discovery5/audit_kernel_cubes.py](../discovery5/audit_kernel_cubes.py) — proof/certificate or implementation audit as scoped in ledger.
+- [discovery8/nonlinear_cube_engine.c](../discovery8/nonlinear_cube_engine.c) — proof/certificate or implementation audit as scoped in ledger.
+- [discovery8/scan.py](../discovery8/scan.py) — proof/certificate or implementation audit as scoped in ledger.
+- [discovery8/certificate.json](../discovery8/certificate.json) — proof/certificate or implementation audit as scoped in ledger.
+- [discovery8/audit.py](../discovery8/audit.py) — proof/certificate or implementation audit as scoped in ledger.
+- [discovery8/audit.json](../discovery8/audit.json) — proof/certificate or implementation audit as scoped in ledger.
+- [discovery8/audit.log](../discovery8/audit.log) — proof/certificate or implementation audit as scoped in ledger.
+- [discovery8/manifest.json](../discovery8/manifest.json) — proof/certificate or implementation audit as scoped in ledger.
+- [scripts/krakken_nonlinear_integral_promotion_replay.py](../scripts/krakken_nonlinear_integral_promotion_replay.py) — proof/certificate or implementation audit as scoped in ledger.
+- [results/krakken_nonlinear_integral_promotion_replay.json](../results/krakken_nonlinear_integral_promotion_replay.json) — proof/certificate or implementation audit as scoped in ledger.
+
+Replay preserves the discovery artifacts and regenerates both C and NumPy
+reports in a fresh temporary tree:
+
+```bash
+nice -n 10 /home/user/venv/krakken/bin/python -u   /home/user/sol/scripts/krakken_nonlinear_integral_promotion_replay.py   --output /home/user/sol/results/krakken_nonlinear_integral_replay_new.json
+```
+
+Do not confuse RESULTS8.md (this nonlinear integral result) with RESULT8.md
+(the existing supporting reachability analysis under PRESS-TRANS-001).

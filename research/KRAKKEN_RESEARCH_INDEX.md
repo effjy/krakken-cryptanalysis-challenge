@@ -22,6 +22,7 @@ existing results; refinements save to separate per-position files.
 | [Truncated collision experiment](KRAKKEN_COLLISION_EXPERIMENT.md) | Reproducible reduced-round birthday screens and saved collision pairs | Empirical observations only; keep separate from theorem claims |
 | [Truncated differential screen](KRAKKEN_TRUNCATED_DIFFERENTIAL.md) | Fixed-difference one-byte and single-bit output projections through two rounds | Empirical observations only; follow up on any surviving bias |
 | [Attack-versus-round map](KRAKKEN_ATTACK_ROUND_MAP.md) | Strongest demonstrated structures, construction costs, exact boundaries, and open continuations across attack families | Update when a structure reaches a new complete-round or hash-reachable checkpoint |
+| [Attack-family coverage program](KRAKKEN_ATTACK_COVERAGE_PROGRAM.md) | Publication objective, family coverage, hybrid gaps and evidence required for a round-margin statement | Research planning; proposed margin is a target, not a theorem |
 | [Effective-coordinate two-round pilot](KRAKKEN_EFFECTIVE_CONE_PILOT.md) | Measured AA/AB/BA low-bit quotient and exact carry-table enumeration, with explicit relaxed-model boundary | Solver-engineering follow-up; no theorem promotion from runtime reduction alone |
 | [NEW.md review triage](KRAKKEN_NEW_REVIEW_TRIAGE.md) | Which fresh reviewer candidates closed, duplicate a prior theorem, or remain research targets | Update as those candidate scopes change |
 
@@ -77,6 +78,19 @@ proved. This is separate from A1=5 work, since nonzero U requires A1>=48.
 Unrestricted probabilities and counterexample/coset certificates do not
 transfer automatically to valid-message bases. The [scope check](../results/krakken_results8_scope_check.json)
 confirms only the saved witness's invalid embeddings and inherited spectrum.
+
+## RESULTS8: nonlinear output predicates through eight complete rounds
+
+[INT-NONLINEAR-001](KRAKKEN_SECURITY_THEOREMS.md#int-nonlinear-001)
+closes a nonlinear integral subclass left open by linear-mask certificates.
+For one saved valid-message eight-dimensional cube and each of sixteen
+specified eight-bit state projections, exactly 64 predicates have universal
+R1 parity (56 are nonlinear); at each R2–R8 only the two constants do.
+Ordinary and augmented histogram ranks exclude universal parity zero or one.
+All original-C histograms and separate NumPy audits were freshly replayed.
+This checks later-round reconvergence for this exact predicate class, not
+all cubes/projections or statistical integrals. Observations are not digest-only.
+[RESULTS8.md](../RESULTS8.md) is distinct from the earlier [RESULT8.md](../RESULT8.md).
 
 ## Current theorem status
 

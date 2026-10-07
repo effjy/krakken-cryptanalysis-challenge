@@ -98,6 +98,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [ZERO-001](#zero-001) | Zero-sum | P | Chi1/1/2 | Fixed square, all backgrounds; sites as specified | R1 projected balance; no universal R2 coordinate at 128 sites, no mask at site 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#zero-001) | — | Stated class/checkpoint only |
 | [INT-CUBE-001](#int-cube-001) | Integral | H | Chi1/1/2 | Every d≥14 cube at checkpoints; fixed 14-direction family at complete rounds | Sharp threshold 14; fixed family exactly 32 universal R1 coordinates, none R2 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-cube-001) | — | Stated class/checkpoint only |
 | [INT-KERNEL-001](#int-kernel-001) | Integral / affine-fiber degree | H; fixed-offset extension for inclusion only | Chi1/XRBD1/1/2 | All dimension-8–248 direction spaces in the first-Chi-input kernel; exact mask classification for one saved 8D cube only | Sharp checkpoint threshold 8; 32 guaranteed R1 coordinates; saved cube universal mask dimensions exactly 32 then 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-kernel-001) | — | Attack-side 256-message R1 integral; all-mask R2 exclusion only fixed cube, not all kernel subspaces |
+| [INT-NONLINEAR-001](#int-nonlinear-001) | Nonlinear-output integral | H; specified state projections | Complete R1–R8 separately | Fixed saved 8D cube; all 2^256 Boolean predicates of each of 16 eight-bit projections | Exactly 64 universal R1 predicates (56 nonlinear); only 2 constants at each R2–R8 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-nonlinear-001) | — | Defined predicate class; other cubes/joint projections/statistical integrals open; not digest-only |
 | [INT-BYTE-001](#int-byte-001) | Integral | H | 2 | All 159 byte cubes, arbitrary bases, coordinate masks | No universal coordinate balance | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-001) | — | Stated class/checkpoint only |
 | [INT-BYTE-002](#int-byte-002) | Integral | H | 1/2 | Byte-0 cube, all bases/output masks | R1 sum rank 2041; R2 rank 2048, no universal nonzero mask | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-002) | — | Stated class/checkpoint only |
 | [DIV-BYTE-001](#div-byte-001) | Division property | H | 1/2 | Byte-0 defined direction family and linear masks | Exact universal balance spaces: dimensions 7 and 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#div-byte-001) | — | Stated class/checkpoint only |
@@ -188,6 +189,8 @@ flowchart TD
   coset["LIN-HULL-001: signed rate coset identity"] --> open["OPEN: useful global quantitative hull bound"]
   low17 -. "partial component control only" .-> open
   six -. "restricted mask class only" .-> open
+  kernelIntegral["INT-KERNEL-001: kernel cube and first-round balances"] --> nonlinearIntegral["INT-NONLINEAR-001: all eight-bit predicates, R1–R8"]
+  pressureSubtract["Exact low-31-bit Pressure subtraction identity"] --> nonlinearIntegral
 ```
 
 ### OPEN / RESEARCH TARGET — not proved claims
@@ -4054,6 +4057,106 @@ provide definitions and reproducible commands. The 135 activity cost is
 conditional on this internal class; neither it nor `2^-184` is a claim
 about security bits, all-difference hulls, the digest under valid messages,
 or the full eight-round construction.
+
+
+<a id="int-nonlinear-001"></a>
+## Theorem proved: nonlinear kernel-cube predicates classified at complete rounds one through eight
+
+<!-- THEOREM METADATA INT-NONLINEAR-001 -->
+**Permanent ID:** `INT-NONLINEAR-001` · **Proof classification:** analytic modular-subtraction identity and kernel-cube inclusion plus finite exhaustive histogram/rank certificates. Fresh original-C evaluation and separate NumPy layer replay with opposite pivots are independent implementation audits within this investigation; no external reproduction is recorded.
+<!-- END THEOREM METADATA INT-NONLINEAR-001 -->
+
+**Domain and observation.** Use valid padded 159-byte messages with zero
+initial capacity. Let K be the kernel of the message-to-first-Chi-input map
+from `INT-KERNEL-001`, and Dstar the eight independent saved directions in
+[discovery5/kernel_cube.json](../discovery5/kernel_cube.json).
+The exact classification uses this one direction space, all valid base
+messages, and each of sixteen projections separately at every complete
+round `r=1..8`. Outputs are selected **state bits**, not a digest-only
+observation: no chain has both windows inside the first four output lanes.
+
+For chain `j=2c+h`, put `i=4c+h`, `k=i+2`, `q=r-1` and let s be
+the output lane array. Undo known Iota and the output rotations to observe
+
+```
+A4 = ((s[(7*i) mod32] >> (11+7*h)) XOR (rc[q][i] >> (7*h))) AND 15
+C4 = ((s[(7*k) mod32] >> (11+19*h)) XOR (rc[q][k] >> (19*h))) AND 15
+Y_(r,j) = A4 + 16*C4.
+```
+
+For each fixed Boolean truth table `f:F2^8→F2`, consider
+`I_(r,j,f)(m)=XOR_(d in Dstar) f(Y_(r,j)(m XOR d))`.
+The predicate is fixed while the base varies; it may be chosen separately
+for each chain/round. V is the space of predicates whose parity is independent
+of every valid base, allowing parity zero **or one**.
+
+**Exact theorem.** For every chain:
+
+| Complete round | Universal predicate space | Predicate count | Universal parity |
+|---|---|---:|---|
+| R1 | `span{1,A_0,d_0,d_1,d_2,d_3}`, with `d=(C4-A4) mod16` | 64 | Zero for all 64 |
+| Each R2–R8, separately | `span{1}` | 2 constants | Zero for both |
+
+At R1 the degree distribution on the eight observed bits is: two constants,
+six nonconstant affine predicates, eight quadratic, sixteen cubic, and
+thirty-two quartic predicates. Thus 56 genuinely nonlinear predicates cross
+the complete first round. At each later round, **every nonconstant predicate**
+attains both parities on saved valid backgrounds; no replacement Boolean
+function of that same eight-bit observation has universal parity.
+
+**Analytic inclusion.** For an unrotated Pressure chain,
+`C=c+(A XOR(A<<31))` implies `(C-A) mod2^t=c mod2^t` for `1<=t<=31`.
+Also `A_0=a_0 XOR c_0 XOR c_17`. On any dimension-at-least-eight cube
+with directions in K, first Chi inputs and their outputs are constant.
+Second Chi inputs are affine in the cube variables. Each coordinate of
+an eight-bit permutation has degree at most seven, so every post-Chi1/XRBD1
+bit has zero cube parity. The pointwise subtraction and LSB identities
+therefore transfer that balance to A_0 and the low 31 bits of C-A across
+complete Pressure1. Known constants/rotations must be undone as above.
+This inclusion holds for **every** such kernel direction subspace and
+arbitrary fixed input offset; exact classification and later-round exclusions
+remain restricted to Dstar, the ordinary H embedding and the specified
+four-bit/two-nibble windows. They do not classify the 62-bit observation.
+
+**Finite rank proof including odd parity.** For each base, let
+`h(m)[z]=# {d in Dstar:Y(m XOR d)=z} mod2`, a 256-bit vector.
+Then `I_f(m)=h(m)·f`. Appending a constant coordinate gives rows `(h(m),1)`;
+a universal parity b requires `(f,b)` to annihilate every such row.
+All 264 saved backgrounds are actual valid bases. For every chain their
+ranks are:
+
+| Round | Histogram rank | Augmented rank | Augmented nullity |
+|---|---:|---:|---:|
+| R1 | 250 | 251 | 6 |
+| Each R2–R8 | 255 | 256 | 1 |
+
+The six analytic R1 predicates are independent: `(A4,C4)→(A4,C4-A4)`
+is bijective. Inclusion plus augmented nullity six proves exactness.
+At later rounds the augmented nullspace contains only the constant truth
+tables paired with zero parity. Hence every other f takes both parities,
+even within the finite saved bases. Background discovery was randomized;
+the saved spanning witnesses give an exact proof, not a statistical inference.
+Later rounds were each checked; no monotonic attrition assumption is used.
+
+**Concrete failure and replay.** At chain zero, `f=bit3((C4-A4) mod16)`
+is universally balanced at R1, but has parity one at R2 on the all-zero
+message background. The augmented ranks rule out every alternative
+nonconstant predicate in that observation class. All 33,792 histogram rows
+were regenerated with original C, then replayed by separate NumPy layers:
+67,584 vertex instances, 540,672 round evaluations and 8,650,752 chain
+observations. The audit checks direction rank eight and kernel membership,
+full low-31-bit subtraction and A_0 identities, both rank conventions,
+and all 64 truth-table degrees. See the
+[fresh promotion replay](../results/krakken_nonlinear_integral_promotion_replay.json).
+
+The [unaltered report RESULTS8.md](../RESULTS8.md) is distinct from
+[RESULT8.md](../RESULT8.md), which concerns Pressure-translation reachability.
+Certificates and commands are in the [manifest](KRAKKEN_THEOREM_ARTIFACTS.md#int-nonlinear-001).
+This result closes a defined **nonlinear integral predicate class**, not
+all integral attacks. Other cubes, offsets, joint/wider/shifted projections,
+adaptive predicates, special-background or statistical balances, multiblock
+inputs and digest-only exploitation remain open. No attack complexity,
+security-bit bound, or six-round security margin follows.
 
 ## Reproduction commands for earlier linear certificates
 

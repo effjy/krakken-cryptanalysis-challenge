@@ -1610,3 +1610,28 @@ bound is vacuous (capped at 1). If the **whole** uniquely minimal direction
 that exclusion is not proved. A1<=47 pairs are already outside nonzero U.
 The [artifact check](../results/krakken_results8_scope_check.json) is a bounded
 witness/spectrum verification, not a reachability search or new theorem.
+
+## INT-NONLINEAR-001: nonlinear integral predicates, complete rounds one to eight
+
+For the saved independent eight-direction cube Dstar in the first-Chi-input
+kernel, every base is a valid padded 159-byte message. Observe the two low
+nibbles of one unrotated Pressure chain after undoing Iota and shuffle, each
+of sixteen chains separately. Among all `2^256` Boolean truth tables of
+that eight-bit observation, exactly 64 have base-independent cube parity
+at R1: the span of `1,A_0` and the four bits of `(C4-A4) mod16`.
+Their parity is zero; 56 predicates are nonlinear. At each R2–R8 separately,
+only the two constants have base-independent parity. Every nonconstant
+predicate takes both parities on the saved valid backgrounds.
+
+The analytic Pressure subtraction identity gives R1 inclusion; 264 explicit
+backgrounds supply histogram/augmented ranks 250/251 at R1 and 255/256
+at later rounds. All 33,792 histograms were regenerated through original C
+and separately replayed through NumPy, with rank, direction, projection and
+degree checks. No external reproduction is recorded.
+
+Exact classification is for Dstar and those sixteen individual projections,
+not joint projections, other cubes or statistical/special-base integrals.
+The full-state observation is not automatically digest-only. Broader R1
+kernel inclusion does not broaden the later-round exclusions. See the
+[ledger](KRAKKEN_SECURITY_THEOREMS.md#int-nonlinear-001) and
+[manifest](KRAKKEN_THEOREM_ARTIFACTS.md#int-nonlinear-001).

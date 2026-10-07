@@ -99,6 +99,8 @@ the supplied reviewer comments are commentary, not independent reproduction.
 
 | <a id="press-trans-001"></a>[PRESS-TRANS-001](KRAKKEN_SECURITY_THEOREMS.md#press-trans-001) | added 2026-10-06 | Differential / affine structures; P | Pressure1→R2; activity any adjacent pair | Complete U; uniform internal base for probability; two cosets for ranks | Sharp 48/30/135 activity; Chi2 max 2^-184; 65,535 deterministic R2 exclusions; ranks 2048/2064 | A+F | Six fresh reports; complete original-C/NumPy output hashes, opposite-pivot ranks, all code weights and original-C attaining [72,63]; no external reproduction |
 
+| <a id="int-nonlinear-001"></a>[INT-NONLINEAR-001](KRAKKEN_SECURITY_THEOREMS.md#int-nonlinear-001) | added 2026-10-06 | Nonlinear-output integral / H, nondigest state observations | Complete R1–R8 | Fixed saved 8D cube, all predicates of each of 16 eight-bit projections; broader kernel inclusion R1 only | Universal predicate dimensions 6 at R1 and 1 at each R2–R8; 56 nonlinear R1 functions | A+F | Fresh complete original-C and NumPy histogram replays; 264 bases/67,584 vertices, ordinary and augmented ranks, exact degrees and projection identities; no external reproduction |
+
 ## Coverage and boundaries
 
 Every existing heading asserting a proved theorem, theorem extension, defined
