@@ -748,3 +748,32 @@ Proof is the graph connectivity implication plus the subtraction identity; choos
 - [results/krakken_mixed_relation_promotion_replay.json](../results/krakken_mixed_relation_promotion_replay.json) — Fresh reproduction summary; original discovery10 artifacts remain unchanged.
 
 The finite proof is actual profile coverage, not a probability estimate. Analytic Pressure identities give the matching R1 support ceiling and ideal generators. Opposite-pivot rank replay checks all degree caps and ideal-generator rank; fresh support bitmaps match byte for byte. Independent implementation audits are internal; no external reproduction is recorded.
+
+## SBOX-ALG-001
+
+[SBOX-ALG-001](KRAKKEN_SECURITY_THEOREMS.md#sbox-alg-001) — Exact affine output transform of inversion; analytic DDT/BCT explanations and finite spectral/degree certificates.
+
+- [RESULTS_ABYSSAL_ALGEBRA.md](../RESULTS_ABYSSAL_ALGEBRA.md) — proof/certificate or implementation audit as scoped in the ledger.
+- [scripts/krakken_abyssal_algebra_candidate.py](../scripts/krakken_abyssal_algebra_candidate.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [scripts/krakken_abyssal_algebra_candidate_audit.py](../scripts/krakken_abyssal_algebra_candidate_audit.py) — proof/certificate or implementation audit as scoped in the ledger.
+- [scripts/krakken_abyssal_algebra_audit.c](../scripts/krakken_abyssal_algebra_audit.c) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/manifest.json](../results/abyssal_algebra_candidate_20261007/manifest.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/producer.json](../results/abyssal_algebra_candidate_20261007/producer.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/audit.json](../results/abyssal_algebra_candidate_20261007/audit.json) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/ddt.bin](../results/abyssal_algebra_candidate_20261007/ddt.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/walsh.bin](../results/abyssal_algebra_candidate_20261007/walsh.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/bct.bin](../results/abyssal_algebra_candidate_20261007/bct.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/anf.bin](../results/abyssal_algebra_candidate_20261007/anf.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/audit_ddt.bin](../results/abyssal_algebra_candidate_20261007/audit_ddt.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/audit_walsh.bin](../results/abyssal_algebra_candidate_20261007/audit_walsh.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/audit_bct.bin](../results/abyssal_algebra_candidate_20261007/audit_bct.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/audit_anf.bin](../results/abyssal_algebra_candidate_20261007/audit_anf.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/audit_multiply.bin](../results/abyssal_algebra_candidate_20261007/audit_multiply.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/audit_inverse.bin](../results/abyssal_algebra_candidate_20261007/audit_inverse.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/abyssal_algebra_candidate_20261007/audit_linear.bin](../results/abyssal_algebra_candidate_20261007/audit_linear.bin) — proof/certificate or implementation audit as scoped in the ledger.
+- [results/krakken_abyssal_algebra_promotion.json](../results/krakken_abyssal_algebra_promotion.json) — proof/certificate or implementation audit as scoped in the ledger.
+
+The candidate report and manifest remain byte-preserved historical artifacts. Their pending-review/unallocated-ID wording describes pre-promotion status; the separate promotion record and permanent ledger now record acceptance. The old audit hashes show the official 69-entry corpus before promotion; they are not checks against the later working documents. No external reproduction or frozen-bundle refresh is claimed.
+
+- [Promoted preserving replay](../scripts/krakken_abyssal_algebra_replay.py) — fresh temporary-tree reproduction with no hardcoded registry count; use after promotion instead of the historical candidate audit driver.
+- [Promoted replay report](../results/krakken_abyssal_algebra_promotion_replay.json) — source pins, all original evidence pins and byte-equal complete producer/audit tables.

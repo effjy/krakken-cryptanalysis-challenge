@@ -131,6 +131,19 @@ to arbitrary mixed full-byte relations. All support and ideal certificates
 were freshly replayed. See [RESULTS10](../RESULTS10.md) and the
 [manifest](KRAKKEN_THEOREM_ARTIFACTS.md#alg-rel-001).
 
+## Abyssal algebraic provenance
+
+[SBOX-ALG-001](KRAKKEN_SECURITY_THEOREMS.md#sbox-alg-001) identifies the
+pinned byte table exactly as A composed with inversion in GF(256)/0x11D,
+plus 0xA5. The map has an explicit analytic inverse. DDT spectrum and
+boomerang uniformity have self-contained analytic explanations, including
+proved BCT transport for this exact output map. Full separate table audits
+certify Walsh 32, all-component nonlinearity 112 and degree seven.
+Numerical metrics were already used in older claims; the new theorem makes
+the construction/proofs explicit. It is S-box-only and adds no round/hash
+security bound. The [original report](../RESULTS_ABYSSAL_ALGEBRA.md) is preserved,
+with acceptance recorded separately after review. No external reproduction.
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from

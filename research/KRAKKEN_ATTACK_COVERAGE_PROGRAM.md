@@ -102,7 +102,7 @@ exclusions, and some have earlier R1 exclusions**.
 
 ### Inventory review: results that do not establish an attack endpoint
 
-All **69 permanent IDs** in the current inventory were reviewed for this
+All **70 permanent IDs** in the current inventory were reviewed for this
 classification. The tables above highlight structure-loss results. The
 remaining results supply quantitative bounds, local descriptions, positive
 structures, intermediate exclusions or proof tools; they must not be presented
@@ -185,6 +185,7 @@ A row describes the cited class, not every attack carrying that family name.
 | Differential | [DIFF-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-001): exact H first-Chi minimum 5; [DIFF-RATE-008](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-008): unconditional complete-R1 point bound for three fixed differences | Checkpoint activity and fixed-difference R1 bounds; not all-difference complete-round hulls | Complete the distinct AB/BA activity campaign; seek sound coarse H bounds and useful differential hulls |
 | Truncated differential | [DIFF-TRUNC-001](KRAKKEN_SECURITY_THEOREMS.md#diff-trunc-001): guaranteed R1 zero projections | P one-cell class; R2 bias screen is empirical | Search other projections, correlated supports and boomerang/truncated hybrids; preserve positive findings |
 | Impossible differential | [DIFF-PERM-002](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-002): unrestricted `[1,1]` excluded; defined `[1,2]` classes closed | Activity exclusions do not exhaust forward/backward impossible differentials; AA closed, AB ongoing, BA open | Explore incompatible middle constraints with both directions propagated; quantify every exhausted endpoint class |
+| Primitive S-box characterization | [SBOX-ALG-001](KRAKKEN_SECURITY_THEOREMS.md#sbox-alg-001): exact affine inversion; analytic DDT/BCT and finite Walsh/degree certificates | Byte map only; supports existing component arguments | No additional attack-depth or round-two exclusion; composition and conditioned probabilities require separate proofs |
 | Linear | [LIN-GLOBAL-001](KRAKKEN_SECURITY_THEOREMS.md#lin-global-001): no perfect H affine relations at R1–8; [LIN-RATE-004](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-004): strong selected-space complete-R1 bound | Global perfect-relation exclusion; useful quantitative all-mask hull still open | Arbitrary coupled Pressure masks and signed rate-restricted hull sums; carry-aware multi-round masks |
 | Differential-linear | [DL-001](KRAKKEN_SECURITY_THEOREMS.md#dl-001): defined perfect R1 spaces; [DL-002](KRAKKEN_SECURITY_THEOREMS.md#dl-002): defined all-mask perfect R2 continuations excluded | P specified differences; nonperfect correlations remain open | Measure or bound nonperfect continuations and hybrid differential prefixes |
 | Boomerang / rectangle | [BOOM-MULTI-001](KRAKKEN_SECURITY_THEOREMS.md#boom-multi-001): coordinated P one-round four-state zero sums | All 1,344 saved Chi2 patterns obstructed; backgrounds not exhausted; H gate leaves 448 unresolved candidates | Jointly chosen backgrounds and carries; actual valid-message quartets; broader multi-cell continuations |

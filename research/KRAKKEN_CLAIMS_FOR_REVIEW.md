@@ -1704,3 +1704,27 @@ imply uniformity or independence. Larger windows, special message subsets,
 statistical relations and algebraic attack complexity remain outside scope.
 [Ledger](KRAKKEN_SECURITY_THEOREMS.md#alg-rel-001) ·
 [Artifacts](KRAKKEN_THEOREM_ARTIFACTS.md#alg-rel-001).
+
+## SBOX-ALG-001: exact Abyssal affine-inversion characterization
+
+For the pinned 8-bit source table, polynomial-basis GF(256) uses modulus
+0x11D. With Inv(0)=0 and A(z)_i=z_i+z_(i-1)+z_(i+4),
+`S(x)=A(Inv(x))+0xA5` for all 256 inputs. Writing A=I+R+R^4 yields
+A²=R², inverse R^6+R^7+R², and rank eight. This proves bijectivity.
+
+The inverse derivative/trace count analytically proves each nonzero DDT
+row has 129 zeros, 126 twos and one four; maximum local probability is 2^-6.
+The exact identity BCT_S(a,b)=BCT_Inv(a,A^-1b) is proved explicitly.
+An exceptional-pair count proves inverse BCT=DDT+4 when (ab)²+ab+1=0,
+giving sharp boomerang uniformity six in this field. Complete finite Walsh
+and ANF certificates separately establish Walsh maximum 32, correlation
+1/8, nonlinearity 112 and degree seven for every nonzero Boolean component;
+the degree upper bound and spectral transport are analytic.
+
+Separate field/inversion/map algorithms and direct C table computations
+agree entry for entry with all producer DDT/Walsh/BCT/ANF tables.
+The original inline accessor is checked at all 256 inputs. No external
+reproduction is recorded. This adds exact primitive provenance and analytic
+explanations to existing numerical facts, not a complete-round or hash bound.
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#sbox-alg-001) ·
+[Artifacts](KRAKKEN_THEOREM_ARTIFACTS.md#sbox-alg-001).

@@ -102,6 +102,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [INT-NONLINEAR-001](#int-nonlinear-001) | Nonlinear-output integral | H; specified state projections | Complete R1–R8 separately | Fixed saved 8D cube; all 2^256 Boolean predicates of each of 16 eight-bit projections | Exactly 64 universal R1 predicates (56 nonlinear); only 2 constants at each R2–R8 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-nonlinear-001) | — | Defined predicate class; other cubes/joint projections/statistical integrals open; not digest-only |
 | [PARTITION-001](#partition-001) | Perfect nonlinear partition/common labels | H | Complete R1–R8 separately | 175 source × 48 destination byte observations; arbitrary label functions | Exactly 16 matching R1 cases have q^16 labels; all other 67,184 cases constant-only | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#partition-001) | — | Perfect separable labels only; biases/joint observations remain open |
 | [ALG-REL-001](#alg-rel-001) | Mixed input/output algebraic relations | H; four-bit/four-bit observations | Complete R1–R8 separately | All Boolean equations in each of 67,200 eight-coordinate windows | 16 matching R1 supports have ideal <e0,e1>, dimension 192; all other supports full and ideal zero | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-rel-001) | — | Exact small-window support; no independence or large-system solving bound |
+| [SBOX-ALG-001](#sbox-alg-001) | Primitive S-box algebra | 8-bit byte map; uniform byte for probabilities | S-box only | All inputs/differences/masks as separately stated | Exact affine inversion; analytic DDT 4 / BCT 6; finite Walsh 32, NL 112, degree 7 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#sbox-alg-001) | — | Component provenance and local properties; no new round/hash bound |
 | [INT-BYTE-001](#int-byte-001) | Integral | H | 2 | All 159 byte cubes, arbitrary bases, coordinate masks | No universal coordinate balance | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-001) | — | Stated class/checkpoint only |
 | [INT-BYTE-002](#int-byte-002) | Integral | H | 1/2 | Byte-0 cube, all bases/output masks | R1 sum rank 2041; R2 rank 2048, no universal nonzero mask | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-002) | — | Stated class/checkpoint only |
 | [DIV-BYTE-001](#div-byte-001) | Division property | H | 1/2 | Byte-0 defined direction family and linear masks | Exact universal balance spaces: dimensions 7 and 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#div-byte-001) | — | Stated class/checkpoint only |
@@ -122,6 +123,9 @@ are proof inputs in their own right. Artifact paths are in the manifest.
 
 ```mermaid
 flowchart TD
+  sboxAlgebra["SBOX-ALG-001: exact affine inversion + byte properties"] --> spectra
+  sboxAlgebra --> ddt
+  sboxAlgebra --> completeboom
   spectra["Exact local Chi Walsh spectra"] --> sparse["LIN-CHI-001: sparse Chi1 classes"]
   rank["Certified message-to-Chi projection ranks"] --> sparse
   rank4["All 10,668,000 four-cell input projections rank 64"] --> sparse4["LIN-CHI-002: sharp four-cell mask maximum"]
@@ -4445,6 +4449,138 @@ Reproduce while preserving the original artifacts:
 nice -n 10 /home/user/venv/krakken/bin/python -u \
   /home/user/sol/scripts/krakken_mixed_relation_promotion_replay.py \
   --output /home/user/sol/results/krakken_mixed_relation_promotion_replay.json
+```
+
+<a id="sbox-alg-001"></a>
+## Theorem proved: Abyssal is an affine output transform of byte-field inversion
+
+<!-- THEOREM METADATA SBOX-ALG-001 -->
+**Permanent ID:** `SBOX-ALG-001` · **Proof classification:** analytic field/linear-map, DDT and BCT arguments plus finite exhaustive source equality. Exact Walsh values and degree lower bounds have finite exhaustive certificates, as labeled below. Separate polynomial/Euclidean C arithmetic, bit-map implementation and complete table comparisons are independent implementation audits; no external reproduction is recorded.
+<!-- END THEOREM METADATA SBOX-ALG-001 -->
+
+**Domain and source.** This theorem concerns the 256-entry byte permutation
+ABYSSAL_SBOX in the pinned current header, not the 16-bit serial-Chi map.
+Use polynomial-basis GF(2^8) with irreducible polynomial
+`X^8+X^4+X^3+X^2+1` (0x11D, byte reduction constant 0x1D).
+Bits are numbered least-significant first. Define Inv(0)=0 and Inv(x)=x^-1
+otherwise. For indices modulo eight, put
+
+```
+A(z)_i = z_i + z_(i-1) + z_(i+4)
+S(x) = A(Inv(x)) + 0xA5.
+```
+
+This identity holds at **every byte x** in the current source table.
+The producer and separate C audit verify all 256 inputs, including the
+original header's inline S-box accessor. Source SHA-256 values are
+`4d659644c80b6ed0aabbce77d6aad6e6f851a90ec536a2131a412b8ac48eccc6`
+for krakken.c and
+`83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c`
+for krakken.h.
+
+**Explicit affine-map proof.** With rows/columns ordered bits 0–7, A is
+
+```
+1 0 0 0 1 0 0 1
+1 1 0 0 0 1 0 0
+0 1 1 0 0 0 1 0
+0 0 1 1 0 0 0 1
+1 0 0 1 1 0 0 0
+0 1 0 0 1 1 0 0
+0 0 1 0 0 1 1 0
+0 0 0 1 0 0 1 1
+```
+
+For left rotation R by one, `A=I+R+R^4` and `A^2=R^2`, since R^8=I
+and cross terms cancel in characteristic two. Therefore
+`A^-1=R^6+R^7+R^2`, or
+`(A^-1 y)_i=y_(i+2)+y_(i+1)+y_(i+6)`.
+This proves rank eight and determinant one; inversion and A are permutations,
+so S is bijective with inverse `Inv(A^-1(y+0xA5))`.
+The field certificate verifies `X^16 mod p=0x4C`, `X^256 mod p=X`
+and `gcd(p,X^16+X)=1`, which proves irreducibility by excluding proper
+factor degrees dividing eight. Independently, C rejects all 30 monic
+potential factors of degrees 1–4.
+
+**Analytic DDT corollary.** For I=Inv and a,b nonzero, write t=ab.
+The normalized derivative is `I(x)+I(x+1)`; away from x=0,1, the equation
+reduces to `x^2+x=1/t`. This has two roots exactly when absolute trace
+Tr(1/t)=0. The exceptional points add two at t=1, where Tr(1)=0.
+Consequently `DDT_I(a,b)=4` for ab=1, equals two for ab!=1 with
+Tr((ab)^-1)=0, and otherwise zero. Also `DDT_I(a,0)=0` for a!=0.
+The output transform gives `DDT_S(a,b)=DDT_I(a,A^-1 b)`.
+Each nonzero row thus has exactly 129 zeros, 126 twos and one four,
+uniquely at `b=A(a^-1)`. Differential uniformity is exactly four,
+and maximum local uniform-byte differential probability is 2^-6.
+The explicit attaining source transition is `(a,b)=(0x01,0x13)`.
+These numeric DDT facts were already used by DIFF-CHI-002; the new
+contribution is their analytic explanation and exact algebraic provenance.
+
+**Analytic BCT corollary, with invariance proved.** Using the standard
+permutation BCT definition,
+`S^-1(S(x)+b)=I(I(x)+A^-1 b)`, so
+`BCT_S(a,b)=BCT_I(a,A^-1 b)`. This establishes the needed transport
+for this specific output-affine map; no broader equivalence invariance
+is assumed. For inverse I, normalized reciprocal equations force y=x+1
+unless x or y is 0 or 1. The exceptional solutions add four exactly
+when `(ab)^2+ab+1=0`. Hence, for a,b nonzero,
+
+```
+BCT_I(a,b) = DDT_I(a,b) + 4 * [(ab)^2+ab+1=0].
+```
+
+The two nontrivial GF(4) elements have trace zero in GF(256), so those
+DDT entries are two and their BCT entries are six. Thus boomerang
+uniformity is exactly six, attained at source `(a,b)=(0x01,0x05)`.
+The complete nontrivial BCT histogram is `0:32640, 2:31620, 4:255, 6:510`.
+The full exceptional-case proof is in the report. The byte value six
+must not be confused with the maximal serial-Chi boomerang family.
+
+**Finite spectral and degree corollaries.** Define integer Walsh sums by
+`W_F(u,v)=sum_x (-1)^(u·x+v·F(x))`. Analytically,
+`W_S(u,v)=(-1)^(v·0xA5) W_I(u,A^T v)`.
+Complete finite Walsh enumeration proves maximum magnitude 32 for v!=0
+and all u, normalized maximum correlation 2^-3, and nonlinearity 112
+for **every one of the 255 nonzero components**. The source witness
+`(u,v)=(0x01,0x51)` has Walsh value -32. The trivial coefficient
+W(0,0)=256 is excluded. Walsh transport, normalization and the
+nonlinearity formula are analytic; the numeric spectrum is finitely proved
+here, with no claimed independent analytic Kloosterman-sum bound.
+
+Inv(x)=x^254 is a product of seven F2-linear Frobenius factors, so its
+coordinate degree is at most seven; the affine output map preserves
+that upper bound and permutes nonzero component masks. Complete ANF
+certificates show every nonzero component has degree exactly seven.
+For mask 0x01, the input monomial mask 0x7F has a nonzero coefficient,
+providing one explicit lower-bound witness. The lower bounds are finite
+proofs; the degree-seven upper bound is analytic.
+
+**Audit and scope.** The producer uses shift/XOR multiplication,
+exponentiation, rotation formulas and FWHT. Separate C uses polynomial
+product reduction, Euclidean inversion, bit equations, direct signed
+Walsh sums and submask-sum ANF coefficients. All 65,536 multiplication
+entries, all 256 inversions/maps, and every full DDT/Walsh/BCT/ANF entry
+agree; original-C inline accessor checks cover all inputs.
+
+This is a new primitive-component characterization and supporting theorem,
+not a new discovery of the already recorded numeric metrics. It proves
+no new activity floor, round/hull probability, eight-round bound, fixed-point
+property or hash security level. Local uniform-byte probabilities do not
+transfer automatically to conditioned message bases. Source changes require
+new equality checks. Full proof and property-specific classifications are
+in the [preserved candidate report](../RESULTS_ABYSSAL_ALGEBRA.md), whose
+pending-review wording records its state before promotion; permanent status
+is recorded here and in the [promotion record](../results/krakken_abyssal_algebra_promotion.json).
+See the [manifest](KRAKKEN_THEOREM_ARTIFACTS.md#sbox-alg-001).
+
+The preserved candidate audit script has a pre-promotion 69-entry registry
+check. Use this separate preserving replay driver for current/future registry
+sizes; it reproduces the original JSON and all producer/audit tables byte for byte:
+
+```bash
+nice -n 10 /home/user/venv/krakken/bin/python -u \
+  /home/user/sol/scripts/krakken_abyssal_algebra_replay.py \
+  --output /home/user/sol/results/krakken_abyssal_algebra_promotion_replay.json
 ```
 
 ## Reproduction commands for earlier linear certificates
