@@ -116,6 +116,21 @@ public API replays pass. This concerns perfect relations, not independence,
 nonperfect biases, wider/joint observations or multiblock inputs. See
 [RESULTS9](../RESULTS9.md) and the [manifest](KRAKKEN_THEOREM_ARTIFACTS.md#partition-001).
 
+## RESULTS10: complete mixed equations in eight-coordinate windows
+
+[ALG-REL-001](KRAKKEN_SECURITY_THEOREMS.md#alg-rel-001) covers arbitrary
+mixed Boolean equations on specified four-bit source/four-bit output
+observations over all valid 159-byte messages. Sixteen matching R1 pairs
+attain exactly the 64 profiles defined by one linear and one mixed quadratic
+equation; their complete vanishing ideal has dimension 192. All other
+67,184 cases attain every profile, excluding every nonzero universal equation,
+including each R2–R8 separately. Raw message/digest low-nibble pairings
+already have full support at R1. This expands the relation type from
+PARTITION-001 while narrowing its observation widths; it is not an extension
+to arbitrary mixed full-byte relations. All support and ideal certificates
+were freshly replayed. See [RESULTS10](../RESULTS10.md) and the
+[manifest](KRAKKEN_THEOREM_ARTIFACTS.md#alg-rel-001).
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from

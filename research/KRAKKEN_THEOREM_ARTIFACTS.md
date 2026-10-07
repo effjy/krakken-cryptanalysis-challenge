@@ -725,3 +725,26 @@ Do not confuse RESULTS8.md (this nonlinear integral result) with RESULT8.md
 - [results/krakken_partition_promotion_replay.json](../results/krakken_partition_promotion_replay.json) — Fresh C/NumPy/API reproduction summary.
 
 Proof is the graph connectivity implication plus the subtraction identity; choosing witness messages randomly does not make the proved exclusion statistical. Replay writes only a fresh temporary tree and a separate report. No external reproduction is recorded; source, original artifacts and frozen bundle remain unchanged.
+
+## ALG-REL-001
+
+[ALG-REL-001](KRAKKEN_SECURITY_THEOREMS.md#alg-rel-001) — Exact joint support and complete mixed Boolean vanishing ideals of specified four-bit/four-bit observations on valid 159-byte messages.
+
+- [RESULTS10.md](../RESULTS10.md) — Proof, coordinate convention and exact scope.
+- [discovery10/REPORT.md](../discovery10/REPORT.md) — Compact discovery report.
+- [discovery10/manifest.json](../discovery10/manifest.json) — Immutable source/artifact pins.
+- [discovery10/coverage.py](../discovery10/coverage.py) — Actual-message coverage constructor.
+- [discovery10/coverage.json](../discovery10/coverage.json) — 1,280 new messages/observations and reference to 3,328 prior messages.
+- [discovery10/support_masks.bin](../discovery10/support_masks.bin) — All 67,200 exact joint-support bitmaps, 32 bytes per table.
+- [discovery10/missing_profiles.json](../discovery10/missing_profiles.json) — Empty final missing-profile list.
+- [discovery10/audit.py](../discovery10/audit.py) — Separate NumPy replay, support/ideal checks and original public API comparison.
+- [discovery10/support_audit.c](../discovery10/support_audit.c) — Separate scalar joint-support accumulator.
+- [discovery10/audit.json](../discovery10/audit.json) — Complete support and monomial-rank audit.
+- [discovery10/counterexample.json](../discovery10/counterexample.json) — Actual R2 message with e0=0,e1=1.
+- [discovery9/extended_certificate.json](../discovery9/extended_certificate.json) — Reused actual-message certificate, also audited under PARTITION-001.
+- [discovery9/extended_engine.c](../discovery9/extended_engine.c) — Original-C observation evaluator.
+- [discovery5/audit_kernel_cubes.py](../discovery5/audit_kernel_cubes.py) — Separate layer implementation and independent SHAKE constants.
+- [scripts/krakken_mixed_relation_promotion_replay.py](../scripts/krakken_mixed_relation_promotion_replay.py) — Preserving fresh driver plus opposite-pivot Boolean-rank audit.
+- [results/krakken_mixed_relation_promotion_replay.json](../results/krakken_mixed_relation_promotion_replay.json) — Fresh reproduction summary; original discovery10 artifacts remain unchanged.
+
+The finite proof is actual profile coverage, not a probability estimate. Analytic Pressure identities give the matching R1 support ceiling and ideal generators. Opposite-pivot rank replay checks all degree caps and ideal-generator rank; fresh support bitmaps match byte for byte. Independent implementation audits are internal; no external reproduction is recorded.

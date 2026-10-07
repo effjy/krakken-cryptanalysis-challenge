@@ -101,6 +101,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [INT-KERNEL-001](#int-kernel-001) | Integral / affine-fiber degree | H; fixed-offset extension for inclusion only | Chi1/XRBD1/1/2 | All dimension-8–248 direction spaces in the first-Chi-input kernel; exact mask classification for one saved 8D cube only | Sharp checkpoint threshold 8; 32 guaranteed R1 coordinates; saved cube universal mask dimensions exactly 32 then 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-kernel-001) | — | Attack-side 256-message R1 integral; all-mask R2 exclusion only fixed cube, not all kernel subspaces |
 | [INT-NONLINEAR-001](#int-nonlinear-001) | Nonlinear-output integral | H; specified state projections | Complete R1–R8 separately | Fixed saved 8D cube; all 2^256 Boolean predicates of each of 16 eight-bit projections | Exactly 64 universal R1 predicates (56 nonlinear); only 2 constants at each R2–R8 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-nonlinear-001) | — | Defined predicate class; other cubes/joint projections/statistical integrals open; not digest-only |
 | [PARTITION-001](#partition-001) | Perfect nonlinear partition/common labels | H | Complete R1–R8 separately | 175 source × 48 destination byte observations; arbitrary label functions | Exactly 16 matching R1 cases have q^16 labels; all other 67,184 cases constant-only | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#partition-001) | — | Perfect separable labels only; biases/joint observations remain open |
+| [ALG-REL-001](#alg-rel-001) | Mixed input/output algebraic relations | H; four-bit/four-bit observations | Complete R1–R8 separately | All Boolean equations in each of 67,200 eight-coordinate windows | 16 matching R1 supports have ideal <e0,e1>, dimension 192; all other supports full and ideal zero | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-rel-001) | — | Exact small-window support; no independence or large-system solving bound |
 | [INT-BYTE-001](#int-byte-001) | Integral | H | 2 | All 159 byte cubes, arbitrary bases, coordinate masks | No universal coordinate balance | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-001) | — | Stated class/checkpoint only |
 | [INT-BYTE-002](#int-byte-002) | Integral | H | 1/2 | Byte-0 cube, all bases/output masks | R1 sum rank 2041; R2 rank 2048, no universal nonzero mask | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-002) | — | Stated class/checkpoint only |
 | [DIV-BYTE-001](#div-byte-001) | Division property | H | 1/2 | Byte-0 defined direction family and linear masks | Exact universal balance spaces: dimensions 7 and 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#div-byte-001) | — | Stated class/checkpoint only |
@@ -196,6 +197,8 @@ flowchart TD
   pressureSubtract["Exact low-31-bit Pressure subtraction identity"] --> nonlinearIntegral
   pressureSubtract --> partitions["PARTITION-001: perfect nonlinear byte labels, R1–R8"]
   graphWitness["Actual-message bipartite connectivity witnesses"] --> partitions
+  pressureSubtract --> mixedRelations["ALG-REL-001: exact mixed eight-coordinate ideals, R1–R8"]
+  supportWitness["Actual-message complete support + Boolean-ring evaluation"] --> mixedRelations
 ```
 
 ### OPEN / RESEARCH TARGET — not proved claims
@@ -4324,6 +4327,124 @@ Reproduce without modifying discovery9 artifacts:
 nice -n 10 /home/user/venv/krakken/bin/python -u \
   /home/user/sol/scripts/krakken_partition_promotion_replay.py \
   --output /home/user/sol/results/krakken_partition_promotion_replay.json
+```
+
+<a id="alg-rel-001"></a>
+## Theorem proved: complete mixed Boolean relations in eight-coordinate projections
+
+<!-- THEOREM METADATA ALG-REL-001 -->
+**Permanent ID:** `ALG-REL-001` · **Proof classification:** analytic Pressure identity and Boolean-ideal generation plus finite exact joint-support and monomial-rank certificates. Fresh original-C evaluations, separate NumPy layer replay, scalar C support accumulation and opposite-pivot rank checks are independent implementation audits; no external reproduction is recorded.
+<!-- END THEOREM METADATA ALG-REL-001 -->
+
+**Domain and projection.** Use the complete H domain of valid padded
+159-byte messages, with fixed `0x86` padding and zero initial capacity.
+Keep the actual first-Pressure checkpoint Z from PARTITION-001 fixed
+while comparing it to complete-round outputs at `r=1..8`.
+For chain j, put `h=j mod2`, `i=4 floor(j/2)+h`, `k=i+2` and define
+`X_j=(Z[i] mod4)+4(Z[k] mod4)`. At complete round r, undo shuffle,
+that round's Iota constants and odd-chain rotations as in PARTITION-001;
+define `Y_{r,j}=(A mod4)+4(C mod4)`. These retain two low bits of
+each word, rather than the prior theorem's four low bits of each word.
+
+The 175 source choices U comprise the 159 raw message-byte low nibbles
+and the sixteen X_j. The 48 destination choices V comprise sixteen
+Y_{r,j} and 32 raw output-byte low nibbles. Encode the eight coordinates
+by `z=U+16V`. At R8 the raw output bytes are the public 32-byte digest;
+earlier rounds use the reduced-round digest projection.
+
+**Exact reachable support.** In each of the sixteen matching R1 cases
+`(U,V)=(X_j,Y_{1,j})`, the support is exactly the 64 profiles satisfying
+`C=c+A mod4`, with `U=a+4c`, `V=A+4C`. Every other one of the
+67,200 indexed projection/round combinations attains all 256 profiles.
+For every allowed profile there exists a valid message; witnesses may
+differ by profile and projection. This is support, not uniformity.
+
+**Complete equation class.** Work in the Boolean ring
+`B=F2[z0,...,z7]/(z_i^2+z_i)`, so a nonzero element is a nonzero
+Boolean function in unique multilinear ANF. For matching R1 cases order
+the bits as `(a0,a1,c0,c1,A0,A1,C0,C1)`. The ideal of all universal
+vanishing functions is exactly
+
+```
+I = <e0,e1>
+e0 = c0 + A0 + C0
+e1 = c1 + A1 + C1 + c0*A0
+```
+
+It has vector-space dimension 192, containing `2^192` functions, including
+zero. Two ideal generators describe the variety; 192 is not a number of
+independent state constraints. Vanishing dimensions under degree caps
+`0..8` are exactly `0,1,11,45,102,155,183,191,192`. Thus there are
+2,047 nonzero equations of degree at most two: one linear and 2,046
+genuinely quadratic. The mixed quadratic cannot be written as a sum
+of a function of U alone and a function of V alone, since its mixed
+Boolean derivative in c0 and A0 is one.
+
+In every other indexed case the universal vanishing ideal is `{0}`.
+In particular, at every complete R2–R8 separately there is no nonzero
+universal Boolean equation of any degree in the selected eight coordinates.
+Any nonconstant truth table takes both values on saved valid messages.
+
+**Proof.** Modulo four, the source equation
+`C=c+(A XOR (A<<31)) mod2^64` reduces to `C=c+A mod4`, giving
+exactly e0=e1=0. There are 64 solutions, since a,c,A are free two-bit
+values and C is determined. Saved valid messages attain every such
+profile at each matching R1 chain, proving exact support.
+
+Boolean-ring evaluation identifies B with all functions on 256 points.
+Vanishing on 64 reachable points has dimension `256-64=192`.
+Let `d=e0+(1+e0)*e1`; pointwise d is one exactly off the variety.
+Every vanishing P satisfies `P=P*d=e0*P+e1*((1+e0)*P)`, proving
+the ideal equality. Conversely its generators vanish on the variety.
+At all remaining cases, witnessing every one of the 256 assignments
+forces any universal vanishing function to be zero. Each later round
+has its own support certificate; no monotonic attrition premise is used.
+
+For degree caps `0..8`, monomial counts are
+`1,9,37,93,163,219,247,255,256` and evaluation ranks on the variety are
+`1,8,26,48,61,64,64,64,64`; their differences give the stated filtration.
+All monomial multiples of e0,e1 span rank 192 as truth tables.
+Both lowest-pivot and separate highest-pivot implementations reproduce
+these ranks. These finite calculations complement the analytic ideal proof.
+
+**Certificate and implementation audit.** Reuse the 3,328 source-pinned
+PARTITION-001 messages and add 1,280 original-C evaluated messages.
+The 4,608-message certificate attains 17,200,128 indexed profiles across
+all 67,200 tables: sixteen supports of size 64 and 67,184 of size 256.
+Fresh replay reproduces the support bitmap byte for byte; separate NumPy
+layers reproduce all 1,843,200 observation bytes / 36,864 round evaluations.
+A separate scalar C accumulator checks the entire support bitmap.
+The 1,280 new digests pass the public hash API; the reused messages passed
+the PARTITION-001 API audit. Saved message index 356 has X_0=8 and
+Y_{2,0}=0, giving e0=0 but e1=1: the mixed quadratic fails even where
+the linear equation happens to hold. Its actual message is preserved.
+
+**Direct-interface corollary and scope.** All 40,704 raw message-low-nibble
+versus raw digest-projection-low-nibble pairings have full support already
+at R1 and separately at R2–R8. No nonzero universal mixed equation holds
+in any such eight-coordinate window; R8 concerns the public digest.
+The matching R1 checkpoint structure is not wholly digest-visible.
+This theorem allows mixed functions but uses narrower observations than
+PARTITION-001; it does not classify arbitrary mixed relations on that
+theorem's sixteen observed bits. The local Pressure equation remains
+true at every invocation in that invocation's own coordinates.
+
+Larger or joint windows, special message subsets, approximate/statistical
+relations, message-pair differential equations, multiblock inputs and
+equation-solving complexity remain open. Full support is not independence,
+entropy or a security-bit bound. Boolean identities are zero elements of B
+and are not excluded. This is a new small-window algebraic-relation class,
+distinct from coordinate degree and cube-parity theorems.
+
+See [RESULTS10.md](../RESULTS10.md), the
+[artifact manifest](KRAKKEN_THEOREM_ARTIFACTS.md#alg-rel-001), and the
+[fresh promotion replay](../results/krakken_mixed_relation_promotion_replay.json).
+Reproduce while preserving the original artifacts:
+
+```bash
+nice -n 10 /home/user/venv/krakken/bin/python -u \
+  /home/user/sol/scripts/krakken_mixed_relation_promotion_replay.py \
+  --output /home/user/sol/results/krakken_mixed_relation_promotion_replay.json
 ```
 
 ## Reproduction commands for earlier linear certificates
