@@ -144,17 +144,20 @@ the construction/proofs explicit. It is S-box-only and adds no round/hash
 security bound. The [original report](../RESULTS_ABYSSAL_ALGEBRA.md) is preserved,
 with acceptance recorded separately after review. No external reproduction.
 
-## RESULTS11: cyclic schedules and surviving nonlinear conjugacy
+## RESULTS11–12: all cyclic schedule pairs and surviving nonlinear conjugacy
 
 [SCHEDULE-AFF-001](KRAKKEN_SECURITY_THEOREMS.md#schedule-aff-001) closes
-perfect affine relations between ordinary and seven cyclic constant schedules
+perfect affine relations between all 28 distinct pairs of cyclic constant schedules
 on the same valid159 message. R1 has exactly the known full-state offsets;
 at each complete length 2–8 only trivial independent output masks remain.
-All 49 paired-output ranks are 4096. Fresh C and separate NumPy/rank/API
-replays pass. Altered schedules are not production hash interfaces.
+All 196 paired-output ranks are 4096. The fresh C/NumPy/API replay of
+the state corpus is inherited from RESULTS11; RESULTS12 reuses those
+pinned states and freshly verifies all ranks with C/Python elimination,
+adding 147 obligations. Altered schedules are not production hash interfaces.
 The exact unrestricted nonlinear transformed-input conjugacy survives
 at eight rounds and is recorded explicitly; this is not an all-slide
-exclusion or numerical security bound. [RESULTS11](../RESULTS11.md).
+exclusion or numerical security bound. [RESULTS11](../RESULTS11.md) ·
+[RESULTS12](../RESULTS12.md).
 
 ## Current theorem status
 

@@ -1732,20 +1732,25 @@ explanations to existing numerical facts, not a complete-round or hash bound.
 ## SCHEDULE-AFF-001: perfect affine relations between cyclic constant schedules
 
 Let F_(s,l) be the complete pinned round composition starting with Iota
-phase s, cyclically indexed, of length l=1..8. Compare the ordinary phase
-zero to each s=1..7 on the same valid159 message. For all independent
-2048-bit output masks u,v, universal relations `u·F_(0,l)+v·F_(s,l)=b`
-at l=1 exist exactly when u=v and b=v·(Q(rc_s)+Q(rc_0)).
+phase s, cyclically indexed, of length l=1..8. Compare every distinct pair
+0<=s<t<=7 on the same valid159 message. For all independent
+2048-bit output masks u,v, universal relations `u·F_(s,l)+v·F_(t,l)=b`
+at l=1 exist exactly when u=v and b=v·(Q(rc_s)+Q(rc_t)).
+All 28 offsets are nonzero.
 At each l=2..8 separately only u=v=0,b=0 is possible.
 This also excludes every universal affine vector correction between
 these outputs, including singular matrices.
 
 The source R_i=H+Q(rc_i) identity proves R1 inclusion; baseline anchored
 rank 2048 proves completeness. The 4,128-message spanning certificate
-has rank 4096 for each of 49 paired outputs, proving all-mask exclusion.
-Fresh original-C binary regeneration and separate NumPy/SHAKE/reversed-rank
-audit reproduce all 264,192 saved states and all ranks; 4,128 ordinary
-R8 digest projections pass the public API. No external reproduction.
+has rank 4096 for each of **196 paired outputs**, proving all-mask exclusion.
+The inherited RESULTS11 original-C regeneration and separate NumPy/SHAKE
+audit reproduced all 264,192 saved states; 4,128 ordinary R8 digest
+projections passed the public API. The fresh RESULTS12 rank replay reuses
+that pinned corpus and verifies all 196 ranks with C high pivots and Python
+low pivots, plus 115,584 R1 offset checks. It adds 147 rank obligations,
+without new source evaluations. These are independent implementation
+audits; no external reproduction is recorded.
 
 The unrestricted nonlinear relation `F_(s+1,l) R_s = R_(s+l) F_(s,l)`
 is exact and yields eight-round conjugacy `F_(s+1,8)=R_s F_(s,8) R_s^-1`.

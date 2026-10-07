@@ -797,3 +797,16 @@ The candidate report and manifest remain byte-preserved historical artifacts. Th
 - [results/krakken_schedule_affine_promotion_replay.json](../results/krakken_schedule_affine_promotion_replay.json) — proof/certificate or implementation audit as scoped in the ledger.
 
 Full states are ordered message × phase × length × lane. Each witness message has 159 bytes and is embedded with fixed padding/zero capacity. Fresh generation reproduces both binaries byte for byte; the audit recomputes all paired ranks and checks public ordinary-schedule hashes. The unrestricted composition/conjugacy checks validate an analytic identity, not a probabilistic exclusion. Original discovery11 artifacts and the frozen bundle are preserved.
+
+**All-pairs extension (RESULTS12).** This reuses the same audited corpus
+and adds 147 previously uncovered paired ranks. No new source evaluation
+is claimed. The fresh preserving replay checks all 196 labeled cases
+using C high-coordinate pivots and Python low-coordinate pivots, baseline
+R1 rank 2048, and 115,584 nonzero-offset checks. The inherited C/NumPy
+audit and the new elimination audit are independent implementation audits.
+
+- [RESULTS12.md](../RESULTS12.md) — analytic all-pairs statement and exact scope.
+- [All-pairs manifest](../discovery12/manifest.json) — new and inherited input pins.
+- [Rank verifier](../discovery12/verify.py) and [C rank helper](../discovery12/rank.c) — two elimination implementations.
+- [Original pairwise certificate](../discovery12/certificate.json), [run log](../discovery12/run.log), and [research history](../discovery12/research_history.md) — preserved extension evidence.
+- [Preserving replay driver](../scripts/krakken_schedule_pairwise_promotion_replay.py) and [fresh replay report](../results/krakken_schedule_pairwise_promotion_replay.json) — verifies exact labeled-case coverage and semantic equality without replacing original artifacts.
