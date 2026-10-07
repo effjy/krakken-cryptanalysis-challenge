@@ -51,6 +51,7 @@ trajectory disappears. **Chi2 is inside R2; Pressure1 is inside R1.**
 | Nonlinear predicates of a saved kernel cube | Exactly 64 universal R1 predicates (56 nonlinear), per eight-bit projection | **Complete R2**, and separately **R3–R8** | Among all 2^256 truth tables of each of 16 projections, only constants retain base-independent parity | Other cubes, joint/wider windows, special backgrounds and statistical integrals; [INT-NONLINEAR-001](KRAKKEN_SECURITY_THEOREMS.md#int-nonlinear-001) |
 | Fixed four-state zero-sum square | Full-state zero sum through Chi1/XRBD1; 32 projected R1 balances | **Complete R2** | No universal coordinate at all 128 sites; no universal nonzero output mask at the one representative site | Other sets, masks at other sites, special backgrounds; [ZERO-001](KRAKKEN_SECURITY_THEOREMS.md#zero-001) |
 | Complete Pressure deterministic translations | All 16D internal cosets remain affine through first-round suffix | **Complete R2** | All 65,535 nonzero directions lose universal vector differences, even in first 256 bits; two saved cosets have full output/graph hulls | Hash reachability, other cosets and nonperfect behavior; [PRESS-TRANS-001](KRAKKEN_SECURITY_THEOREMS.md#press-trans-001) |
+| Two consecutive deterministic Pressure transitions | First Pressure transition is deterministic in nonzero U | **Next Chi/XRBD, before Pressure2** | Every base and all 65,535 U directions: the next Pressure difference is outside U | Other Pressure directions and nonunit probabilities; [DIFF-WINDOW-001](KRAKKEN_SECURITY_THEOREMS.md#diff-window-001) |
 | Globally low-degree state-coordinate model | Exactly 32 R1 coordinates have degree 13 | **Complete R2**, separately R3–R8 | Every coordinate has degree ≥20; hence no coordinate has a global degree≤19 polynomial | Does not imply every low-order cube is unbalanced or defeat all algebraic attacks; [ALG-DEG-001](KRAKKEN_SECURITY_THEOREMS.md#alg-deg-001) |
 
 ### Finite tested patterns and empirical screens: separate from class exclusions
@@ -87,7 +88,7 @@ exclusions, and some have earlier R1 exclusions**.
 
 ### Inventory review: results that do not establish an attack endpoint
 
-All **66 permanent IDs** in the current inventory were reviewed for this
+All **67 permanent IDs** in the current inventory were reviewed for this
 classification. The tables above highlight structure-loss results. The
 remaining results supply quantitative bounds, local descriptions, positive
 structures, intermediate exclusions or proof tools; they must not be presented

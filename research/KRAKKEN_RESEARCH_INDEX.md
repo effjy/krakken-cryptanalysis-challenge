@@ -92,6 +92,16 @@ This checks later-round reconvergence for this exact predicate class, not
 all cubes/projections or statistical integrals. Observations are not digest-only.
 [RESULTS8.md](../RESULTS8.md) is distinct from the earlier [RESULT8.md](../RESULT8.md).
 
+## Solver-free structural window bound
+
+[DIFF-WINDOW-001](KRAKKEN_SECURITY_THEOREMS.md#diff-window-001)
+proves that no two adjacent actual Pressure input differences can both lie
+in nonzero U. All 65,535 inactive-cell rank systems are full rank, independently
+reproduced; no solver or carry search is needed. Conditional eight-round
+activity floors reach 143 P / 144 H when the class occurs before the final
+round. General trails outside U retain the earlier bounds. See the
+[proof, case split and reproduction](KRAKKEN_PRESSURE_TRANSLATION_WINDOWS.md).
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from

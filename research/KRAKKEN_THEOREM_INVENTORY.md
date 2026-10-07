@@ -101,6 +101,8 @@ the supplied reviewer comments are commentary, not independent reproduction.
 
 | <a id="int-nonlinear-001"></a>[INT-NONLINEAR-001](KRAKKEN_SECURITY_THEOREMS.md#int-nonlinear-001) | added 2026-10-06 | Nonlinear-output integral / H, nondigest state observations | Complete R1–R8 | Fixed saved 8D cube, all predicates of each of 16 eight-bit projections; broader kernel inclusion R1 only | Universal predicate dimensions 6 at R1 and 1 at each R2–R8; 56 nonlinear R1 functions | A+F | Fresh complete original-C and NumPy histogram replays; 264 bases/67,584 vertices, ordinary and augmented ranks, exact degrees and projection identities; no external reproduction |
 
+| <a id="diff-window-001"></a>[DIFF-WINDOW-001](KRAKKEN_SECURITY_THEOREMS.md#diff-window-001) | added 2026-10-06 | Differential window / P; conditional H | Any adjacent pair, 3/8-round corollaries | Complete U, every base; activity floors only under internal conditions | Consecutive U impossible; early-U eight-round ≥143 P / ≥144 H | A+F | All 65,535 ranks via separate scalar/source-C maps and low pivots; 128 original-C pairs; two DP implementations over 120 cases |
+
 ## Coverage and boundaries
 
 Every existing heading asserting a proved theorem, theorem extension, defined

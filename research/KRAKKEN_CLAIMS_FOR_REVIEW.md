@@ -1635,3 +1635,17 @@ The full-state observation is not automatically digest-only. Broader R1
 kernel inclusion does not broaden the later-round exclusions. See the
 [ledger](KRAKKEN_SECURITY_THEOREMS.md#int-nonlinear-001) and
 [manifest](KRAKKEN_THEOREM_ARTIFACTS.md#int-nonlinear-001).
+
+## DIFF-WINDOW-001: no consecutive deterministic Pressure directions
+
+For every nonzero direction d in the complete Pressure translation space U
+and every unrestricted base, the next round's Pressure input difference is
+outside U. The inactive next-Chi cells impose rank-16 constraints on a putative
+next direction. All 65,535 cases have rank 16 in producer and separate scalar
+source-C/opposite-pivot implementations. Original C replays 128 example pairs.
+The proof is independent of source round constants.
+
+Composed activity floors ≥143 P / ≥144 H over eight rounds require an internal
+U occurrence in rounds 1–7. No valid-message realization or global floor increase
+is asserted. General three-round activity and differential hulls remain open.
+[Proof and artifacts](KRAKKEN_PRESSURE_TRANSLATION_WINDOWS.md).

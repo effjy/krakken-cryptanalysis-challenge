@@ -57,3 +57,11 @@ A focused open direction is `0x4000`; excluding it entirely would leave a
 conditional 145-call total floor, whereas excluding its minimizing bases alone
 would not. No reachability result is asserted, and A1=5 lies outside this class.
 See [RESULT8](../RESULT8.md).
+
+## Consecutive deterministic Pressure transitions
+
+[DIFF-WINDOW-001](KRAKKEN_SECURITY_THEOREMS.md#diff-window-001) strengthens
+the defined translation frontier: a nonzero U difference cannot land in U at
+the next Pressure input for **any base**, already through Chi2/XRBD2. Full-rank
+inactive-cell constraints exclude all 65,535 starting directions. This supplies
+conditional activity composition, not exclusion of arbitrary two-round trails.

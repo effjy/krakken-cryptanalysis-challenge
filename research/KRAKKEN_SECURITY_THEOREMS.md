@@ -85,6 +85,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [PRESS-DIFF-002](#press-diff-002) | Differential | Local Pressure | Low three bits | Every 15-bit input/output XOR profile | Exactly 4,376 feasible; complete cubic closure has 128 false profiles forming one affine 7-flat; one explicit quintic makes that closure exact | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-002) | — | Local gate, not a two-round trail bound |
 | [PRESS-DIFF-003](#press-diff-003) | Differential | Local full-word Pressure | Checkpoint | Every XOR profile | 126 necessary cubics +2 LSB equations per chain; affine-graph refinement | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-diff-003) | — | Sound exclusions only; passing not feasibility; no new A2 floor |
 | [PRESS-TRANS-001](#press-trans-001) | Differential / affine structures | P; uniform Pressure base for probability | Pressure1→R2; activity any adjacent pair | Complete 16D deterministic translation class; two saved cosets for rank claims | Sharp A1/A2/total ≥48/30/135; Chi2 point max 2^-184; all 65,535 lose deterministic R2 difference; saved hull ranks 2048/2064 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-trans-001) | — | Conditional internal-class cost; no hash reachability or global hull bound |
+| [DIFF-WINDOW-001](#diff-window-001) | Differential window | P; conditional H | Any adjacent pair; 3/8-round corollaries | All nonzero U directions and every base | Consecutive U impossible; conditional eight-round ≥143 P / ≥144 H if U occurs before final round | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-window-001) | — | Case-split rule; unconditioned global floors unchanged |
 | [DIFF-SCREEN-001](#diff-screen-001) | Differential methods | P relaxed endpoint model | Pressure1→Chi2 | All low-q profiles, q=1..4, certified supports | Second-call-only supports 5/8/13/16 project surjectively | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-screen-001) | — | Information-loss barrier for low-bit-only screens; synthetic endpoints not real trails |
 | [PRESS-HULL-001](#press-hull-001) | Linear | U/R | Pressure | Arbitrary 64-bit masks; separate 4-bit counterexample | Exact signed identity; triangle bound fails in reduced model | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-hull-001) | — | Identity / failed proof route |
 | [PRESS-ZERO-001](#press-zero-001) | Linear | U | Pressure | Pairwise word projections and specified masks | Exact pair-uniformity and zero coefficients | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#press-zero-001) | — | Stated class/checkpoint only |
@@ -178,6 +179,7 @@ flowchart TD
   cubic --> fullword["PRESS-DIFF-003: full-word necessary gates"]
   screening["DIFF-SCREEN-001: certified endpoint projection surjectivity"] --> fullword
   chiDdt["DIFF-CHI-002: exact local DDT maxima"] --> translations["PRESS-TRANS-001: complete translations and sharp code costs"]
+  translations --> windows["DIFF-WINDOW-001: no adjacent U, conditional activity composition"]
   translations --> cosets["PRESS-TRANS-001 D/E: finite R2 counterexamples and full affine hulls"]
   aaScan["Complete split-site AA scan + low-bit refinements"] --> aa["DIFF-12-006: complete distinct-AA exclusion"]
   anf["Exact serial-Chi ANF + derivative certificates"] --> degree["ALG-DEG-001: coordinate degree map"]
@@ -4157,6 +4159,53 @@ all integral attacks. Other cubes, offsets, joint/wider/shifted projections,
 adaptive predicates, special-background or statistical balances, multiblock
 inputs and digest-only exploitation remain open. No attack complexity,
 security-bit bound, or six-round security margin follows.
+
+
+<a id="diff-window-001"></a>
+## Theorem proved: consecutive deterministic Pressure transitions are impossible
+
+<!-- THEOREM METADATA DIFF-WINDOW-001 -->
+**Permanent ID:** `DIFF-WINDOW-001` · **Proof classification:** analytic inactive-cell reduction plus complete finite rank enumeration. Separate scalar inverse-XRBD/original-C generators, opposite-pivot elimination and 128 original-C pair replays are independent implementation audits; no external reproduction is recorded.
+<!-- END THEOREM METADATA DIFF-WINDOW-001 -->
+
+For every distinct unrestricted pair at every adjacent source-round boundary,
+`Delta_PressureInput_r in U minus {0}` implies
+`Delta_PressureInput_(r+1) not in U`, where U is the complete deterministic
+translation space of PRESS-TRANS-001. This is an every-base exclusion, not
+only loss of a universally constant relation. Actual differences persist.
+
+**Proof.** The fixed next pre-Chi difference is `v(d)=L Q Lambda d`.
+A putative next Pressure direction e in U requires post-Chi difference
+`B^-1 e`. In each inactive Chi cell both output bytes must be zero, giving
+homogeneous bit equations on the sixteen coefficients of e. For every one
+of 65,535 nonzero d, these equations have rank 16; hence e=0. Bijectivity
+forbids a zero difference, proving the exclusion. Constants cancel; the
+same generator wiring works at every adjacent boundary.
+
+The producer saves every rank and both generator maps. The independent audit
+uses only inactive whole cells, scalar bit extraction and opposite pivots;
+all ranks remain 16, with three to eight cells sufficient in its cell order.
+Both maps match original C, and 128 source-C pair replays confirm nonmembership.
+No DDT candidates, capped cases, solver, timeout or reduced-width approximation
+contribute to the result.
+
+**Conditional composition.** U occurrences cannot be adjacent. Combining
+this with PRESS-TRANS-001 activity inequalities and the inherited `[1,1]`
+exclusion gives eight-round totals ≥143 for unrestricted pairs with a U
+occurrence in rounds 1–7, and ≥144 for H pairs satisfying that condition.
+If a U occurrence is allowed only in the final round, conservative bounds
+are ≥58 for P and ≥62 for H. Analogous three-round floors are ≥136 for
+an occurrence before the final round and ≥51 P / ≥54 H for any occurrence.
+An exact small inequality DP and a separate full 256×256 transition enumeration
+agree on all 120 domain/pattern results. These are not sharp real-trail minima
+and no H reachability is asserted. Without the internal condition, global
+eight-round floors remain the inherited 12 P / 15 H; three-round floors
+remain 4 P / 8 H. H bounds require the interval to start at the first absorb.
+
+See [the full proof and composition rules](KRAKKEN_PRESSURE_TRANSLATION_WINDOWS.md)
+and the [artifact manifest](KRAKKEN_THEOREM_ARTIFACTS.md#diff-window-001).
+This closes consecutive deterministic Pressure transitions, not arbitrary
+three-round trails, nonunit transitions or global hull probabilities.
 
 ## Reproduction commands for earlier linear certificates
 

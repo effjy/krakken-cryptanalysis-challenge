@@ -690,3 +690,15 @@ nice -n 10 /home/user/venv/krakken/bin/python -u   /home/user/sol/scripts/krakke
 
 Do not confuse RESULTS8.md (this nonlinear integral result) with RESULT8.md
 (the existing supporting reachability analysis under PRESS-TRANS-001).
+
+## DIFF-WINDOW-001
+
+[DIFF-WINDOW-001](KRAKKEN_SECURITY_THEOREMS.md#diff-window-001) — Consecutive deterministic Pressure translations excluded; conditional composition.
+
+- [docs/KRAKKEN_PRESSURE_TRANSLATION_WINDOWS.md](../docs/KRAKKEN_PRESSURE_TRANSLATION_WINDOWS.md) — proof/certificate or audit as scoped.
+- [scripts/krakken_pressure_translation_window.py](../scripts/krakken_pressure_translation_window.py) — proof/certificate or audit as scoped.
+- [scripts/krakken_pressure_translation_window_audit.py](../scripts/krakken_pressure_translation_window_audit.py) — proof/certificate or audit as scoped.
+- [scripts/krakken_pressure_translation_activity_composition.py](../scripts/krakken_pressure_translation_activity_composition.py) — proof/certificate or audit as scoped.
+- [results/pressure_translation_windows_20261006/scan.json](../results/pressure_translation_windows_20261006/scan.json) — proof/certificate or audit as scoped.
+- [results/pressure_translation_windows_20261006/audit.json](../results/pressure_translation_windows_20261006/audit.json) — proof/certificate or audit as scoped.
+- [results/pressure_translation_windows_20261006/composition.json](../results/pressure_translation_windows_20261006/composition.json) — proof/certificate or audit as scoped.
