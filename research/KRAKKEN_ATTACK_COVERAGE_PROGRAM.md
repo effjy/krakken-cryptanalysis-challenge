@@ -34,6 +34,7 @@ trajectory disappears. **Chi2 is inside R2; Pressure1 is inside R1.**
 | Perfect full-message affine relation | Proposed fixed message/state affine masks | **Complete R1**, and separately each R2–R8 | No nontrivial perfect relation for any masks over H. Nonperfect correlations remain open; rank bound is numerically weak | [LIN-GLOBAL-001](KRAKKEN_SECURITY_THEOREMS.md#lin-global-001) |
 | Perfect uniform lane-rotation covariance | Proposed common rotation plus fixed correction | **Complete R1**, and separately each R2–R8 | All 63 nontrivial rotations excluded, with constants on and off; statistical rotational bias is not bounded | [ROT-001](KRAKKEN_SECURITY_THEOREMS.md#rot-001) |
 | Missing first-order input/output dependency | Hypothesis that an output bit never responds to one message bit | **Complete R1**, also R2 | Every one of the 1272×2048 pairs has an influence witness; this is dependency coverage, not an attack exclusion | [DEPEND-001](KRAKKEN_SECURITY_THEOREMS.md#depend-001) |
+| Perfect modular additive invariants | Candidate fixed-coefficient numerical-byte checksums | **Complete R1**, with joint R1–R8 checked | No nontrivial equation modulo any2^k or exactly Q/R; collective checkpoint cancellation excluded | [MOD-TRACE-001](KRAKKEN_SECURITY_THEOREMS.md#mod-trace-001); no general ARX or statistical-invariant bound |
 
 ### Exact exclusions at or by round two
 
@@ -103,7 +104,7 @@ exclusions, and some have earlier R1 exclusions**.
 
 ### Inventory review: results that do not establish an attack endpoint
 
-All **72 permanent IDs** in the current inventory were reviewed for this
+All **73 permanent IDs** in the current inventory were reviewed for this
 classification. The tables above highlight structure-loss results. The
 remaining results supply quantitative bounds, local descriptions, positive
 structures, intermediate exclusions or proof tools; they must not be presented

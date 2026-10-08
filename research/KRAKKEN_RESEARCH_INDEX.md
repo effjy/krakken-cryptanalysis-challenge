@@ -172,6 +172,19 @@ witness is unrestricted only. Input reachability, relating the shifted
 schedule to production, and obtaining a useful output correction remain
 three distinct open bridges. [Replay](../results/krakken_conjugacy_reachability_replay.json).
 
+## RESULTS14: joint modular additive invariants excluded
+
+[MOD-TRACE-001](KRAKKEN_SECURITY_THEOREMS.md#mod-trace-001) proves that
+no nonzero fixed-coefficient modular sum of numerical message bytes and
+complete ordinary R1–R8 state bytes is constant, for every modulus2^k.
+Exact rational/real equations are likewise excluded. A rank2207 joint
+certificate and odd-determinant lemma prevent multi-checkpoint cancellations;
+single-checkpoint cases overlap existing LIN-GLOBAL-001. The class is
+already absent at R1, not an attack that dies specifically at R2.
+Fresh NumPy replay of33,024 states and C/Python ranks pass. No odd-modulus,
+statistical-bias or general algebraic-attack bound follows.
+[RESULTS14](../RESULTS14.md) · [Replay](../results/krakken_modular_trace_promotion_replay.json).
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from

@@ -1793,3 +1793,24 @@ The [coverage certificate](../results/krakken_12_ab_closure_audit.json)
 checks complete indexing, pair assignments, pins and refinement outcomes.
 It is not a second independent solver recount. BA is the opposite branch
 assignment at i<j and remains open; no global `[1,2]` claim is made.
+
+## MOD-TRACE-001: no fixed modular additive invariant over the joint round trace
+
+For all valid159 first-block messages, every fixed-coefficient additive
+equation in numerical message bytes and any combination of ordinary
+complete R1–R8 state bytes is trivial modulo2^k for every k>=1. The
+exact rational/real version is also trivial. The joint anchored parity
+rank is2207, with a saved square minor checked independently. Its odd
+integer determinant gives the analytic lifting proof. All eight prefix
+ranks are full; byte-aligned word sums are covered after canonical
+byte expansion, excluding representational tautologies.
+
+The new result is simultaneous trace coverage. Single-checkpoint cases
+already follow from LIN-GLOBAL-001 plus the lemma; this overlap is explicit.
+Fresh separate NumPy33,024-state replay, exact parity reconstruction and
+C rank/minor verification pass, using the previously original-C-audited
+corpus. No external reproduction recorded. Binary rank does not extend
+the claim to odd moduli ([3] modulo3 is a counterexample). No statistical
+bias bound, security bits or exclusion of general ARX attacks is asserted.
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#mod-trace-001) ·
+[Replay](../results/krakken_modular_trace_promotion_replay.json).

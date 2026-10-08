@@ -832,3 +832,17 @@ are internal; no external reproduction is recorded.
 - [Final eight-position summary](../results/krakken_12_ab_248_255_batch_summary.json).
 
 No frozen bundle or original source is modified by this closure.
+
+## MOD-TRACE-001
+
+[MOD-TRACE-001](KRAKKEN_SECURITY_THEOREMS.md#mod-trace-001) — No fixed modular additive equation across numerical message bytes and the ordinary complete-round trace.
+
+- [RESULTS14](../RESULTS14.md), [manifest](../discovery14/manifest.json), and [history](../discovery14/research_history.md).
+- [Producer](../discovery14/check.py), [certificate](../discovery14/certificate.json), [packed parity matrix](../discovery14/anchored_parities.bin), and [producer log](../discovery14/run.log): all prefix ranks and2,207 independent message indices.
+- [Separate audit](../discovery14/audit.py), [audit report](../discovery14/audit.json), and [audit log](../discovery14/audit.log): NumPy33,024 states, explicit lane/byte parity extraction, C ranks/minor, modular validation and odd-modulus counterexample.
+- [NumPy layers](../discovery5/audit_kernel_cubes.py) and [C elimination](../discovery12/rank.c): dependencies explicitly pinned by the preserving replay.
+- [Inherited witnesses](../discovery11/messages.bin), [C outputs](../discovery11/outputs.bin), [certificate](../discovery11/certificate.json), and [audit](../discovery11/audit.json); original-C provenance remains linked to its [preserved regeneration replay](../results/krakken_schedule_affine_promotion_replay.json).
+- [Preserving driver](../scripts/krakken_modular_trace_replay.py) and [fresh replay](../results/krakken_modular_trace_promotion_replay.json): exact matrix bytes, semantic report agreement and unchanged original hashes.
+
+Analytic odd-determinant lifting proves all k; the finite modular tests
+validate implementation only. No frozen bundle is regenerated.

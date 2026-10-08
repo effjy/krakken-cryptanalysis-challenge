@@ -105,6 +105,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [ALG-REL-001](#alg-rel-001) | Mixed input/output algebraic relations | H; four-bit/four-bit observations | Complete R1–R8 separately | All Boolean equations in each of 67,200 eight-coordinate windows | 16 matching R1 supports have ideal <e0,e1>, dimension 192; all other supports full and ideal zero | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-rel-001) | — | Exact small-window support; no independence or large-system solving bound |
 | [SBOX-ALG-001](#sbox-alg-001) | Primitive S-box algebra | 8-bit byte map; uniform byte for probabilities | S-box only | All inputs/differences/masks as separately stated | Exact affine inversion; analytic DDT 4 / BCT 6; finite Walsh 32, NL 112, degree 7 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#sbox-alg-001) | — | Component provenance and local properties; no new round/hash bound |
 | [SCHEDULE-AFF-001](#schedule-aff-001) | Related-round / cyclic schedules | Same H message; modified schedules | Complete lengths 1–8 separately | All 28 distinct cyclic phase pairs; all independent output masks | Exact R1 offsets; no perfect affine relation at R2–R8, all 196 paired ranks 4096; nonlinear conjugacy survives | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#schedule-aff-001) | — | Defined perfect relation class, not all slide attacks or nonperfect bounds |
+| [MOD-TRACE-001](#mod-trace-001) | Perfect modular additive invariant | H ordinary message/round trace | Joint R1–R8; every prefix | All fixed numerical-byte coefficients modulo every2^k and exact Q/R | Only zero coefficients; joint rank2207 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#mod-trace-001) | — | No fixed additive invariant even collectively; no nonperfect-bias or general ARX bound |
 | [INT-BYTE-001](#int-byte-001) | Integral | H | 2 | All 159 byte cubes, arbitrary bases, coordinate masks | No universal coordinate balance | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-001) | — | Stated class/checkpoint only |
 | [INT-BYTE-002](#int-byte-002) | Integral | H | 1/2 | Byte-0 cube, all bases/output masks | R1 sum rank 2041; R2 rank 2048, no universal nonzero mask | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-byte-002) | — | Stated class/checkpoint only |
 | [DIV-BYTE-001](#div-byte-001) | Division property | H | 1/2 | Byte-0 defined direction family and linear masks | Exact universal balance spaces: dimensions 7 and 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#div-byte-001) | — | Stated class/checkpoint only |
@@ -206,6 +207,8 @@ flowchart TD
   graphWitness["Actual-message bipartite connectivity witnesses"] --> partitions
   pressureSubtract --> mixedRelations["ALG-REL-001: exact mixed eight-coordinate ideals, R1–R8"]
   supportWitness["Actual-message complete support + Boolean-ring evaluation"] --> mixedRelations
+  jointTrace["Ordinary message + R1–R8 byte-parity rank2207"] --> modularTrace["MOD-TRACE-001: no fixed modular additive invariant"]
+  oddDet["Odd-determinant lifting to2^k and Q/R"] --> modularTrace
   pairedSchedule["Source R_i=H+q_i + paired-output full-rank certificates"] --> scheduleAffine["SCHEDULE-AFF-001: exact R1 / no perfect R2–R8"]
   cyclicComposition["Ordered periodic-round composition"] --> scheduleConjugacy["SCHEDULE-AFF-001: surviving nonlinear eight-round conjugacy"]
   nonlinear --> conjugacyGate["SCHEDULE-AFF-001 corollary: fixed-prefix four-bit reachability gate"]
@@ -4846,6 +4849,111 @@ Reproduction preserves the original reports:
 nice -n 10 /home/user/venv/krakken/bin/python -u \
   /home/user/sol/scripts/krakken_conjugacy_reachability_replay.py \
   --output /home/user/sol/results/krakken_conjugacy_reachability_replay.json
+```
+
+<a id="mod-trace-001"></a>
+## Theorem proved: no modular additive invariant across the ordinary round trace
+
+<!-- THEOREM METADATA MOD-TRACE-001 -->
+**Permanent ID:** `MOD-TRACE-001` · **Proof classification:** analytic odd-determinant lifting plus finite complete binary-span certificate. Fresh separate NumPy reconstruction, explicit byte extraction, opposite-coordinate Python and separate C ranks, and square-minor replay are independent implementation audits; original-C corpus provenance is inherited from its preserved full replay. No external reproduction is recorded.
+<!-- END THEOREM METADATA MOD-TRACE-001 -->
+
+**Domain and exact class.** For every valid159 first-block message m, let
+X_r(m) be the 256 numerical bytes of its complete ordinary round-r state,
+including Pressure, Iota and Inkcloud, r=1..8. Bytes are integers 0..255,
+not arbitrary byte labels. Let `T_R=(m_0,...,m_158,X_1,...,X_R)` and
+`N_R=159+256R`. For every `1<=R<=8` and every integer `k>=1`,
+
+```
+sum_j a_j*m_j + sum_(r=1..R,j) b_(r,j)*X_(r,j)(m) = c mod 2^k
+                       for every valid159 m
+```
+
+holds **if and only if all coefficients and c vanish modulo 2^k**.
+The same exclusion holds for exact rational or real coefficients: the
+integer anchored trace has full real affine hull. Every subset of the
+checkpoints is covered by setting other coefficients to zero.
+
+The **new** obligation is simultaneous inclusion of all eight checkpoints:
+collective cancellations are not excluded by separate single-checkpoint
+certificates. Those special cases were already implied by LIN-GLOBAL-001
+and the lifting lemma, so they are not new independent security evidence.
+The whole trace certificate shows no fixed additive invariant appears when
+checkpoints are combined; it is not an attack surviving R1 then dying R2.
+
+**Proof.** A finite set of anchored numerical differences `T(m)-T(m0)`
+has full binary rank N. Choose N independent rows to form an integer
+square matrix D. Its reduction modulo two is nonsingular, so det(D) is
+odd. It is a unit modulo every 2^k, and nonzero over Q and R. Subtracting
+the anchor equation gives `D*a=0`, forcing all coefficients zero in the
+stated rings, and the anchor then forces c=0. The converse is immediate.
+This proves the module and real-affine statements exactly, without
+floating-point ranks or a carry-independence assumption. An equivalent
+2-adic proof first divides a putative nonzero coefficient vector by its
+minimum common power of two, then reduces modulo two; simply discarding
+even coefficients without that normalization would be invalid.
+
+**Finite certificate.** The 4,128 saved valid messages include the zero
+anchor. Numerical subtraction and XOR have identical byte parity. The
+producer therefore packs `(T(m) XOR T(m0)) AND 1`, one bit per byte.
+Both Python pivot orders and the separate C elimination give:
+
+| Complete checkpoints included | Columns | Exact binary rank |
+|---|---:|---:|
+| R1 | 415 | 415 |
+| R1–R2 | 671 | 671 |
+| R1–R3 | 927 | 927 |
+| R1–R4 | 1183 | 1183 |
+| R1–R5 | 1439 | 1439 |
+| R1–R6 | 1695 | 1695 |
+| R1–R7 | 1951 | 1951 |
+| R1–R8 | 2207 | 2207 |
+
+The saved 2,207 selected message indices form a square minor independently
+replayed at rank 2207. An odd integer determinant thus exists without
+computing its enormous numerical value. A universal relation would have
+to hold on these actual witnesses; random witness generation is not a
+probabilistic inference of the conclusion.
+
+**Byte-aligned word corollary.** Expand unsigned byte-aligned words as
+fixed integer-weighted sums of their bytes. A modular additive equation
+in such words, including lane sums modulo 2^64, is impossible unless
+its **canonical byte coefficients and constant** all vanish. Fixed pad
+contributions move into c. Repeated or overlapping words and coefficients
+that vanish modulo the chosen modulus can create representational
+identities; those tautologies are not excluded. Arbitrary rotations,
+bit masks or nonlinear word expressions do not automatically have this
+byte-linear form.
+
+**Independent implementation audit.** Current C/header pins are unchanged.
+The ordinary-phase states come from the corpus previously regenerated
+byte-for-byte through original C and independently audited. This pass
+freshly replays all **33,024 ordinary NumPy states**, checks their exact
+agreement, reconstructs every byte parity by lane shifts rather than raw
+byte views, and reproduces the packed matrix byte-for-byte. C elimination
+rechecks all prefix ranks and the square minor. The 7,776 small modular
+matrix/vector checks are validation of the implementation, not the proof
+for arbitrary k. Original investigation reports are preserved.
+
+**Rejected extension and limits.** Binary rank alone does not prove an
+odd-modulus statement: `[3]` has full rank modulo two but is zero modulo
+three. Only powers of two and exact Q/R relations are claimed. Fixed
+coefficients, ordinary complete checkpoints and the valid159 first-block
+domain are essential. Other message lengths, prefix states, nonlinear
+labels/products, internal Pressure identities, statistical biases and
+approximate relations are not covered. Full span is neither uniformity
+nor independence nor surjectivity; it gives no probability, attack cost,
+activity floor or security-bit bound. This is a defined perfect arithmetic
+invariant class, not all ARX or algebraic cryptanalysis.
+
+[RESULTS14](../RESULTS14.md) ·
+[Artifacts](KRAKKEN_THEOREM_ARTIFACTS.md#mod-trace-001) ·
+[Preserving replay](../results/krakken_modular_trace_promotion_replay.json).
+
+```bash
+nice -n 10 /home/user/venv/krakken/bin/python -u \
+  /home/user/sol/scripts/krakken_modular_trace_replay.py \
+  --output /home/user/sol/results/krakken_modular_trace_promotion_replay.json
 ```
 
 ## Reproduction commands for earlier linear certificates
