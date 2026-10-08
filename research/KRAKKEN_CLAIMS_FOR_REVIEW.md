@@ -54,6 +54,7 @@ little-endian C execution used by the certificates.
 | **PROVED — COMPLETE DEFINED SITE CLASS** | All 2,080,768 `[1,2]` sites with two distinct second-branch Chi2 calls excluded | All 256 single-byte post-Chi1 start locations and every pair of distinct second-branch Chi2 calls; bit-zero through five-bit Pressure constraints |
 | **PROVED — COMPLETE DEFINED SITE CLASS** | All 32,768 `[1,2]` same-spatial-pair Chi2 sites excluded | All 256 single-byte post-Chi1 start locations and all 128 spatial pairs; one first-branch and its paired second-branch call |
 | **PROVED — COMPLETE DEFINED SITE CLASS** | All 2,080,768 distinct-AA `[1,2]` sites excluded | All 256 single-byte post-Chi1 start locations and every pair of distinct first-branch Chi2 calls; low-bit Pressure exclusions and refinement |
+| **PROVED — COMPLETE DEFINED SITE CLASS** | All 2,080,768 distinct-AB `[1,2]` sites excluded | All 256 start locations and i<j spatial pairs, first branch at i and second at j; sound low-bit exclusions, saved-result coverage audit only |
 | **PROVED — FIXED-START DEFINED SUBCLASS** | 2,351 additional `[1,2]` site-pair exclusions from exact two-bit Pressure carries | Chi1 post-byte location 0; all 8,128 pairs of distinct second-call Chi2 cells classified; 3,872 LSB and 2,351 additional pairs excluded, 1,905 unresolved by this screen |
 | **PROVED — COMPLETE LOCAL TWO-BIT CLASS** | Exactly 184 feasible Pressure XOR profiles; two LSB plus three cubic equations characterize them; every standalone quadratic consequence leaves all 256 LSB-feasible profiles | One chain's low two output bits, every ten-bit difference profile; no new complete-round exclusion |
 | **PROVED — COMPLETE LOCAL THREE-BIT CLASS** | Exactly 4,376 feasible Pressure XOR profiles; cubic closure has 128 false profiles forming one affine 7-flat; one explicit 82-term quintic makes the cubic closure exact | One chain's low three output bits, every 15-bit difference profile; local existential relation only |
@@ -633,7 +634,7 @@ reproducible producer, but no second full independent recount yet.
 
 **Scope:** this closes the BB class only: exactly two second-branch
 Chi2 calls at distinct sites. The same-spatial-pair and distinct-AA
-classes are closed separately below. Distinct mixed `AB/BA` remain
+and distinct-AB classes are closed separately. Distinct mixed BA remains
 open, as does full `[1,2]` exclusion.
 
 ## PROVED — COMPLETE DEFINED SITE CLASS: all same-spatial-pair `[1,2]` sites excluded
@@ -659,8 +660,7 @@ against original-C Pressure transitions. Every position's source
 hash, 128 unique site indices, and aggregate count were checked.
 The 32,001 three-bit UNSAT cases have not had a second full
 independent recount. This verification boundary should be considered
-in external review. Distinct AA is closed separately; mixed AB/BA
-classes remain open.
+in external review. Distinct AA and AB are closed separately; distinct BA remains open.
 
 ## PROVED — COMPLETE DEFINED SITE CLASS: all distinct-AA `[1,2]` sites excluded
 
@@ -676,8 +676,8 @@ nonzero difference bytes and unrestricted bases. The
 [coverage audit](../results/krakken_12_aa_closure_audit.json) checks
 every saved report and refinement against the pinned C/header hashes.
 It does **not** independently recount the solver UNSAT results.
-The full unrestricted `[1,2]` exclusion remains open: distinct mixed
-AB is being scanned, and distinct mixed BA is not yet closed.
+The full unrestricted `[1,2]` exclusion remains open: distinct AB is now
+closed under DIFF-12-007, while distinct BA is not yet closed.
 
 ## PROVED — FIXED-START SUBCLASS: exact two-bit carries add 2,351 exclusions
 
@@ -1781,3 +1781,15 @@ excludes a rate-only correction on unrestricted states, **not** on
 reachable hash-output fibers. Existence of valid conjugate pairs and
 exploitation with ordinary phase-zero outputs remain open.
 [Preserving replay](../results/krakken_conjugacy_reachability_replay.json).
+
+## PROVED — COMPLETE DEFINED SITE CLASS: distinct AB `[1,2]` exclusion
+
+[DIFF-12-007](KRAKKEN_SECURITY_THEOREMS.md#diff-12-007) covers every
+256 start byte location and every spatial pair i<j, with the first-branch
+Chi2 call at i and second-branch call at j. All 2,080,768 sites are
+excluded: 707,670 at bit zero, 1,368,444 at three bits, and all 4,654
+relaxed cases at four/five bits (4,316/338).
+The [coverage certificate](../results/krakken_12_ab_closure_audit.json)
+checks complete indexing, pair assignments, pins and refinement outcomes.
+It is not a second independent solver recount. BA is the opposite branch
+assignment at i<j and remains open; no global `[1,2]` claim is made.

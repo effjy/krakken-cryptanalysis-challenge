@@ -60,6 +60,7 @@ the supplied reviewer comments are commentary, not independent reproduction.
 | <a id="diff-12-004"></a>[DIFF-12-004](KRAKKEN_SECURITY_THEOREMS.md#diff-12-004) | 662 | Differential / P | 1→2 | Complete distinct BB class | All 2,080,768 sites excluded | A+F+S | Refinements replayed; no second full 3-bit recount |
 | <a id="diff-12-005"></a>[DIFF-12-005](KRAKKEN_SECURITY_THEOREMS.md#diff-12-005) | 709 | Differential / P | 1→2 | Complete same-pair mixed class | All 32,768 sites excluded | A+S | Refinements replayed; no second full 3-bit recount |
 | <a id="diff-12-006"></a>[DIFF-12-006](KRAKKEN_SECURITY_THEOREMS.md#diff-12-006) | added 2026-10-04 | Differential / P | 1→2 | Complete distinct AA class | All 2,080,768 sites excluded | A+F+S | All saved reports and refinements coverage-audited; no second full Z3 UNSAT recount |
+| <a id="diff-12-007"></a>[DIFF-12-007](KRAKKEN_SECURITY_THEOREMS.md#diff-12-007) | added 2026-10-07 | Differential / P | 1→2 | Complete distinct AB class, A at i and B at j with i<j | All 2,080,768 sites excluded | A+F+S | All saved reports and refinements source/coverage-audited; no second full solver recount |
 | <a id="rot-001"></a>[ROT-001](KRAKKEN_SECURITY_THEOREMS.md#rot-001) | 745 | Rotational / P | 1–8 | All nontrivial lane rotations; constants on/off | No universal affine covariance | F | C counterexamples; no separate full audit recorded |
 | <a id="rot-002"></a>[ROT-002](KRAKKEN_SECURITY_THEOREMS.md#rot-002) | 771 | Rotational / P | 1 | Byte rotations 8,…,56 | Exact residual identity; uniform full-state scope | A | 700 original-C validation states |
 | <a id="lin-theta-001"></a>[LIN-THETA-001](KRAKKEN_SECURITY_THEOREMS.md#lin-theta-001) | added 2026-10-04 | Linear-layer structure / unrestricted 2048-bit state | Theta alone | Every state; complete fixed space and cycles | `Theta^2=I`, rank(Theta−I)=504, fixed dimension 1544, all other states in 2-cycles | A+F | Exact 2048-column original-C matrix; all 1544 fixed-basis vectors and 16 non-fixed cycles original-C replayed; separate pure-Python matrix/basis reconstruction and opposite-pivot ranks |
@@ -118,7 +119,7 @@ failed inequalities, comparison, reproduction commands and proof roadmap are
 context, not additional security theorems. The coupled-hull reduced counterexample
 is explicitly distinguished from a full-width coefficient bound.
 
-Open: global unrestricted [1,2] (distinct mixed AB scan ongoing; distinct
+Open: global unrestricted [1,2] (AA, AB, BB and same-pair classes closed; distinct
 mixed BA still open), a universal
 hash-reachable A1=5 ⇒ A2 bound beyond selected differences, arbitrary coupled
 64-bit Pressure masks, and useful global quantitative full-round hull bounds.

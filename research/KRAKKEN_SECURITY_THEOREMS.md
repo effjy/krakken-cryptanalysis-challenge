@@ -71,7 +71,8 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [DIFF-12-003](#diff-12-003) | Differential | P | 1→2 | All 256 starts, BB low-two-bit gate | 1,628,104 excluded; 452,664 deferred/surviving | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-12-003) | — | Stated class/checkpoint only |
 | [DIFF-12-004](#diff-12-004) | Differential | P | 1→2 | Complete distinct BB class | All 2,080,768 sites excluded | A+F+S | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-12-004) | — | Stated class/checkpoint only |
 | [DIFF-12-005](#diff-12-005) | Differential | P | 1→2 | Complete same-pair mixed class | All 32,768 sites excluded | A+S | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-12-005) | — | Stated class/checkpoint only |
-| [DIFF-12-006](#diff-12-006) | Differential | P | 1→2 | Complete distinct AA class | All 2,080,768 sites excluded | A+F+S | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-12-006) | — | Distinct mixed AB/BA remain open |
+| [DIFF-12-006](#diff-12-006) | Differential | P | 1→2 | Complete distinct AA class | All 2,080,768 sites excluded | A+F+S | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-12-006) | — | AB closed separately; BA remains open |
+| [DIFF-12-007](#diff-12-007) | Differential | P | 1→2 | Complete distinct AB class, first branch at i and second at j with i<j | All 2,080,768 sites excluded | A+F+S | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-12-007) | — | BA remains open; not global [1,2] |
 | [ROT-001](#rot-001) | Rotational | P | 1–8 | All nontrivial lane rotations; constants on/off | No universal affine covariance | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#rot-001) | — | Stated class/checkpoint only |
 | [ROT-002](#rot-002) | Rotational | P | 1 | Byte rotations 8,…,56 | Exact residual identity; uniform full-state scope | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#rot-002) | — | Stated class/checkpoint only |
 | [LIN-THETA-001](#lin-theta-001) | Linear-layer structure | P | Theta alone | Every 2048-bit state; complete fixed space and cycles | `dim Fix(Theta)=1544`, `rank(Theta−I)=504`; all others in 2-cycles | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-theta-001) | — | Supporting Theta-only classification; no full-round distinguisher |
@@ -189,6 +190,7 @@ flowchart TD
   translations --> windows["DIFF-WINDOW-001: no adjacent U, conditional activity composition"]
   translations --> cosets["PRESS-TRANS-001 D/E: finite R2 counterexamples and full affine hulls"]
   aaScan["Complete split-site AA scan + low-bit refinements"] --> aa["DIFF-12-006: complete distinct-AA exclusion"]
+  abScan["Complete split-site AB scan + low-bit refinements"] --> ab["DIFF-12-007: complete distinct-AB exclusion"]
   anf["Exact serial-Chi ANF + derivative certificates"] --> degree["ALG-DEG-001: coordinate degree map"]
   anf --> degreeUpper["ALG-DEG-002: 192 round-one degree ceilings"]
   anf --> cubes["INT-CUBE-001: checkpoint threshold / fixed cube"]
@@ -219,8 +221,8 @@ flowchart TD
 - **General Pressure:** arbitrary coupled 64-bit output masks remain outside
   the closed two-shear and low-17 classes.
 - **Two-round activity:** unrestricted `[1,2]` is not globally closed. The
-  distinct AA and BB classes and the same-spatial-pair mixed class are closed;
-  distinct mixed AB is being scanned, and distinct mixed BA remains open.
+  distinct AA, AB and BB classes and the same-spatial-pair mixed class are closed;
+  distinct mixed BA remains open.
 - **Hash activity and differential hulls:** the three fixed-difference gates
   do not prove a universal `A1=5 ⇒ A2≥3`; all-difference/all-output probabilities
   and multi-round hull bounds remain separate targets.
@@ -1865,7 +1867,7 @@ boundary recorded for external review.
 
 This theorem closes **only the distinct-second-branch (`BB`) Chi2
 class**. The distinct `AA` and same-spatial-pair classes are closed
-separately below. Distinct mixed `AB/BA` remain open, so full `[1,2]`
+separately below. Distinct mixed AB is closed separately; BA remains open, so full `[1,2]`
 impossibility is not claimed.
 
 <a id="diff-12-005"></a>
@@ -1905,9 +1907,9 @@ complete accounting. A second full independent recount of the
 32,001 three-bit solver exclusions has not yet been done; this is the
 stated validation boundary for external review.
 
-Together with the BB and AA theorems, this closes three defined Chi2
-shapes. Mixed `AB/BA` arrangements across distinct spatial pairs remain
-open, so a global `[1,2]` exclusion is not claimed.
+Together with the BB, AA and AB theorems, four defined Chi2 shapes
+are closed. Distinct mixed BA remains open, so a global `[1,2]`
+exclusion is not claimed.
 
 <a id="diff-12-006"></a>
 ### Theorem proved: no unrestricted `[1,2]` trail with two distinct Chi2 first-branch calls
@@ -1955,7 +1957,57 @@ independent Z3 recount of the 1,670,915 three-bit UNSAT results or
 This theorem concerns the unrestricted permutation and this complete
 `AA` endpoint class only. It does not cover distinct mixed `AB` or
 `BA` endpoints, nor does it give a hash-interface or probability bound.
-The distinct `AB` scan is ongoing; `BA` has not been closed.
+The distinct AB class is closed separately under DIFF-12-007; BA has not been closed.
+
+<a id="diff-12-007"></a>
+### Theorem proved: no unrestricted `[1,2]` trail with distinct Chi2 AB calls
+
+<!-- THEOREM METADATA DIFF-12-007 -->
+**Permanent ID:** `DIFF-12-007` · **Proof classification:** analytic necessary-condition reduction + finite complete site coverage + solver-backed exhaustive exclusion. The saved-result coverage audit is an implementation audit, not an independent solver recount or external reproduction.
+<!-- END THEOREM METADATA DIFF-12-007 -->
+
+For the current pinned XRBD-enabled permutation, suppose the sole active
+Chi1 call produces one nonzero byte at any of the 256 post-Chi1 locations.
+No real trail has exactly two active Chi2 calls in the **AB** arrangement:
+a first-branch call in spatial pair i and a second-branch call in pair j,
+where `0<=i<j<128`, with all other Chi2 calls inactive. This exhausts
+`256*C(128,2)=2,080,768` named sites, all allowed nonzero difference
+bytes and unrestricted base states. The reverse branch assignment at the
+same ordered pair is **BA**, a separate class not excluded here.
+
+The [split-site worker](../scripts/krakken_12_remaining_split.py) uses
+current-source XRBD and inverse-tail columns, exact Pressure bit-zero
+constraints and joint low-three-bit equations as necessary conditions.
+The full scan excludes **707,670** sites at bit zero and **1,368,444**
+more at three bits. All **4,654** relaxed-SAT sites were refined by the
+[source-pinned worker](../scripts/krakken_12_refine_position.py):
+**4,316** become UNSAT at four bits and **338** at five bits. Thus
+
+`707,670 + 1,368,444 + 4,316 + 338 = 2,080,768`.
+
+There are no remaining relaxed candidates or unknowns. The model allows
+all relevant base slices and endpoint difference bytes, and omits the
+nonlinear Chi derivative compatibility constraints. Real full-width
+transitions must satisfy the retained low-bit equations: at widths up to
+five the shifted c slices are disjoint and the A-left-shift-by-31 term
+cannot affect those bits. UNSAT in this relaxation excludes a real trail;
+no relaxed SAT has been interpreted as a real trail. These are inherited
+source/model facts of the same split worker used for AA, not a claim of
+full-state solver optimization.
+
+The [AB coverage audit](../scripts/krakken_12_ab_closure_audit.py) checks
+all 256 reports, every index and its exact spatial pair, source/script
+pins, every relaxed case's matching refinement and terminal UNSAT status.
+Its [certificate](../results/krakken_12_ab_closure_audit.json) records
+all scan/refinement hashes and aggregate counts. It **does not rerun**
+the 1,368,444 three-bit exclusions or all 4,654 refinements using an
+independent solver implementation. This is the explicit audit boundary.
+
+Together with distinct AA, distinct BB and same-pair mixed exclusions,
+this closes four endpoint classes. Distinct **BA remains open**, so
+neither global unrestricted `[1,2]` impossibility nor `A1=1 => A2>=3`
+is claimed yet. No hash-interface, trail-probability or security-bit
+bound follows from this individual class closure.
 
 <a id="rot-001"></a>
 ## Theorem proved: no exact lane-rotation covariance through eight rounds

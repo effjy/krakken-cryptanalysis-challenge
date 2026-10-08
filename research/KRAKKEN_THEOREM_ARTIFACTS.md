@@ -821,3 +821,14 @@ are internal; no external reproduction is recorded.
 - [Gate/scan verifier](../discovery13/check.py), [certificate](../discovery13/certificate.json), and [log](../discovery13/run.log): pins, source constants, 33,024 cases, distinct targets and exact indicator spectrum.
 - [Visibility verifier](../discovery13/visibility.py) and [two-state witness](../discovery13/visibility.json): fresh original-C and separate NumPy outputs.
 - [Preserving replay driver](../scripts/krakken_conjugacy_reachability_replay.py) and [replay report](../results/krakken_conjugacy_reachability_replay.json): both original reports reproduced exactly, without overwriting discovery evidence.
+
+## DIFF-12-007
+
+[DIFF-12-007](KRAKKEN_SECURITY_THEOREMS.md#diff-12-007) — Complete distinct-AB `[1,2]` endpoint exclusion; A at lower-index spatial pair, B at higher-index pair.
+
+- [Split worker](../scripts/krakken_12_remaining_split.py) and [256 AB reports](../krakken_12_remaining_split_results).
+- [Refinement worker](../scripts/krakken_12_refine_position.py); per-position `results/krakken_12_ab_posNNN_refinement.json` for every relaxed case.
+- [Complete coverage audit](../scripts/krakken_12_ab_closure_audit.py) and [certificate](../results/krakken_12_ab_closure_audit.json): source/script pins, scan/refinement file hashes and aggregate counts. Saved-result consistency only; not independent solver recount.
+- [Final eight-position summary](../results/krakken_12_ab_248_255_batch_summary.json).
+
+No frozen bundle or original source is modified by this closure.

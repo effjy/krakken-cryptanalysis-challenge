@@ -3,7 +3,7 @@
 This is the entry point for continuing the cryptanalysis. The working
 documents stay separate because they answer different questions:
 
-AA campaign workflow (user preference): when the user posts a completed
+AA/AB/BA campaign workflow (user preference): when the user posts a completed
 position/batch, check the saved reports, refine any pending relaxed SAT
 cases from that batch and earlier completed batches, then report the actual
 remaining cases and give the next eight-position scan command. A completed
@@ -542,8 +542,9 @@ claims:
     all 32,768 same-spatial-pair sites. A subsequent
     [distinct-AA closure](KRAKKEN_SECURITY_THEOREMS.md#diff-12-006)
     excludes all 2,080,768 AA sites, with the saved-result coverage
-    audit and no second full solver recount. The distinct mixed AB
-    scan is ongoing; distinct mixed BA remains open.
+    audit and no second full solver recount. The [distinct-AB closure](KRAKKEN_SECURITY_THEOREMS.md#diff-12-007)
+    now also excludes all 2,080,768 sites; its saved-result integrity
+    audit likewise is not an independent solver recount. Distinct BA remains open.
     Separately, an [exact one-byte XRBD/Pressure-chain
     certificate](../results/krakken_xrbd_onebyte_pressure_chains.json) establishes
     that `A1=1` at the unrestricted permutation level forces all 32
