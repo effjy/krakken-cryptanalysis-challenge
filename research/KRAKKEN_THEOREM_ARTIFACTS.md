@@ -846,3 +846,15 @@ No frozen bundle or original source is modified by this closure.
 
 Analytic odd-determinant lifting proves all k; the finite modular tests
 validate implementation only. No frozen bundle is regenerated.
+
+## LIN-RATE-005
+
+[LIN-RATE-005](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-005) — All-message-mask complete-R1 Fourier bounds on four digest-position bits.
+
+- [RESULTS15](../RESULTS15.md), [manifest](../discovery15/manifest.json), [history](../discovery15/research_history.md). The manifest pins a conservative superset of Python dependencies.
+- [Producer wrapper](../discovery15/run.py), [bridge implementation](../discovery/pressure_bridge.py), [certificate](../discovery15/certificate.json), [producer log](../discovery15/run.log):15 output masks,85 slice masks, source transport, two rank classes and exact rational bounds. The certificate script hash identifies the bridge, not the wrapper.
+- [Separate audit](../discovery15/audit.py), [audit report](../discovery15/audit.json), [audit log](../discovery15/audit.log): independently constructed prefix/XRBD columns, direct spectra/local transforms, opposite-pivot ranks and original-C wiring checks.
+- [Preserving replay driver](../scripts/krakken_digest_fourier_replay.py) and [fresh report](../results/krakken_digest_fourier_promotion_replay.json): fresh separate workspace and private C library cache, identical producer/audit reports, all15 constants, distribution constants and unchanged original pins.
+
+The finite carry slice and affine-image inequality form the proof.
+Sampled message replay validates wiring only. Frozen bundle is unchanged.

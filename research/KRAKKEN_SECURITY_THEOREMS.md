@@ -94,6 +94,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [LIN-RATE-002](#lin-rate-002) | Linear | H | 1 | 31 nonzero masks in specified 5D space; every message mask | ≤2^-162; stated conditional/TV corollaries | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-002) | — | Stated class/checkpoint only |
 | [LIN-RATE-003](#lin-rate-003) | Linear | H | 1 | 63 nonzero masks in specified 6D space; every message mask | ≤2^-76; stated conditional/TV corollaries | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-003) | — | Stated class/checkpoint only |
 | [LIN-RATE-004](#lin-rate-004) | Linear | H / any fixed affine translate of message embedding | 1 complete round | All message masks; all 255 nonzero masks of a specified 8D output space crossing Pressure carries | ≤2^-246; affine-codimension-d TV bound | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-004) | — | Selected nondigest output bits; not an all-mask or multi-round bound |
+| [LIN-RATE-005](#lin-rate-005) | Quantitative linear | H and arbitrary fixed affine159 input offsets | 1 complete round | Every message mask and all15 nonzero masks on digest-position bits11–14 | ≤5*2^-432; point-mass, TV and affine-conditioning bounds | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-005) | — | Four reduced-round digest bits only; no R2 or production R8 quantitative bound |
 | [ALG-DEG-001](#alg-deg-001) | Algebraic | H | 1–8 | All coordinates; separate 256-bit projection | 32 R1 bits degree 13; other R1 and all R2–8 ≥20; projection ≥24 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-deg-001) | — | Stated class/checkpoint only |
 | [ALG-DEG-002](#alg-deg-002) | Algebraic | H / affine rate plane | 1 | 192 specified state bits from low six Pressure bits | Exact local degrees A=1,2,3,4,5,6 and C=1,2,3,5,7,9; first-round degree upper bounds 13×local degree | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-deg-002) | — | Upper bounds only; no round-two or security-bit implication |
 | [LIN-HULL-001](#lin-hull-001) | Linear | H/P | 1–8 | All message/state masks | Exact signed coset sum of 2^776 full-state coefficients | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-hull-001) | — | Global proof obligation identified |
@@ -159,6 +160,8 @@ flowchart TD
   image --> six
   effective["Effective-coordinate affine-image lemma"] --> nonlinear["LIN-RATE-004: 8D nonlinear-Pressure bridge"]
   spectra4["Complete 4-bit Pressure slice spectra"] --> nonlinear
+  effective --> digestFourier["LIN-RATE-005: four digest-position bits, ≤5*2^-432"]
+  digestSlice["Exact first-output nibble spectra + source transport/ranks"] --> digestFourier
   image --> effective
   image --> activity["DIFF-ACT-001: exact activity syndrome"]
   nonlinear --> activityBound["DIFF-ACT-001: conditioned R1 projection"]
@@ -4954,6 +4957,127 @@ invariant class, not all ARX or algebraic cryptanalysis.
 nice -n 10 /home/user/venv/krakken/bin/python -u \
   /home/user/sol/scripts/krakken_modular_trace_replay.py \
   --output /home/user/sol/results/krakken_modular_trace_promotion_replay.json
+```
+
+<a id="lin-rate-005"></a>
+## Theorem proved: quantitative four-bit digest-position correlation bound after one round
+
+<!-- THEOREM METADATA LIN-RATE-005 -->
+**Permanent ID:** `LIN-RATE-005` · **Proof classification:** analytic Fourier/affine-image bound plus finite exact Pressure spectra, local Walsh maxima, source transports and projection-rank certificates. Fresh producer and separate implementation audit, with a freshly compiled original-C backend, are independent implementation audits; no external reproduction is recorded.
+<!-- END THEOREM METADATA LIN-RATE-005 -->
+
+**Exact domain and output.** J embeds 1272 message bits in bytes0–158,
+with zero elsewhere. For any fixed full-state offset x_*, let
+`Y_(x_*)(m)` be state bits **11,12,13,14**, in that order, after the
+first complete ordinary scalar round of `x_* XOR Jm`. These are lane0
+bits11–14, or byte1 bits3–6, within the first32 bytes. The usual valid159
+input has only padding byte159=`0x86` in x_*.
+
+For every x_*, every message mask alpha, and every nonzero four-bit
+output mask s, uniform m satisfies
+
+```
+|E_m (-1)^(alpha·m XOR s·Y_(x_*)(m))| <= L_s * 2^-432
+                                      <= 5 * 2^-432 < 2^-429.
+```
+
+Mask bit0 selects state bit11. In integer-mask order s=1..15,
+`L_s=[1,2,2,3,3,3,3,4,4,5,5,4,4,5,5]`. These are exact rational
+**upper bounds from the method**, not sharp maxima or attaining
+correlations. Every input mask is covered analytically; all 15 nonzero
+output masks are certified. The output is the **one-round reduced digest
+projection**, not the production eight-round digest.
+
+**Source and local expansion.** Pressure chain0's first output is
+`a+(c XOR (c>>17)) mod2^64`, with no odd-chain rotation. Its low nibble
+is exactly `A=a+(c XOR h) mod16`, using a,c low nibbles and h=c bits17–20.
+Inkcloud keeps lane0 at lane0 and rotates it left11; Iota adds a fixed
+XOR offset, changing character signs only. Thus these four digest-position
+bits are exactly the selected nibble up to a fixed translation.
+
+For `z=a|(c<<4)|(h<<8)`, enumerate all 4096 inputs and define
+`g_s(z)=(-1)^(s·A(z))`, `w_s(t)=sum_z g_s(z)(-1)^(t·z)`.
+Its exact expansion is `g_s(z)=2^-12 sum_t w_s(t)(-1)^(t·z)`.
+The constant term is zero because for each c,h addition permutes a.
+The union of the 15 supports has **85** nonzero slice masks, with
+`2^-12 sum_t |w_s(t)|=L_s`. Actual low-bit carries are fully included.
+
+**Dependence-safe affine-image proof.** The serial-Chi cell maps
+`(a,b)` to `U=S(a XOR b), V=S(b XOR U)`. Its unnormalized Walsh
+coefficient factors exactly as
+`W_S(alpha,A XOR gamma)*W_S(gamma,B)`, `gamma=alpha XOR beta`.
+A first-output-only mask needs only the eight effective bits a XOR b;
+a cell with a second-output mask retains sixteen bits. Transport each
+slice mask backward through the exact XRBD adjoint, collect those
+coordinates into `z=Tm+z_*`, and let N be their number and r the
+actual message projection rank. If M_i are the unnormalized local maxima,
+Fourier expansion retains either no input masks or the full fiber of
+`T^T beta=alpha`, containing `2^(N-r)` masks. Therefore
+
+`|E_m (-1)^(alpha·m) f(Tm+z_*)| <= min(1,product(M_i)/2^r)`.
+
+This sums the entire affine fiber, for every alpha and offset. It does
+not assume that the message-induced Chi or Pressure inputs are independent.
+The exact source-specific obligations are:
+
+| Slice masks | Active cells | First-only / second-masked | N | Rank r | Product(M_i) | Bound |
+|---:|---:|---:|---:|---:|---:|---:|
+| 15 | 96 | 48 / 48 | 1152 | 1152 | 2^720 | 2^-432 |
+| 70 | 112 | 56 / 56 | 1344 | 1272 | 2^840 | 2^-432 |
+
+The **72-bit rank deficit** in the second class is retained. Summing
+all exact Pressure terms by triangle inequality now yields
+`L_s*2^-432`. Unlike an uncontrolled multi-round hull, the complete
+finite slice expansion and every term's affine-image bound are certified.
+
+**Distribution and conditioning corollaries.** Since `sum_s L_s=53`
+and `sum_s L_s^2=209`, Fourier inversion and Parseval/Cauchy–Schwarz give
+
+```
+|Pr[Y=y]-1/16| <= 53 * 2^-436       for every four-bit value y,
+TV(Law(Y),Uniform(F2^4)) <= sqrt(209) * 2^-433 < 2^-429.
+```
+
+For uniform m on any nonempty affine subspace of codimension d,
+expand its normalized indicator into `2^d` message characters. Each
+correlation bound becomes `min(1,L_s*2^(d-432))`; the point-mass error
+is at most `53*2^(d-436)`, and TV is at most
+`min(1,sqrt(209)*2^(d-433))`. At d=128 the latter is less than `2^-301`.
+These do not cover arbitrary nonlinear conditioning or adaptively chosen
+prefixes. A fixed reached prefix state is covered by x_* at the first
+round of the subsequent uniform159 suffix's absorb permutation.
+
+**Fresh certificate and independent implementation audit.** Current C/header
+pins are unchanged. The preserving driver regenerates the certificate
+exactly in a separate workspace and compiles the source backend afresh.
+The separate audit checks all **1272** prefix basis columns against C,
+all **2048** C XRBD columns, all **4096** slice inputs, all **15** spectra
+by direct character sums, and all **85** mask transports, opposite-pivot
+ranks, local products and rational sums. It directly reconstructs all
+**65,536** byte-S-box Walsh coefficients and all **62** local mask pairs
+used here via full 65,536-base serial-cell transforms. It also checks
+256 original-C Chi states across all sites and 128 valid-message source
+round evaluations (1024 output-bit checks and all15 output masks each).
+Those message replays validate wiring; they are not the probability proof.
+
+**Novelty and limits.** LIN-RATE-004 supplies the effective-coordinate method
+but its chosen output bits are outside the digest. This adds a distinct
+quantitative projection inside actual digest positions. It remains in the
+same linear/Fourier research family, not a new independent attack-family
+exclusion. The bound does not mean 429-bit security, does not cover all256
+digest bits, and gives no collision/preimage complexity. At R2–R8 only the
+previous perfect-affine exclusions apply here. R1 output is not a fixed
+affine Jm plane; neither its full-state distribution nor a composition
+bound has been established. Multiplying this bound across rounds is invalid.
+
+[RESULTS15](../RESULTS15.md) ·
+[Artifacts](KRAKKEN_THEOREM_ARTIFACTS.md#lin-rate-005) ·
+[Fresh preserving replay](../results/krakken_digest_fourier_promotion_replay.json).
+
+```bash
+nice -n 10 /home/user/venv/krakken/bin/python -u \
+  /home/user/sol/scripts/krakken_digest_fourier_replay.py \
+  --output /home/user/sol/results/krakken_digest_fourier_promotion_replay.json
 ```
 
 ## Reproduction commands for earlier linear certificates

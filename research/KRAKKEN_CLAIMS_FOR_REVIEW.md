@@ -1814,3 +1814,24 @@ the claim to odd moduli ([3] modulo3 is a counterexample). No statistical
 bias bound, security bits or exclusion of general ARX attacks is asserted.
 [Ledger](KRAKKEN_SECURITY_THEOREMS.md#mod-trace-001) ·
 [Replay](../results/krakken_modular_trace_promotion_replay.json).
+
+## LIN-RATE-005: four reduced-round digest bits with quantitative bounds
+
+After one complete ordinary round, state bits11–14 have correlation
+with every linear1272-bit message mask bounded by `L_s*2^-432`,
+for all15 nonzero output masks and every fixed affine159 input offset.
+In mask order1..15, L=[1,2,2,3,3,3,3,4,4,5,5,4,4,5,5]; the common
+bound is `5*2^-432 < 2^-429`, not an attaining/sharp maximum.
+The point-mass error is≤53*2^-436 and TV≤sqrt(209)*2^-433. Nonempty
+affine codimension-d restrictions incur2^d, with trivial caps.
+
+The85 exact Pressure-character terms have bounds2^-432 from certified
+message ranks:15 use N=r=1152 and product2^720;70 use N=1344,
+r=1272 and product2^840. The72-bit dependence penalty is retained.
+Fresh producer and separate implementation audit reproduce all source
+transports, exact spectra, ranks and rational sums, plus original-C
+wiring checks. No external reproduction recorded. This is a quantitative
+subclass of the existing linear family, not429-bit security, not all256
+digest bits, and not a production eight-round or R2 numerical bound.
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-005) ·
+[Replay](../results/krakken_digest_fourier_promotion_replay.json).

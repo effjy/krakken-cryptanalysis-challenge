@@ -185,6 +185,20 @@ Fresh NumPy replay of33,024 states and C/Python ranks pass. No odd-modulus,
 statistical-bias or general algebraic-attack bound follows.
 [RESULTS14](../RESULTS14.md) · [Replay](../results/krakken_modular_trace_promotion_replay.json).
 
+## RESULTS15: quantitative digest-position linear bound
+
+[LIN-RATE-005](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-005) certifies
+`5*2^-432` against every message mask for all15 nonzero masks on
+state bits11–14 after one complete round. These are actual digest
+positions, unlike LIN-RATE-004's nondigest space, but the production
+digest follows eight rounds. The proof uses85 exact Pressure slice
+terms and two effective message-rank classes, retaining the72-bit
+deficit. Point-mass error≤53*2^-436, TV≤sqrt(209)*2^-433; affine
+conditioning has an explicit2^d loss. Fresh producer/C/audit replay
+passes. This extends the linear family; it is not a new R2 extinction
+result or quantitative multi-round bound.
+[RESULTS15](../RESULTS15.md) · [Replay](../results/krakken_digest_fourier_promotion_replay.json).
+
 ## Current theorem status
 
 [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001), promoted from

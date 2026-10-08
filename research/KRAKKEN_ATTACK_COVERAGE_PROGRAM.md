@@ -104,7 +104,7 @@ exclusions, and some have earlier R1 exclusions**.
 
 ### Inventory review: results that do not establish an attack endpoint
 
-All **73 permanent IDs** in the current inventory were reviewed for this
+All **74 permanent IDs** in the current inventory were reviewed for this
 classification. The tables above highlight structure-loss results. The
 remaining results supply quantitative bounds, local descriptions, positive
 structures, intermediate exclusions or proof tools; they must not be presented
@@ -188,7 +188,7 @@ A row describes the cited class, not every attack carrying that family name.
 | Truncated differential | [DIFF-TRUNC-001](KRAKKEN_SECURITY_THEOREMS.md#diff-trunc-001): guaranteed R1 zero projections | P one-cell class; R2 bias screen is empirical | Search other projections, correlated supports and boomerang/truncated hybrids; preserve positive findings |
 | Impossible differential | [DIFF-PERM-002](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-002): unrestricted `[1,1]` excluded; defined `[1,2]` classes closed | Activity exclusions do not exhaust forward/backward impossible differentials; AA and AB closed, BA open | Explore incompatible middle constraints with both directions propagated; quantify every exhausted endpoint class |
 | Primitive S-box characterization | [SBOX-ALG-001](KRAKKEN_SECURITY_THEOREMS.md#sbox-alg-001): exact affine inversion; analytic DDT/BCT and finite Walsh/degree certificates | Byte map only; supports existing component arguments | No additional attack-depth or round-two exclusion; composition and conditioned probabilities require separate proofs |
-| Linear | [LIN-GLOBAL-001](KRAKKEN_SECURITY_THEOREMS.md#lin-global-001): no perfect H affine relations at R1–8; [LIN-RATE-004](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-004): strong selected-space complete-R1 bound | Global perfect-relation exclusion; useful quantitative all-mask hull still open | Arbitrary coupled Pressure masks and signed rate-restricted hull sums; carry-aware multi-round masks |
+| Linear | [LIN-GLOBAL-001](KRAKKEN_SECURITY_THEOREMS.md#lin-global-001): no perfect H affine relations at R1–8; [LIN-RATE-004](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-004): strong selected-space complete-R1 bound; [LIN-RATE-005](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-005): four digest-position bits ≤5*2^-432 at R1 | Global perfect-relation exclusion plus defined quantitative R1 projections; useful all-mask/multi-round hull still open | Arbitrary coupled Pressure masks and signed rate-restricted hull sums; carry-aware multi-round masks |
 | Differential-linear | [DL-001](KRAKKEN_SECURITY_THEOREMS.md#dl-001): defined perfect R1 spaces; [DL-002](KRAKKEN_SECURITY_THEOREMS.md#dl-002): defined all-mask perfect R2 continuations excluded | P specified differences; nonperfect correlations remain open | Measure or bound nonperfect continuations and hybrid differential prefixes |
 | Boomerang / rectangle | [BOOM-MULTI-001](KRAKKEN_SECURITY_THEOREMS.md#boom-multi-001): coordinated P one-round four-state zero sums | All 1,344 saved Chi2 patterns obstructed; backgrounds not exhausted; H gate leaves 448 unresolved candidates | Jointly chosen backgrounds and carries; actual valid-message quartets; broader multi-cell continuations |
 | Rebound | [REBOUND-001](KRAKKEN_SECURITY_THEOREMS.md#rebound-001): exact defined inbound counts; [REBOUND-002](KRAKKEN_SECURITY_THEOREMS.md#rebound-002): H single-cell support exclusion | Local/Chi1/XRBD1 results, not universal complete-round attack depth | Outbound differential probability, multi-cell matching and forward/backward composition |
@@ -271,3 +271,9 @@ unrestricted, not proved on reachable hash fibers. No attack stopping
 round or general slide exclusion is added by this corollary.
 [Details](KRAKKEN_SECURITY_THEOREMS.md#schedule-aff-001) ·
 [RESULTS13](../RESULTS13.md).
+
+**RESULTS15 quantitative projection.** Four actual digest-position bits
+have all-message-mask bound5*2^-432 after complete R1. This is a
+stronger quantitative subclass of linear analysis, not a new attack
+family or a stopping-round theorem. R2–R8 numerical propagation remains
+open; the production digest is not the reduced-round projection.
