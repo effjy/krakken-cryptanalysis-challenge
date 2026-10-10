@@ -103,6 +103,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [INT-KERNEL-001](#int-kernel-001) | Integral / affine-fiber degree | H; fixed-offset extension for inclusion only | Chi1/XRBD1/1/2 | All dimension-8–248 direction spaces in the first-Chi-input kernel; exact mask classification for one saved 8D cube only | Sharp checkpoint threshold 8; 32 guaranteed R1 coordinates; saved cube universal mask dimensions exactly 32 then 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-kernel-001) | — | Attack-side 256-message R1 integral; all-mask R2 exclusion only fixed cube, not all kernel subspaces |
 | [INT-NONLINEAR-001](#int-nonlinear-001) | Nonlinear-output integral | H; specified state projections | Complete R1–R8 separately | Fixed saved 8D cube; all 2^256 Boolean predicates of each of 16 eight-bit projections | Exactly 64 universal R1 predicates (56 nonlinear); only 2 constants at each R2–R8 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#int-nonlinear-001) | — | Defined predicate class; other cubes/joint projections/statistical integrals open; not digest-only |
 | [PARTITION-001](#partition-001) | Perfect nonlinear partition/common labels | H | Complete R1–R8 separately | 175 source × 48 destination byte observations; arbitrary label functions | Exactly 16 matching R1 cases have q^16 labels; all other 67,184 cases constant-only | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#partition-001) | — | Perfect separable labels only; biases/joint observations remain open |
+| [SPLIT-LABEL-001](#split-label-001) | Exact additive matching labels | H | Complete R1–R8 separately | All fixed nonzero linear/modular-byte labels; arbitrary functions of endpoint-separated message parts | No universal separable label; eight derivative ranks2048 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#split-label-001) | — | Already excluded at R1; general MITM, restricted/approximate labels open |
 | [ALG-REL-001](#alg-rel-001) | Mixed input/output algebraic relations | H; four-bit/four-bit observations | Complete R1–R8 separately | All Boolean equations in each of 67,200 eight-coordinate windows | 16 matching R1 supports have ideal <e0,e1>, dimension 192; all other supports full and ideal zero | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-rel-001) | — | Exact small-window support; no independence or large-system solving bound |
 | [SBOX-ALG-001](#sbox-alg-001) | Primitive S-box algebra | 8-bit byte map; uniform byte for probabilities | S-box only | All inputs/differences/masks as separately stated | Exact affine inversion; analytic DDT 4 / BCT 6; finite Walsh 32, NL 112, degree 7 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#sbox-alg-001) | — | Component provenance and local properties; no new round/hash bound |
 | [SCHEDULE-AFF-001](#schedule-aff-001) | Related-round / cyclic schedules | Same H message; modified schedules | Complete lengths 1–8 separately | All 28 distinct cyclic phase pairs; all independent output masks | Exact R1 offsets; no perfect affine relation at R2–R8, all 196 paired ranks 4096; nonlinear conjugacy survives | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#schedule-aff-001) | — | Defined perfect relation class, not all slide attacks or nonperfect bounds |
@@ -127,6 +128,8 @@ are proof inputs in their own right. Artifact paths are in the manifest.
 
 ```mermaid
 flowchart TD
+  endpointRank["Eight endpoint mixed-derivative ranks2048; byte parity ranks256"] --> splitLabel["SPLIT-LABEL-001: exact additive split labels excluded R1–R8"]
+  separability["Analytic rectangle / modular valuation lemma"] --> splitLabel
   sboxAlgebra["SBOX-ALG-001: exact affine inversion + byte properties"] --> spectra
   sboxAlgebra --> ddt
   sboxAlgebra --> completeboom
@@ -5078,6 +5081,111 @@ bound has been established. Multiplying this bound across rounds is invalid.
 nice -n 10 /home/user/venv/krakken/bin/python -u \
   /home/user/sol/scripts/krakken_digest_fourier_replay.py \
   --output /home/user/sol/results/krakken_digest_fourier_promotion_replay.json
+```
+
+<a id="split-label-001"></a>
+## Theorem proved: endpoint interaction excludes exact split-message additive output labels
+
+<!-- THEOREM METADATA SPLIT-LABEL-001 -->
+**Permanent ID:** `SPLIT-LABEL-001` · **Proof classification:** analytic separability, Boolean ANF and modular-valuation reductions plus finite full-rank certificates. Fresh original-C generation, separate NumPy layer replay, opposite-coordinate elimination and public-C API checks are independent implementation audits; no external reproduction is recorded.
+<!-- END THEOREM METADATA SPLIT-LABEL-001 -->
+
+**Domain and exact statement.** F_r maps a valid159-byte message to its
+full2048-bit state after r complete ordinary rounds, r=1,…,8 separately.
+Padding byte159 is0x86 and initial capacity is zero. Message bits use
+least-significant-bit-first numbering within each byte. Write u=m_0,
+v=m_1271 and w for the other1270 bits in their original positions.
+Define the raw mixed derivative
+
+`D_r(w)=F_r(0,0,w) XOR F_r(1,0,w) XOR F_r(0,1,w) XOR F_r(1,1,w)`.
+
+At every r, `span{D_r(w):all w}=F2^2048`. The same2080 saved contexts
+certify rank2048 at each round. Consequently, for every fixed nonzero
+output mask beta, there are no arbitrary Boolean functions f,g satisfying
+
+`beta·F_r(u,v,w)=f(u,w) XOR g(v,w)` for every u,v,w.
+
+This shared-parameter exclusion implies that no such label separates as
+`f_L(m_L) XOR g_R(m_R)` for any partition L,R with bit0 in L and
+bit1271 in R. It covers all1271 contiguous bit cuts, all158 contiguous
+byte cuts, and all2^1270 oriented endpoint-separating partitions. An
+additive constant is absorbed into f. Nonzero linear vector labels are
+excluded componentwise. Equivalently, the ANF of every nonzero beta·F_r
+contains a monomial involving both endpoint variables.
+
+**Analytic proof.** For any abelian-group-valued h, the signed rectangle
+`h00-h10-h01+h11` vanishes for a representation h=f(u,w)+g(v,w).
+Conversely, if it vanishes for every w, take f=h(u,0,w) and
+g=h(0,v,w)-h(0,0,w). In F2 the rectangle is XOR. A proposed beta
+must annihilate every D_r(w), hence the certified full span forces
+beta=0. These are raw derivatives, not differences anchored to one
+context; a constant nonzero derivative is not mistaken for zero.
+The ANF statement follows because differentiating by u and v removes
+those variables precisely from monomials containing both, without
+merging distinct remaining monomials.
+
+**Modular byte-label corollary.** Let B_j be unsigned numeric output
+byte j. For every k≥1 and nonzero canonical coefficient vector
+`a∈(Z/2^kZ)^256`, no universal decomposition
+
+`sum_j a_j B_j(u,v,w)=f(u,w)+g(v,w) mod2^k`
+
+exists, with f,g arbitrary functions into that group. For signed integer
+byte rectangles K_j, their reductions modulo2 are the byte-LSB columns
+of D_r. Those256 columns have rank256, also checked explicitly. If a
+nonzero coefficient vector annihilates all K rows modulo2^k, divide
+its coefficients by their common minimal2-adic valuation t<k and
+reduce modulo2. The resulting nonzero parity vector contradicts rank256.
+Equivalently, a binary nonsingular minor has odd integer determinant,
+a unit modulo every2^k. Byte-aligned unsigned-word labels are covered
+only through their canonical byte expansion; identities whose canonical
+coefficients are all zero are outside the nonzero hypothesis. No
+odd-modulus assertion is made.
+
+**Finite certificate and implementation audit.** Each of eight matrices
+has2080 rows and2048 columns, with2048 independent row indices stored
+per round. The deterministic generation evaluates8320 actual valid
+corner messages, recording66,560 original-C round states as16,640
+rectangles. Fresh generation reproduces bases and rectangles byte for
+byte. A separate NumPy implementation with its own round-constant
+construction recomputes all66,560 corner/round states and compares
+all rectangles. Opposite-coordinate elimination verifies all eight
+ranks and selected square minors, and all eight byte-LSB ranks256.
+The preserving replay additionally checks512 representative rectangles
+through the public original-C reduced-round API (64 contexts ×8 rounds).
+The separate audit checks64 public full-hash digests. The4368 small
+modular truth tables validate the lemma implementation; they are not
+the proof of the general separability lemma. Corners themselves were
+not saved by the original producer, so full-data comparison concerns
+rectangles, not individual stored corner states.
+
+**Novelty and limits.** DEPEND-001 proves possible first-order influence,
+LIN-GLOBAL-001 excludes affine input/output equations, PARTITION-001
+studies a different common-label functional equation, and MOD-TRACE-001
+uses fixed linear coefficients on raw trace bytes. None supplies this
+arbitrary nonlinear input-part decomposition exclusion. Mixed-derivative
+and span reasoning is shared with the integral/zero-sum program; this
+is not unrelated evidence of overall security.
+
+The defined universal label class is already excluded at **R1**, with
+separate certificates for R2–R8, rather than an inferred R2 stopping
+point. This is not a general MITM or biclique exclusion. Fixing either
+endpoint defeats this particular necessary condition; target-specific,
+restricted-base, guessed-intermediate, backward, context-dependent-mask,
+nonlinear-output-label and approximate matching strategies remain open.
+There is no lower bound on guessing, time, memory, collision/preimage
+work or security bits, nor any frequency/probability estimate for the
+obstructions. Other lengths, arbitrary prefix states and altered
+schedules are outside the theorem. Digest-only fixed linear and numeric
+byte labels are subcases, not entire hash attacks.
+
+[RESULTS16](../RESULTS16.md) · [Artifacts](KRAKKEN_THEOREM_ARTIFACTS.md#split-label-001) ·
+[Preserving replay](../results/krakken_split_label_promotion_replay.json).
+
+```bash
+nice -n 10 /home/user/venv/krakken/bin/python -u \
+  /home/user/sol/scripts/krakken_split_label_replay.py \
+  --output /home/user/sol/results/krakken_split_label_promotion_replay.json
 ```
 
 ## Reproduction commands for earlier linear certificates

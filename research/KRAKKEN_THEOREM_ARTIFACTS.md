@@ -858,3 +858,14 @@ validate implementation only. No frozen bundle is regenerated.
 
 The finite carry slice and affine-image inequality form the proof.
 Sampled message replay validates wiring only. Frozen bundle is unchanged.
+
+## SPLIT-LABEL-001
+
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#split-label-001): analytic separability/modular valuation plus eight full-rank derivative certificates.
+
+- [RESULTS16](../RESULTS16.md), [manifest](../discovery16/manifest.json), [history](../discovery16/research_history.md): exact scope and source/data pins.
+- [Producer](../discovery16/search.py), [original-C engine](../discovery16/engine.c), [bases](../discovery16/bases.bin), [rectangles](../discovery16/rectangles.bin), [certificate](../discovery16/certificate.json), [run log](../discovery16/run.log):2080 contexts, eight independent-row minors.
+- [Separate audit](../discovery16/audit.py), [NumPy layers](../discovery5/audit_kernel_cubes.py), [audit report](../discovery16/audit.json), [audit log](../discovery16/audit.log): all rectangles, opposite-coordinate ranks/minors, byte parity and public-hash checks.
+- [Preserving replay driver](../scripts/krakken_split_label_replay.py), [fresh replay report](../results/krakken_split_label_promotion_replay.json): fresh identical producer data, semantic reports and512 public reduced-round C rectangle checks; all original pins unchanged.
+
+No frozen review bundle or original discovery artifact was modified.

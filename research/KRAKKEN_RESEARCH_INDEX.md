@@ -827,3 +827,22 @@ record the proof or counterexample and source hash, update the theorem
 program, and add a short public claim only once its complete stated
 class is closed. Empirical screens can guide a proof but stay in the
 research notebook.
+
+## SPLIT-LABEL-001: exact split-message labels excluded already at R1
+
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#split-label-001) · [RESULTS16](../RESULTS16.md).
+For valid159 messages, the mixed derivative in message bits0 and1271
+spans the full2048-bit state at each ordinary R1–R8 separately. Eight
+rank2048 certificates exclude every fixed nonzero linear output label
+expressible as f(u,w) XOR g(v,w), even with arbitrary nonlinear f,g.
+Thus all1271 contiguous bit cuts,158 byte cuts and2^1270 oriented
+endpoint-separating partitions lack such universal labels. Byte-parity
+rank256 extends the exclusion to fixed nonzero numeric-byte additive
+labels modulo every2^k. Analytic reductions plus finite rank certificates;
+fresh C generation, separate NumPy audit and public-C API replay pass.
+This is a defined exact additive-separability prerequisite, already
+excluded at R1, not general MITM/biclique resistance or a work lower
+bound. Fixing endpoints, restricted bases, target-specific, nonlinear
+output or approximate labels remain open. No multi-round probability
+or security-bit consequence follows.
+[Fresh replay](../results/krakken_split_label_promotion_replay.json).

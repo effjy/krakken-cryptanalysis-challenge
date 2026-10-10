@@ -104,7 +104,7 @@ exclusions, and some have earlier R1 exclusions**.
 
 ### Inventory review: results that do not establish an attack endpoint
 
-All **74 permanent IDs** in the current inventory were reviewed for this
+All **75 permanent IDs** in the current inventory were reviewed for this
 classification. The tables above highlight structure-loss results. The
 remaining results supply quantitative bounds, local descriptions, positive
 structures, intermediate exclusions or proof tools; they must not be presented
@@ -195,6 +195,7 @@ A row describes the cited class, not every attack carrying that family name.
 | Integral / higher-order / cube | [INT-CUBE-001](KRAKKEN_SECURITY_THEOREMS.md#int-cube-001), [INT-KERNEL-001](KRAKKEN_SECURITY_THEOREMS.md#int-kernel-001): exact defined R1 balances and R2 universal-mask exclusions | H defined cube families; other cubes, special cosets and statistical balances open | Adversarial directions, higher-dimensional cubes and differential-integral hybrids |
 | Nonlinear-output integral | [INT-NONLINEAR-001](KRAKKEN_SECURITY_THEOREMS.md#int-nonlinear-001): exact 64-predicate R1 space with 56 nonlinear functions | Fixed H cube; only constants at every R2–R8 in each specified eight-bit projection | Joint/wider projections, other cubes and statistical/special-base continuations |
 | Perfect nonlinear partition / common label | [PARTITION-001](KRAKKEN_SECURITY_THEOREMS.md#partition-001): exact q^16 matching R1 label families; complete arbitrary byte-label classification | H; all other pairings constant-only, including all R2–R8; direct message/digest-byte subclass excluded already at R1 | Wider/joint observations, nonperfect statistical partitions, special subsets and multiblock inputs |
+| Exact split-message additive labels / MITM prerequisite | [SPLIT-LABEL-001](KRAKKEN_SECURITY_THEOREMS.md#split-label-001): full endpoint-interaction span on H | Every fixed nonzero linear or mod2^k numeric-byte label, arbitrary functions on endpoint-separated message parts; all contiguous cuts | Excluded already at complete R1 and separately R2–R8. General MITM/bicliques, guessed/fixed endpoints, restricted bases and approximate/nonlinear output labels remain open; no attack-cost floor |
 | Mixed algebraic equations | [ALG-REL-001](KRAKKEN_SECURITY_THEOREMS.md#alg-rel-001): exact R1 matching ideal and full-support exclusions for every Boolean equation on specified eight coordinates | H; all specified R2–R8 pairings full support; raw message/digest low-nibble subclass full already at R1 | Wider/joint windows, equations on special subsets, approximate relations, message-pair equations and large-system algebraic attacks |
 | Division property | [DIV-BYTE-001](KRAKKEN_SECURITY_THEOREMS.md#div-byte-001): byte-0 family exact universal mask dimensions 7 at R1, 0 at R2 | H defined byte family only | Other division-property families and higher-order continuations |
 | Subspace / invariant-subspace | [SUBSPACE-001/002](KRAKKEN_SECURITY_THEOREMS.md#subspace-001): full affine hulls for defined H subspaces/cosets | Defined families; not classification of all invariant subspaces | Deliberately aligned subspaces, special cosets, affine partitions and nonlinear invariants |
@@ -277,3 +278,22 @@ have all-message-mask bound5*2^-432 after complete R1. This is a
 stronger quantitative subclass of linear analysis, not a new attack
 family or a stopping-round theorem. R2–R8 numerical propagation remains
 open; the production digest is not the reduced-round projection.
+
+## SPLIT-LABEL-001: exact split-message labels excluded already at R1
+
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#split-label-001) · [RESULTS16](../RESULTS16.md).
+For valid159 messages, the mixed derivative in message bits0 and1271
+spans the full2048-bit state at each ordinary R1–R8 separately. Eight
+rank2048 certificates exclude every fixed nonzero linear output label
+expressible as f(u,w) XOR g(v,w), even with arbitrary nonlinear f,g.
+Thus all1271 contiguous bit cuts,158 byte cuts and2^1270 oriented
+endpoint-separating partitions lack such universal labels. Byte-parity
+rank256 extends the exclusion to fixed nonzero numeric-byte additive
+labels modulo every2^k. Analytic reductions plus finite rank certificates;
+fresh C generation, separate NumPy audit and public-C API replay pass.
+This is a defined exact additive-separability prerequisite, already
+excluded at R1, not general MITM/biclique resistance or a work lower
+bound. Fixing endpoints, restricted bases, target-specific, nonlinear
+output or approximate labels remain open. No multi-round probability
+or security-bit consequence follows.
+[Fresh replay](../results/krakken_split_label_promotion_replay.json).
