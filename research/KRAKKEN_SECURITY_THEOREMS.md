@@ -96,6 +96,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [LIN-RATE-004](#lin-rate-004) | Linear | H / any fixed affine translate of message embedding | 1 complete round | All message masks; all 255 nonzero masks of a specified 8D output space crossing Pressure carries | ≤2^-246; affine-codimension-d TV bound | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-004) | — | Selected nondigest output bits; not an all-mask or multi-round bound |
 | [LIN-RATE-005](#lin-rate-005) | Quantitative linear | H and arbitrary fixed affine159 input offsets | 1 complete round | Every message mask and all15 nonzero masks on digest-position bits11–14 | ≤5*2^-432; point-mass, TV and affine-conditioning bounds | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-rate-005) | — | Four reduced-round digest bits only; no R2 or production R8 quantitative bound |
 | [ALG-DEG-001](#alg-deg-001) | Algebraic | H | 1–8 | All coordinates; separate 256-bit projection | 32 R1 bits degree 13; other R1 and all R2–8 ≥20; projection ≥24 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-deg-001) | — | Stated class/checkpoint only |
+| [ALG-CIRCUIT-001](#alg-circuit-001) | Boolean multiplicative complexity / prediction | H; fixed-offset scope for selected R1 | Complete R1–R8; quantitative predictors R1 only | Every rank-d linear projection; q-AND predictors of15 selected parities | M≥d; R1 bit11 M≥432; prediction corr≤min(1,L_s*2^(q-432)) | A (inherited certified premises) | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-circuit-001) | — | Evaluation/prediction model only; no attack-cost or growth-with-rounds bound |
 | [ALG-DEG-002](#alg-deg-002) | Algebraic | H / affine rate plane | 1 | 192 specified state bits from low six Pressure bits | Exact local degrees A=1,2,3,4,5,6 and C=1,2,3,5,7,9; first-round degree upper bounds 13×local degree | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#alg-deg-002) | — | Upper bounds only; no round-two or security-bit implication |
 | [LIN-HULL-001](#lin-hull-001) | Linear | H/P | 1–8 | All message/state masks | Exact signed coset sum of 2^776 full-state coefficients | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-hull-001) | — | Global proof obligation identified |
 | [ZERO-001](#zero-001) | Zero-sum | P | Chi1/1/2 | Fixed square, all backgrounds; sites as specified | R1 projected balance; no universal R2 coordinate at 128 sites, no mask at site 0 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#zero-001) | — | Stated class/checkpoint only |
@@ -128,6 +129,9 @@ are proof inputs in their own right. Artifact paths are in the manifest.
 
 ```mermaid
 flowchart TD
+  graphCircuit["LIN-GLOBAL-001: output independence modulo affine functions"] --> circuitBounds["ALG-CIRCUIT-001: circuit / nonlinear prediction corollaries"]
+  digestFourier --> circuitBounds
+  degreeCircuit["ALG-DEG-001: coordinate-degree premises"] --> circuitBounds
   endpointRank["Eight endpoint mixed-derivative ranks2048; byte parity ranks256"] --> splitLabel["SPLIT-LABEL-001: exact additive split labels excluded R1–R8"]
   separability["Analytic rectangle / modular valuation lemma"] --> splitLabel
   sboxAlgebra["SBOX-ALG-001: exact affine inversion + byte properties"] --> spectra
@@ -5186,6 +5190,131 @@ byte labels are subcases, not entire hash attacks.
 nice -n 10 /home/user/venv/krakken/bin/python -u \
   /home/user/sol/scripts/krakken_split_label_replay.py \
   --output /home/user/sol/results/krakken_split_label_promotion_replay.json
+```
+
+<a id="alg-circuit-001"></a>
+## Corollary proved: Boolean circuit and nonlinear prediction bounds
+
+<!-- THEOREM METADATA ALG-CIRCUIT-001 -->
+**Permanent ID:** `ALG-CIRCUIT-001` · **Proof classification:** analytic corollaries of LIN-GLOBAL-001, LIN-RATE-005 and ALG-DEG-001. Exact premise-integrity checks and exhaustive small-model validation are implementation checks, not new proofs of the inherited rank, Fourier or degree obligations. No external reproduction recorded.
+<!-- END THEOREM METADATA ALG-CIRCUIT-001 -->
+
+**Model.** Circuits have the1272 message bits as inputs, arbitrary XORs,
+constants and fanout free, and count two-input **bit-level AND** gates.
+M(G) is the minimum such count for exact evaluation of a scalar or vector
+G; AND depth counts AND gates along the deepest dependency path,
+minimized over exact circuits. Lookup tables, word operations, nonlinear
+preprocessing and branching are not free gates in this model.
+
+**Every complete ordinary round, standard H domain.** Let F_r be the
+2048-bit state of a valid159 message, fixed0x86 padding and zero initial
+capacity, at r=1,…,8 separately. For every binary d×2048 projection P
+of row rank d, `M(P F_r)≥d`. Thus full-state evaluation needs≥2048
+AND gates and the first256 state bits need≥256, including the actual
+one-block digest at R8. Every circuit output lies in the span of affine
+input functions and its q AND-gate outputs; this adds at most q
+independent functions modulo the affine space. LIN-GLOBAL-001 states
+that every nonzero output combination is non-affine, so d projected
+outputs are independent in that quotient and q≥d. Sharing is allowed;
+no per-round gate counts are added.
+
+The inherited ALG-DEG-001 certificates additionally imply:
+
+| Rounds | Individual-coordinate AND lower bound | AND-depth lower bound |
+|---|---|---|
+| 1 | ≥12 for the specified32 degree13 coordinates; ≥19 for the other2016 | ≥4 and ≥5 respectively |
+| 2–8 separately | ≥19 for every coordinate | ≥5 |
+
+A q-AND scalar circuit has degree≤q+1: introduce a variable per gate,
+write each gate as a product of affine forms in input/earlier-gate
+variables, and substitute in reverse topological order in the Boolean
+polynomial ring. Each substitution raises squarefree total degree by
+at most one. Depth D gives degree≤2^D by induction. These are lower
+bounds, not attaining implementation counts.
+
+**Selected R1 nonlinear predictors.** Inherit LIN-RATE-005's Y on
+state bits11–14 after one complete ordinary round of any fixed
+`x_* XOR Jm`, where J embeds1272 bits and m is uniform. For every
+nonzero mask s and any scalar q-AND predictor g,
+
+```
+|Corr(g(m),s·Y(m))| ≤ min(1,L_s*2^(q-432))
+Pr[g(m)=s·Y(m)] ≤ min(1,1/2+L_s*2^(q-433)).
+```
+
+The exact constants for s=1,…,15 are
+`L=[1,2,2,3,3,3,3,4,4,5,5,4,4,5,5]`.
+Exact evaluation therefore requires
+`M(s·Y)≥ceil(log2(2^432/L_s))`:
+
+| Masks | L_s | AND lower bound |
+|---|---:|---:|
+| 1 | 1 | 432 |
+| 2,3 | 2 | 431 |
+| 4,5,6,7 | 3 | 431 |
+| 8,9,12,13 | 4 | 430 |
+| 10,11,14,15 | 5 | 430 |
+
+In particular state bit11 requires≥432 AND gates and computing Y
+requires≥432. Every selected nonzero parity requires≥430. At q=128,
+prediction succeeds with probability≤1/2+5*2^-305. Random mixtures
+of these circuits chosen independently of the input obey the same bound.
+These quantitative claims concern **R1** digest positions, not the
+production R8 digest or all output bits.
+
+**Affine-leaf proof.** Process a predictor's gates in topological order.
+On a branch where prior wires are affine, the next AND is a product
+of two affine forms. If a factor is nonconstant, split by its value;
+its product becomes either0 or the other affine form. This yields at
+most2^q disjoint affine leaves covering the domain, each of codimension
+at most q, with every output affine on each leaf. If all input-mask
+correlations of h are≤epsilon, Fourier expansion of an affine-leaf
+indicator proves `|E 1_H(-1)^(h+ell)|≤epsilon` for any affine ell.
+Summing over leaves gives≤2^q epsilon; use epsilon=L_s*2^-432.
+The argument concerns partitions of **the predictor**, not assumptions
+on Krakken's internal distributions.
+
+**Restrictions and parity-query corollaries.** On a uniform nonempty
+affine message subspace of codimension d, replace q by q+d in the
+prediction inequalities. Exact restricted evaluation needs at least
+`max(0,ceil(log2(2^432/L_s))-d)` gates. Bit11 can be affine only on
+flats of dimension≤840; the weakest selected masks allow dimension≤842.
+An adaptive decision tree using at most q parity queries has at most2^q
+affine leaves and the same prediction-success bound. Exact bit11
+prediction needs≥432 queries along **every nonempty terminal branch**,
+because its leaf must have codimension≥432. This is a defined parity
+information-access model, not how hashing programs access public inputs.
+
+**Verification and dependency limits.** A preserving replay reproduces
+all15 integer thresholds and the original checks.json byte for byte,
+checks inherited graph/certificate/audit hashes, and records degree
+premise artifact hashes. It exhausts4096 target/affine-predictor and
+32,768 target/one-AND-predictor checks on three-bit models, and retains
+the eight-input nonlinear involution T(x,y,z)=(x,y,z XOR xy) with
+T²=identity. These are validation of the formulas, not the analytic
+lemmas. No fresh full graph, Pressure Fourier or degree-cube replay
+is asserted. A byte-preserved historical ledger snapshot retains the
+premise-document hash, so subsequent documentation edits do not make
+the old artifact manifest unreplayable.
+
+**Interpretation.** This is a new analytic interpretation of existing
+certified premises, not independent new evidence against Krakken or a
+new attack-family stopping-round result. Evaluation/prediction bounds
+in this gate model do not give collision/preimage costs, CPU instruction
+counts, active-S-box floors or security bits. The global evaluation
+bounds are flat across rounds; no valid growth/composition inference
+has been proved. T²=identity illustrates why nonlinear work can cancel
+under composition. Restricted R1 scalar bounds being stronger than
+known R2 bounds does not imply that R2 is easier. Useful R2–R8
+quantitative predictor bounds remain open.
+
+[RESULTS17](../RESULTS17.md) · [Artifacts](KRAKKEN_THEOREM_ARTIFACTS.md#alg-circuit-001) ·
+[Preserving checks](../results/krakken_circuit_bounds_promotion_replay.json).
+
+```bash
+nice -n 10 /home/user/venv/krakken/bin/python -u \
+  /home/user/sol/scripts/krakken_circuit_bounds_replay.py \
+  --output /home/user/sol/results/krakken_circuit_bounds_promotion_replay.json
 ```
 
 ## Reproduction commands for earlier linear certificates

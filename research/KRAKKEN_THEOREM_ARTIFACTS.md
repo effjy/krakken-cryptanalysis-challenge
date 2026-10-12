@@ -869,3 +869,14 @@ Sampled message replay validates wiring only. Frozen bundle is unchanged.
 - [Preserving replay driver](../scripts/krakken_split_label_replay.py), [fresh replay report](../results/krakken_split_label_promotion_replay.json): fresh identical producer data, semantic reports and512 public reduced-round C rectangle checks; all original pins unchanged.
 
 No frozen review bundle or original discovery artifact was modified.
+
+## ALG-CIRCUIT-001
+
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#alg-circuit-001) — analytic corollaries of LIN-GLOBAL-001, LIN-RATE-005 and ALG-DEG-001; not a new source-certificate experiment.
+
+- [RESULTS17](../RESULTS17.md), [manifest](../discovery17/manifest.json), [history](../discovery17/research_history.md): complete circuit lemmas and source/premise pins.
+- [Exact checker](../discovery17/check.py), [checks](../discovery17/checks.json), [log](../discovery17/run.log): inherited graph/Fourier integrity, exact thresholds and4096+32,768 small-model validation cases; no new degree cube computation.
+- [Preserving replay](../scripts/krakken_circuit_bounds_replay.py), [report](../results/krakken_circuit_bounds_promotion_replay.json), [historical ledger snapshot](../results/krakken_circuit_bounds_ledger_premise_snapshot.md): byte-identical checks, degree premise pins, original files preserved. The snapshot preserves the original manifest's ledger hash after promotion changes the working ledger.
+- Premise proof obligations and audit scope remain under [LIN-GLOBAL-001](KRAKKEN_SECURITY_THEOREMS.md#lin-global-001), [LIN-RATE-005](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-005) and [ALG-DEG-001](KRAKKEN_SECURITY_THEOREMS.md#alg-deg-001).
+
+The small checks validate formulas; analytic lemmas plus inherited theorems supply the proof. Frozen bundle unchanged.

@@ -104,7 +104,7 @@ exclusions, and some have earlier R1 exclusions**.
 
 ### Inventory review: results that do not establish an attack endpoint
 
-All **75 permanent IDs** in the current inventory were reviewed for this
+All **76 permanent IDs** in the current inventory were reviewed for this
 classification. The tables above highlight structure-loss results. The
 remaining results supply quantitative bounds, local descriptions, positive
 structures, intermediate exclusions or proof tools; they must not be presented
@@ -197,6 +197,7 @@ A row describes the cited class, not every attack carrying that family name.
 | Perfect nonlinear partition / common label | [PARTITION-001](KRAKKEN_SECURITY_THEOREMS.md#partition-001): exact q^16 matching R1 label families; complete arbitrary byte-label classification | H; all other pairings constant-only, including all R2–R8; direct message/digest-byte subclass excluded already at R1 | Wider/joint observations, nonperfect statistical partitions, special subsets and multiblock inputs |
 | Exact split-message additive labels / MITM prerequisite | [SPLIT-LABEL-001](KRAKKEN_SECURITY_THEOREMS.md#split-label-001): full endpoint-interaction span on H | Every fixed nonzero linear or mod2^k numeric-byte label, arbitrary functions on endpoint-separated message parts; all contiguous cuts | Excluded already at complete R1 and separately R2–R8. General MITM/bicliques, guessed/fixed endpoints, restricted bases and approximate/nonlinear output labels remain open; no attack-cost floor |
 | Mixed algebraic equations | [ALG-REL-001](KRAKKEN_SECURITY_THEOREMS.md#alg-rel-001): exact R1 matching ideal and full-support exclusions for every Boolean equation on specified eight coordinates | H; all specified R2–R8 pairings full support; raw message/digest low-nibble subclass full already at R1 | Wider/joint windows, equations on special subsets, approximate relations, message-pair equations and large-system algebraic attacks |
+| Boolean circuit evaluation / nonlinear prediction | [ALG-CIRCUIT-001](KRAKKEN_SECURITY_THEOREMS.md#alg-circuit-001): M≥d for rank-d state projections on H | Bit-level AND gate model; selected R1 bit11≥432; q-AND predictor corr≤min(1,L_s*2^(q-432)) | Evaluation floors apply separately R1–R8; quantitative predictors only selected R1 bits. No attack stopping-round, cryptanalytic work or growth bound; inherits existing evidence |
 | Division property | [DIV-BYTE-001](KRAKKEN_SECURITY_THEOREMS.md#div-byte-001): byte-0 family exact universal mask dimensions 7 at R1, 0 at R2 | H defined byte family only | Other division-property families and higher-order continuations |
 | Subspace / invariant-subspace | [SUBSPACE-001/002](KRAKKEN_SECURITY_THEOREMS.md#subspace-001): full affine hulls for defined H subspaces/cosets | Defined families; not classification of all invariant subspaces | Deliberately aligned subspaces, special cosets, affine partitions and nonlinear invariants |
 | Pressure translations | [PRESS-TRANS-001](KRAKKEN_SECURITY_THEOREMS.md#press-trans-001): complete 16D deterministic space; sharp neighboring cost 135; exact Chi2 point maximum `2^-184` | U for probability; all 65,535 P directions lose universal R2 vector differences; two coset rank certificates | [RESULT8](../RESULT8.md) reachability problem; nonperfect and restricted-base behavior; probability after Pressure2 |

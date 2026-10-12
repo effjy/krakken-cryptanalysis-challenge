@@ -846,3 +846,20 @@ bound. Fixing endpoints, restricted bases, target-specific, nonlinear
 output or approximate labels remain open. No multi-round probability
 or security-bit consequence follows.
 [Fresh replay](../results/krakken_split_label_promotion_replay.json).
+
+## ALG-CIRCUIT-001: analytic evaluation and nonlinear-predictor corollaries
+
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#alg-circuit-001) · [RESULTS17](../RESULTS17.md).
+With XOR/constants/fanout free and two-input bit-level AND gates counted,
+every rank-d linear projection of the full state requires≥d gates at
+each complete R1–R8 on H. Full state≥2048 and256-bit projection≥256.
+LIN-RATE-005 also gives selected R1 bit11≥432 gates and every nonzero
+parity of bits11–14≥430. A q-AND predictor has correlation≤
+min(1,L_s*2^(q-432)); at q=128 success≤1/2+5*2^-305.
+Affine codimension-d restrictions incur2^d; adaptive parity trees have
+the same leaf bound. Degree-based gate/depth floors are inherited too.
+Analytic corollaries of LIN-GLOBAL-001, LIN-RATE-005 and ALG-DEG-001;
+small-model checks and premise hashes validate the implementation only.
+No fresh inherited full certificate replay, attack cost, security-bit,
+new stopping-round or growth-with-rounds claim is made.
+[Preserving replay](../results/krakken_circuit_bounds_promotion_replay.json).
