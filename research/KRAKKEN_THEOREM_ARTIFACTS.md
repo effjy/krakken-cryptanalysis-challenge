@@ -889,3 +889,19 @@ The small checks validate formulas; analytic lemmas plus inherited theorems supp
 - [Separate source audit](../scripts/krakken_solver_free_baselines_audit.py), [exact report](../results/krakken_solver_free_baselines_audit.json): source pins, matrix, all minor counts, attaining vector,1536 C multiplications and2048 layer basis vectors; exact binomial/Hamming arithmetic and small-map accounting checks.
 
 The minor/support argument proves branch9; C replay validates the modeled layer. Generic counting/calibration statements are reference lemmas, not additional IDs or security estimates. No bundle update.
+
+## DIFF-12-008
+
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#diff-12-008).
+
+- [Split worker](../scripts/krakken_12_remaining_split.py), [refinement worker](../scripts/krakken_12_refine_position.py): retained original source/model.
+- 256 `ba_posNNN_k3.json` files in [scan directory](../krakken_12_remaining_split_results);6,400 cases in per-position `krakken_12_ba_posNNN_refinement.json` reports under results. [Final batch summary](../results/krakken_12_ba_248_255_batch_summary.json).
+- [BA coverage auditor](../scripts/krakken_12_ba_closure_audit.py), [certificate](../results/krakken_12_ba_closure_audit.json): every index/pair, source/script pin, matching terminal refinement and file hash; no new independent solver replay.
+
+## DIFF-PERM-003
+
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-003).
+
+- Analytic exhaustive five-shape partition and index-invariance argument inherit DIFF-12-004/005/006/007/008, plus DIFF-PERM-002 for [1,1] and the established nonzero-activity lemma.
+- [Global coverage audit](../scripts/krakken_12_global_closure_audit.py), [report](../results/krakken_12_global_closure_audit.json):8,355,840 sites, zero pending, current hashes/linkage for all classes. This is saved-result integrity, not an independent full solver recount.
+-Original C/header, historical certificates and frozen review bundle remain unchanged. Stronger multiround arithmetic floors are not silently substituted into existing proof artifacts.

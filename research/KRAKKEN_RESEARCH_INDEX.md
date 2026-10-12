@@ -509,8 +509,7 @@ claims:
     2,080,768 start-location/two-second-branch-Chi2-cell site cases,
     exact Pressure LSB identities exclude **1,034,445** for every
     start-byte value and base. The [rank certificate](../results/krakken_pressure_lsb_endpoint_rank.json)
-    enumerates the entire stated subclass. The full `[1,2]` question
-    remains open, and [Astra's optimized oracle](../scripts/oracle_optimized.py)
+    enumerates the entire stated subclass. The full [1,2] question is now closed under DIFF-PERM-003; [Astra's optimized oracle](../scripts/oracle_optimized.py)
     incorporates these LSB identities in its master model.
     A new exact joint-two-bit Pressure screen completely accounts for
     the **8,128** endpoint site pairs at Chi1 post-byte position 0:
@@ -571,7 +570,7 @@ claims:
     excludes all 2,080,768 AA sites, with the saved-result coverage
     audit and no second full solver recount. The [distinct-AB closure](KRAKKEN_SECURITY_THEOREMS.md#diff-12-007)
     now also excludes all 2,080,768 sites; its saved-result integrity
-    audit likewise is not an independent solver recount. Distinct BA remains open.
+    audit likewise is not an independent solver recount. Distinct BA is now closed under DIFF-12-008; global [1,2] under DIFF-PERM-003.
     Separately, an [exact one-byte XRBD/Pressure-chain
     certificate](../results/krakken_xrbd_onebyte_pressure_chains.json) establishes
     that `A1=1` at the unrestricted permutation level forces all 32
@@ -881,3 +880,19 @@ image-translate overlap; Fourier energy gives threshold counts and the
 proper digest-fiber formula. These largely generic facts do not improve
 chosen-difference minima, maximal hull correlation or attack costs.
 [Exact audit](../results/krakken_solver_free_baselines_audit.json).
+
+## Global [1,2] closure — 2026-10-12
+
+[DIFF-12-008](KRAKKEN_SECURITY_THEOREMS.md#diff-12-008) closes distinct
+BA at all256 positions:718,953 bit-zero exclusions,1,355,415 three-bit
+exclusions,5,697 four-bit refinements and703 five-bit refinements,
+total2,080,768. No unresolved cases remain.
+[DIFF-PERM-003](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-003) combines
+AA/AB/BA/BB/same-pair shapes, covering8,355,840 named sites, to exclude
+all unrestricted [1,2]. With the separate [1,1] exclusion and bijectivity,
+A_r=1 ⇒ A_(r+1)≥3 at every adjacent index within the eight rounds.
+This is not an unconditional round-two minimum≥3 or the open H
+A1=5 continuation bound. Saved-result audits inherit the parents'
+independent solver-recount limitations; no external reproduction or
+probability/security-bit conclusion is asserted.
+[Global closure report](../results/krakken_12_global_closure_audit.json).

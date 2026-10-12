@@ -61,6 +61,8 @@ the supplied reviewer comments are commentary, not independent reproduction.
 | <a id="diff-12-005"></a>[DIFF-12-005](KRAKKEN_SECURITY_THEOREMS.md#diff-12-005) | 709 | Differential / P | 1→2 | Complete same-pair mixed class | All 32,768 sites excluded | A+S | Refinements replayed; no second full 3-bit recount |
 | <a id="diff-12-006"></a>[DIFF-12-006](KRAKKEN_SECURITY_THEOREMS.md#diff-12-006) | added 2026-10-04 | Differential / P | 1→2 | Complete distinct AA class | All 2,080,768 sites excluded | A+F+S | All saved reports and refinements coverage-audited; no second full Z3 UNSAT recount |
 | <a id="diff-12-007"></a>[DIFF-12-007](KRAKKEN_SECURITY_THEOREMS.md#diff-12-007) | added 2026-10-07 | Differential / P | 1→2 | Complete distinct AB class, A at i and B at j with i<j | All 2,080,768 sites excluded | A+F+S | All saved reports and refinements source/coverage-audited; no second full solver recount |
+| <a id="diff-12-008"></a>[DIFF-12-008](KRAKKEN_SECURITY_THEOREMS.md#diff-12-008) | added 2026-10-12 | Differential / P | 1→2 | Complete distinct BA shape | All2,080,768 sites excluded | A+F+S | Current file/source pins and exact coverage/refinement audit; no independent full solver recount |
+| <a id="diff-perm-003"></a>[DIFF-PERM-003](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-003) | added 2026-10-12 | Conditional activity / P | All adjacent R1–R8 | One active call followed by any two-call shape | Global [1,2] excluded; A_r=1 ⇒ A_(r+1)≥3 | A (inherits solver-backed parents) | Complete five-shape coverage audit; inherits parent replay limits |
 | <a id="rot-001"></a>[ROT-001](KRAKKEN_SECURITY_THEOREMS.md#rot-001) | 745 | Rotational / P | 1–8 | All nontrivial lane rotations; constants on/off | No universal affine covariance | F | C counterexamples; no separate full audit recorded |
 | <a id="rot-002"></a>[ROT-002](KRAKKEN_SECURITY_THEOREMS.md#rot-002) | 771 | Rotational / P | 1 | Byte rotations 8,…,56 | Exact residual identity; uniform full-state scope | A | 700 original-C validation states |
 | <a id="lin-theta-001"></a>[LIN-THETA-001](KRAKKEN_SECURITY_THEOREMS.md#lin-theta-001) | added 2026-10-04 | Linear-layer structure / unrestricted 2048-bit state | Theta alone | Every state; complete fixed space and cycles | `Theta^2=I`, rank(Theta−I)=504, fixed dimension 1544, all other states in 2-cycles | A+F | Exact 2048-column original-C matrix; all 1544 fixed-basis vectors and 16 non-fixed cycles original-C replayed; separate pure-Python matrix/basis reconstruction and opposite-pivot ranks |
@@ -124,8 +126,7 @@ failed inequalities, comparison, reproduction commands and proof roadmap are
 context, not additional security theorems. The coupled-hull reduced counterexample
 is explicitly distinguished from a full-width coefficient bound.
 
-Open: global unrestricted [1,2] (AA, AB, BB and same-pair classes closed; distinct
-mixed BA still open), a universal
+Closed: global unrestricted [1,2] under DIFF-PERM-003. Open: a universal
 hash-reachable A1=5 ⇒ A2 bound beyond selected differences, arbitrary coupled
 64-bit Pressure masks, and useful global quantitative full-round hull bounds.
 Partial scans, solver SAT in relaxations, unknowns and timeouts are not proofs.

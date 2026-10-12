@@ -40,6 +40,7 @@ little-endian C execution used by the certificates.
 | **PROVED — GLOBAL FIRST-FULL-BLOCK CLASS** | Exact `min A = 5` at the first unpadded 160-byte absorb | Every nonzero full-block message difference and every base; common-prefix later full-block floor `A≥5` |
 | **PROVED — COMPLETE SIX-DIFFERENCE CLASS** | Exact first-Chi activity law and sharp `2^-38` maximum single-output probability | Each of the six rate-reachable four-cell input-difference lines, over every valid 159-byte base message |
 | **PROVED — GLOBAL FIRST-CHI CHECKPOINT** | Any prescribed post-Chi1 or post-XRBD1 full-state difference has probability at most `2^-24` by DIFF-RATE-005; strengthened to `2^-30` by CHI-RATE-001 | Every fixed nonzero valid 159-byte message difference; uniform message base; sharpness of the stronger bound open |
+| **PROVED — GLOBAL CONDITIONAL ACTIVITY** | DIFF-PERM-003: A_r=1 ⇒ A_(r+1)≥3; unrestricted [1,2] excluded | All bases/differences, all five two-call shapes, each adjacent index in R1–R8; inherits solver-backed parent audit limits |
 | **PROVED — ALMOST-ALL FIRST-ROUND DIFFERENCES** | Fewer than `2^1039` of `2^1272` message differences can have a specified eight-bit nondigest round-one difference distribution with any mask bias above `2^-128`; every projected point for each other difference has probability ≤`2^-8+255·2^-136` | One complete round; any fixed affine state offset separately; exceptional attacker-chosen differences, digest bits and later rounds open |
 | **PROVED — COMPLETE CONDITIONAL CHI CLASS** | All 128 first-call bytes plus any five second-call bytes are jointly uniform; exact truncated-differential product; sharp first-only mask maximum `2^-3t` for `t≤128` | Uniform 159-/160-byte rate message, arbitrary fixed affine offset; Chi1/XRBD1 checkpoint only; at most five masked second-output bytes |
 | **PROVED — CONDITIONAL COMPLETE-ROUND DIFFERENTIAL CLASS** | Every prescribed full-state round-one difference has conditional probability ≤`1/4+2^-204`, ≤`1/8+2^-197`, or ≤`1/16+2^-182` for the three DIFF-RATE-003 differences | Uniform valid 159-byte base conditioned on A1=5; DIFF-RATE-007; unconditional successor DIFF-RATE-008 below; digest and later rounds open |
@@ -599,7 +600,7 @@ elimination, and re-enumerates the joint two-addition table. All 512
 per-position JSON files, source hashes, and case totals were checked.
 The cases left by this two-bit screen are resolved by the stronger
 BB-class theorem below. First-branch targets and both-active-in-one-cell
-targets remain outside it; full `[1,2]` exclusion stays open.
+targets remain outside it; this parent alone does not close full [1,2]; the global result is now DIFF-PERM-003.
 
 ## PROVED — COMPLETE DEFINED SITE CLASS: all `[1,2]` BB sites excluded
 
@@ -635,7 +636,7 @@ reproducible producer, but no second full independent recount yet.
 **Scope:** this closes the BB class only: exactly two second-branch
 Chi2 calls at distinct sites. The same-spatial-pair and distinct-AA
 and distinct-AB classes are closed separately. Distinct mixed BA remains
-open, as does full `[1,2]` exclusion.
+outside this parent; full [1,2] is now closed under DIFF-PERM-003.
 
 ## PROVED — COMPLETE DEFINED SITE CLASS: all same-spatial-pair `[1,2]` sites excluded
 
@@ -660,7 +661,7 @@ against original-C Pressure transitions. Every position's source
 hash, 128 unique site indices, and aggregate count were checked.
 The 32,001 three-bit UNSAT cases have not had a second full
 independent recount. This verification boundary should be considered
-in external review. Distinct AA and AB are closed separately; distinct BA remains open.
+in external review. Distinct AA and AB are closed separately; distinct BA is now closed under DIFF-12-008; global [1,2] under DIFF-PERM-003.
 
 ## PROVED — COMPLETE DEFINED SITE CLASS: all distinct-AA `[1,2]` sites excluded
 
@@ -676,8 +677,7 @@ nonzero difference bytes and unrestricted bases. The
 [coverage audit](../results/krakken_12_aa_closure_audit.json) checks
 every saved report and refinement against the pinned C/header hashes.
 It does **not** independently recount the solver UNSAT results.
-The full unrestricted `[1,2]` exclusion remains open: distinct AB is now
-closed under DIFF-12-007, while distinct BA is not yet closed.
+The full unrestricted [1,2] exclusion is now closed under DIFF-PERM-003, following distinct BA closure DIFF-12-008.
 
 ## PROVED — FIXED-START SUBCLASS: exact two-bit carries add 2,351 exclusions
 
@@ -700,8 +700,7 @@ an [original-C audit](../scripts/krakken_12_joint2_start0_audit.py) and its
 [report](../results/krakken_12_joint2_start0_audit.json). The audit rebuilds
 the 2048-bit inverse prefix from C columns, checks 1,024 target
 basis columns through the C tail, uses a different GF(2) pivot order,
-and reproduces all four counts. The full `[1,2]` exclusion remains
-open.
+and reproduces all four counts. This earlier partial screen alone does not close full [1,2]; the complete result is now DIFF-PERM-003.
 
 ## PROVED — COMPLETE DEFINED CLASS: no exact lane-rotation affine symmetry
 
@@ -1889,3 +1888,19 @@ image-translate overlap; Fourier energy gives threshold counts and the
 proper digest-fiber formula. These largely generic facts do not improve
 chosen-difference minima, maximal hull correlation or attack costs.
 [Exact audit](../results/krakken_solver_free_baselines_audit.json).
+
+## Global [1,2] closure — 2026-10-12
+
+[DIFF-12-008](KRAKKEN_SECURITY_THEOREMS.md#diff-12-008) closes distinct
+BA at all256 positions:718,953 bit-zero exclusions,1,355,415 three-bit
+exclusions,5,697 four-bit refinements and703 five-bit refinements,
+total2,080,768. No unresolved cases remain.
+[DIFF-PERM-003](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-003) combines
+AA/AB/BA/BB/same-pair shapes, covering8,355,840 named sites, to exclude
+all unrestricted [1,2]. With the separate [1,1] exclusion and bijectivity,
+A_r=1 ⇒ A_(r+1)≥3 at every adjacent index within the eight rounds.
+This is not an unconditional round-two minimum≥3 or the open H
+A1=5 continuation bound. Saved-result audits inherit the parents'
+independent solver-recount limitations; no external reproduction or
+probability/security-bit conclusion is asserted.
+[Global closure report](../results/krakken_12_global_closure_audit.json).
