@@ -104,7 +104,7 @@ exclusions, and some have earlier R1 exclusions**.
 
 ### Inventory review: results that do not establish an attack endpoint
 
-All **76 permanent IDs** in the current inventory were reviewed for this
+All **77 permanent IDs** in the current inventory were reviewed for this
 classification. The tables above highlight structure-loss results. The
 remaining results supply quantitative bounds, local descriptions, positive
 structures, intermediate exclusions or proof tools; they must not be presented
@@ -185,6 +185,7 @@ A row describes the cited class, not every attack carrying that family name.
 | Family | Existing structure or exact result | Boundary and scope | Next obligation / possible hybrid |
 |---|---|---|---|
 | Differential | [DIFF-RATE-001](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-001): exact H first-Chi minimum 5; [DIFF-RATE-008](KRAKKEN_SECURITY_THEOREMS.md#diff-rate-008): unconditional complete-R1 point bound for three fixed differences | Checkpoint activity and fixed-difference R1 bounds; not all-difference complete-round hulls | Complete the remaining distinct BA activity campaign; seek sound coarse H bounds and useful differential hulls |
+| MDS diffusion / incidence baseline | [LIN-MDS-001](KRAKKEN_SECURITY_THEOREMS.md#lin-mds-001): exact branch9 over GF(256) | Every nonzero eight-byte slice; sum MDS entering+leaving incidences≥9R on P/H | Layer theorem at each R1–R8, not an attack stopping round. No new Chi activity bound; routing/cancellation/Pressure composition open |
 | Truncated differential | [DIFF-TRUNC-001](KRAKKEN_SECURITY_THEOREMS.md#diff-trunc-001): guaranteed R1 zero projections | P one-cell class; R2 bias screen is empirical | Search other projections, correlated supports and boomerang/truncated hybrids; preserve positive findings |
 | Impossible differential | [DIFF-PERM-002](KRAKKEN_SECURITY_THEOREMS.md#diff-perm-002): unrestricted `[1,1]` excluded; defined `[1,2]` classes closed | Activity exclusions do not exhaust forward/backward impossible differentials; AA and AB closed, BA open | Explore incompatible middle constraints with both directions propagated; quantify every exhausted endpoint class |
 | Primitive S-box characterization | [SBOX-ALG-001](KRAKKEN_SECURITY_THEOREMS.md#sbox-alg-001): exact affine inversion; analytic DDT/BCT and finite Walsh/degree certificates | Byte map only; supports existing component arguments | No additional attack-depth or round-two exclusion; composition and conditioned probabilities require separate proofs |

@@ -863,3 +863,21 @@ small-model checks and premise hashes validate the implementation only.
 No fresh inherited full certificate replay, attack cost, security-bit,
 new stopping-round or growth-with-rounds claim is made.
 [Preserving replay](../results/krakken_circuit_bounds_promotion_replay.json).
+
+## Solver-free baselines reviewed from BOUNDS / RESULTS18
+
+[LIN-MDS-001](KRAKKEN_SECURITY_THEOREMS.md#lin-mds-001) records the exact
+source MDS branch number9, all12,869 square minors and an attaining
+one-byte slice. Separate polynomial arithmetic and reverse elimination,
+1536 packed multiplications and2048 original-C layer basis checks pass.
+The eight-round corollary is≥72 MDS input/output **byte incidences**,
+not72 Chi calls. Cross-layer Chi activity composition remains open.
+
+[Reference document](KRAKKEN_SOLVER_FREE_BASELINES.md) retains the four
+other exact baselines without allocating four more IDs: random distinct
+unrestricted pairs have expected total255R/(1−2^-2048); a full-state
+image pair at distance≤304 must exist; differential mass equals the
+image-translate overlap; Fourier energy gives threshold counts and the
+proper digest-fiber formula. These largely generic facts do not improve
+chosen-difference minima, maximal hull correlation or attack costs.
+[Exact audit](../results/krakken_solver_free_baselines_audit.json).

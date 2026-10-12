@@ -76,6 +76,7 @@ partial replays. Supporting identities are indexed alongside theorem classes.
 | [ROT-001](#rot-001) | Rotational | P | 1–8 | All nontrivial lane rotations; constants on/off | No universal affine covariance | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#rot-001) | — | Stated class/checkpoint only |
 | [ROT-002](#rot-002) | Rotational | P | 1 | Byte rotations 8,…,56 | Exact residual identity; uniform full-state scope | A | [scope](KRAKKEN_THEOREM_INVENTORY.md#rot-002) | — | Stated class/checkpoint only |
 | [LIN-THETA-001](#lin-theta-001) | Linear-layer structure | P | Theta alone | Every 2048-bit state; complete fixed space and cycles | `dim Fix(Theta)=1544`, `rank(Theta−I)=504`; all others in 2-cycles | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-theta-001) | — | Supporting Theta-only classification; no full-round distinguisher |
+| [LIN-MDS-001](#lin-mds-001) | Linear diffusion | P; H subcase | MDS checkpoint each R1–R8 | Every nonzero eight-byte slice; all distinct state pairs for incidence floor | Exact branch9; accumulated boundary incidences≥9R | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#lin-mds-001) | — | Layer/incidence result only; no new Chi activity floor |
 | [DL-001](#dl-001) | Differential-linear | P | 1 | 128 cells ×255 diagonal differences; 32D affine output space | Exact perfect-mask kernels of dimensions 26–29 | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#dl-001) | — | Stated class/checkpoint only |
 | [DL-002](#dl-002) | Differential-linear | P | 2 | 128 fixed delta=1 differences; all output masks | No perfect output autocorrelation | F | [scope](KRAKKEN_THEOREM_INVENTORY.md#dl-002) | — | Stated class/checkpoint only |
 | [DIFF-TRUNC-001](#diff-trunc-001) | Truncated differential | P | 1 | All 128 diagonal one-cell sites; every base and nonzero byte difference | Certified per-site zero-output-bit sets; selected site has 15 zero bytes | A+F | [scope](KRAKKEN_THEOREM_INVENTORY.md#diff-trunc-001) | — | Attack-side one-round structure; no R2 claim |
@@ -129,6 +130,8 @@ are proof inputs in their own right. Artifact paths are in the manifest.
 
 ```mermaid
 flowchart TD
+  mdsMinors["All12,869 MDS square minors nonsingular"] --> mdsBranch["LIN-MDS-001: branch9, MDS boundary incidences≥9R"]
+  mdsBranch -. "OPEN: routing/carries/cancellation" .-> mdsChi["Stronger adjacent-round Chi activity"]
   graphCircuit["LIN-GLOBAL-001: output independence modulo affine functions"] --> circuitBounds["ALG-CIRCUIT-001: circuit / nonlinear prediction corollaries"]
   digestFourier --> circuitBounds
   degreeCircuit["ALG-DEG-001: coordinate-degree premises"] --> circuitBounds
@@ -5316,6 +5319,56 @@ nice -n 10 /home/user/venv/krakken/bin/python -u \
   /home/user/sol/scripts/krakken_circuit_bounds_replay.py \
   --output /home/user/sol/results/krakken_circuit_bounds_promotion_replay.json
 ```
+
+<a id="lin-mds-001"></a>
+## Theorem proved: exact MDS branch number and boundary-incidence floor
+
+<!-- THEOREM METADATA LIN-MDS-001 -->
+**Permanent ID:** `LIN-MDS-001` · **Proof classification:** analytic support/minor argument plus finite exhaustive proof of all12,869 square minors. Separate polynomial arithmetic/reverse-column rank and original-C layer checks are independent implementation audits; no external reproduction recorded.
+<!-- END THEOREM METADATA LIN-MDS-001 -->
+
+The pinned `tentacle_mds_scalar` independently maps32 eight-byte slices
+by `M[i,j]=c[(j-i) mod8]`, c=(1,1,4,1,8,5,2,9), in GF(256) with
+polynomial0x11D. Slices have fixed state row y=0,…,3 and byte offset
+b=0,…,7, across lanes4j+y. Every square minor is nonsingular:
+counts by size1,…,8 are64,784,3136,4900,3136,784,64,1.
+Thus for every nonzero vector v,
+
+`wt_byte(v)+wt_byte(Mv)≥9`, with exact minimum9.
+
+If support(v) has size t and at least t output coordinates vanished,
+those output rows and input support columns would define a singular
+t×t minor. Hence wt(Mv)≥9−t. The input(1,0,…,0) yields
+(1,9,2,5,8,1,4,1) and attains9.
+
+For any distinct unrestricted full-state inputs, existing layer bijectivity
+ensures a nonzero difference entering each MDS layer. Let B_r count
+nonzero entering **plus** leaving bytes at that layer. Each nonzero
+slice contributes≥9, so B_r≥9 and `sum_(r=1)^R B_r≥9R` for every
+R=1,…,8. Distinct valid159 first-block messages are included. The
+cumulative floor is not asserted sharp. These are boundary incidences,
+not distinct bytes and **not active Chi calls**;72 incidences at eight
+rounds is not a replacement for DIFF-MULTI-001's activity floors or a
+probability/security-bit exponent.
+
+The new separate audit derives coefficients from the source, constructs
+field multiplication by carryless product and polynomial long division,
+uses reverse-column Gauss–Jordan elimination for all12,869 minors, and
+checks1536 packed-byte multiplications and2048 MDS binary basis vectors
+through freshly compiled original C. The source's bytewise doubling,
+constant multiplications and XOR accumulation establish the linear-layer
+model; these finite source replays audit arithmetic and lane/byte routing.
+This differs from RESULTS18's replay of the supplied implementation.
+
+[Solver-free baselines](KRAKKEN_SOLVER_FREE_BASELINES.md) preserves the
+other recommendations: exact random-unrestricted-pair activity law,
+image-distance existence, translate-overlap differential accounting and
+full-hull Fourier energy. These generic reference lemmas get no additional
+permanent IDs or attack-exclusion credit. Cross-layer MDS→Chi activity
+composition is **OPEN**; no new adjacent-round threshold is established.
+[Audit report](../results/krakken_solver_free_baselines_audit.json) ·
+[Audit script](../scripts/krakken_solver_free_baselines_audit.py) ·
+[BOUNDS](../BOUNDS.md) · [RESULTS18](../RESULTS18.md).
 
 ## Reproduction commands for earlier linear certificates
 

@@ -880,3 +880,12 @@ No frozen review bundle or original discovery artifact was modified.
 - Premise proof obligations and audit scope remain under [LIN-GLOBAL-001](KRAKKEN_SECURITY_THEOREMS.md#lin-global-001), [LIN-RATE-005](KRAKKEN_SECURITY_THEOREMS.md#lin-rate-005) and [ALG-DEG-001](KRAKKEN_SECURITY_THEOREMS.md#alg-deg-001).
 
 The small checks validate formulas; analytic lemmas plus inherited theorems supply the proof. Frozen bundle unchanged.
+
+## LIN-MDS-001
+
+[Ledger](KRAKKEN_SECURITY_THEOREMS.md#lin-mds-001) · [Baseline proof/reference](KRAKKEN_SOLVER_FREE_BASELINES.md).
+
+- [BOUNDS](../BOUNDS.md), [RESULTS18](../RESULTS18.md), [original supplied-code replay](../discovery18/recheck.py), [log](../discovery18/recheck.log), [manifest](../discovery18/manifest.json) remain unchanged. Historical documentation hashes in that manifest describe the pre-promotion snapshot.
+- [Separate source audit](../scripts/krakken_solver_free_baselines_audit.py), [exact report](../results/krakken_solver_free_baselines_audit.json): source pins, matrix, all minor counts, attaining vector,1536 C multiplications and2048 layer basis vectors; exact binomial/Hamming arithmetic and small-map accounting checks.
+
+The minor/support argument proves branch9; C replay validates the modeled layer. Generic counting/calibration statements are reference lemmas, not additional IDs or security estimates. No bundle update.
