@@ -1,107 +1,45 @@
-# Krakken Cryptanalysis Challenge
+# Break Krakken-2048
 
-This document defines the research target and the standard for reporting results.
+This is an open invitation to **independent, adversarial cryptanalysis** of the full eight-round Krakken permutation and the public 256-bit sponge-hash interface.
 
-## Primary target
+## Priority targets
 
-The primary target is the exact scalar source revision pinned in the repository README:
+1. **Full hash**: a reproducible collision, preimage, second preimage or distinguisher beating an appropriate generic baseline.
+2. **Full permutation**: a distinguisher, invariant, differential, linear, integral, boomerang, rotational, rebound, subspace or algebraic structure with quantified advantage and cost.
+3. **Reduced rounds and internal layers**: a meaningful advance beyond the records, including successful extensions of known one- or two-round distinguishers.
+4. **Theorem audit**: invalidate, tighten or independently reproduce a published statement. Concrete counterexamples matter.
+5. **Implementation audit**: correctness, portability and memory-safety reports (separate from mathematical attacks).
 
-- eight-round Krakken-2048 permutation;
-- the hash interface implemented by `krakken_hash_scalar`;
-- 32-byte / 256-bit output as the default challenge digest unless a submission states otherwise.
+For a 256-bit digest, idealized generic reference complexities are approximately 2^128 hashes for collision search and 2^256 for single-target preimage search. **These are comparison baselines, not certified Krakken security levels.**
 
-The unrestricted 2048-bit permutation is also an explicit attack surface.
+## Mandatory scope labels
 
-## Reference generic complexities
+- **H:** real hash API, with padding, message length, capacity initialization and output size stated.
+- **H159:** exactly 159 message bytes at the defined first-block interface; the padding byte and other restrictions matter.
+- **P:** unrestricted 2048-bit permutation state.
+- **L:** local component or internal checkpoint, not necessarily a complete round.
+- **R:** reduced-width, reduced-round or hypothetical modified construction.
 
-For a hypothetical ideal 256-bit hash, the usual generic reference costs are approximately:
+Please specify rounds **and** exact beginning/end layer boundaries. A fixed difference or a solver-satisfying activity pattern isn't necessarily a reachable, valid message-pair trail. A model admitting nonrealizable carry transitions is a relaxation, not a counterexample.
 
-| Goal | Generic reference cost |
-|---|---:|
-| Collision | 2^128 evaluations |
-| Preimage | 2^256 evaluations |
-| Second preimage | 2^256 evaluations |
+## What to submit
 
-These numbers are comparison baselines, **not claimed Krakken security levels**.
+- Exact source commit or source hashes and interface/domain.
+- Claim, experimental hypothesis or counterexample; proof or analysis.
+- Data/time/memory complexity; success probabilities and conditioning/embedding costs.
+- Full input/output witnesses when applicable, including distinct messages for collision claims.
+- Reproduction commands, code, seeds, parameters, solver name/version, termination status and logs.
+- Whether evidence is analytic, finite exhaustive, complete-solver exclusion, or empirical.
+- A careful distinction between local structure, reduced-round observation and a full-round attack.
 
-For distinguishers and internal-permutation results, state the random-function or random-permutation experiment being compared against.
+**Negative results matter when their quantification is precise**: “no survivors among these N tested cases” is not “no survivor exists.”
 
-## Full breaks
+## Current status
 
-The strongest submissions would establish any of the following for the full eight-round construction:
-
-- a collision attack materially below the generic 2^128 reference;
-- a preimage or second-preimage attack materially below the generic 2^256 reference;
-- a practical or asymptotic distinguisher with explicit advantage and complexity;
-- a structural property inconsistent with the intended random-function/permutation model and useful at nontrivial complexity;
-- a multi-block attack exploiting the sponge/hash interface;
-- a full-round differential, linear, differential-linear, integral, boomerang, rebound, rotational, algebraic, or related attack with a quantified advantage.
-
-## Reduced-round and structural results
-
-Reduced-round work is welcome and should not be downplayed. In particular, useful contributions include:
-
-- extending a known one-round structure through additional nonlinear layers or complete rounds;
-- finding lower-activity trails or better probabilities/correlations than the current records;
-- proving impossible classes;
-- discovering invariant or weak subspaces;
-- finding new integral/division-property behavior;
-- characterizing Pressure's carries, Walsh spectrum, or differential behavior more completely;
-- constructing hash-reachable versions of unrestricted-permutation structures;
-- proving that a currently open family cannot occur.
-
-Always state whether a checkpoint is a **complete round** or an internal layer boundary.
-
-## Domains
-
-Please use one of these scope labels when possible:
-
-- **H** — valid hash input under the public hash interface;
-- **P** — unrestricted 2048-bit permutation input;
-- **L** — local component result;
-- **U** — uniform-input component/layer analysis;
-- **R** — explicitly reduced-width model.
-
-For first-block research, be precise about message length, padding, and fixed initial capacity.
-
-## Evidence classes
-
-Submissions should identify the evidence type:
-
-- **Analytic** — mathematical derivation/proof;
-- **Finite exhaustive** — complete enumeration/rank/certificate over the stated finite class;
-- **Solver-backed** — SAT/SMT/MILP/CP/etc. complete exclusion or construction, with solver/model details;
-- **Empirical** — sampled experiment or heuristic search.
-
-Empirical findings are welcome, but do not present them as universal exclusions.
-
-## Reproducibility requirements
-
-A serious result should include as much of the following as applicable:
-
-- source commit or source hash;
-- exact input/domain definition;
-- exact rounds and layer boundaries;
-- attack algorithm;
-- seeds and parameters;
-- solver version/options;
-- scripts or pseudocode;
-- witnesses/counterexamples;
-- independent replay or verifier if available;
-- complexity and success probability.
-
-If a result depends on a very rare conditioned set, include the cost of obtaining that conditioning.
-
-## Contradictions are first-class results
-
-If you find that a claimed theorem, test vector, source description, or certificate is wrong, open an issue. A clean counterexample is more useful than quietly working around a bad claim.
-
-## Implementation bugs
-
-Memory-safety, API, portability, constant-initialization, or build problems are valuable reports but are tracked separately from mathematical cryptanalysis. See [docs/IMPLEMENTATION_NOTES.md](docs/IMPLEMENTATION_NOTES.md).
+The eleven [research ledgers](research/README.md) document multiple local and reduced-round distinguishers plus numerous restrictions on their investigated continuations. They do **not** certify 128-bit collision resistance, 256-bit preimage resistance, a global eight-round differential probability or general full-round indistinguishability.
 
 ## Disclosure
 
-There is no embargo requirement for attacks on this public research target. Reproducible public disclosure is encouraged.
+Open, reproducible publication is encouraged. No embargo is imposed by this research challenge. Please report implementation bugs clearly and separately; see [implementation notes](docs/IMPLEMENTATION_NOTES.md).
 
-Please do not frame a reduced-round result as a full-hash break, or a permutation-only result as hash-reachable unless you establish the interface constraints.
+**Do not deploy Krakken to protect real data based on this challenge.**
