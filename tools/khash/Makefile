@@ -1,12 +1,11 @@
-# Build khash against the unchanged repository reference sources.
-ROOT := ../..
+# Standalone khash build: all Krakken source files are in this directory.
 CC ?= cc
 PYTHON ?= python3
 CFLAGS ?= -O2 -std=c11 -Wall -Wextra -Werror
 LDFLAGS ?=
 LDLIBS ?= -pthread
 
-# Compile AVX2 as a separate translation unit. Runtime dispatch is in khash.c.
+# Compile AVX2 in its own translation unit; select it at runtime in khash.c.
 ARCH := $(shell uname -m)
 ifneq ($(filter x86_64 amd64 i386 i486 i586 i686,$(ARCH)),)
 DEFAULT_AVX2 := 1
@@ -29,20 +28,20 @@ all: khash
 khash: khash.o krakken.o $(BACKEND_OBJECTS)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
-khash.o: khash.c $(ROOT)/krakken.h
-	$(CC) $(CFLAGS) $(KHASH_CPPFLAGS) -I$(ROOT) -c $< -o $@
+khash.o: khash.c krakken.h
+	$(CC) $(CFLAGS) $(KHASH_CPPFLAGS) -c $< -o $@
 
-krakken.o: $(ROOT)/krakken.c $(ROOT)/krakken.h
-	$(CC) $(CFLAGS) -I$(ROOT) -c $< -o $@
+krakken.o: krakken.c krakken.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
-krakken_multi.o: $(ROOT)/krakken_multi.c $(ROOT)/krakken.h
-	$(CC) $(CFLAGS) -mavx2 -I$(ROOT) -c $< -o $@
+krakken_multi.o: krakken_multi.c krakken.h
+	$(CC) $(CFLAGS) -mavx2 -c $< -o $@
 
-khash-scalar: khash.c $(ROOT)/krakken.c $(ROOT)/krakken.h
-	$(CC) $(CFLAGS) -I$(ROOT) khash.c $(ROOT)/krakken.c $(LDFLAGS) -o $@ $(LDLIBS)
+khash-scalar: khash.c krakken.c krakken.h
+	$(CC) $(CFLAGS) khash.c krakken.c $(LDFLAGS) -o $@ $(LDLIBS)
 
-libkrakken-reference.so: $(ROOT)/krakken.c $(ROOT)/krakken.h
-	$(CC) $(CFLAGS) -fPIC -shared -I$(ROOT) $(ROOT)/krakken.c $(LDFLAGS) -o $@ $(LDLIBS)
+libkrakken-reference.so: krakken.c krakken.h
+	$(CC) $(CFLAGS) -fPIC -shared krakken.c $(LDFLAGS) -o $@ $(LDLIBS)
 
 check: khash khash-scalar libkrakken-reference.so
 	$(PYTHON) test_khash.py

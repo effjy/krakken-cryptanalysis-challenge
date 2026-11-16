@@ -40,11 +40,22 @@ jobs:
       - name: Check scalar vs AVX2
         run: make avx2-test
   khash:
-    name: khash streaming CLI vs reference hash
+    name: khash standalone build and reference compatibility
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify original cryptographic source hashes
-        run: sha256sum -c tools/khash/SOURCE_SHA256SUMS
-      - name: Build and test streaming file hash
-        run: make -C tools/khash check
+      - name: Verify local source hashes and exact root copies
+        run: |
+          cd tools/khash
+          sha256sum -c SOURCE_SHA256SUMS
+          cmp krakken.c ../../krakken.c
+          cmp krakken.h ../../krakken.h
+          cmp krakken_multi.c ../../krakken_multi.c
+      - name: Build and test khash in isolated directory
+        run: |
+          tempdir="$(mktemp -d)"
+          cp tools/khash/{khash.c,krakken.c,krakken.h,krakken_multi.c,Makefile,SOURCE_SHA256SUMS,test_khash.py} "$tempdir/"
+          cd "$tempdir"
+          sha256sum -c SOURCE_SHA256SUMS
+          make check
+          make clean
