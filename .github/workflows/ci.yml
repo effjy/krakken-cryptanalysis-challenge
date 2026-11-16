@@ -39,3 +39,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check scalar vs AVX2
         run: make avx2-test
+  khash:
+    name: khash streaming CLI vs reference hash
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original cryptographic source hashes
+        run: sha256sum -c tools/khash/SOURCE_SHA256SUMS
+      - name: Build and test streaming file hash
+        run: make -C tools/khash check
