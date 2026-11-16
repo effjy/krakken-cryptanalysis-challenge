@@ -1,46 +1,60 @@
-# khash — streaming Krakken file hashing
+# khash — standalone streaming Krakken file hashing
 
-This command-line tool hashes a file using the **exact eight-round Krakken-2048 reference sponge**. It uses the unchanged cryptographic sources in the repository root, not a fork of them. The author's original `khash.c` is preserved byte-for-byte.
+This directory contains **everything needed to build `khash` independently of the repository root**:
 
-> **Experimental research software:** Krakken is not standardized or independently certified. Do not rely on its digest for production security.
+- `khash.c` — the author's unchanged file-hashing utility.
+- `krakken.c`, `krakken.h`, `krakken_multi.c` — **byte-for-byte copies** of the canonical Krakken-2048 source files from the repository root.
+- `Makefile` — local standalone build, scalar and optional AVX2.
+- `SOURCE_SHA256SUMS` — SHA-256 pins for the three original cryptographic files.
+- `test_khash.py` — reference-hash compatibility test (optional Python 3).
 
-## Build and use
+**This is an experimental research construction, not a standardized or independently certified hash. Do not rely on it to protect production systems.**
 
-From the root of this repository:
+## Build and hash a file
+
+Download all the files from this directory together, then from inside the downloaded directory run:
+
+```sh
+sha256sum -c SOURCE_SHA256SUMS
+make
+./khash /path/to/file
+./khash "a file with spaces.bin"
+```
+
+Alternatively, if you cloned the complete challenge repository:
 
 ```sh
 make -C tools/khash
 ./tools/khash/khash /path/to/file
-./tools/khash/khash "a file with spaces.bin"
 ```
 
-The output is 64 lowercase hexadecimal characters representing a **256-bit Krakken digest (not SHA-256)** followed by a newline. The filename is excluded from the hash. Files are streamed in 64 KiB chunks. The hash rate is 160 bytes, and padding uses the original `0x06` and `0x80` bits, including a new final padded block for exact rate multiples.
+The CLI prints one **256-bit Krakken hash** as 64 lowercase hexadecimal digits and a newline. The file name is **not** hashed. Input is processed in 64 KiB chunks and uses the original eight-round 160-byte-rate sponge, including the `0x06` and `0x80` padding bits. An exact multiple of 160 bytes receives an additional final padded block.
 
-On x86, the Makefile compiles the AVX2 source separately and uses runtime CPU detection to select the accelerated implementation. Other targets build the scalar backend. To build scalar-only on any platform:
+On x86, the Makefile builds the AVX2 backend separately and the program selects it at runtime when supported, with a scalar fallback. On other architectures only scalar is built. To build without AVX2:
 
 ```sh
-make -C tools/khash clean
-make -C tools/khash ENABLE_AVX2=0
+make clean
+make ENABLE_AVX2=0
 ```
 
-Requirements: GCC or Clang, Make, POSIX threads; Python 3 is needed for the optional comparison tests.
+Requirements: GCC or Clang, Make, POSIX threads (Linux); Python 3 only for the optional tests.
 
-## Verify source identity and compatibility
+## Check the copied sources and outputs
 
-From the repository root:
+From inside this directory:
 
 ```sh
-sha256sum -c tools/khash/SOURCE_SHA256SUMS
-make -C tools/khash check
-make -C tools/khash clean
+sha256sum -c SOURCE_SHA256SUMS
+make check
+make clean
 ```
 
-The checksum manifest supplied by the author pins the three original cryptographic source files in the repository root. The 19-case compatibility suite checks padding and buffer boundaries, exact rate multiples, multi-block files, and error behavior. Both CLI backends are compared with the independent reference C hash API. These functional tests do not establish cryptographic security.
+The 19-length test suite compares both command-line builds with the scalar reference API, including message-padding, exact-rate, streaming-buffer boundaries and error handling. CI additionally checks that the three local copies are identical to the repository root files, and verifies that this directory builds **in isolation**. These tests verify implementation behavior; they are not security proofs.
 
-Expected empty-file hash:
+Expected empty-file digest:
 
 ```text
 e1c646acd24c1211dc58f38fe7cb95ec9ca41b7c57cff233e6faf1fac8b2e0dd
 ```
 
-See [the main challenge page](../../README.md) for scope, test vectors and open research problems.
+For the full cryptanalysis challenge and 11 research ledgers, see the [repository README](../../README.md).
