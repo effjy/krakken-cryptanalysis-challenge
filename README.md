@@ -39,6 +39,7 @@ krakken_multi.c 9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2
 - [**Research archive**](research/README.md) — **all 11 unmodified, original research ledgers** dated through November 15, 2026.
 - [**Reproduction guidance**](docs/REPRODUCIBILITY.md) — build, verify, interpret, and submit results.
 - [**Family witnesses**](evidence/family_witnesses.json) — 21 H159 first-round-minimal differential families with concrete message pairs.
+- [**khash command-line utility**](tools/khash/README.md) — stream a file through the exact eight-round Krakken hash, with runtime scalar/AVX2 selection.
 
 ## Published lower bounds (activity, not security bits)
 
@@ -62,6 +63,18 @@ make avx2-test  # requires a CPU/compiler supporting AVX2
 ```
 
 The scalar reference and optimized source are kept unchanged in this relaunch. The repository provides known-answer tests, implementation notes and a collision experiment; these are **tests, not proofs of security**. See [Makefile](Makefile) and [Reproducibility](docs/REPRODUCIBILITY.md).
+
+## Hash a file with `khash`
+
+The author's original standalone file-hashing program is available at [`tools/khash/`](tools/khash/README.md). It keeps the cryptographic source files unchanged, streams files using the same hash interface, and prints a 256-bit digest:
+
+```sh
+make -C tools/khash
+./tools/khash/khash /path/to/file
+make -C tools/khash check
+```
+
+The `check` target compares streaming results against the reference C hash for boundary-length test files. This tool is for research and interoperability, **not a certification or recommendation to use the experimental hash to protect production systems**.
 
 ## Challenge the design
 
