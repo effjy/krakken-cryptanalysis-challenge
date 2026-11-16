@@ -1,101 +1,74 @@
-# Krakken Cryptanalysis Challenge
+# Krakken-2048 — Open Cryptanalysis Challenge
 
-> **Break it.**
+> **Break Krakken.** Examine the implementation. Challenge the proofs. Find a weakness the existing research missed.
 
-Krakken-2048 is an **experimental 2048-bit permutation-based hash construction** published specifically for open cryptanalysis. This repository is a research target, not a security claim and not a recommendation for production use.
+Krakken-2048 is an **experimental 2048-bit permutation and sponge-based hash construction** published for open cryptanalysis. Its designer reports approximately ten years of development and investigation, and is inviting independent researchers to attempt to break the construction.
 
-The goal is simple: **analyze Krakken, find structure, improve the known attacks, or break the full construction.**
+**Status:** publicly available research target; **not independently certified**, **not standardized**, and **not recommended for production security**.
 
-## Reference target
+## The target
 
-| Property | Current challenge target |
-|---|---|
-| Internal state | 2048 bits (32 × 64-bit words) |
+| Item | Specification |
+| --- | --- |
+| State | 2048 bits, 32 × 64-bit words |
 | Full permutation | 8 rounds |
-| Hash absorb rate | 160 bytes |
-| Default challenge digest | 32 bytes / 256 bits |
-| Reference implementation | Scalar C (`krakken.c`) |\n| Optimized implementation | AVX2 + multithread helper (`krakken_multi.c`) |
-| Round constants | SHAKE128-derived |
-| Source pin | `krakken.c || krakken.h` SHA-256: `6b3d5a5d416e2923379e0b38305babb4cb0471c1833d7d3a6c4e8356005d8893` |
+| Hash absorption | 160-byte rate |
+| Default challenge output | 256-bit digest |
+| Reference | [`krakken.c`](krakken.c) and [`krakken.h`](krakken.h) |
+| Optimized implementation | [`krakken_multi.c`](krakken_multi.c) (AVX2/multithread) |
+| Round constants | SHAKE128-derived, public and deterministic |
 
-Individual source hashes:
+The full construction, unrestricted permutation, individual layers, and reduced-round variants are all legitimate cryptanalytic targets. **Specify exactly which interface and number of rounds your result addresses.**
 
-- `krakken.c`: `4d659644c80b6ed0aabbce77d6aad6e6f851a90ec536a2131a412b8ac48eccc6`
-- `krakken.h`: `83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c`
-- `krakken_multi.c` (AVX2): `9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2`
+Reference SHA-256 pins:
 
-If those hashes change, treat the new code as a different target unless the change is explicitly documented.
+```text
+krakken.c       4d659644c80b6ed0aabbce77d6aad6e6f851a90ec536a2131a412b8ac48eccc6
+krakken.h       83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c
+krakken_multi.c 9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2
+```
 
-## Quick start
-
-    make test
-    make benchmark
-
-`make test` builds the scalar reference plus known-answer tests. `make avx2-test` cross-checks the optimized implementation against the scalar target over reduced-round permutation states, padding/multiblock/squeeze boundaries, and randomized hash inputs. The empty-string 256-bit digest for this source revision is:
-
-    e1c646acd24c1211dc58f38fe7cb95ec9ca41b7c57cff233e6faf1fac8b2e0dd
-
-More vectors are in [docs/TEST_VECTORS.md](docs/TEST_VECTORS.md).
+**The implementation is the attack target; the 11 original research documents below are evidence and claims to test, not an assertion of invulnerability.** Source revisions or differing hash interface conventions must be reported.
 
 ## Start here
 
-- **[Challenge rules](CHALLENGE.md)** — what counts as a break or meaningful result.
-- **[Reference construction](docs/REFERENCE.md)** — state layout, round function, absorb/padding/squeeze behavior.
-- **[Known results](docs/KNOWN_RESULTS.md)** — concise summary of current source-pinned cryptanalysis.
-- **[Open problems](docs/OPEN_PROBLEMS.md)** — places where new attacks would be especially interesting.
-- **[Implementation notes](docs/IMPLEMENTATION_NOTES.md)** — known API/reference-code caveats that are not cryptanalytic results.
-- **[Test vectors](docs/TEST_VECTORS.md)** — hash and permutation KATs.
-- **[Contributing](CONTRIBUTING.md)** — how to submit analysis, code, contradictions, and implementation reports.
+- [**CHALLENGE.md**](CHALLENGE.md) — what counts as a break; scope and disclosure.
+- [**Known results**](docs/KNOWN_RESULTS.md) — latest bounded claims, including what remains unproved.
+- [**Open attack problems**](docs/OPEN_PROBLEMS.md) — independent research opportunities.
+- [**Implementation specification**](docs/REFERENCE.md) and [test vectors](docs/TEST_VECTORS.md).
+- [**Research archive**](research/README.md) — **all 11 unmodified, original research ledgers** dated through November 15, 2026.
+- [**Reproduction guidance**](docs/REPRODUCIBILITY.md) — build, verify, interpret, and submit results.
+- [**Family witnesses**](evidence/family_witnesses.json) — 21 H159 first-round-minimal differential families with concrete message pairs.
 
-## Detailed research records
+## Published lower bounds (activity, not security bits)
 
-The concise challenge documentation is backed by a larger source-pinned theorem record. See **[research/](research/README.md)** for the current claims-for-review document, theorem program, permanent theorem inventory, and coordinated multi-cell boomerang report.
+The research records the following **established lower bounds on active serial-Chi S-box calls** over eight rounds:
 
-These records are published to help attackers avoid rediscovering already-closed classes and to make existing claims easy to challenge.
+| Input domain | Certified lower bound |
+| --- | ---: |
+| Unrestricted nonzero state differences | **16** |
+| Valid 159-byte first-block hash-message differences (**H159**) | **19** |
+| H159, conditioned on exactly five first-round active S-box calls (`A1=5`) | **21** |
 
-## Reproducible experiments
+The complete H159 `A1=5` classification consists of **21 distinct input differences**, with a universal conditional `A2>=4`. Certain individually specified families have stronger exclusions. None of these activity bounds is asserted to be the attained minimum or a full-round differential probability/security-bit bound. See [Research 07](research/KRAKKEN_RESEARCH_07.md), [Research 08](research/KRAKKEN_RESEARCH_08.md), and [Research 11](research/KRAKKEN_RESEARCH_11.md) for premises, scope, exceptions, and later refinements.
 
-- **[Reduced-round truncated collision experiment](experiments/collision/README.md)** — compare first-collision behavior across rounds and output widths against the random-function birthday baseline, with saved replayable witnesses.
+**No practical full eight-round break appears in the supplied research record.** That is not proof no break exists. Local and reduced-round distinguishers **do** exist and are published; independent generalizations are especially welcome.
 
-## What counts as interesting?
+## Run the supplied tests
 
-Full eight-round results are the main target, but reduced-round and structural work is welcome. Examples include:
+```sh
+make test
+make avx2-test  # requires a CPU/compiler supporting AVX2
+```
 
-- collisions, preimages, or second preimages beating the generic reference complexity for the 256-bit challenge digest;
-- distinguishers against the eight-round hash or unrestricted permutation with clearly stated data/time/memory;
-- improved differential, linear, differential-linear, integral, rebound, rotational, boomerang, or algebraic attacks;
-- new invariants, subspaces, impossible transitions, or quantitative trail/hull bounds;
-- reduced-round records that extend the known frontier;
-- independent reproduction, strengthening, or falsification of a listed theorem;
-- implementation bugs, reported separately from cryptanalytic breaks.
+The scalar reference and optimized source are kept unchanged in this relaunch. The repository provides known-answer tests, implementation notes and a collision experiment; these are **tests, not proofs of security**. See [Makefile](Makefile) and [Reproducibility](docs/REPRODUCIBILITY.md).
 
-A result does **not** need to destroy all eight rounds to be useful. Precise negative results are useful too if they close a well-defined attack class.
+## Challenge the design
 
-## Current research posture
+We welcome successful full-round attacks, reduced-round advances, counterexamples to documented lemmas, independent replays, corrected proofs, implementation flaws and entirely new methods. Please include a clear attack target, source version, reproducible code/data and honest complexity accounting.
 
-Krakken has yielded substantial exact local and reduced-round structure, but that structure has so far been difficult to extend into a useful full eight-round attack. The current research includes exact first-round activity results, Pressure carry/correlation results, differential exclusions, local and coordinated boomerang structures, one-round message-to-output correlation bounds, integral/subspace results, and several complete defined theorem classes.
+Submit an issue with the supplied [cryptanalysis template](.github/ISSUE_TEMPLATE/cryptanalysis-result.md), or open a pull request. Criticism and failed replications are welcome.
 
-That is **not evidence of a security level**. It is a map of what has and has not been ruled out.
+> **Ten years of work is a reason to publish the evidence and invite adversarial scrutiny—not a substitute for it.**
 
-The challenge explicitly welcomes attempts to invalidate existing claims.
-
-## Research etiquette
-
-Please state:
-
-1. the exact source revision or hash you attacked;
-2. whether the domain is the hash interface or unrestricted permutation;
-3. the exact number of rounds/checkpoint;
-4. whether the result is analytic, exhaustive, solver-backed, heuristic, or empirical;
-5. time, data, memory, conditioning cost, and success probability where applicable;
-6. enough code/data for someone else to reproduce the claim.
-
-Use the GitHub issue templates for new findings. Pull requests with reproducible attacks, verifiers, test vectors, or corrected documentation are welcome.
-
-## Security warning
-
-**Do not use Krakken to protect real systems or data.** This repository exists to invite cryptanalysis of an experimental design.
-
----
-
-If you find something ugly, please publish it. That is the point. 🐙🔨
+© Contributors; see repository history for authorship and license terms. No license is implied by publication where none is provided.

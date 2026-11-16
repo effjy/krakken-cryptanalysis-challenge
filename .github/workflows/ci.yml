@@ -1,0 +1,41 @@
+name: Reference implementation checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  scalar:
+    name: Scalar KAT and witness structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test scalar
+        run: make test
+      - name: Check H159 witness metadata
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('evidence/family_witnesses.json').read_text())
+          families = data['families']
+          assert len(families) == 21
+          assert {f['family_id'] for f in families} == set(range(21))
+          for f in families:
+              x = bytes.fromhex(f['msg0_hex'])
+              y = bytes.fromhex(f['msg1_hex'])
+              d = bytes.fromhex(f['delta_hex'])
+              assert len(x) == len(y) == len(d) == 159
+              assert bytes(a ^ b for a, b in zip(x, y)) == d
+              assert f['activity'][0] == 5
+          print('PASS 21 family witness metadata records')
+          PY
+  avx2:
+    name: AVX2 comparison
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check scalar vs AVX2
+        run: make avx2-test
