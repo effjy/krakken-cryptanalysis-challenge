@@ -1,5 +1,9 @@
 # NEW_BOUNDS.md — Krakken-2048 Certified Activity-Bound Corollaries
 
+**2026-11-18 conditional update:** the new all-21-family exclusion proves **A1=5 => A2>=5** for H159 and raises that subclass's eight-round activity floor to **22**. The general H159 floor remains 20. [Research 11 and complete evidence](KRAKKEN_RESEARCH_11.md#all-family-minimum-first-round-continuation--a25-2026-11-18). Earlier 21-call conditional bounds below are superseded, without claiming an attained minimum or security bits.
+
+**2026-11-17 current bound update:** the completed six-cell campaign closes the remaining H159 `[6,1]` case. Together with the prior four-/five-cell and activity premises, the general H159 lower bounds are now **A1+A2>=8** and **eight-round total>=20**. The A1=5 conditional floor remains 21. See [research 11's completed theorem](KRAKKEN_RESEARCH_11.md#completed-six-cell-campaign--global-h159-activity-floors-2026-11-17) and [the frozen completion audit](reproduce/sixcell_20261117/FINAL_AUDIT_at_completion.json). Older 19-call/open-[6,1] entries below are historical; no attained minimum or security-bit bound is asserted.
+
 **Date:** 2026-11-13  
 **Status:** **CERTIFIED AS ANALYTIC CONSEQUENCES OF ESTABLISHED KRAKKEN THEOREMS**  
 **Scope:** The unchanged, original, indexed eight-round Krakken-2048 permutation and its exactly 159-byte padded-message (H159) first-block domain.  
