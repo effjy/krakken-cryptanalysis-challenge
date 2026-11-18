@@ -1,5 +1,11 @@
 # KRAKKEN_RESEARCH_11 — Attack theorem ledger
 
+**2026-11-18 conditional bound update:** all H159 pairs with **A1=5 now have A2>=5**, giving **eight-round activity>=22** for that class. The general H159 floor stays **20**. See [the all-family theorem](#all-family-minimum-first-round-continuation--a25-2026-11-18); the primary and independent arithmetic checks are complete, with the remaining cross-compiler confirmation available as a short user command.
+
+**COMPLETED 2026-11-17:** the full H159 `[6,1]` family is excluded. The final audit verified all **5,423,611,200 supports in 7,626 batches**, with no unresolved cases. The resulting universal H159 activity floors are **8 across the first two rounds** and **20 across eight rounds**. See [the completion theorem](#completed-six-cell-campaign--global-h159-activity-floors-2026-11-17). Earlier running checkpoints and open-case notes below are historical.
+
+**2026-11-17 continuation:** [solver-free six-cell results](#solver-free-six-cell-continuation--2026-11-17) close a 64,933-difference class and prove a 16-bit reachability-kernel bound. Restartable batches are available; the global H159 floor remains 19.
+
 **2026-11-15 addition:** the [VULNS(5) review](#vulns5-review--five-cell-h159-exclusion-and-complementary-evidence-2026-11-15) below adds a replayed five-cell H159 `[6,1]` exclusion and a restricted eight-round activity floor of 20. The general H159 floor remains 19.
 
 ## Import record and result index — 2026-11-14
@@ -1755,3 +1761,608 @@ review. The main advance is the replayed five-cell exclusion, its composable
 restricted floor 20, and reduction of the outstanding `[6,1]` case to six
 single-active cells. See [review checks](reproduce/vulns5_20261115/REVIEW_CHECKS.json)
 and the reproduction README for precise replay scope.
+
+
+## Solver-free six-cell continuation — 2026-11-17
+
+**New results:** a complete restricted six-cell `[6,1]` exclusion covering
+**64,933 reachable fixed input differences**, and a **16-bit upper bound on
+the reachability-kernel dimension of every six-cell support**. A bounded,
+reboot-resumable scanner is implemented and tested. The global six-cell
+campaign is **not complete**; the general H159 eight-round floor remains 19.
+
+All code, source copies, input lists, reports, independent Python checks and
+reproduction instructions are in
+[reproduce/sixcell_20261117/](reproduce/sixcell_20261117/README.md).
+The machine-readable result is [SUMMARY.json](reproduce/sixcell_20261117/SUMMARY.json).
+No SAT, SMT, MILP or optimization solver was used.
+
+### SIX-001 — complete exclusion for six-cell supports with a dependent five-cell subset
+
+Let H159 mean the fixed exactly-159-byte embedding used throughout the ledger.
+Let `L=Pi o Rho o MDS o Theta`. A serial cell uses the aligned bytes in lanes
+`8p+y` and `8p+4+y`, offsets `q` and `(q+4) mod 8`, respectively. Cell ID is
+`32p+8y+q`. An occupied cell has a nonzero two-byte **input difference**;
+activity counts its individual S-box calls.
+
+Let B be the established complete list of 899 five-cell coordinate supports
+whose 776-bit H159 complement-syndrome matrix is rank-deficient. Define
+
+`T = { S : |S|=6 and S contains at least one member of B }`.
+
+For **every actual valid H159 pair** whose pre-Chi1 difference has support
+exactly S for some S in T,
+
+> **A1=6 implies A2>=2.**
+
+This closes `[6,1]` for all such pairs and all admissible base messages.
+It quantifies over the class just defined, not every six-cell support.
+
+**Finite census and certificate:**
+
+| Quantity | Exact result |
+|---|---:|
+| Distinct supports in T | **64,374** |
+| Nonzero reachability-kernel assignments, including smaller-support overlaps | 348,940 |
+| Distinct reachable differences occupying all six cells | **64,933** |
+| Differences locally permitting one active S-box in every cell | **20** |
+| Eligible differences with a second-only active cell | **0** |
+| Complete one-active-Chi2 targets checked | **4,177,920** |
+| Target matches to any of the 20 source Pressure signatures | **0** |
+| Unenumerated/high-dimension cases in T | **0** |
+
+Construct T by adding each missing cell to each of the 899 supports, sorting
+and deduplicating. For each S, rebuild all 776 syndrome equations and enumerate
+the complete kernel. Retain vectors nonzero in every one of the six cells.
+A nonzero vector occupying exactly six cells has a unique coordinate support,
+so the 64,933 count is a count of distinct input differences, without overlaps.
+The invertible L maps them one-to-one to fixed H159 input XOR differences.
+
+For local input differences `(da,db)`, one active serial S-box is possible
+precisely in one of the following cases:
+
+- `da=db!=0`: first call inactive, second call active; its output difference
+  must be accounted for separately.
+- `dx=da XOR db !=0` and `DDT[dx,db]>0`: first call active, second inactive,
+  fixing the post-cell difference to `(du,dv)=(db,0)`.
+
+All 20 candidates in T are of the second type in **all six cells**. Thus A1=6
+fixes their complete post-Chi1 difference, irrespective of correlations among
+actual base messages. Apply Butterfly and the 32 exact carry-free Pressure
+relations. Exhaust every possible one-active-call Chi2 target: 128 cells times
+`255 + 255*127` supported aligned input differences, transformed backward
+through the exact next prefix and inverse Ink. None has the required signature
+for any of the 20 source differences. Therefore A2=1 is impossible.
+Full-width addition gates are available in the producer, but are **not needed**
+for these 20 exclusions: already the carry-free signatures have no matches.
+
+**Independent replay:** GCC and Clang produce identical complete support,
+candidate and endpoint CSVs. A separate Python implementation uses the existing
+independent Python-prefix map, with the cell-order conversion explicitly applied;
+all 2,048 full syndrome columns agree. It reconstructs **every one** of the
+64,374 kernels with opposite pivot order, enumerates all 348,940 nonzero vectors,
+and independently recovers exactly the same 20 eligible differences. Another
+Python checker uses independently implemented inverse prefix, Butterfly, Ink
+routing and Pressure observations to verify H159 reachability of each candidate
+and exhaust all 4,177,920 Chi2 target signatures; again **zero matches**.
+
+See [AUDIT.json](reproduce/sixcell_20261117/AUDIT.json),
+[ENDPOINT_AUDIT.json](reproduce/sixcell_20261117/ENDPOINT_AUDIT.json), and
+[the GCC candidate CSV](reproduce/sixcell_20261117/results/known_extensions_gcc.deltas.csv).
+The archived 899-support completeness theorem is an accepted, previously
+verified premise; this pass did not repeat its 264,566,400-support search.
+These are internal implementation audits and mathematical deductions, not an
+external review or a proof-assistant formalization.
+
+### SIX-002 — eight-round corollary for the 64,933-difference class
+
+For every H159 pair in SIX-001's exact-six-cell difference class,
+
+> **A1+A2>=8 and sum(A1..A8)>=20.**
+
+Every occupied serial cell forces at least one active call, so A1>=6.
+If A1=6, SIX-001 gives A2>=2. Otherwise A1>=7 and bijectivity gives A2>=1.
+Add the existing universal pair bounds for `(A3,A4)`, `(A5,A6)`, `(A7,A8)`
+to obtain at least 12 more active calls. This extends the previously closed
+at-most-five-cell class to a substantial precisely defined six-cell class.
+It is an activity bound, with no independence or round-probability multiplication.
+
+### SIX-003 — every six-cell H159 reachability kernel has dimension at most 16
+
+Let H_S be the 776-by-96 binary matrix enforcing zero input difference in bits
+1272–2047 for a pre-Chi difference on six coordinate cells S. Then
+
+> **dim ker(H_S) <= 16 for every six-cell support S.**
+
+Proof by exhaustive partition:
+
+1. If S contains a rank-deficient five-cell subset, S belongs to T. The complete
+   independently audited T census above gives maximum nullity **12**.
+2. Otherwise every five-cell subset has rank **80**. H_S includes all 80 columns
+   of any such subset, so rank(H_S)>=80 and nullity(H_S)<=96-80=**16**.
+
+Furthermore, in case 2, **every nonzero kernel vector occupies all six cells**.
+A vector vanishing on one cell would be a nonzero dependence within the other
+five, contradicting their rank 80. Equivalently, projection from this kernel
+to any one cell's 16-bit coordinates is injective.
+
+Consequently, after linear support filtering, a remaining support requires
+at most **65,535 nonzero input-difference vectors** to be tested for local
+one-call feasibility. This bounds the difference-kernel dimension, not the
+number of free base-message bits or a security exponent. It does not fix how
+many supports survive, and it does not eliminate all nonlinear base-feasibility
+problems for candidates that pass necessary conditions.
+
+### SIX-004 — sharper description of the remaining global obstruction
+
+Combining NOTE-015, the five-cell result and SIX-001, any H159 trail with
+`[A1,A2]=[6,1]` must satisfy all of the following:
+
+- Exactly six pre-Chi1 cells are occupied.
+- Each cell contributes exactly one active S-box.
+- **Every five-cell subset of its support has full syndrome rank 80.**
+- Its input difference is a nonzero vector in a kernel of dimension at most 16.
+
+This residual class can include first-only and second-only active cells;
+absence of second-only cells among the 20 closed candidates does not justify
+excluding them from future work. The endpoint helper explicitly reports
+second-only candidates as unresolved rather than dropping them. Closing the
+residual class would establish the global H159 total floor 8 over two rounds
+and floor 20 over eight rounds, under the existing composition premises.
+Neither global conclusion has yet been established.
+
+### Restartable scan, bounded pilot and audit boundaries
+
+[run_batches.py](reproduce/sixcell_20261117/run_batches.py) partitions all
+C(128,6)=5,423,611,200 supports by their smallest two cells `(a,b)`.
+There are 7,626 disjoint batches; batch `(a,b)` contains C(127-b,4) supports.
+It checks that exact count before marking a batch complete. Source fingerprints
+and output hashes accompany each completion receipt. Completed directories are
+published by atomic rename; interrupted `.work` directories are ignored on
+restart and only unfinished batches need to run again.
+
+| Completed pilot batch | Supports | Exact-six-cell vectors | CPU seconds |
+|---|---:|---:|---:|
+| Smallest cells (0,1) | 10,009,125 | 0 | 85.301 |
+| Smallest cells (0,10) | 7,413,705 | 0 | 64.820 |
+| (122,123), tiny restart/control batch | 1 | 0 | <0.001 |
+
+Total completed disjoint coverage is **17,422,831 supports**. These batches
+contain no reachable exact-six-cell differences; their deficient kernels have
+smaller support. They establish coverage and speed, not the global exclusion.
+A separate initial 200,000-support run was deliberately capped, marked
+`complete:false`, and is **not** counted as a completed batch or extra coverage.
+The targeted T census can overlap these batches and is not added to this total.
+
+At the two large batches' measured rates, a blind full scan would take roughly
+**13 CPU-hours**, before allowance for different candidate densities and system
+load. Parallel scaling is not guaranteed. This is an estimate, not a runtime
+promise; the important operational improvement is restartable bounded work.
+No hours-long unattended sweep was left running after this pass.
+
+Additional controls: the generic classifier reproduces the existing five-cell
+counts (899 supports, 2,681 overlapping assignments, 1,937 exact-five differences,
+21 locally A1=5 differences). All linear dependencies among the 2,048 full
+syndrome columns respect the 128-bit projection, independently checking that
+it really is a linear quotient. The optimized prefix/quotient rank filter agrees
+with separate low-pivot elimination on 2,000 full-rank/deficient examples.
+See [PROJECTION_AUDIT.json](reproduce/sixcell_20261117/PROJECTION_AUDIT.json).
+Projection independence can only reject genuinely independent full matrices;
+projected deficiency always falls back to all 776 equations.
+
+**Next work:** resume the bounded support inventory, filtering for the minimal
+six-cell class above; apply exact one-call DDT constraints to its <=16-bit
+kernels; then use the existing target/signature and addition gates. If second-only
+cells arise, enumerate or otherwise conservatively constrain their output DDT
+support before claiming an exclusion. Exact minima still require an actual
+message-pair witness attaining a matching lower bound.
+
+
+### Six-cell batch continuation — pairs (0,2) and (0,3), reviewed 2026-11-17
+
+The user's next bounded invocation completed two further disjoint partitions:
+
+| Two smallest cell IDs | Supports checked | CPU seconds | Reachable exact-six-cell differences | One-call-per-cell candidates |
+|---|---:|---:|---:|---:|
+| (0,2) | 9,691,375 | 77.263 | 0 | 0 |
+| (0,3) | 9,381,251 | 75.274 | 0 | 0 |
+
+All source fingerprints, output hashes, exact expected partition sizes and
+completion receipts passed `verify.py`. Neither batch has an unresolved
+dimension case. Thus neither requires endpoint testing: no valid H159 difference
+occupies all six cells of any support in these partitions. This says nothing
+about sparse differences whose true occupied support is smaller than six.
+
+The two batches add **19,072,626** supports. The five completed disjoint batches
+now cover **36,495,457 / 5,423,611,200 supports (about 0.673%)**. This is support
+inventory coverage, not a percentage of attacks excluded. The targeted
+64,374-support closed class is not added to this total because of possible
+overlap. There are no new endpoint candidates and no change to the global H159
+eight-round floor **19**. The previously proved restricted floor 20 and global
+six-cell kernel-dimension bound 16 remain in force.
+
+[Batch review record](reproduce/sixcell_20261117/BATCH_PROGRESS_000002_000003.json);
+[current cumulative summary](reproduce/sixcell_20261117/SUMMARY.json).
+The same bounded runner command resumes at the next unfinished pair-prefix
+partitions; completed results are verified and skipped.
+
+
+### Six-cell running checkpoint — 551 completed batches (2026-11-17)
+
+Saved completion receipts, source/output hashes, exact partition sizes and
+recorded classifier counts passed verification. No completed support batch was
+replayed. This checkpoint covers **1,169,200,733 / 5,423,611,200 supports
+(21.5576%)**, in **551** disjoint completed batches. Four worker processes
+were still active; incomplete working directories are excluded from coverage.
+
+The completed inventory has encountered **38 reachable exact-six-cell
+differences**, with **zero** locally one-active-call-per-cell candidates. The
+38 are discoveries within the inventory and may overlap the previously closed
+64,933-difference class; they are not asserted to be new differences. No new
+A2=1 endpoint checks are required at this checkpoint. The global H159 floor
+remains **19**; the campaign continues toward the remaining six-cell case.
+
+[Saved checkpoint](reproduce/sixcell_20261117/PROGRESS_0551_batches.json).
+
+
+### Six-cell running checkpoint — 1769 completed batches (2026-11-17)
+
+Saved batch receipts and source/output hashes passed verification; no completed
+support batch was replayed. Completed disjoint coverage is **3,000,331,321 supports
+(**55.3198%** of 5,423,611,200), with **64960** reachable exact-six-cell
+vectors encountered and **20** locally one-call-per-cell candidates.
+The difference count may overlap the previously closed class. Global H159
+eight-round floor remains 19; any new candidate requires endpoint analysis.
+
+[Saved checkpoint](reproduce/sixcell_20261117/PROGRESS_1769_batches.json).
+
+Candidate identity check for the 1769-batch checkpoint: all **20** candidate
+keys (six coordinates plus exact input-difference vector) match **exactly**
+the 20 already excluded in SIX-001. There are **zero new unresolved
+candidates**. The existing endpoint certificate applies directly; it was
+not recomputed. The scan continues to cover previously unchecked supports.
+
+
+### Six-cell running checkpoint — 2979 completed batches (2026-11-17)
+
+Verified saved completion receipts and source/output hashes; no completed
+batch or endpoint enumeration was replayed. Coverage is **4,182,381,673 / 5,423,611,200
+supports (77.1143%)**. The completed inventory contains **65404**
+reachable exact-six-cell vectors and **20** locally eligible candidates: **20**
+match the previously excluded class and **0** are new/unresolved. There are **0**
+unresolved dimension cases. The general H159 eight-round floor remains 19
+pending complete residual coverage and any required new endpoint checks.
+
+[Checkpoint record](reproduce/sixcell_20261117/PROGRESS_2979_batches.json).
+
+
+### Reviewer-requested final coverage and candidate audit — 2026-11-17
+
+Implemented [final_audit.py](reproduce/sixcell_20261117/final_audit.py) to check
+saved computational evidence without rerunning support or endpoint enumeration.
+It snapshots completed directories, verifies input/source/receipt/output hashes,
+and checks the **exact set** of 7,626 pair-prefix domains. Each has the unique
+two smallest cells `(a,b)` and expected size C(127-b,4); their full sum is
+5,423,611,200. Missing, duplicate, malformed or wrong-scope domains cannot be
+hidden by matching only an aggregate count. Within each batch, complete loop
+coverage relies on the audited scanner's semantics and checked loop count;
+the audit does not store or re-enumerate billions of support tuples.
+
+The checker reconciles deficient-support rows, nullity histograms, enumerated
+kernel counts, skipped-dimension records, and candidate CSV row counts. Each
+candidate is checked for six nonzero cells, exact support and vector identity,
+and local one-call DDT feasibility. It is then either linked to the saved,
+independently checked SIX-001 exclusion or explicitly classified as unresolved.
+New candidates are never silently discarded. Supporting certificate hashes are
+recorded in the output. Unresolved dimensions also prevent complete exclusion.
+
+The first live check correctly returned **INCOMPLETE_COVERAGE** at 3,100 completed
+batches / 4,294,019,962 supports, with **20 previously excluded candidates,
+zero unresolved candidates, and zero unresolved supports**. This is a running
+snapshot, not a completed-campaign theorem. Seven regression controls passed
+for exact/missing/duplicate/wrong-scope/wrong-count partitions and exact candidate
+key reuse versus unresolved accounting.
+
+At campaign completion run:
+
+```bash
+python3 ~/security/reproduce/sixcell_20261117/final_audit.py --require-complete
+```
+
+That command succeeds only if coverage is exact and all cases close; otherwise
+it reports incomplete coverage, unresolved cases, or integrity failure and
+returns a nonzero status. [FINAL_AUDIT.json](reproduce/sixcell_20261117/FINAL_AUDIT.json)
+contains the current report, missing domains, candidate classifications, any
+unresolved supports and evidence fingerprints. This improves reproducibility
+and accounting assurance; it does not replace independent examination of the
+scanner/model or the prior four-/five-cell premises. Active scanner sources and
+all completed batch receipts were left unchanged.
+
+
+### Six-cell audited checkpoint — 3393 completed batches (2026-11-17)
+
+The saved-record final-audit checker reports **INCOMPLETE_COVERAGE**.
+Coverage is **4,493,963,937 / 5,423,611,200 supports
+(82.8593%)**. Candidate accounting: **20**
+previously excluded, **0** unresolved; **0**
+unresolved-dimension supports. No support or endpoint computation was replayed.
+
+[Saved checkpoint](reproduce/sixcell_20261117/FINAL_CHECKPOINT_3393.json).
+
+
+### Six-cell audited checkpoint — 5978 completed batches
+
+Saved-record audit status: **INCOMPLETE_COVERAGE**. Completed coverage is
+**5,363,898,723 / 5,423,611,200 supports (98.8990%)**.
+Candidate accounting: **20** verified exclusions, **0**
+unresolved candidates, **0** unresolved-dimension supports. No support
+or endpoint enumeration was replayed.
+
+[Saved checkpoint](reproduce/sixcell_20261117/FINAL_CHECKPOINT_5978.json).
+
+
+## Completed six-cell campaign — global H159 activity floors (2026-11-17)
+
+**Final status: COMPLETE_EXCLUSION.** The reviewer-requested final saved-record
+audit verified **7,626/7,626 batches** forming the exact nonoverlapping partition
+of **5,423,611,200/5,423,611,200 supports**. There are **no missing partitions,
+no unresolved candidates and no skipped-dimension supports**. Completed batches
+and the existing endpoint campaign were not replayed at completion.
+
+The [standalone theorem and proof](reproduce/sixcell_20261117/H159_GLOBAL_20_ACTIVITY_THEOREM.md)
+give the full domain, accepted premises, derivation, counts, compiler coverage
+and independent-audit boundaries. The frozen
+[completion audit](reproduce/sixcell_20261117/FINAL_AUDIT_at_completion.json) and
+[completion certificate](reproduce/sixcell_20261117/COMPLETION_CERTIFICATE.json)
+preserve exact evidence identities and source/output fingerprints.
+
+### SIX-005 — global H159 [6,1] exclusion
+
+For every distinct pair of valid exactly 159-byte messages, embedded as
+`message || 0x86 || 0^96` and evaluated through the unchanged original indexed
+rounds,
+
+> **A1=6 implies A2>=2.**
+
+Each occupied serial-Chi cell contributes at least one active byte S-box call,
+so A1=6 has at most six occupied cells. The established H159 support minimum
+is four. NOTE-015 closes four-cell supports; the replayed five-cell campaign
+closes five-cell supports; the completed campaign closes six-cell supports.
+These exhaust the cases. No statement of an attained A2 minimum follows.
+
+The full six-cell census retains **64,802 exactly rank-deficient supports**
+out of 64,807 projected-dependent supports (five projection false positives
+are safely discarded by the full syndrome test). Their kernels contain
+**349,542** nonzero vectors including lower-support overlaps; exactly **65,535**
+distinct vectors occupy all six cells. Only **20** locally permit exactly one
+active call per cell. All 20 match exactly the SIX-001 candidate list, already
+excluded by independent exhaustive target-signature checks. There are no new
+or unclassified candidates. No second-only-cell candidates occur in this full
+locally eligible list; none was omitted by assumption.
+
+### SIX-006 — universal two-/eight-round H159 activity lower bounds
+
+Under SIX-005 and the established activity premises, every such H159 pair has
+
+> **A1+A2>=8**, and **sum(A1..A8)>=20**.
+
+For A1=5, the established A2>=4 gives first-window total at least 9. For A1=6,
+SIX-005 gives at least 8. For A1>=7, bijectivity gives A2>=1 and total at least
+8. The three disjoint suffix windows `(A3,A4)`, `(A5,A6)`, `(A7,A8)` each
+contribute at least four by the accepted universal [1,1]/[1,2]/[2,1] exclusions.
+Thus the total is at least `8+4+4+4=20`, without cross-round independence.
+
+The unrestricted eight-round floor remains **16**. The H159 A1=5 subclass
+retains its stronger floor **21**, and previously identified fixed-difference
+subclasses retain their conditional floor **22**. The former general H159 floor
+19 is superseded by 20. No actual pair attaining the new totals 8 or 20 was
+found, so these are lower bounds, not exact minima. In particular, the global
+minimum of A2 alone remains unresolved, as do collision/preimage security bits.
+
+[Independent arithmetic checks](reproduce/sixcell_20261117/BOUNDS_AUDIT.json)
+use full-range min-plus DP and separate positive-integer composition enumeration
+to verify the model floors 8/20/21. Their abstract minimizing sequences are
+not claimed to be real differential trails. The original adjacent-window
+premises, including the completed historical [2,1] proof, were accepted and
+were not rerun in this pass.
+
+### SIX-007 — complete six-cell classification and sharpened kernel bound
+
+The completed census gives **maximum kernel dimension 12** over all six-cell
+H159 coordinate supports, sharpening SIX-003's analytic upper bound 16.
+Full-rank supports have dimension zero. This is a finite-certified property
+of the difference-reachability matrices, not a cryptographic security exponent.
+
+The 64,374 nonminimal supports in SIX-001 contribute 64,933 exact-six-cell
+differences. The remaining **428 minimal supports** have nullities:
+
+| Nullity | Supports | Nonzero full-six-cell vectors |
+|---:|---:|---:|
+| 1 | 353 | 353 |
+| 2 | 69 | 207 |
+| 3 | 6 | 42 |
+| Total | **428** | **602** |
+
+All five-cell subsets of these minimal supports are independent, so every
+nonzero kernel vector occupies all six cells. None of these 602 differences
+permits A1=6 locally; each requires at least seven calls. See
+[complete classification](reproduce/sixcell_20261117/FINAL_CLASSIFICATION.json)
+and [minimal support list](reproduce/sixcell_20261117/MINIMAL_SIXCELL_SUPPORTS.csv).
+The classification is reconstructed from saved complete tables, not a replay
+of support enumeration.
+
+### Completion assurance and reproduction
+
+The final audit checks exact domain identity, per-domain counts, scope,
+source/receipt/output hashes, support/nullity/kernel accounting, and exact
+candidate identity. The within-batch enumeration claim relies on the audited
+scanner's loop semantics and completed counts. The full support sweep used
+GCC; the targeted class and endpoint certificate have GCC/Clang and independent
+Python agreement. This is not a second full compiler sweep or external/formal
+verification. Raw results, complete code and the original completion manifest
+remain available for independent scrutiny and optional reproduction.
+
+```bash
+python3 ~/security/reproduce/sixcell_20261117/final_audit.py --require-complete
+python3 ~/security/reproduce/sixcell_20261117/verify_completed_bounds.py
+make -C ~/security/reproduce/sixcell_20261117 verify
+```
+
+These completion checks read saved campaign evidence and verify short arithmetic
+deductions; they do not rerun billions of support cases or the old [2,1] campaign.
+Recorded scan CPU time totals approximately **19.38 CPU-hours**, excluding setup
+outside each batch's recorded timer. The earlier 13-hour estimate was a pilot
+extrapolation and is superseded by this measurement. No scanner workers remained
+running at the final check.
+
+
+### Reviewer handoff package — 2026-11-17
+
+Created [KRAKKEN_H159_ACTIVITY_AUDIT_20261117.zip](reviewer/KRAKKEN_H159_ACTIVITY_AUDIT_20261117.zip)
+(30,128,186 bytes), containing the complete six-cell records and
+source, four-/five-cell prerequisites, earlier A2 and adjacent-rule certificates,
+completed [2,1] records and matching producer sources, all eleven ledgers as
+context, and a reviewer guide/dependency map. The ZIP includes a whole-package
+hash manifest and relative-path saved-record audit entry point. Unrelated
+historical attack experiments are not part of this focused activity package.
+
+A fresh extraction into a separate temporary directory passed archive CRC,
+all 38,870 file hashes, the full saved-record audit, short bound deductions and
+prior-premise bookkeeping checks. No support/endpoint campaign or solver was
+run. [Packaging test record](reviewer/PACKAGING_TEST.json).
+
+ZIP SHA-256: `e8d372d8bc93d4be25401c422b82b6622ae27308c2002368e63fd11ab7df27d7`.
+
+
+## All-family minimum-first-round continuation — A2>=5 (2026-11-18)
+
+**New computer-assisted conditional theorem:** every valid exactly 159-byte
+message pair with **A1=5** satisfies **A2>=5**. Its first-two-round total is at
+least **10**, and its eight-round total is at least **22**, using the accepted
+universal adjacent-window floor four. This improves the all-family conditional
+floor from 21 to 22. The general H159 eight-round floor remains **20**.
+
+See [the full theorem and proof](reproduce/a15_a2_four_20261118/A15_A2_GE5_THEOREM.md),
+[reproduction guide](reproduce/a15_a2_four_20261118/README.md), and
+[complete verified results](reproduce/a15_a2_four_20261118/VERIFIED_RESULTS.json).
+The old conditional A2 interval [4,245] becomes **[5,245]**; no actual A2=5
+message-pair witness or exact minimum has been found.
+
+### A15-FOUR-001 — all 21 fixed sources exclude four-cell Chi2 endpoints
+
+The accepted complete first-round classification gives exactly 21 differences
+attaining A1=5. Each has five occupied cells with nonzero first-call input
+difference. Therefore all five second calls are inactive, fixing the post-Chi1
+and post-Butterfly1 difference for every base message in the condition.
+
+If A2<=4, the pre-Chi2 difference occupies at most four cells. Every such
+endpoint is contained in an enumerated four-cell set, with zero coordinates
+allowed. The analysis permits every 64-bit assignment inside each set,
+including spurious differences with greater Chi activity. Hence exclusions
+of this enlarged class cover all real A2<=4 cases.
+
+For each family, the complete **10,668,000** four-cell supports are scanned
+through 36–90 source-dependent exact linear Pressure equations. The full
+**224,028,000** family/support cases leave **298,552** affine systems. Both
+full implementations exclude every retained system with no unresolved cases.
+The source actually proves the stronger statement: **at least five occupied
+pre-Chi2 serial cells** for this A1=5 population.
+
+| Zero-based family ID | Linear survivors | Independent arithmetic exclusions | Unresolved |
+|---:|---:|---:|---:|
+| 0 | 0 | 0 | 0 |
+| 1 | 21860 | 21860 | 0 |
+| 2 | 121595 | 121595 | 0 |
+| 3 | 0 | 0 | 0 |
+| 4 | 0 | 0 | 0 |
+| 5 | 2752 | 2752 | 0 |
+| 6 | 14294 | 14294 | 0 |
+| 7 | 3956 | 3956 | 0 |
+| 8 | 153 | 153 | 0 |
+| 9 | 0 | 0 | 0 |
+| 10 | 14 | 14 | 0 |
+| 11 | 83550 | 83550 | 0 |
+| 12 | 2534 | 2534 | 0 |
+| 13 | 331 | 331 | 0 |
+| 14 | 8 | 8 | 0 |
+| 15 | 0 | 0 | 0 |
+| 16 | 9864 | 9864 | 0 |
+| 17 | 37548 | 37548 | 0 |
+| 18 | 0 | 0 | 0 |
+| 19 | 1 | 1 | 0 |
+| 20 | 92 | 92 | 0 |
+| **Total** | **298,552** | **298,552** | **0** |
+
+IDs use lexicographic delta order in FAMILY_CATALOG.json. Legacy selected
+`delta_id=1` is current family ID **4**, while the separately archived saved
+witness is ID **18**. Exact deltas, not ordinal wording, identify the theorem
+population. Cell coordinates here use `32*y+8*p+q`, different from the six-cell
+campaign's ordering; all maps are explicitly cross-checked.
+
+### A15-FOUR-002 — arithmetic contradiction method and audits
+
+For each isolated modular addition define `q=dx XOR dy XOR dz`, the carry XOR
+difference. Exact support requires q[0]=0 and
+`dx[i]=dy[i]=q[i] => q[i+1]=dx[i]` for i=0..62. This follows from the majority
+carry rule and admits a direct bitwise-induction proof. Both incoming carry-pair
+orientations and all 4,680 profiles at widths 1–4 were checked independently.
+The rule is applied separately to all 32 Pressure additions. Shared actual base
+operands are not assumed independent; ignoring their compatibility enlarges the
+model and is safe for exclusions.
+
+With fixed first-round source, all predicate bits are affine forms of the
+64 endpoint variables. A forbidden carry transition is a conjunction of up to
+three affine predicates. If all but one are forced true, the last must be
+false, adding a necessary linear equation. If all are forced true, the support
+is impossible. This avoids enumerating affine spaces up to dimension **42**.
+
+The primary implementation uses high-pivot column kernels and affine clauses.
+A second implementation uses low-pivot row elimination over the original
+endpoint coordinates and direct carry predicates. It excludes **all 298,552**
+cases using only forced equations, **without branching search**; at most 27
+new equations per case, 558,364 in total. No node-budget cutoff occurs. The
+primary prototype enters only 31 root nodes and also reports no unresolved case.
+
+Model/source controls compare all 2,048 inverse endpoint columns and Butterfly
+bases with separate Python and original C, rebuild every fixed source and all
+43,008 projected header entries, inspect every compiled endpoint/source table
+entry, and check 2,688 actual original-C fixed-source Pressure pairs. A native
+self-test compares 2,000 random affine-clause systems with exhaustive truth
+tables. Eight small endpoint systems have 92,416 assignments exhaustively
+compared against the direct full-word support predicate.
+
+The separate Python audit checks **69 representative residuals** across all
+15 families with survivors, including the largest dimensions and longest
+implication chains, using its own inverse prefix and row reasoning. The Python
+pass is representative; both C passes cover every residual. See
+[preparation checks](reproduce/a15_a2_four_20261118/PREPARATION_CHECKS.json),
+[carry rule audit](reproduce/a15_a2_four_20261118/ADDITION_RULE_AUDIT.json), and
+[Python audit](reproduce/a15_a2_four_20261118/PYTHON_AUDIT.json).
+
+### A15-FOUR-003 — conditional 22-call corollary and user replay
+
+For this population, A1+A2>=5+5=10. The disjoint windows (A3,A4), (A5,A6),
+(A7,A8) each contribute at least four, proving **sum(A1..A8)>=22**. A full-range
+DP and separate positive-composition enumeration verify this deduction in
+[BOUNDS_AUDIT.json](reproduce/a15_a2_four_20261118/BOUNDS_AUDIT.json).
+No independence between rounds is used. The new first-window theorem is not
+asserted for arbitrary later-round A_r=5 events or arbitrary full-state inputs.
+
+The primary GCC support scan and both full arithmetic implementations are
+complete. The restartable **Clang / opposite-pivot** confirmation has been
+end-to-end tested on families 0 and 1; the remaining 19 can be completed with:
+
+```bash
+python3 ~/security/reproduce/a15_a2_four_20261118/run_audit.py --replay --workers 4
+```
+
+This is a short finite confirmation, at the measured rate on the order of
+minutes, not a repeat of the 5.4-billion-support scan. It verifies/skips completed
+families and preserves receipts. A completed all-21 Clang replay is not claimed
+until its completion record exists and is verified. Saved-record checking
+without rescanning is `python3 .../run_audit.py` with no flags.
+
+The original first-round completeness campaign and the historical [2,1] premise
+were not rerun. Original permutation files and completed prior evidence are
+unchanged. This is an internal computational theorem and audit, not external
+review, formal verification or a security-bit certification.
