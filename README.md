@@ -84,4 +84,50 @@ Submit an issue with the supplied [cryptanalysis template](.github/ISSUE_TEMPLAT
 
 > **Ten years of work is a reason to publish the evidence and invite adversarial scrutiny—not a substitute for it.**
 
+## Design Origins and Acknowledgments
+
+**Krakken-2048 is an original cryptographic permutation design that incorporates selected elements from established cryptographic constructions.**
+
+The overall 2,048-bit permutation architecture, organization of its nine layers, and their integration into the complete round function are original to the Krakken project. However, several important mathematical and cryptographic components draw upon earlier work, which deserves explicit recognition.
+
+### Keccak / SHAKE128
+
+Krakken uses **SHAKE128**, based on the **Keccak-f[1600] permutation**, to deterministically generate its public round constants.
+
+SHAKE128 is part of the SHA-3 family standardized in **NIST FIPS 202**.
+
+Keccak was designed by **Guido Bertoni, Joan Daemen, Michaël Peeters, and Gilles Van Assche**.
+
+The use of SHAKE128 for round-constant generation does not mean that Krakken's main eight-round permutation is Keccak.
+
+### Whirlpool — Finite Field and MDS Matrix
+
+Krakken incorporates two mathematical elements associated with the **Whirlpool cryptographic hash function**, designed by **Paulo S. L. M. Barreto and Vincent Rijmen**.
+
+**1. Finite-field arithmetic**
+
+Krakken uses arithmetic in GF(2⁸), defined by the irreducible polynomial:
+
+`x⁸ + x⁴ + x³ + x² + 1` (`0x11D`)
+
+This is the same finite-field polynomial used by Whirlpool.
+
+Krakken's **Abyssal S-box** is constructed using multiplicative inversion in this field followed by an affine transformation. The resulting S-box is specific to Krakken and is not a copy of Whirlpool's S-box.
+
+**2. MDS diffusion matrix**
+
+Krakken's **Tentacle MDS** layer uses the eight-byte circulant coefficient sequence:
+
+`01 01 04 01 08 05 02 09`
+
+These coefficients originate from Whirlpool's diffusion matrix and are applied within Krakken's own state organization and round structure.
+
+### Originality and Attribution
+
+Krakken combines established mathematical ingredients with its own permutation architecture, serial nonlinear transformations, diffusion mechanisms, and round organization.
+
+The author gratefully acknowledges the designers of **Keccak** and **Whirlpool** for their contributions to cryptography and for the mathematical foundations incorporated into this project.
+
+These acknowledgments identify the origins of specific components. They do not imply endorsement by the original designers, nor do security analyses of Keccak or Whirlpool automatically establish the security of Krakken.
+
 © Contributors; see repository history for authorship and license terms. No license is implied by publication where none is provided.
