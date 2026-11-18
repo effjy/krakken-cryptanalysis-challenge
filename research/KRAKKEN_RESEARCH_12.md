@@ -216,3 +216,21 @@ The next useful direction suggested by these results is to incorporate the exact
 ## 8. Reproduction
 
 See the [reproduction README](reproduce/xrbd_studies_20261118/README.md) for isolated commands and exact evidence layout. The supplied programs use Python standard-library arithmetic and compile the preserved scalar C with GCC and Clang. No MILP/SAT solver or year-long search is needed. The archived JSON files remain untouched; fresh matching outputs and logs are retained separately.
+
+## 9. Reviewer follow-up: probability bounds rather than activity counts
+
+The reviewer's central diagnosis is accepted: the activity floors above do not supply a general eight-round differential-probability bound. However, the older research already contains genuine **one-complete-round** endpoint bounds: `DIFF-RATE-008` in Research 01 proves a common ceiling `<507/512000` for every prescribed full-state R1 difference for three fixed H159 input differences. The general `2^-30` first-Chi/XRBD probability bound in `CHI-RATE-001` stops before Pressure. These stopping points and domains must remain explicit.
+
+A new small finite audit specializes the existing `DIFF-ACT-001` activity-fiber theory to **all 21 classified minimum-first-round differences**. For each fixed difference and a uniform 159-byte base message, it verifies:
+
+- Five jointly uniform first-call input bytes: rank 40, checked with both pivot orders.
+- Exactly two favorable derivative roots at each byte, each pair an affine line.
+- Therefore **Pr[A1=5] = 2^-35**, with an affine qualifying population of dimension **1,237**.
+- The five paired local inputs have rank 80, giving an exact partition into `2^80` equally sized affine fibers, each with `2^1192` messages.
+- All 1,272 message-bit prefix columns agree between the independent Python model and the original C under **both GCC and Clang**.
+
+This verifies the probability setup for every explicitly listed difference without repeating the classification campaigns. It is a specialization/certificate of existing theory, not a new multiround endpoint theorem. Source copies, roots, differences, hashes, and logs are in [the probability foundation package](reproduce/probability_foundation_20261118/README.md), with [RESULTS.json](reproduce/probability_foundation_20261118/RESULTS.json).
+
+The key warning is that bounding `Pr[output difference=beta | A1=5]` controls only a population of mass `2^-35`. Without controlling the complement, it cannot give a useful unconditional endpoint bound. Also, uniform H159 bases do not define the reviewer's uniform-full-state MDP.
+
+The next precise target is a certified maximum point probability for a **small projection of the complete second-round output difference**, for one named fixed input difference under an explicitly chosen base distribution. Such a projected bound upper-bounds every full endpoint probability and automatically aggregates all trails. The package's reviewer note supplies exact counting, mixture, Fourier, and conditional-kernel formulas, together with the still-missing proof obligations. No new two-complete-round or eight-round endpoint probability bound has been established in this follow-up.
