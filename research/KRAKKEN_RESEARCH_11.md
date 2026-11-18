@@ -2366,3 +2366,21 @@ The original first-round completeness campaign and the historical [2,1] premise
 were not rerun. Original permutation files and completed prior evidence are
 unchanged. This is an internal computational theorem and audit, not external
 review, formal verification or a security-bit certification.
+
+
+### All-21-family Clang confirmation completed — 2026-11-18
+
+The user completed the remaining Clang/opposite-pivot confirmation. Saved
+receipts, source fingerprints, output hashes and exact CSV agreement passed
+verification for **all 21 families**: **224,028,000 four-cell supports**,
+**298,552 independently excluded residuals**, and **zero unresolved cases**.
+All Clang low-pivot support lists and independent arithmetic tables match
+the primary saved evidence byte for byte. No scans were rerun during this
+completion check.
+
+This closes the previously pending compiler-confirmation step. The theorem
+is unchanged: **H159 A1=5 => A2>=5**, first-window total >=10, conditional
+eight-round total >=22; general H159 floor remains 20.
+
+[Clang completion](reproduce/a15_a2_four_20261118/replay_clang/COMPLETION.json);
+[fully verified results](reproduce/a15_a2_four_20261118/VERIFIED_RESULTS.json).
