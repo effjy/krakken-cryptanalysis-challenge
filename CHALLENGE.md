@@ -36,7 +36,7 @@ Please specify rounds **and** exact beginning/end layer boundaries. A fixed diff
 
 ## Current status
 
-The eleven [research ledgers](research/README.md) document multiple local and reduced-round distinguishers plus numerous restrictions on their investigated continuations. They do **not** certify 128-bit collision resistance, 256-bit preimage resistance, a global eight-round differential probability or general full-round indistinguishability.
+The thirteen [research ledgers](research/README.md) document multiple local and reduced-round distinguishers plus numerous restrictions on their investigated continuations. They do **not** certify 128-bit collision resistance, 256-bit preimage resistance, a global eight-round differential probability or general full-round indistinguishability.
 
 ## Disclosure
 
