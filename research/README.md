@@ -1,6 +1,6 @@
 # Krakken research — twelve ledgers
 
-These twelve files form the Krakken cryptanalysis research corpus. Research **07, 08 and 11** contain November 17–18, 2026 theorem updates, and **Research 12** records the XRBD, conditional round-two, and Pressure compatibility results independently replayed within the research project. Earlier sections may preserve historical bounds superseded by these updates. The records are published for independent reproduction, scrutiny and challenge.
+These twelve files form the Krakken cryptanalysis research corpus. Research **07, 08 and 11** contain November 17–18, 2026 theorem updates, and **Research 12** records XRBD, conditional round-two, Pressure compatibility, and the 21-family H159 first-round probability foundation (`Pr[A1=5]=2^-35`), as replayed within the research project. Earlier sections may preserve historical bounds superseded by these updates. The records are published for independent reproduction, scrutiny and challenge.
 
 | Original ledger | Principal role |
 | --- | --- |
@@ -15,7 +15,7 @@ These twelve files form the Krakken cryptanalysis research corpus. Research **07
 | [KRAKKEN_RESEARCH_09.md](KRAKKEN_RESEARCH_09.md) | Consolidation and provenance of earlier supporting research |
 | [KRAKKEN_RESEARCH_10.md](KRAKKEN_RESEARCH_10.md) | Review, source-sensitive checks, output/correlation results |
 | [KRAKKEN_RESEARCH_11.md](KRAKKEN_RESEARCH_11.md) | Attack theorem ledger, completed H159 [6,1] exclusion and all-family A1=5 continuation |
-| [KRAKKEN_RESEARCH_12.md](KRAKKEN_RESEARCH_12.md) | XRBD exact structure, conditional `A2>=31`, conditional 51-call corollary, and Pressure compatibility |
+| [KRAKKEN_RESEARCH_12.md](KRAKKEN_RESEARCH_12.md) | XRBD exact structure, conditional `A2>=31` and 51-call activity floors, Pressure compatibility, and exact H159 `Pr[A1=5]=2^-35` first-round population |
 
 ## Reading order
 
@@ -27,7 +27,7 @@ These twelve files form the Krakken cryptanalysis research corpus. Research **07
 
 ## Important caveats
 
-These research records retain historical section names, references, source paths and links to scripts, logs, JSONs and certificates from the researcher's private working tree. **Not all referenced supporting artifacts are present in this GitHub repository.** In particular, Research 12 refers to a local `reproduce/xrbd_studies_20261118/` evidence tree containing source archives and replay receipts; those files are **not yet mirrored here**, so those relative links may not resolve on GitHub. We have included the [21-family H159 witnesses](../evidence/family_witnesses.json), but the availability of a Markdown theorem statement alone does not imply that every supporting certificate is mirrored.
+These research records retain historical section names, references, source paths and links to scripts, logs, JSONs and certificates from the researcher's private working tree. **Not all referenced supporting artifacts are present in this GitHub repository.** In particular, Research 12 refers to local `reproduce/xrbd_studies_20261118/` and `reproduce/probability_foundation_20261118/` evidence trees containing source archives, calculation scripts, and replay receipts; those files are **not yet mirrored here**, so those relative links may not resolve on GitHub. We have included the [21-family H159 witnesses](../evidence/family_witnesses.json), but the availability of a Markdown theorem statement alone does not imply that every supporting certificate is mirrored.
 
 Statements from earlier dates can be superseded by later completed campaigns. The current high-level status is summarized in [Known Results](../docs/KNOWN_RESULTS.md) with explicit pointers.
 
