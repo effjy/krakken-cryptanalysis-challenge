@@ -1,6 +1,6 @@
-# Current research map (November 15, 2026)
+# Current research map (November 18, 2026)
 
-**Read this as an attacker's index, not a security certification.** The 11 unmodified ledgers in [research/](../research/README.md) remain authoritative for exact quantified statements. Claims below summarize the supplied research and do not imply outside validation.
+**Read this as an attacker's index, not a security certification.** The 11 ledgers in [research/](../research/README.md), including the November 17–18 updates to Research 07, 08 and 11, remain the primary records for exact quantified statements. Claims below summarize the supplied research and do not imply outside validation.
 
 ## Established activity bounds
 
@@ -9,11 +9,9 @@ Write `A_r` for the number of active serial-Chi **byte S-box calls** in round `r
 | Domain / condition | Established statement | Main record |
 | --- | --- | --- |
 | Nonzero unrestricted permutation input difference | `sum(A1..A8) >= 16` | [07](../research/KRAKKEN_RESEARCH_07.md) |
-| Nonzero valid H159 message-pair difference | `sum(A1..A8) >= 19` | [07](../research/KRAKKEN_RESEARCH_07.md) |
-| H159, conditional on `A1=5` | `sum(A1..A8) >= 21` | [07](../research/KRAKKEN_RESEARCH_07.md) |
-| H159, `A1=5` | Universal `A2>=4`; exactly **21 input-difference families** achieve `A1=5` | [08](../research/KRAKKEN_RESEARCH_08.md) |
-| Specific archived `A1=5` families | Some have `A2>=5` and hence a stronger 22-call conditional floor; **not universal** | [07](../research/KRAKKEN_RESEARCH_07.md), [10](../research/KRAKKEN_RESEARCH_10.md) |
-| Restricted five-cell `[6,1]` class | A new restricted exclusion yields a **20-call floor for that specific population**; general H159 floor remains 19 | [11](../research/KRAKKEN_RESEARCH_11.md) |
+| Nonzero valid H159 message-pair difference | `A1+A2 >= 8`; `sum(A1..A8) >= 20` | [11](../research/KRAKKEN_RESEARCH_11.md) |
+| H159, conditional on `A1=5` | `A2 >= 5`; `sum(A1..A8) >= 22` (all 21 classified input differences) | [11](../research/KRAKKEN_RESEARCH_11.md), [08](../research/KRAKKEN_RESEARCH_08.md) |
+| H159, conditional on `A1=6` | `A2 >= 2` (global `[6,1]` exclusion) | [11](../research/KRAKKEN_RESEARCH_11.md) |
 
 The integers are **necessary lower bounds**, not attained minima or bits of security. An abstract low-activity assignment may be impossible to realize in the full permutation. The exact eight-round activity minimum and useful global differential probabilities remain unknown.
 
