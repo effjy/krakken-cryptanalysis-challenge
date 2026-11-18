@@ -19,6 +19,12 @@ The new Research 12 bounds apply **only to their stated restricted differential 
 
 The archived [21-family witness catalog](../evidence/family_witnesses.json) includes real H159 pairs with `A1=5`. Its observed high second-round activities are **witness values**, not lower-bound certificates.
 
+## Exact H159 first-round activity-event probability (Research 12 follow-up)
+
+For **each of the 21 classified fixed H159 input differences**, a uniform 159-byte base message activates exactly five first-round byte S-box calls with **`Pr[A1=5]=2^-35`**. The qualifying base messages form an affine subspace of dimension **1,237** (`2^1237` messages out of `2^1272`); the finite audit also reports 80-bit paired local input rank and checks all 1,272 message-bit prefix columns against the original C under GCC and Clang. See [Research 12, §9](../research/KRAKKEN_RESEARCH_12.md).
+
+**Scope limitation:** the `A1=5` event has only `2^-35` of the base-message probability mass. Endpoint probabilities require counting both this subset **and its complement**; this certificate establishes **no new two-round or eight-round differential endpoint-probability bound**. Uniform H159 base messages are not the same distribution as uniform unrestricted permutation states. The dedicated probability-foundation replay package is not yet mirrored in this repository.
+
 ## Cryptanalytic structures worth investigating
 
 - **Local serial Chi:** exact differential/nonperfect linear properties and perfect nontrivial local boomerang/differential-linear families. These are **real local distinguishers**, not full-round attacks. [01](../research/KRAKKEN_RESEARCH_01.md)
