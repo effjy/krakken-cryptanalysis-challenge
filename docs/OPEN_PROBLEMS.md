@@ -1,6 +1,6 @@
 # Open cryptanalysis questions
 
-The goal is to find **new** attacks or independently falsify published claims, not to confirm that Krakken is secure. All eleven ledgers are preserved at [research/](../research/README.md).
+The goal is to find **new** attacks or independently falsify published claims, not to confirm that Krakken is secure. All thirteen ledgers are preserved at [research/](../research/README.md).
 
 ## Full eight-round targets
 
@@ -8,13 +8,13 @@ The goal is to find **new** attacks or independently falsify published claims, n
 
 **2. Distinguish the full 2048-bit permutation.** Differential, linear, algebraic, integral, rotational/RX, rebound, subspace or adaptive attacks are welcome. Explain data, time, memory and the null model used.
 
-**3. Extend the best local and reduced-round phenomena.** The documented serial-Chi boomerang/differential-linear relations, rotational predictors, balanced masks, low-dimensional affine hulls, and rebound partial matches suggest concrete starting points. Some selected continuations are already excluded; study different degrees of freedom instead of relabeling old failures.
+**3. Extend the best local and reduced-round phenomena.** The documented serial-Chi boomerang/differential-linear relations, rotational predictors, balanced masks, low-dimensional affine hulls, rebound partial matches, and Research 13's H159 exchange square and two-round constructed related-input rotational/DDT test suggest concrete starting points. Some selected continuations are already excluded; study different degrees of freedom instead of relabeling old failures.
 
 ## Exact mathematical targets
 
-**4. Complete H159 two-round activity.** For all valid 159-byte pairs with `A1=5`, the established universal bound is `A2>=4`; 21 input-difference families are classified. Exclude `A2=4` universally (or construct a real reachable witness), retaining real Pressure carry constraints. [Families and examples](../evidence/family_witnesses.json); [Research 08](../research/KRAKKEN_RESEARCH_08.md).
+**4. Raise the general H159 two-round activity bound.** Research 11 records the completed exclusions of `[5,4]` across all 21 `A1=5` input-difference families and of `[6,1]` across the valid H159 domain. Consequently `A1=5 => A2>=5`, while the general H159 bounds are `A1+A2>=8` and eight-round activity `>=20`. The remaining first-two-round activity-total-eight cases are **`[6,2]` and `[7,1]`**. Exclude both universally (or construct a real valid-message witness); under the established unrestricted adjacent-round premises this would improve the general H159 bounds to `A1+A2>=9` and eight-round activity `>=21`. **These proposed improvements are open, not proved.** Use exact H159 reachability, serial-Chi support, and Pressure carry conditions; do not infer realizability from a relaxed solver model. [Families and examples](../evidence/family_witnesses.json); [Research 11](../research/KRAKKEN_RESEARCH_11.md).
 
-**5. Close the H159 `[6,1]` boundary.** An unrestricted exclusion over all valid H159 inputs would improve the current global eight-round activity floor of 19 to at least 20 under existing lemmas. A restricted five-cell class has been closed, but not the entire domain. [Research 07](../research/KRAKKEN_RESEARCH_07.md), [Research 11](../research/KRAKKEN_RESEARCH_11.md).
+**5. Determine whether the H159 activity floors are attainable.** The established general eight-round floor `>=20` and the conditional `A1=5` floor `>=22` are **lower bounds, not exact minima**. Construct actual distinct valid 159-byte message pairs attaining a candidate activity total, or derive stronger universal exclusions; verify witnesses against the unchanged original C permutation and all eight indexed rounds. The completed `[6,1]` and all-family `[5,4]` exclusions must not be reopened as unfinished campaigns. [Research 11](../research/KRAKKEN_RESEARCH_11.md); [Known Results](KNOWN_RESULTS.md).
 
 **6. Strengthen unrestricted short-window activity bounds.** Study unclosed `[2,2]`, `[1,3]` or other necessary patterns; any new inequality must apply to the real permutation, not only a modeled XOR surrogate.
 
