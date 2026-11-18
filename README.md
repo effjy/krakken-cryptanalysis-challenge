@@ -55,6 +55,8 @@ The complete H159 `A1=5` classification consists of **21 distinct input differen
 
 **New in [Research 12](research/KRAKKEN_RESEARCH_12.md) (November 18, 2026):** for a specific class of complete first-round output differences confined to words 0 and 14, each with bit 11 set, the next round has **`A2>=31`** active byte S-box calls. An explicit unrestricted fixed-input-difference subevent occurs with probability **`2^-48`** and satisfies **`A1+A2>=39`** and **eight-round activity `>=51`**. These are **conditional, non-H159 results** and do not change the general **16 / 20 / 22** bounds or establish security bits. Supporting replay artifacts described in the ledger have not yet been mirrored in this public repository.
 
+**H159 first-round probability follow-up ([Research 12, §9](research/KRAKKEN_RESEARCH_12.md)):** for each of the **21 classified fixed H159 input differences**, a uniformly chosen 159-byte base message satisfies `A1=5` with **exact probability `2^-35`**. The qualifying bases form an affine space of dimension **1,237**, containing `2^1237` of the `2^1272` possible base messages. This is an **exact first-round activity-event probability**, **not** a two- or eight-round endpoint-differential bound, and it does not upgrade the 16 / 20 / 22 activity guarantees. The cited probability-foundation scripts and replay receipts are not yet mirrored in this GitHub repository.
+
 **No practical full eight-round break appears in the supplied research record.** That is not proof no break exists. Local and reduced-round distinguishers **do** exist and are published; independent generalizations are especially welcome.
 
 ## Run the supplied tests
