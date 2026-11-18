@@ -1,6 +1,6 @@
-# Original Krakken research — eleven ledgers
+# Krakken research — eleven ledgers
 
-These eleven files are the **unaltered originals** supplied for the November 2026 relaunch. No research claims were rewritten or silently promoted. They are published as an attack corpus to reproduce, dispute and extend.
+These eleven files form the Krakken cryptanalysis research corpus. Research **07, 08 and 11 have been updated with dated November 17–18, 2026 theorem addenda** supplied by the researcher; earlier sections may preserve historical bounds superseded by these updates. The records are published for independent reproduction, scrutiny and challenge.
 
 | Original ledger | Principal role |
 | --- | --- |
@@ -10,11 +10,11 @@ These eleven files are the **unaltered originals** supplied for the November 202
 | [KRAKKEN_RESEARCH_04.md](KRAKKEN_RESEARCH_04.md) | Collision experiments, parameters and interpretation |
 | [KRAKKEN_RESEARCH_05.md](KRAKKEN_RESEARCH_05.md) | Randomness assessment and limits of empirical certificates |
 | [KRAKKEN_RESEARCH_06.md](KRAKKEN_RESEARCH_06.md) | NIST SP 800-22 statistical test certificate |
-| [KRAKKEN_RESEARCH_07.md](KRAKKEN_RESEARCH_07.md) | Certified eight-round activity-bound corollaries |
-| [KRAKKEN_RESEARCH_08.md](KRAKKEN_RESEARCH_08.md) | Extended differential campaign and exact H159 family classification |
+| [KRAKKEN_RESEARCH_07.md](KRAKKEN_RESEARCH_07.md) | Eight-round activity-bound corollaries and November 18 status addenda |
+| [KRAKKEN_RESEARCH_08.md](KRAKKEN_RESEARCH_08.md) | Differential campaign, H159 family classification and updated bound status |
 | [KRAKKEN_RESEARCH_09.md](KRAKKEN_RESEARCH_09.md) | Consolidation and provenance of earlier supporting research |
 | [KRAKKEN_RESEARCH_10.md](KRAKKEN_RESEARCH_10.md) | Review, source-sensitive checks, output/correlation results |
-| [KRAKKEN_RESEARCH_11.md](KRAKKEN_RESEARCH_11.md) | Attack theorem ledger and November 15 additions |
+| [KRAKKEN_RESEARCH_11.md](KRAKKEN_RESEARCH_11.md) | Attack theorem ledger, completed H159 [6,1] exclusion and all-family A1=5 continuation |
 
 ## Reading order
 
@@ -26,7 +26,7 @@ These eleven files are the **unaltered originals** supplied for the November 202
 
 ## Important caveats
 
-These originals retain historical section names, references, source paths and links to scripts, logs, JSONs and certificates from the researcher's private working tree. **Not all referenced supporting artifacts are present in this GitHub repository.** We have included the [21-family H159 witnesses](../evidence/family_witnesses.json), but the availability of a Markdown theorem statement alone does not imply that every supporting certificate is mirrored.
+These research records retain historical section names, references, source paths and links to scripts, logs, JSONs and certificates from the researcher's private working tree. **Not all referenced supporting artifacts are present in this GitHub repository.** We have included the [21-family H159 witnesses](../evidence/family_witnesses.json), but the availability of a Markdown theorem statement alone does not imply that every supporting certificate is mirrored.
 
 Statements from earlier dates can be superseded by later completed campaigns. The current high-level status is summarized in [Known Results](../docs/KNOWN_RESULTS.md) with explicit pointers.
 
