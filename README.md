@@ -28,7 +28,7 @@ krakken.h       83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c
 krakken_multi.c 9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2
 ```
 
-**The implementation is the attack target; the twelve research ledgers linked below are evidence and claims to test, not an assertion of invulnerability.** Source revisions or differing hash interface conventions must be reported.
+**The implementation is the attack target; the thirteen research ledgers linked below are evidence and claims to test, not an assertion of invulnerability.** Source revisions or differing hash interface conventions must be reported.
 
 ## Start here
 
@@ -36,7 +36,7 @@ krakken_multi.c 9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2
 - [**Known results**](docs/KNOWN_RESULTS.md) — latest bounded claims, including what remains unproved.
 - [**Open attack problems**](docs/OPEN_PROBLEMS.md) — independent research opportunities.
 - [**Implementation specification**](docs/REFERENCE.md) and [test vectors](docs/TEST_VECTORS.md).
-- [**Research archive**](research/README.md) — **all 12 research ledgers**, including the November 18, 2026 XRBD/Pressure study.
+- [**Research archive**](research/README.md) — **all 13 research ledgers**, including the November 18, 2026 XRBD/Pressure and exchange/Yoyo/rotational attack studies.
 - [**Reproduction guidance**](docs/REPRODUCIBILITY.md) — build, verify, interpret, and submit results.
 - [**Family witnesses**](evidence/family_witnesses.json) — 21 H159 first-round-minimal differential families with concrete message pairs.
 - [**khash command-line utility**](tools/khash/README.md) — stream a file through the exact eight-round Krakken hash, with runtime scalar/AVX2 selection.
@@ -56,6 +56,8 @@ The complete H159 `A1=5` classification consists of **21 distinct input differen
 **New in [Research 12](research/KRAKKEN_RESEARCH_12.md) (November 18, 2026):** for a specific class of complete first-round output differences confined to words 0 and 14, each with bit 11 set, the next round has **`A2>=31`** active byte S-box calls. An explicit unrestricted fixed-input-difference subevent occurs with probability **`2^-48`** and satisfies **`A1+A2>=39`** and **eight-round activity `>=51`**. These are **conditional, non-H159 results** and do not change the general **16 / 20 / 22** bounds or establish security bits. Supporting replay artifacts described in the ledger have not yet been mirrored in this public repository.
 
 **H159 first-round probability follow-up ([Research 12, §9](research/KRAKKEN_RESEARCH_12.md)):** for each of the **21 classified fixed H159 input differences**, a uniformly chosen 159-byte base message satisfies `A1=5` with **exact probability `2^-35`**. The qualifying bases form an affine space of dimension **1,237**, containing `2^1237` of the `2^1272` possible base messages. This is an **exact first-round activity-event probability**, **not** a two- or eight-round endpoint-differential bound, and it does not upgrade the 16 / 20 / 22 activity guarantees. The cited probability-foundation scripts and replay receipts are not yet mirrored in this GitHub repository.
+
+**New in [Research 13](research/KRAKKEN_RESEARCH_13.md) (November 18, 2026):** a valid-H159 **four-message exchange square** with 32 guaranteed complete-one-round full-state parity coordinates (four inside the 256-bit reduced-round digest projection); a **carry-controlled rotational/DDT-support test through two complete rounds** for specifically constructed unrestricted related inputs; and documented exchange/Yoyo, boomerang, differential, linear and integral experiments. The two-round test has an approximate **`2^-129.448` ideal-permutation false-positive probability** for its specified 128-byte membership criterion, **not** a Krakken differential-probability bound or security-bit claim. The preserved rebound four-stage trail is a **surrogate-model** result, not a demonstrated four-round full-permutation attack. The general **16 / 20 / 22** bounds remain unchanged. The referenced `reproduce/exchange_bundle_v5_20261118/` evidence tree is not yet mirrored in this repository.
 
 **No practical full eight-round break appears in the supplied research record.** That is not proof no break exists. Local and reduced-round distinguishers **do** exist and are published; independent generalizations are especially welcome.
 
