@@ -1,6 +1,6 @@
 # Reproduce and challenge Krakken results
 
-This document describes **what is available** in this public repository and distinguishes it from certificates that are still only referenced by the unmodified research ledgers.
+This document describes **what is available** in this public repository and distinguishes it from certificates that are referenced by research ledgers but not yet mirrored here.
 
 ## Build the reference target
 
@@ -21,11 +21,11 @@ sha256sum krakken.c krakken.h krakken_multi.c
 
 Compare against [README](../README.md). The default challenge hash output is **32 bytes**; `docs/REFERENCE.md` describes the interface; `docs/TEST_VECTORS.md` lists expected output.
 
-## The eleven ledgers
+## The twelve ledgers
 
-[research/README.md](../research/README.md) links the 11 source files, uploaded without modifying their text. Their older links, script names and historical campaign notes remain intact. A later completed result may supersede an older open work-in-progress entry; prefer the newest quantified statement.
+[research/README.md](../research/README.md) links the 12 published research files. Research 07, 08, and 11 include dated updates, and the newly published Research 12 documents the XRBD/Pressure study and SOL's internal replay of five supplied verification/exploration programs. Historical links, script names and campaign notes remain in the ledgers. A later completed result may supersede an older open work-in-progress entry; prefer the newest quantified statement.
 
-The files themselves sometimes reference supporting scripts, large solver logs, JSON certificates and specialized executables **not all published in this repo**. Read the evidence class and reproduce claims independently where possible. A numerical theorem must not be interpreted more broadly than its quantified population.
+Research 12 references a preserved local evidence tree, `reproduce/xrbd_studies_20261118/`, including ZIP archives, verification scripts, compiler logs and replay receipts. **This evidence tree was not uploaded as part of the Research 12 Markdown publication**, and its relative links currently do not resolve on the public repository. The other ledgers likewise sometimes reference supporting scripts, large solver logs, JSON certificates and specialized executables **not all published in this repo**. Read the evidence class and reproduce claims independently where possible. A numerical theorem must not be interpreted more broadly than its quantified population.
 
 ## H159 21-family witnesses
 
