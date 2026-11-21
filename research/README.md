@@ -1,6 +1,6 @@
-# Krakken research — thirteen ledgers
+# Krakken research — fourteen ledgers
 
-These thirteen files form the Krakken cryptanalysis research corpus. Research **07, 08 and 11** contain November 17–18, 2026 theorem updates; **Research 12** records XRBD, conditional round-two activity, Pressure compatibility, and the exact H159 first-round probability foundation (`Pr[A1=5]=2^-35`); and **Research 13** documents exchange squares, Yoyo tests, rotational/DDT constructions, and a full-versus-surrogate rebound audit. Earlier sections may preserve historical bounds superseded by these updates. The records are published for independent reproduction, scrutiny and challenge.
+These fourteen files form the Krakken cryptanalysis research corpus. Research **07, 08 and 11** contain November 17–18, 2026 theorem updates; **Research 12** records XRBD, conditional round-two activity, Pressure compatibility, and the exact H159 first-round probability foundation (`Pr[A1=5]=2^-35`); **Research 13** documents exchange squares, Yoyo tests, rotational/DDT constructions, and a full-versus-surrogate rebound audit; and **Research 14** records scoped eight-round probability, finite-witness, decomposition-rank and adaptive parity-selection results through November 20. Earlier sections may preserve historical bounds superseded by these updates. The records are published for independent reproduction, scrutiny and challenge.
 
 | Original ledger | Principal role |
 | --- | --- |
@@ -17,18 +17,19 @@ These thirteen files form the Krakken cryptanalysis research corpus. Research **
 | [KRAKKEN_RESEARCH_11.md](KRAKKEN_RESEARCH_11.md) | Attack theorem ledger, completed H159 [6,1] exclusion and all-family A1=5 continuation |
 | [KRAKKEN_RESEARCH_12.md](KRAKKEN_RESEARCH_12.md) | XRBD exact structure, conditional `A2>=31` and 51-call activity floors, Pressure compatibility, and exact H159 `Pr[A1=5]=2^-35` first-round population |
 | [KRAKKEN_RESEARCH_13.md](KRAKKEN_RESEARCH_13.md) | Exact one-round H159 exchange square; constructed-input two-round rotational/DDT test; Yoyo, rebound-model, integral, linear, and differential audit |
+| [KRAKKEN_RESEARCH_14.md](KRAKKEN_RESEARCH_14.md) | Eight-round H159 probability and fixed-difference sampling bounds; finite-witness equations; digest separation-rank, prediction, quartet and adaptive parity-selection studies (November 19–20) |
 
 ## Reading order
 
 1. Start with [Known Results](../docs/KNOWN_RESULTS.md) for a brief current-status map.
-2. Read the **current-status** updates in ledgers 07, 08, 10, 11, 12 and 13 before relying on older work-in-progress summaries.
+2. Read the **current-status** updates in ledgers 07, 08, 10, 11, 12, 13 and 14 before relying on older work-in-progress summaries.
 3. Inspect theorem hypotheses and explicit quantifiers in the original statement.
 4. Check whether evidence is analytic, exhaustive, solver-backed, empirical or an independently replayed implementation audit.
 5. Try to falsify it. Submit witnesses, corrected proofs or independent reproductions.
 
 ## Important caveats
 
-These research records retain historical section names, references, source paths and links to scripts, logs, JSONs and certificates from the researcher's private working tree. **Not all referenced supporting artifacts are present in this GitHub repository.** In particular, Research 12 refers to local `reproduce/xrbd_studies_20261118/` and `reproduce/probability_foundation_20261118/` evidence trees containing source archives, calculation scripts, and replay receipts; those files are **not yet mirrored here**. Research 13 similarly references a local `reproduce/exchange_bundle_v5_20261118/` evidence tree with the five supplied ZIPs, scripts, checks, and campaign records, also **not mirrored here**. Relative links to those evidence trees may not resolve on GitHub. We have included the [21-family H159 witnesses](../evidence/family_witnesses.json), but the availability of a Markdown theorem statement alone does not imply that every supporting certificate is mirrored.
+These research records retain historical section names, references, source paths and links to scripts, logs, JSONs and certificates from the researcher's private working tree. **Not all referenced supporting artifacts are present in this GitHub repository.** In particular, Research 12 refers to local `reproduce/xrbd_studies_20261118/` and `reproduce/probability_foundation_20261118/` evidence trees containing source archives, calculation scripts, and replay receipts; those files are **not yet mirrored here**. Research 13 similarly references a local `reproduce/exchange_bundle_v5_20261118/` evidence tree with the five supplied ZIPs, scripts, checks, and campaign records, also **not mirrored here**. Research 14 additionally refers to local `reproduce/related_digest_14/`, `reproduce/nibble_prediction_14/`, `reproduce/split_bounds_14/`, `reproduce/quartet_probability_14/` and `reproduce/affine_selection_14/` directories, which are also not supplied as public evidence here. Relative links to those evidence trees may not resolve on GitHub. We have included the [21-family H159 witnesses](../evidence/family_witnesses.json), but the availability of a Markdown theorem statement alone does not imply that every supporting certificate is mirrored.
 
 Statements from earlier dates can be superseded by later completed campaigns. The current high-level status is summarized in [Known Results](../docs/KNOWN_RESULTS.md) with explicit pointers.
 
