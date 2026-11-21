@@ -1,6 +1,6 @@
-# Current research map (November 18, 2026)
+# Current research map (November 20, 2026)
 
-**Read this as an attacker's index, not a security certification.** The 13 ledgers in [research/](../research/README.md), including November 17–18 updates to Research 07, 08 and 11, Research 12's XRBD/Pressure/H159 probability results, and Research 13's exchange/Yoyo/rotational/rebound audit, remain the primary records for exact quantified statements. Claims below summarize the supplied research and do not imply outside validation.
+**Read this as an attacker's index, not a security certification.** The 14 ledgers in [research/](../research/README.md), including November 17–18 updates to Research 07, 08 and 11, Research 12's XRBD/Pressure/H159 probability results, Research 13's exchange/Yoyo/rotational/rebound audit, and Research 14's November 19–20 probability, separation-rank and adaptive-selection analyses, remain the primary records for exact quantified statements. Claims below summarize the supplied research and do not imply outside validation.
 
 ## Established activity bounds
 
@@ -34,6 +34,14 @@ For **each of the 21 classified fixed H159 input differences**, a uniform 159-by
 **Rebound-model limitation:** a reported four-stage sparse S-box/MDS surrogate trail was reproduced, but it omits important original Krakken layers. The supplied full-permutation checks **did not reproduce a four-round rebound distinguisher**; they do not exclude all such attacks. The tested exchange/Yoyo, boomerang, integral, and other signatures similarly show limited measured continuation at rounds 2–8, not universal impossibility. See [Research 13, §§4, 6–11](../research/KRAKKEN_RESEARCH_13.md).
 
 **The universal eight-round activity floors remain 16 / 20 / 22.** Research 13 establishes no new unrestricted eight-round endpoint-differential probability bound. Its reproduction tree `reproduce/exchange_bundle_v5_20261118/` is not yet publicly mirrored.
+
+## Eight-round H159 probability and prediction results (Research 14)
+
+**Precisely quantified populations, not a general security level.** [Research 14](../research/KRAKKEN_RESEARCH_14.md) adds (a) an injectivity-based upper bound on a specified full-state difference **averaged over independently uniform nonzero H159 input differences**, (b) an over-99%-confidence **`<2^-30.5`** collision-probability bound for 64-bit digest prefixes at each of eight depths under the Research 04 independent-uniform-message sampling assumption, and (c) fixed-difference finite-witness and sampling analyses for all 21 H159 first-round five-call families, across two through eight rounds. For independently sampled same-difference pairs in its two specified population panels, the probability of matching *full digest differences* is bounded **`<2^-20`** at greater than 99% simultaneous confidence. The sampling claims do not control the worst adversarially chosen message difference.
+
+The ledger also records deterministic **separation-rank** bounds across every contiguous H159 message-byte cut: at least **64** separable product terms for any nonzero digest parity and at least **252** for an individual digest bit; plus restricted quartet and adaptive parity-based selection certificates. These statements have their own exact input and observation models. They are not cryptographic attack-work lower bounds or collision/preimage security guarantees. Supporting Research 14 evidence directories have **not** been mirrored publicly; inspect the ledger's proofs and reproduction requirements before treating them as independently checked.
+
+**The general 16 / 20 / 22 active-S-box lower bounds are unchanged.** The repository still does not certify 128-bit collision resistance, 256-bit preimage resistance, or an eight-round worst-case differential bound.
 
 ## Cryptanalytic structures worth investigating
 
