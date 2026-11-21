@@ -28,7 +28,7 @@ krakken.h       83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c
 krakken_multi.c 9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2
 ```
 
-**The implementation is the attack target; the thirteen research ledgers linked below are evidence and claims to test, not an assertion of invulnerability.** Source revisions or differing hash interface conventions must be reported.
+**The implementation is the attack target; the fourteen research ledgers linked below are evidence and claims to test, not an assertion of invulnerability.** Source revisions or differing hash interface conventions must be reported.
 
 ## Start here
 
@@ -36,7 +36,7 @@ krakken_multi.c 9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2
 - [**Known results**](docs/KNOWN_RESULTS.md) — latest bounded claims, including what remains unproved.
 - [**Open attack problems**](docs/OPEN_PROBLEMS.md) — independent research opportunities.
 - [**Implementation specification**](docs/REFERENCE.md) and [test vectors](docs/TEST_VECTORS.md).
-- [**Research archive**](research/README.md) — **all 13 research ledgers**, including the November 18, 2026 XRBD/Pressure and exchange/Yoyo/rotational attack studies.
+- [**Research archive**](research/README.md) — **all 14 research ledgers**, including the November 18 XRBD/Pressure and exchange/Yoyo/rotational studies and the November 19–20 probability, rank and prediction research.
 - [**Reproduction guidance**](docs/REPRODUCIBILITY.md) — build, verify, interpret, and submit results.
 - [**Family witnesses**](evidence/family_witnesses.json) — 21 H159 first-round-minimal differential families with concrete message pairs.
 - [**khash command-line utility**](tools/khash/README.md) — stream a file through the exact eight-round Krakken hash, with runtime scalar/AVX2 selection.
@@ -60,6 +60,8 @@ The complete H159 `A1=5` classification consists of **21 distinct input differen
 **New in [Research 13](research/KRAKKEN_RESEARCH_13.md) (November 18, 2026):** a valid-H159 **four-message exchange square** with 32 guaranteed complete-one-round full-state parity coordinates (four inside the 256-bit reduced-round digest projection); a **carry-controlled rotational/DDT-support test through two complete rounds** for specifically constructed unrestricted related inputs; and documented exchange/Yoyo, boomerang, differential, linear and integral experiments. The two-round test has an approximate **`2^-129.448` ideal-permutation false-positive probability** for its specified 128-byte membership criterion, **not** a Krakken differential-probability bound or security-bit claim. The preserved rebound four-stage trail is a **surrogate-model** result, not a demonstrated four-round full-permutation attack. The general **16 / 20 / 22** bounds remain unchanged. The referenced `reproduce/exchange_bundle_v5_20261118/` evidence tree is not yet mirrored in this repository.
 
 **No practical full eight-round break appears in the supplied research record.** That is not proof no break exists. Local and reduced-round distinguishers **do** exist and are published; independent generalizations are especially welcome.
+
+**New in [Research 14](research/KRAKKEN_RESEARCH_14.md) (November 19–20, 2026):** source-specific eight-round H159 digest probability and finite-witness bounds, algebraic separation-rank lower bounds for digest parities, and restricted quartet/adaptive parity-selection analyses. For two independent pairs under each studied fixed-difference sampling model, the new samples support a **`<2^-20`** ceiling for matching full digest differences at **greater than 99% simultaneous confidence** across the two specified population panels. Other claims use different input distributions or exact finite classes. This does **not** establish a worst-case chosen-difference bound, concrete collision/preimage security bits, or changes to the general **16 / 20 / 22** active-S-box lower bounds. The referenced Research 14 reproduction directories have not been mirrored to this public repository.
 
 ## Run the supplied tests
 
