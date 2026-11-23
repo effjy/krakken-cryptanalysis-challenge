@@ -499,3 +499,15 @@ cmp "$dir/probability.txt" /tmp/sel_prob.txt
 "$py" "$dir/check_probability.py" "${avx[@]}"
 "$py" "$dir/summary.py"
 ```
+
+## 14.12 — Full-digest collision-hunter checkpoint (22 November 2026)
+
+The operator reported 272,776,683 committed candidates, zero full-digest collision events, and 15,889.20 MiB for the database plus WAL. This entry interprets the reported checkpoint from the hunter source. The live database and running binary were not audited.
+
+**Input domain.** The hunter sends the 32 ASCII bytes of `KHASH-FULL256-COLLISION-HUNT-V1:` followed by a 16-byte unsigned big-endian counter to the full eight-round hash API and requests 32 digest bytes. The tag's terminating C NUL is excluded. The counter starts at zero, increments by one, and resumes from the committed next counter. The reported prefix therefore covers counters 0 through 272,776,682 inclusive, all distinct 48-byte messages. The package's scalar source and header match the research copies byte for byte. Its AVX2 source differs and supports an AES-NI path. On AVX2 startup the hunter compares six test counters against scalar. [Hunter source](/home/user/Downloads/khash_collision_hunter/khash_collision_hunter.c:77)
+
+**Collision accounting.** The SQLite primary key is the entire 32-byte digest. On a duplicate key the hunter retrieves the original counter, requires two different counters, and recomputes both digests with scalar Krakken. A verified match adds a collision record and advances both the event count and the processed-candidate count. A failed verification aborts the batch. Digest rows, collision rows, and next-counter metadata commit together. The displayed unique count is computed as next counter minus collision events. A third message with the same digest would add one further event. [Insertion and commit logic](/home/user/Downloads/khash_collision_hunter/khash_collision_hunter.c:525)
+
+**Finite result.** The reported run found no collision among 37,203,559,257,852,903 unordered pairs of distinct inputs in this prefix. In particular it exhausts the affine family obtained by fixing the first 356 message bits in big-endian order and varying the low 28 counter bits. For every nonzero XOR offset confined to those 28 bits, the observed full-digest collision frequency over that entire family is exactly zero. For independent uniform draws with replacement from the reported prefix itself, digest equality has probability exactly 1/272,776,683, entirely from drawing the same input twice.
+
+For an ideal 256-bit random function evaluated on these distinct inputs, the expected number of colliding pairs is approximately 3.213 × 10^-61. The earlier hypothetical 50.5-bit statistical bound required independent random draws from a broader input distribution. Sequential counter enumeration does not meet that assumption.
