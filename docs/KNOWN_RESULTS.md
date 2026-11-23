@@ -1,6 +1,6 @@
-# Current research map (November 20, 2026)
+# Current research map (November 22, 2026)
 
-**Read this as an attacker's index, not a security certification.** The 14 ledgers in [research/](../research/README.md), including November 17–18 updates to Research 07, 08 and 11, Research 12's XRBD/Pressure/H159 probability results, Research 13's exchange/Yoyo/rotational/rebound audit, and Research 14's November 19–20 probability, separation-rank and adaptive-selection analyses, remain the primary records for exact quantified statements. Claims below summarize the supplied research and do not imply outside validation.
+**Read this as an attacker's index, not a security certification.** The 14 ledgers in [research/](../research/README.md), including November 17–18 updates to Research 07, 08 and 11, Research 12's XRBD/Pressure/H159 probability results, Research 13's exchange/Yoyo/rotational/rebound audit, and Research 14's November 19–22 probability, separation-rank, adaptive-selection and collision-hunter checkpoint analyses, remain the primary records for exact quantified statements. Claims below summarize the supplied research and do not imply outside validation.
 
 ## Established activity bounds
 
@@ -42,6 +42,8 @@ For **each of the 21 classified fixed H159 input differences**, a uniform 159-by
 The ledger also records deterministic **separation-rank** bounds across every contiguous H159 message-byte cut: at least **64** separable product terms for any nonzero digest parity and at least **252** for an individual digest bit; plus restricted quartet and adaptive parity-based selection certificates. These statements have their own exact input and observation models. They are not cryptographic attack-work lower bounds or collision/preimage security guarantees. Supporting Research 14 evidence directories have **not** been mirrored publicly; inspect the ledger's proofs and reproduction requirements before treating them as independently checked.
 
 **The general 16 / 20 / 22 active-S-box lower bounds are unchanged.** The repository still does not certify 128-bit collision resistance, 256-bit preimage resistance, or an eight-round worst-case differential bound.
+
+**November 22 collision-hunter checkpoint ([Research 14, §14.12](../research/KRAKKEN_RESEARCH_14.md#1412--full-digest-collision-hunter-checkpoint-22-november-2026)):** the operator reports **272,776,683** distinct 48-byte counter-derived messages checked without a full 256-bit collision. This implies **37,203,559,257,852,903** tested pairs, including complete coverage of the `2^28`-message low-counter affine family, **conditional on the reported counts and implementation**. The live SQLite database and executable have **not** been independently audited. Consecutive counter enumeration does **not** justify an independent-random-draw confidence estimate or a 50.5-bit resistance claim.
 
 ## Cryptanalytic structures worth investigating
 
