@@ -24,9 +24,10 @@ The full construction, unrestricted permutation, individual layers, and reduced-
 Reference SHA-256 pins:
 
 ```text
-krakken.c       4d659644c80b6ed0aabbce77d6aad6e6f851a90ec536a2131a412b8ac48eccc6
-krakken.h       83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c
-krakken_multi.c 9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2
+krakken.c                     4d659644c80b6ed0aabbce77d6aad6e6f851a90ec536a2131a412b8ac48eccc6
+krakken.h                     83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c
+krakken_multi.c               9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2
+krakken_faster_lattitude_3.c  abc8a79090897c26794dc0fb8c2cea21f70af16dff81b64b5691534e9012c917
 ```
 
 The additional Latitude v3 implementation is a standalone optimization of the same permutation and hash, designed for CPUs such as the Intel Core i5-8365U. It requires AVX2 and uses legacy AES-NI when available; GFNI, VAES and AVX-512 are not required. Build its standalone benchmark with:
@@ -36,7 +37,7 @@ gcc -O3 -mavx2 -mtune=skylake -pthread -DKRAKKEN_MAIN krakken_faster_lattitude_3
 ./krakken_latitude_v3
 ```
 
-Add `-DKRAKKEN_FORCE_AVX2_ONLY` to test the fallback path. The SHA-256 of the additional source is `abc8a79090897c26794dc0fb8c2cea21f70af16dff81b64b5691534e9012c917`. The pinned research reference sources remain unchanged; this alternative implementation is not an independently certified equivalence proof.
+Add `-DKRAKKEN_FORCE_AVX2_ONLY` to test the fallback path. The pinned research reference sources remain unchanged; this alternative implementation is not an independently certified equivalence proof.
 
 **The implementation is the attack target; the sixteen research ledgers linked below are evidence and claims to test, not an assertion of invulnerability.** Source revisions or differing hash interface conventions must be reported.
 
