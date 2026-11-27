@@ -80,6 +80,10 @@ The complete H159 `A1=5` classification consists of **21 distinct input differen
 
 **New in [Research 16](research/KRAKKEN_RESEARCH_16.md) (November 26, 2026):** the reported exact unrestricted algebraic degree of each individual indexed round is **1443**. The unrestricted inverse-round degree is bounded by **573–882**; the cumulative two-round vectorial degree is at least 29, not known exactly. On the specified 18-dimensional message grid, all nonzero directions have maximum endpoint differential probability at most `2^-11`, with exact `2^-17` for 2,047 specified directions. These are scoped computational and analytic results, not security-bit estimates. Supporting Research 15–16 reproduction archives have not been mirrored here.
 
+## Statistical-test reproduction
+
+[Research 06](research/KRAKKEN_RESEARCH_06.md) records the November 12 NIST STS experiment (188/188 reported evaluations passed). The November 27 provenance update identifies 1,000 sequences of 1,000,000 bits, totaling **125,000,000 bytes**, from the original 10 GB source. The operator has prepared a local `reproduce/nist_sts/` package with the extracted prefix, original report, run configuration and suite archive. The package is not yet mirrored on GitHub; the extracted-prefix replay is pending. This is a statistical experiment, not NIST certification or a proof of cryptographic security.
+
 ## Run the supplied tests
 
 ```sh
