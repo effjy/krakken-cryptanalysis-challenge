@@ -86,7 +86,7 @@ The 10 GB source-file size is reported by the experiment owner. The STS report d
 
 ## Provenance and reproduction update — 27 November 2026
 
-**Status:** original 188/188 reported PASS unchanged; operator-supplied run records clarify the tested data length and input alias; extracted-prefix replay in progress. This addendum supersedes the earlier uncertainty about configured sequence length and byte count, but does not establish a completed new replay.
+**Status:** original 188/188 reported PASS unchanged; operator-supplied run records clarify the tested data length and input alias; extracted-prefix replay **completed with a byte-for-byte identical final report**, as demonstrated by the operator's supplied terminal transcript. This addendum supersedes the earlier uncertainty about configured sequence length and byte count.
 
 ### Original run and exact configured data extent
 
@@ -133,7 +133,7 @@ The operator reports preparing the following directory in the master research ar
 | `README.md` | Original suite documentation |
 | `sts-2_1_2.zip` | STS software distribution |
 | `ARCHIVE_SHA256.txt` | Software archive checksum record |
-| `SHA256SUMS` | Dataset and report checksums (values not yet supplied to this ledger; verify existence before use) |
+| `SHA256SUMS` | Dataset and report checksums (reported values recorded below; verify the manifest locally before use) |
 
 The prefix extraction was performed using the following prescribed command from the original `nist_sts/` directory:
 
@@ -141,11 +141,11 @@ The prefix extraction was performed using the following prescribed command from 
 head -c 125000000 krakken_perm_10GB.bin > ~/security/reproduce/nist_sts/krakken_nist_tested_125MB.bin
 ```
 
-For the standard sequential binary reader, the configured test consumes precisely this prefix. Confirmation against the original report is the purpose of the replay. This packaging avoids distributing the untested remainder of the 10 GB source. The separate `krakken_perm_250MB.bin` and `volume.krakken` are not the identified input of the historical run and are not required for this replay.
+For the standard sequential binary reader, the configured test consumes precisely this prefix. The completed replay below reproduces the original final report exactly. This packaging avoids distributing the untested remainder of the 10 GB source. The separate `krakken_perm_250MB.bin` and `volume.krakken` are not the identified input of the historical run and are not required for this replay.
 
 ### Integrity checks and replay
 
-From the original installation (where the existing suite is already built), the operator is running:
+From the original installation (where the existing suite is already built), the operator ran:
 
 ```sh
 cd ~/security/nist_sts
@@ -162,7 +162,7 @@ sha256sum krakken_nist_tested_125MB.bin finalAnalysisReport.txt
 sha256sum -c SHA256SUMS
 ```
 
-The historical report is expected to match the SHA-256 already recorded in this ledger (`220e598006b3cd8070e90f93c134a403f94d639cb86c190710ac11a9ddecf739`). Once the replay completes, compare the newly generated report with the preserved original, using the new run directory printed by the wrapper:
+The historical report matches the SHA-256 already recorded in this ledger (`220e598006b3cd8070e90f93c134a403f94d639cb86c190710ac11a9ddecf739`). To compare a newly generated report with the preserved original, use the new run directory printed by the wrapper:
 
 ```sh
 cmp ~/security/reproduce/nist_sts/finalAnalysisReport.txt \
@@ -171,4 +171,56 @@ cmp ~/security/reproduce/nist_sts/finalAnalysisReport.txt \
 
 If the reports differ, inspect the difference and compare all evaluation rows, eligibility counts, pass proportions and uniformity P-values before claiming reproduction. A matching report would reproduce the reported statistical outputs under this configuration, not prove cryptographic security or independently establish the original data generation process.
 
-**Pending verification:** The extracted dataset and report checksum values have not been supplied for this update, the local archive files have not been independently inspected, and the new replay has not yet completed. A SHA-256 of the full original 10 GB file may also be retained locally without publishing that file; no such value is asserted here. The public GitHub repository currently contains this ledger and reproduction directions, not the actual `reproduce/nist_sts/` package. The original November 12 result remains a reported historical result, not an official NIST certification.
+### Completed extracted-prefix replay — 27 November 2026
+
+**Result: PASS — byte-identical reproduction of the historical final statistical report (operator-executed).**
+
+The operator completed the replay in `runs/run_t7rjuobx/` using the archived 125,000,000-byte prefix, all 15 test families and 1,000 sequences of 1,000,000 bits. The supplied console transcript records the same default test parameters and the successful completion marker. The following comparison was executed on the operator's machine:
+
+```sh
+cd ~/security/nist_sts
+cmp runs/run_K1lVgTJu/experiments/AlgorithmTesting/finalAnalysisReport.txt \
+    runs/run_t7rjuobx/experiments/AlgorithmTesting/finalAnalysisReport.txt \
+    && echo "SUCCESS: Reports are byte-for-byte identical!"
+```
+
+Observed output:
+
+```text
+SUCCESS: Reports are byte-for-byte identical!
+```
+
+The operator then supplied these SHA-256 results, with original and replay report paths distinguished:
+
+```text
+a8d0ca5e7fdb29b9bf0e0d58ef5a21ee6475084f984436af4d93ee1b7c43b3b1  krakken_nist_tested_125MB.bin
+220e598006b3cd8070e90f93c134a403f94d639cb86c190710ac11a9ddecf739  runs/run_K1lVgTJu/experiments/AlgorithmTesting/finalAnalysisReport.txt
+220e598006b3cd8070e90f93c134a403f94d639cb86c190710ac11a9ddecf739  runs/run_t7rjuobx/experiments/AlgorithmTesting/finalAnalysisReport.txt
+```
+
+Both reports match the original November 12 report fingerprint recorded above. Thus the reported 188/188 passing evaluations, their reported pass proportions, P-value uniformity results and Random Excursions eligibility counts were reproduced exactly at the report level. The repeat uses the same input data and is a reproducibility check, **not a new independent statistical sample**.
+
+The operator also archived the replay metadata and report at:
+
+```text
+reproduce/nist_sts/replay_20261127/
+    RUN_INFO.txt
+    answers.txt
+    console.log
+    finalAnalysisReport.txt
+    SHA256SUMS
+```
+
+The replay manifest was generated locally with `sha256sum RUN_INFO.txt answers.txt console.log finalAnalysisReport.txt > SHA256SUMS`. From the root of the extracted reproduction tree containing `nist_sts/`, verify the dataset and both reports with:
+
+```sh
+cd nist_sts
+printf '%s  %s\n' \
+  'a8d0ca5e7fdb29b9bf0e0d58ef5a21ee6475084f984436af4d93ee1b7c43b3b1' krakken_nist_tested_125MB.bin \
+  '220e598006b3cd8070e90f93c134a403f94d639cb86c190710ac11a9ddecf739' finalAnalysisReport.txt \
+  '220e598006b3cd8070e90f93c134a403f94d639cb86c190710ac11a9ddecf739' replay_20261127/finalAnalysisReport.txt | sha256sum -c -
+(cd replay_20261127 && sha256sum -c SHA256SUMS)
+cmp finalAnalysisReport.txt replay_20261127/finalAnalysisReport.txt
+```
+
+**Reproduction conclusion:** the extracted 125 MB package suffices to reproduce the historical final report in the tested environment; distribution of the remaining 98.75% of the 10 GB source is unnecessary for this configured experiment. The dataset fingerprint is now recorded. The full 10 GB file's fingerprint and the original data-generation provenance remain unverified here. This update is grounded in the supplied operator terminal transcript, not a separate third-party execution or direct inspection of the local dataset, manifest or executable. The public GitHub repository currently contains this ledger and reproduction directions, not the actual local evidence package. The statistical result is not official NIST certification or proof of cryptographic security.
