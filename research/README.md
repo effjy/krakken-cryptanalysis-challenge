@@ -9,7 +9,7 @@ These sixteen files form the Krakken cryptanalysis research corpus. Research **0
 | [KRAKKEN_RESEARCH_03.md](KRAKKEN_RESEARCH_03.md) | New theorem notes and independently scoped claims |
 | [KRAKKEN_RESEARCH_04.md](KRAKKEN_RESEARCH_04.md) | Collision experiments, parameters and interpretation |
 | [KRAKKEN_RESEARCH_05.md](KRAKKEN_RESEARCH_05.md) | Randomness assessment and limits of empirical certificates |
-| [KRAKKEN_RESEARCH_06.md](KRAKKEN_RESEARCH_06.md) | NIST SP 800-22 statistical test certificate |
+| [KRAKKEN_RESEARCH_06.md](KRAKKEN_RESEARCH_06.md) | NIST SP 800-22 statistical test certificate; November 27 provenance update: 125 MB tested prefix, exact parameters and local reproduction package; replay pending |
 | [KRAKKEN_RESEARCH_07.md](KRAKKEN_RESEARCH_07.md) | Eight-round activity-bound corollaries and November 18 status addenda |
 | [KRAKKEN_RESEARCH_08.md](KRAKKEN_RESEARCH_08.md) | Differential campaign, H159 family classification and updated bound status |
 | [KRAKKEN_RESEARCH_09.md](KRAKKEN_RESEARCH_09.md) | Consolidation and provenance of earlier supporting research |
@@ -30,6 +30,8 @@ These sixteen files form the Krakken cryptanalysis research corpus. Research **0
 5. Try to falsify it. Submit witnesses, corrected proofs or independent reproductions.
 
 ## Important caveats
+
+Research 06's November 27 provenance update identifies the local `reproduce/nist_sts/` package and the 125,000,000-byte tested prefix of the original 10 GB source; the extracted-prefix replay is pending and the package is not yet publicly mirrored.
 
 These research records retain historical section names, references, source paths and links to scripts, logs, JSONs and certificates from the researcher's private working tree. **Not all referenced supporting artifacts are present in this GitHub repository.** In particular, Research 12 refers to local `reproduce/xrbd_studies_20261118/` and `reproduce/probability_foundation_20261118/` evidence trees containing source archives, calculation scripts, and replay receipts; those files are **not yet mirrored here**. Research 13 similarly references a local `reproduce/exchange_bundle_v5_20261118/` evidence tree with the five supplied ZIPs, scripts, checks, and campaign records, also **not mirrored here**. Research 14 additionally refers to local `reproduce/related_digest_14/`, `reproduce/nibble_prediction_14/`, `reproduce/split_bounds_14/`, `reproduce/quartet_probability_14/` and `reproduce/affine_selection_14/` directories, which are also not supplied as public evidence here. Research 14 §14.12 additionally references a collision-hunter source path in the author's local Downloads directory; that absolute local path is **not a public GitHub reproduction link**, and the live SQLite database and executable were not reviewed here. Research 15 and 16 reference additional local reproduction directories and ZIP archives, including exact algebraic certificates. Those supporting archives have not been mirrored with these two ledgers. Relative links to those evidence trees may not resolve on GitHub. We have included the [21-family H159 witnesses](../evidence/family_witnesses.json), but the availability of a Markdown theorem statement alone does not imply that every supporting certificate is mirrored.
 
