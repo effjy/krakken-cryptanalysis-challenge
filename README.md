@@ -82,7 +82,7 @@ The complete H159 `A1=5` classification consists of **21 distinct input differen
 
 ## Statistical-test reproduction
 
-[Research 06](research/KRAKKEN_RESEARCH_06.md) records the November 12 NIST STS experiment (188/188 reported evaluations passed). The November 27 provenance update identifies 1,000 sequences of 1,000,000 bits, totaling **125,000,000 bytes**, from the original 10 GB source. The operator has prepared a local `reproduce/nist_sts/` package with the extracted prefix, original report, run configuration and suite archive. The package is not yet mirrored on GitHub; the extracted-prefix replay is pending. This is a statistical experiment, not NIST certification or a proof of cryptographic security.
+[Research 06](research/KRAKKEN_RESEARCH_06.md) records the November 12 NIST STS experiment (188/188 reported evaluations passed). The November 27 provenance update identifies 1,000 sequences of 1,000,000 bits, totaling **125,000,000 bytes**, from the original 10 GB source. The operator has prepared a local `reproduce/nist_sts/` package with the extracted prefix, original report, run configuration and suite archive. The operator's November 27 replay reproduced the original final report byte for byte, with identical SHA-256; the extracted dataset fingerprint is recorded in Research 06. The package is not yet mirrored on GitHub. This is a statistical experiment, not NIST certification or a proof of cryptographic security.
 
 ## Run the supplied tests
 
