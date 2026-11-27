@@ -2,7 +2,7 @@
 
 The authoritative 16 research ledgers are in [research/](../research/README.md). Those ledgers cite additional private working-tree material not yet mirrored here.
 
-The November 27 [Research 06 update](../research/KRAKKEN_RESEARCH_06.md) describes the locally prepared `reproduce/nist_sts/` package, including the 125,000,000-byte extracted dataset, historical NIST STS report and configuration, software archive and replay instructions. These files are not yet mirrored here; the extracted-prefix replay and dataset fingerprint remain pending.
+The November 27 [Research 06 update](../research/KRAKKEN_RESEARCH_06.md) describes the locally prepared `reproduce/nist_sts/` package, including the 125,000,000-byte extracted dataset, historical NIST STS report and configuration, software archive and replay instructions. The operator's November 27 replay reproduced the original report byte for byte; the dataset and report SHA-256 fingerprints are recorded in Research 06, and replay metadata and report are archived locally in `reproduce/nist_sts/replay_20261127/`. These files are not yet mirrored here.
 
 ## Available artifact
 
