@@ -28,7 +28,7 @@ krakken.h       83f891b688575c0ed6020dd186b35495e577c203ba418cd80981e49a96236a2c
 krakken_multi.c 9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2
 ```
 
-**The implementation is the attack target; the fourteen research ledgers linked below are evidence and claims to test, not an assertion of invulnerability.** Source revisions or differing hash interface conventions must be reported.
+**The implementation is the attack target; the sixteen research ledgers linked below are evidence and claims to test, not an assertion of invulnerability.** Source revisions or differing hash interface conventions must be reported.
 
 ## Start here
 
@@ -64,6 +64,10 @@ The complete H159 `A1=5` classification consists of **21 distinct input differen
 **New in [Research 14](research/KRAKKEN_RESEARCH_14.md) (November 19–22, 2026):** source-specific eight-round H159 digest probability and finite-witness bounds, algebraic separation-rank lower bounds for digest parities, and restricted quartet/adaptive parity-selection analyses. For two independent pairs under each studied fixed-difference sampling model, the new samples support a **`<2^-20`** ceiling for matching full digest differences at **greater than 99% simultaneous confidence** across the two specified population panels. Other claims use different input distributions or exact finite classes. This does **not** establish a worst-case chosen-difference bound, concrete collision/preimage security bits, or changes to the general **16 / 20 / 22** active-S-box lower bounds. The referenced Research 14 reproduction directories have not been mirrored to this public repository.
 
 **November 22 collision-hunter checkpoint ([Research 14, §14.12](research/KRAKKEN_RESEARCH_14.md#1412--full-digest-collision-hunter-checkpoint-22-november-2026)):** the operator reports **272,776,683** consecutive-counter, fixed-format messages with **zero full 256-bit digest collisions**. The prefix contains all `2^28` low-28-bit counter values. This is a finite, **reported** experiment: the live SQLite database and running binary were not audited, and deterministic counter enumeration is **not** an independent-uniform-message sample or a security-bit certificate.
+
+**New in [Research 15](research/KRAKKEN_RESEARCH_15.md) (November 25–26, 2026):** compact four-wise independent sampling gives a reported uniform-H159 eight-round collision-probability ceiling `<2^-36` and point-probability ceiling `<2^-18.5` with joint confidence >99.188%. Fixed-difference and higher-order differential censuses provide exact finite-family certificates; separate population bounds apply only to specified directions and sampling models.
+
+**New in [Research 16](research/KRAKKEN_RESEARCH_16.md) (November 26, 2026):** the reported exact unrestricted algebraic degree of each individual indexed round is **1443**. The unrestricted inverse-round degree is bounded by **573–882**; the cumulative two-round vectorial degree is at least 29, not known exactly. On the specified 18-dimensional message grid, all nonzero directions have maximum endpoint differential probability at most `2^-11`, with exact `2^-17` for 2,047 specified directions. These are scoped computational and analytic results, not security-bit estimates. Supporting Research 15–16 reproduction archives have not been mirrored here.
 
 ## Run the supplied tests
 
