@@ -1,6 +1,6 @@
 # Public supporting evidence
 
-The authoritative 11 research ledgers are in [research/](../research/README.md). Those ledgers cite additional private working-tree material not yet mirrored here.
+The authoritative 16 research ledgers are in [research/](../research/README.md). Those ledgers cite additional private working-tree material not yet mirrored here.
 
 ## Available artifact
 
