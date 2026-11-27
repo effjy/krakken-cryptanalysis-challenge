@@ -66,6 +66,8 @@ make collision-smoke
 
 Read [Research 04](../research/KRAKKEN_RESEARCH_04.md) for exact experimental scope and [Research 05](../research/KRAKKEN_RESEARCH_05.md) / [06](../research/KRAKKEN_RESEARCH_06.md) for statistical test details. An STS pass is **not** a security proof.
 
+**Research 06 provenance update (November 27, 2026).** The historical run `run_K1lVgTJu` used NIST STS 2.1.2 with 1,000 sequences of 1,000,000 bits, binary mode and all 15 test families. The run metadata records 125,000,000 bytes tested from a 10,000,000,000-byte source. The operator has prepared `reproduce/nist_sts/` containing `krakken_nist_tested_125MB.bin`, the historical configuration and report, wrapper, installation helper and STS archive. See Research 06 for the file inventory, checksum and replay commands. The extracted-prefix replay is in progress; its outcome and dataset fingerprint are not yet recorded. The local package is not yet publicly available in this repository. Do not infer that a 10 GB download is required for the configured test, or that the later 250 MB dataset was its input.
+
 ## Submit evidence
 
 Include the exact source pin, messages/states/masks, attack domain, full commands, software/solver versions, wall time, memory, RNG seeds and a minimal independent verifier. If a solver terminates with a relaxation-SAT assignment, label it **unvalidated**, and only call it a cipher trail after the original-C witness reproduces it.
