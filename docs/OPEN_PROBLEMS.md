@@ -1,6 +1,6 @@
 # Open cryptanalysis questions
 
-The goal is to find **new** attacks or independently falsify published claims, not to confirm that Krakken is secure. All thirteen ledgers are preserved at [research/](../research/README.md).
+The goal is to find **new** attacks or independently falsify published claims, not to confirm that Krakken is secure. All sixteen ledgers are preserved at [research/](../research/README.md).
 
 ## Full eight-round targets
 
@@ -21,6 +21,10 @@ The goal is to find **new** attacks or independently falsify published claims, n
 **7. Quantify complete differential and linear hulls.** Activity is not a differential probability. Obtain all-mask/all-difference bounds that account for nonlinear trail clustering, Pressure carries and cancellations. A selected-mask or selected-difference statement is not a universal bound.
 
 **8. Explore multi-block hash reachability.** Most sharp H159 theorems concern first-block messages with a fixed initial capacity. Later absorbing blocks may change the available conditional state distribution.
+
+**Additional algebraic targets (Research 16).** The exact unrestricted vectorial degree of each individual indexed round is reported as 1443, but exact cumulative-round degrees remain open. Strengthen the cumulative two-round vectorial lower bound of 29, determine the unrestricted inverse-round degree (currently bounded by 573 and 882), resolve the remaining 112 first-round coordinate degrees, and determine the minimum degree over arbitrary nonzero output parities. Investigate whether symbolic composition, inverse-moment duality, or rank certificates can establish stronger results without exhaustive high-dimensional cubes. These degree questions are distinct from differential probabilities and attack-work estimates. See [Research 16](../research/KRAKKEN_RESEARCH_16.md), §§16.21–16.32.
+
+**Extend the endpoint differential certificates (Research 15–16).** The exact finite-grid probabilities and population bounds for specified directions do not establish a universal worst-case eight-round differential bound. Seek a concrete-function bound for arbitrary nonzero input differences, including rare conditioned populations, or a counterexample to a proposed bound. See [Research 15](../research/KRAKKEN_RESEARCH_15.md) and [Research 16](../research/KRAKKEN_RESEARCH_16.md).
 
 ## Reproducibility challenges
 
