@@ -1,4 +1,4 @@
-# Current research map (November 26, 2026)
+# Current research map (November 27, 2026)
 
 **Read this as an attacker's index, not a security certification.** The 16 ledgers in [research/](../research/README.md), including November 17–18 updates to Research 07, 08 and 11, Research 12's XRBD/Pressure/H159 probability results, Research 13's exchange/Yoyo/rotational/rebound audit, Research 14's November 19–22 probability, separation-rank, adaptive-selection and collision-hunter checkpoint analyses, and Research 15–16's November 25–26 differential and algebraic certificates, remain the primary records for exact quantified statements. Claims below summarize the supplied research and do not imply outside validation.
 
@@ -63,7 +63,7 @@ The ledger's exact unrestricted **individual indexed-round vectorial algebraic d
 - **Integral and subspace:** selected one-round balanced-mask spaces, affine compression and explicit sampled/exhaustive continuation studies. Some given relations disappear by round two, but a finite failed continuation does not exclude all integrals/subspace attacks. [01](../research/KRAKKEN_RESEARCH_01.md), [11](../research/KRAKKEN_RESEARCH_11.md)
 - **Rotational/RX, boomerang, rebound:** strong local or one-round structures, a two-round constructed related-input rotational/DDT test, selected two-round obstructions, and longer restricted partial matches. The four-stage rebound surrogate is not a verified full-permutation four-round attack. Broader attacks remain possible. [09](../research/KRAKKEN_RESEARCH_09.md), [11](../research/KRAKKEN_RESEARCH_11.md), [13](../research/KRAKKEN_RESEARCH_13.md)
 - **Collision experiments:** reproducible datasets and bounds for stated digest widths and numbers of rounds; no generic full-digest security proof. [04](../research/KRAKKEN_RESEARCH_04.md)
-- **Statistical testing:** reported NIST SP 800-22 results are **188/188 evaluations passed** under the documented setup; statistical passes do not establish ideal-permutation behavior. [05](../research/KRAKKEN_RESEARCH_05.md), [06](../research/KRAKKEN_RESEARCH_06.md)
+- **Statistical testing:** reported NIST SP 800-22 results are **188/188 evaluations passed**. The November 27 Research 06 update records 1,000 sequences of 1,000,000 bits, totaling 125,000,000 bytes from a 10 GB source, and identifies the local `reproduce/nist_sts/` evidence package. The extracted-prefix replay is pending; dataset checksums have not yet been supplied. Statistical passes do not establish ideal-permutation behavior. [05](../research/KRAKKEN_RESEARCH_05.md), [06](../research/KRAKKEN_RESEARCH_06.md)
 
 ## Not established
 
