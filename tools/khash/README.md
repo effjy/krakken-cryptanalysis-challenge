@@ -57,4 +57,4 @@ Expected empty-file digest:
 e1c646acd24c1211dc58f38fe7cb95ec9ca41b7c57cff233e6faf1fac8b2e0dd
 ```
 
-For the full cryptanalysis challenge and 11 research ledgers, see the [repository README](../../README.md).
+For the full cryptanalysis challenge and 16 research ledgers, see the [repository README](../../README.md).
