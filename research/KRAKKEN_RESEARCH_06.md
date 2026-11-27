@@ -119,7 +119,7 @@ The original interactive answers were `0`, `krakken-input.bin`, `1`, `0`, `1000`
 
 ### Preserved local reproduction package
 
-The operator reports preparing the following directory in the master research archive: `reproduce/nist_sts/` (locally `~/security/reproduce/nist_sts/`). The paths below are relative to the research archive root containing `reproduce/`, not live GitHub download links.
+The operator reports preparing the following directory in the master research archive: `reproduce/nist_sts/` (locally `~/security/reproduce/nist_sts/`). The paths below are relative to the research archive root containing `reproduce/`, not individual GitHub source-tree download links; see the public release below.
 
 | File under `reproduce/nist_sts/` | Purpose |
 | --- | --- |
@@ -223,4 +223,15 @@ printf '%s  %s\n' \
 cmp finalAnalysisReport.txt replay_20261127/finalAnalysisReport.txt
 ```
 
-**Reproduction conclusion:** the extracted 125 MB package suffices to reproduce the historical final report in the tested environment; distribution of the remaining 98.75% of the 10 GB source is unnecessary for this configured experiment. The dataset fingerprint is now recorded. The full 10 GB file's fingerprint and the original data-generation provenance remain unverified here. This update is grounded in the supplied operator terminal transcript, not a separate third-party execution or direct inspection of the local dataset, manifest or executable. The public GitHub repository currently contains this ledger and reproduction directions, not the actual local evidence package. The statistical result is not official NIST certification or proof of cryptographic security.
+**Reproduction conclusion:** the extracted 125 MB package suffices to reproduce the historical final report in the tested environment; distribution of the remaining 98.75% of the 10 GB source is unnecessary for this configured experiment. The dataset fingerprint is now recorded. The full 10 GB file's fingerprint and the original data-generation provenance remain unverified here. This update is grounded in the supplied operator terminal transcript, not a separate third-party execution or direct inspection of the local dataset, manifest or executable. The actual NIST evidence package is now distributed in the [Research 01–16 evidence release](https://github.com/effjy/krakken-cryptanalysis-challenge/releases/tag/research-evidence-v1.0), published November 27, 2026. The statistical result is not official NIST certification or proof of cryptographic security.
+
+## Public archive publication — 27 November 2026
+
+The operator verified the compressed archive with `zstd -t`, checked its SHA-256 manifest, extracted `./nist_sts/` into a temporary directory, verified the original and replay manifests and confirmed `cmp finalAnalysisReport.txt replay_20261127/finalAnalysisReport.txt` succeeded. The archive listing also included `nist_sts/ORIGINAL_SOURCE_SHA256.txt`; the full-source digest value has not been supplied to this ledger.
+
+- [Public release v1.0](https://github.com/effjy/krakken-cryptanalysis-challenge/releases/tag/research-evidence-v1.0)
+- [Evidence archive](https://github.com/effjy/krakken-cryptanalysis-challenge/releases/download/research-evidence-v1.0/Krakken_reproduce_complete.tar.zst) (1,712,820,163 bytes)
+- [SHA-256 manifest](https://github.com/effjy/krakken-cryptanalysis-challenge/releases/download/research-evidence-v1.0/Krakken_reproduce_complete.tar.zst.sha256)
+- Archive SHA-256: `721c4f1875b63d6d65616a3bd8379c8cbd475d0ea675bd5e14f1f7f31a01f6e1` (matches the GitHub asset digest and operator's local checksum).
+
+Extract into `reproduce/` as described in [Reproducibility](../docs/REPRODUCIBILITY.md#download-the-research-evidence). The NIST evidence and replay are under `reproduce/nist_sts/` and `reproduce/nist_sts/replay_20261127/` respectively. The archive publication and server-reported digest were verified via GitHub; the archived NIST verification was operator-executed, not an independent third-party replay.
