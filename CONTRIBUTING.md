@@ -14,7 +14,7 @@
 
 ## Questions or potential breaks
 
-Open an issue using the relevant template. Attach a minimal reproduction and point to the exact theorem/section you challenge; the 11 ledgers are [indexed here](research/README.md).
+Open an issue using the relevant template. Attach a minimal reproduction and point to the exact theorem/section you challenge; the 16 ledgers are [indexed here](research/README.md).
 
 Do not claim a full eight-round hash break from a local serial-Chi property, reduced-round distinguisher or unrestricted-permutation relation without establishing hash-interface reachability.
 
