@@ -36,7 +36,7 @@ krakken_multi.c 9dd76eb1397ca433572ede8308b37b79e546e2b430f156e9c7b08f4f2ffc71f2
 - [**Known results**](docs/KNOWN_RESULTS.md) — latest bounded claims, including what remains unproved.
 - [**Open attack problems**](docs/OPEN_PROBLEMS.md) — independent research opportunities.
 - [**Implementation specification**](docs/REFERENCE.md) and [test vectors](docs/TEST_VECTORS.md).
-- [**Research archive**](research/README.md) — **all 14 research ledgers**, including the November 18 XRBD/Pressure and exchange/Yoyo/rotational studies and the November 19–20 probability, rank and prediction research.
+- [**Research archive**](research/README.md) — **all 16 research ledgers**, including the November 18 XRBD/Pressure and exchange/Yoyo/rotational studies, the November 19–22 probability, rank and prediction research, and the November 25–26 differential and algebraic-degree certificates.
 - [**Reproduction guidance**](docs/REPRODUCIBILITY.md) — build, verify, interpret, and submit results.
 - [**Family witnesses**](evidence/family_witnesses.json) — 21 H159 first-round-minimal differential families with concrete message pairs.
 - [**khash command-line utility**](tools/khash/README.md) — stream a file through the exact eight-round Krakken hash, with runtime scalar/AVX2 selection.
